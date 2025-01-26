@@ -65,6 +65,13 @@
             <version>1.5.16</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/de.saxsys/mvvmfx -->
+        <dependency>
+            <groupId>de.saxsys</groupId>
+            <artifactId>mvvmfx</artifactId>
+            <version>1.8.0</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 </project>
