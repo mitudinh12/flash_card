@@ -120,7 +120,7 @@ DROP USER IF EXISTS 'appuser'@'localhost';
 CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'app_password';
 
 -- Grant privileges to appuser
-GRANT SELECT, INSERT, UPDATE, DELETE, DROP, ALTER, CREATE ON hospital_simulation.* TO 'appuser'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE, DROP, ALTER, CREATE ON flash_card.* TO 'appuser'@'localhost';
 
 -- Flush privileges
 FLUSH PRIVILEGES;
