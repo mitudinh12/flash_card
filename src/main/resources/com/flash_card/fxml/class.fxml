@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.fxml.Home">
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="class-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.fxml.Home">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -39,10 +39,10 @@
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-class-white.png" />
+                                <Image url="@../assets/icons/I-class-black.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Class" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
@@ -60,10 +60,10 @@
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-create-card-black.png" />
+                                <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Create Flashcards" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
                     </children>
                 </HBox>
             </children>
