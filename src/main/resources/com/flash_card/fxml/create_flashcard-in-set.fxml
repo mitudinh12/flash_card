@@ -91,7 +91,7 @@
                 </ImageView>
             <VBox layoutX="172.0" layoutY="177.0" prefHeight="492.0" prefWidth="697.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Flashcard Set">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Flashcard">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -99,7 +99,7 @@
                         <Insets bottom="22.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name">
+                  <TextField maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Term" styleClass="set-name">
                      <VBox.margin>
                         <Insets bottom="45.51" />
                      </VBox.margin>
@@ -108,7 +108,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description">
+                  <TextField prefHeight="130.0" prefWidth="768.0" promptText="Enter Definition" styleClass="set-description">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
@@ -116,17 +116,9 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
-                     <VBox.margin>
-                        <Insets bottom="49.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </TextField>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="create-set-button" text="Create Flashcard" textFill="WHITE">
+                        <Button mnemonicParsing="false" styleClass="create-set-button" text="Create new card" textFill="WHITE">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -136,7 +128,7 @@
                         </Button>
                         <Button mnemonicParsing="false" styleClass="cancel-button" text="CANCEL">
                            <font>
-                              <Font size="25.0" />
+                              <Font name="System Bold" size="25.0" />
                            </font></Button>
                      </children>
                   </HBox>
