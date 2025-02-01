@@ -46,10 +46,10 @@ INSERT INTO assigned_sets (set_id, classroom_id) VALUES
 
 -- Insert Classroom Members (Users to Classrooms)
 INSERT INTO classroom_members (student_id, classroom_id) VALUES
-(1, 1),
 (2, 1),
-(3, 2),
-(4, 3);
+(3, 1),
+(1, 2),
+(3, 3);
 
 -- Insert Shared Sets (Users to Flashcard Sets)
 INSERT INTO shared_sets (user_id, set_id) VALUES
