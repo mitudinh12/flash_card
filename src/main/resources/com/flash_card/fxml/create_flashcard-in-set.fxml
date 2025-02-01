@@ -59,7 +59,7 @@
                     </children>
                 </HBox>
                 <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
-                <HBox alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
+                <HBox fx:id="createFlashcardsHBox" alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
