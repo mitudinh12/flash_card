@@ -37,7 +37,7 @@ public class HomeView extends Application {
     public void start(Stage primaryStage) {
         stage = primaryStage;
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/flash_card/fxml/home.fxml")); //load main Menu first
+            Parent root = FXMLLoader.load(getClass().getResource("/com/flash_card/fxml/home.fxml")); //load home page first
             //Set up stage
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
