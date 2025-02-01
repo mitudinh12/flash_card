@@ -1,3 +1,7 @@
+* {
+    -fx-font-family: "Poppins";
+}
+
 .home-background {
     -fx-background-image: url("../assets/backgrounds/BG-home.png");
 }
@@ -57,4 +61,23 @@
     -fx-background-color: #01c729;
     -fx-background-radius: 50%;
     -fx-border-color: transparent;
+}
+
+/*CREATE FLASHCARD SET PAGE*/
+
+.set-name,
+.set-description,
+.set-topic {
+    -fx-background-radius: 20;
+}
+
+.create-set-button {
+    -fx-background-color: #2545FE;
+    -fx-background-radius: 8;
+}
+
+.cancel-button {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #5F5F5F;
+    -fx-background-radius: 8;
 }
