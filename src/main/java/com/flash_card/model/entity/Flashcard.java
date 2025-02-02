@@ -2,11 +2,6 @@ package com.flash_card.model.entity;
 
 import jakarta.persistence.*;
 
-enum DifficultyLevel {
-    EASY,
-    HARD
-}
-
 public class Flashcard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
