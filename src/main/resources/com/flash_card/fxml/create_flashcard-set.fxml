@@ -99,7 +99,7 @@
                         <Insets bottom="22.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name">
+                  <TextField fx:id="setNameField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name">
                      <VBox.margin>
                         <Insets bottom="45.51" />
                      </VBox.margin>
@@ -108,7 +108,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description">
+                  <TextField fx:id="setDescriptionField" prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
@@ -116,7 +116,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
+                  <TextField fx:id="setTopicField" prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
                      <VBox.margin>
                         <Insets bottom="49.0" />
                      </VBox.margin>
@@ -126,7 +126,7 @@
                   </TextField>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="create-set-button" text="Create Flashcard Set" textFill="WHITE">
+                        <Button fx:id="createSetButton" mnemonicParsing="false" onMouseClicked="#handleCreateSet" styleClass="create-set-button" text="Create Flashcard Set" textFill="WHITE">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -134,7 +134,7 @@
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="cancel-button" text="CANCEL">
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="CANCEL">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font></Button>

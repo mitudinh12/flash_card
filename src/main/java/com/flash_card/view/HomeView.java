@@ -49,7 +49,7 @@ public class HomeView extends Application {
     }
 
     //Allow other views to access the stage
-    public Stage getStage() {
+    public static Stage getStage() {
         return stage;
     }
 
