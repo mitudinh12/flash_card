@@ -13,19 +13,18 @@ module com.flash_card {
     requires org.apache.httpcomponents.client5.httpclient5;
     requires com.google.api.client.json.gson;
     requires com.google.api.client.auth;
-    requires org.checkerframework.checker.qual;
 
     opens com.flash_card to javafx.fxml;
-    opens com.flash_card.view;
     opens com.flash_card.model.datasource;
-    exports com.flash_card;
-    exports com.flash_card.view;
-    exports com.flash_card.view_model;
-    opens com.flash_card.view_model to javafx.fxml;
-    exports com.flash_card.view_model.user_auth;
-    opens com.flash_card.view_model.user_auth to javafx.fxml;
-    exports com.flash_card.view.auth;
-    opens com.flash_card.view.auth;
-    exports com.flash_card.view_model.user;
+    opens com.flash_card.model.entity;
+    opens com.flash_card.model.dao;
     opens com.flash_card.view_model.user to javafx.fxml;
+    opens com.flash_card.view_model.user_auth to javafx.fxml;
+    opens com.flash_card.view.auth;
+
+
+    exports com.flash_card.view_model.user;
+    exports com.flash_card;
+    exports com.flash_card.view.auth;
+    exports com.flash_card.view_model.user_auth;
 }
