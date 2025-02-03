@@ -33,6 +33,7 @@ public class HomePageController extends MenuController {
 
     @FXML
     private void initialize() {
+        setUserName(authSessionViewModel.getVerifiedUserInfo().get("firstName"));
     }
 
     @FXML
