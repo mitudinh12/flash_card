@@ -56,6 +56,7 @@ public class UserAuthViewModel {
                         persistOrUpdateUser(result);
                         result.remove("idToken");
                         authSessionViewModel.login(result);
+                        localServer.clearAuthorizationCode();
                         if (onSuccess != null) {
                             javafx.application.Platform.runLater(onSuccess);
                         }
