@@ -25,7 +25,7 @@ public class FlashcardDao {
     public static Flashcard findById(int id) {
         Flashcard flashcard = null;
         try {
-            entityManager.find(Flashcard.class, id);
+            flashcard = entityManager.find(Flashcard.class, id);
         } catch (PersistenceException e) {
             System.err.println("Database connection error " + e.getMessage());
             throw e;

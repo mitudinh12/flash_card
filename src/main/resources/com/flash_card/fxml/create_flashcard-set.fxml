@@ -126,18 +126,11 @@
                   </TextField>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0">
                      <children>
-                        <Button fx:id="createSetButton" mnemonicParsing="false" onMouseClicked="#handleCreateSet" styleClass="create-set-button" text="Create Flashcard Set" textFill="WHITE">
+                        <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-set-button" text="Create Flashcard Set">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="CANCEL">
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font></Button>
+                           </HBox.margin></Button>
+                         <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" text="CANCEL" />
                      </children>
                   </HBox>
                </children>

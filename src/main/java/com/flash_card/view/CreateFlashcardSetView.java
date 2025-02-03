@@ -37,11 +37,13 @@ public class CreateFlashcardSetView {
 
     @FXML
     private void initialize() {
+        System.out.println("initialize() called");
         createSetButton.setOnAction(event -> handleCreateSet());
         cancelButton.setOnAction(event -> handleCancel());
     }
     @FXML
     private void handleCreateSet() {
+        System.out.println("handleCreateSet called");
         String name = setNameField.getText();
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();

@@ -71,14 +71,22 @@
     -fx-background-radius: 20;
 }
 
+.create-set-button, .cancel-button {
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+    -fx-background-radius: 8;
+}
+
 .create-set-button {
     -fx-background-color: #2545FE;
-    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-end-margin: 10;
 }
 
 .cancel-button {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #5F5F5F;
-    -fx-background-radius: 8;
     -fx-border-radius: 8;
 }
+

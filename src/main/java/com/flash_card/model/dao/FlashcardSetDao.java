@@ -8,23 +8,30 @@ import jakarta.persistence.PersistenceException;
 import java.util.ArrayList;
 
 public class FlashcardSetDao {
-    static EntityManager entityManager = MariaDbJpaConnection.getInstance();
+    private EntityManager entityManager;
 
-    public static void persist(FlashcardSet flashcardSet) {
+    public FlashcardSetDao() {
+        this.entityManager = MariaDbJpaConnection.getInstance();
+    }
+
+    public void persist(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcardSet);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             System.err.println("Error in persisting FlashcardSet: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public static FlashcardSet findById(int id) {
+    public FlashcardSet findById(int id) {
         FlashcardSet flashcardSet = null;
         try {
-            entityManager.find(FlashcardSet.class, id);
+            flashcardSet = entityManager.find(FlashcardSet.class, id);
         } catch (PersistenceException e) {
             System.err.println("Database connection error " + e.getMessage());
             throw e;
@@ -39,7 +46,7 @@ public class FlashcardSetDao {
         return flashcardSet;
     }
 
-    public static void update(FlashcardSet flashcardSet) {
+    public void update(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcardSet);
@@ -50,7 +57,7 @@ public class FlashcardSetDao {
         }
     }
 
-    public static void delete(FlashcardSet flashcardSet) {
+    public void delete(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcardSet);
@@ -61,7 +68,7 @@ public class FlashcardSetDao {
         }
     }
 
-    public static ArrayList<FlashcardSet> findAllSets() {
+    public ArrayList<FlashcardSet> findAllSets() {
         ArrayList<FlashcardSet> flashcardSets = new ArrayList<>();
         try {
             flashcardSets = (ArrayList<FlashcardSet>) entityManager.createQuery("SELECT fs FROM FlashcardSet fs").getResultList();
