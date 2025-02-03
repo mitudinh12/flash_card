@@ -79,7 +79,7 @@ public class CreateFlashcardController extends MenuController {
 
     private void goToCreateFlashcardPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create_flashcard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) termField.getScene().getWindow();
             stage.setScene(new Scene(root));
