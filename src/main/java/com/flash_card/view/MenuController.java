@@ -38,7 +38,7 @@ public class MenuController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
                 Parent root = fxmlLoader.load();
-                Scene scene = ((Stage) ((Text) event.getSource()).getScene().getWindow()).getScene();
+                Scene scene = ((Text) event.getSource()).getScene().getWindow().getScene();
                 scene.setRoot(root);
             } catch (IOException e) {
                 e.printStackTrace();
