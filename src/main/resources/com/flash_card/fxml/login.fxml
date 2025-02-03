@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.Label?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
    <children>
       <ImageView fitHeight="827.0" fitWidth="1322.0">
          <image>
-            <Image url="@../com/flash_card/assets/backgrounds/BG-landing3.png" />
+            <Image url="@../assets/backgrounds/BG-landing3.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="791.0" prefWidth="1276.0">

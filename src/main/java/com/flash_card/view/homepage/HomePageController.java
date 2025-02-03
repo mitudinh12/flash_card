@@ -1,6 +1,7 @@
 package com.flash_card.view.homepage;
 
 
+import com.flash_card.view.MenuController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 
 
-public class HomePageController {
+public class HomePageController extends MenuController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
@@ -43,7 +43,7 @@ public class HomePageController {
 
     public void displayLoginPage(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
