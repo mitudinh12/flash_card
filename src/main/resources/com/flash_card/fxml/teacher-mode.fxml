@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="teacher-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.fxml.Home">
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="teacher-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.TeacherController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -22,7 +22,7 @@
                                 <Image url="@../assets/icons/I-home-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
+                        <Text fx:id="home" onMouseClicked="#handleMenuClick"  strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
@@ -32,7 +32,7 @@
                                 <Image url="@../assets/icons/I-flashcard-set-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard" />
+                        <Text fx:id="flashcard" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
@@ -42,7 +42,7 @@
                                 <Image url="@../assets/icons/I-class-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                        <Text fx:id="class" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
@@ -52,7 +52,7 @@
                                 <Image url="@../assets/icons/I-teacher-black.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Teacher Mode" />
+                        <Text fx:id="teacher" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Teacher Mode" />
                     </children>
                 </HBox>
                 <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
@@ -63,7 +63,7 @@
                                 <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
+                        <Text fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick"  strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
                     </children>
                 </HBox>
             </children>
