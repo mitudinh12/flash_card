@@ -86,6 +86,14 @@
     -fx-background-radius: 8;
 }
 
+.save-button {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-font-color: black;
+    -fx-background-color: #FFD700;
+    -fx-background-radius: 8;
+}
+
 .cancel-button {
     -fx-font-size: 30;
     -fx-font-weight: bold;
