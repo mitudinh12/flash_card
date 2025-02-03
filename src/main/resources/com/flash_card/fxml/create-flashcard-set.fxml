@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.createFlashcardSetPage.CreateFlashcardSetController">
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.create_flashcard_set.CreateFlashcardSetView">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -25,7 +25,7 @@
                                 <Image url="@../assets/icons/I-home-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="home" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
@@ -35,7 +35,7 @@
                                 <Image url="@../assets/icons/I-flashcard-set-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="flashcard" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
@@ -45,7 +45,7 @@
                                 <Image url="@../assets/icons/I-class-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="class" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
@@ -55,18 +55,18 @@
                                 <Image url="@../assets/icons/I-teacher-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="teacher" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
                     </children>
                 </HBox>
                 <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
-                <HBox fx:id="createFlashcardsHBox" alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
+                <HBox alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-create-card-black.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Create Flashcards" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Create Flashcards" />
                     </children>
                 </HBox>
             </children>
@@ -91,7 +91,7 @@
                 </ImageView>
             <VBox layoutX="172.0" layoutY="177.0" prefHeight="492.0" prefWidth="697.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Flashcard">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Flashcard Set">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -99,7 +99,7 @@
                         <Insets bottom="22.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Term" styleClass="set-name">
+                  <TextField fx:id="setNameField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name">
                      <VBox.margin>
                         <Insets bottom="45.51" />
                      </VBox.margin>
@@ -108,7 +108,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="130.0" prefWidth="768.0" promptText="Enter Definition" styleClass="set-description">
+                  <TextField fx:id="setDescriptionField" prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
@@ -116,20 +116,21 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </TextField>
+                  <TextField fx:id="setTopicField" prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
+                     <VBox.margin>
+                        <Insets bottom="49.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </TextField>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="create-set-button" text="Create new card" textFill="WHITE">
+                        <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-set-button" text="Create Flashcard Set">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" styleClass="cancel-button" text="CANCEL">
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font></Button>
+                           </HBox.margin></Button>
+                         <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-set-button" text="CANCEL" />
                      </children>
                   </HBox>
                </children>

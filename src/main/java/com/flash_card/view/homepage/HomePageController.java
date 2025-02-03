@@ -69,7 +69,7 @@ public class HomePageController extends MenuController {
         System.out.println("Create Flashcard Set clicked!");
         try {
             //Load create flashcard set view scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create_flashcard-set.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard-set.fxml"));
             Parent flashcardSetRoot = loader.load();
             Scene scene = new Scene(flashcardSetRoot);
             stage.setScene(scene);

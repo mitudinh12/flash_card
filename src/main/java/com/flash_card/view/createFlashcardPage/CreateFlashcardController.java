@@ -6,6 +6,7 @@ import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.User;
 import com.flash_card.view.MenuController;
 import com.flash_card.view_model.flashcard.FlashcardViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ public class CreateFlashcardController extends MenuController {
     private final FlashcardViewModel viewModel = new FlashcardViewModel();
     private final UserDao userDao = UserDao.getInstance();
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
     @FXML
     public void initialize() {
@@ -62,7 +64,8 @@ public class CreateFlashcardController extends MenuController {
 
     //will get User through AuthSessionViewModel
     private User getCurrentUser() {
-        return  userDao.findById("1"); //actually should be AuthSessionViewModel.getCurrentUser().getId()
+        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+        return userDao.findById(userId);
     }
 
     private void goToFlashcardPage() {
