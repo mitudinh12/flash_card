@@ -43,6 +43,10 @@ public class LocalServer {
         return authorizationCode;
     }
 
+    public void clearAuthorizationCode() {
+        this.authorizationCode = null;
+    }
+
     public boolean isRunning() {
         return isRunning;
     }

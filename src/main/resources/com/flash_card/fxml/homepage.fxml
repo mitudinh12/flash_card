@@ -84,7 +84,7 @@
                </graphic>
             </Button>
             <ChoiceBox layoutX="930.0" layoutY="38.0" prefHeight="25.0" prefWidth="36.0" styleClass="profile-dropdown-button" />
-            <Button fx:id="logoutButton" layoutX="871.0" layoutY="36.0" mnemonicParsing="false" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Logout" textFill="WHITE">
+            <Button fx:id="logoutButton" onAction="#handleLogout" layoutX="871.0" layoutY="36.0" mnemonicParsing="false" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Logout" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
