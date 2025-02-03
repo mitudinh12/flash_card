@@ -40,4 +40,5 @@ module com.flash_card {
     opens com.flash_card.view.classPage to javafx.fxml;
     exports com.flash_card.view.teacherPage;
     opens com.flash_card.view.teacherPage to javafx.fxml;
+    exports com.flash_card.view.createFlashcardSetPage to javafx.fxml;
 }
