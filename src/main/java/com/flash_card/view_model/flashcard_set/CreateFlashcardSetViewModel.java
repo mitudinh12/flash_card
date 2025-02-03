@@ -1,7 +1,7 @@
-package com.flash_card.view_model;
+package com.flash_card.view_model.flashcard_set;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.dao.FlashcardSetDao;
-import com.flash_card.view.CreateFlashcardSetView;
+import com.flash_card.view.create_flashcard_set.CreateFlashcardSetView;
 
 public class CreateFlashcardSetViewModel {
     private final FlashcardSetDao flashcardSetDao;
