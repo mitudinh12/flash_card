@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="teacher-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.TeacherController">
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="teacher-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.teacherPage.TeacherController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
