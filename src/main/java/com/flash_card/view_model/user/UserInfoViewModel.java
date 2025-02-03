@@ -8,6 +8,7 @@ import java.util.Map;
 public class UserInfoViewModel {
     private final UserDao userDao = UserDao.getInstance();
     private static UserInfoViewModel userInfoViewModel = null;
+
     public UserInfoViewModel() {
 
     }

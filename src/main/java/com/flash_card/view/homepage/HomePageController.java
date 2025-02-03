@@ -32,7 +32,7 @@ public class HomePageController {
         userDropdown.getItems().addAll("Notification", "Logout");
         userDropdown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                switch ((String) newVal) {
+                switch (newVal) {
                     case "Notification":
                         System.out.println("Notification for ");
                         break;

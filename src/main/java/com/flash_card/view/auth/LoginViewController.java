@@ -14,9 +14,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.concurrent.Task;
 
-import java.util.Map;
-
-public class LoginViewController  {
+public class LoginViewController {
     UserAuthViewModel userAuthViewModel = UserAuthViewModel.getInstance();
     AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
@@ -92,7 +90,7 @@ public class LoginViewController  {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/homepage.fxml"));
             Parent root = loader.load();
             HomePageController controller = loader.getController();
-            String userFirstName =  authSessionViewModel.getVerifiedUserInfo().get("firstName");
+            String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
             controller.setUserName(userFirstName);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

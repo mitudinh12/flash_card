@@ -33,18 +33,17 @@ public class UserAuthViewModel {
                     oauthFlow.startOAuth();
 
                     long startTime = System.currentTimeMillis();
-                    long timeout = 30000; // 30 seconds timeout
+                    long timeout = 15000;
 
-                    // Non-blocking check with sleep intervals
                     while (localServer.getAuthorizationCode() == null) {
                         if (System.currentTimeMillis() - startTime > timeout) {
                             System.out.println("Authentication timed out.");
                             if (onFailure != null) {
                                 javafx.application.Platform.runLater(onFailure);
                             }
-                            return null; // Exit the task on timeout
+                            return null;
                         }
-                        Thread.sleep(500); // Check every 500ms
+                        Thread.sleep(500);
                     }
 
                     String authorizationCode = localServer.getAuthorizationCode();
@@ -55,6 +54,7 @@ public class UserAuthViewModel {
 
                     if (result != null) {
                         persistOrUpdateUser(result);
+                        result.remove("idToken");
                         authSessionViewModel.login(result);
                         if (onSuccess != null) {
                             javafx.application.Platform.runLater(onSuccess);
@@ -76,7 +76,6 @@ public class UserAuthViewModel {
                 return null;
             }
         };
-
         new Thread(authTask).start();
     }
 
