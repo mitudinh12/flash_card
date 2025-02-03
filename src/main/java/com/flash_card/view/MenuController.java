@@ -30,7 +30,7 @@ public class MenuController {
                 fxmlFile = "/com/flash_card/fxml/teacher-mode.fxml";
                 break;
             case "createFlashcardSet":
-                fxmlFile = "/com/flash_card/fxml/create-flashcard-set.fxml";
+                fxmlFile = "/com/flash_card/fxml/create_flashcard-set.fxml";
                 break;
         }
 

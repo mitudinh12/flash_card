@@ -9,16 +9,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginView extends Application {
+    private static Stage stage;
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
+        this.stage = primaryStage;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
             Parent root = fxmlLoader.load();
-            stage.setScene(new Scene(root));
-            stage.show();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //Allow other views to access the stage
+    public static Stage getStage() {
+        return stage;
     }
 
 }

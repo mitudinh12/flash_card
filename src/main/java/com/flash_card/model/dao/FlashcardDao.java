@@ -41,13 +41,13 @@ public class FlashcardDao {
         try {
             flashcard = entityManager.find(Flashcard.class, id);
         } catch (PersistenceException e) {
-            System.err.println("Database connection error: " + e.getMessage());
+            System.err.println("Database connection error " + e.getMessage());
             throw e;
         } catch (IllegalArgumentException e) {
             System.err.println("Table flashcard does not exist or query is incorrect: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a flashcard: " + e.getMessage());
+            System.err.println("An unexpected error occured while getting a flashcard:" + e.getMessage());
             e.printStackTrace();
             throw e;
         }
