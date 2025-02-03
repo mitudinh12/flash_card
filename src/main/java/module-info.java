@@ -21,6 +21,8 @@ module com.flash_card {
     opens com.flash_card.view_model.user to javafx.fxml;
     opens com.flash_card.view_model.user_auth to javafx.fxml;
     opens com.flash_card.view.auth;
+    opens com.flash_card.view.homepage;
+
 
 
     exports com.flash_card.view_model.user;

@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 public class LocalServer {
     private HttpServer server;
     private String authorizationCode;
+    private boolean isRunning = false;
 
     public void start() throws IOException {
         server = HttpServer.create(new InetSocketAddress(3000), 0);
@@ -27,12 +28,14 @@ public class LocalServer {
             }
         });
         server.start();
+        isRunning = true;
         System.out.println("Server started, waiting for redirect...");
     }
 
     public void stop() {
         if (server != null) {
             server.stop(0);
+            isRunning = false;
             System.out.println("Server stopped.");
         }
     }
@@ -40,5 +43,7 @@ public class LocalServer {
     public String getAuthorizationCode() {
         return authorizationCode;
     }
+
+    public boolean isRunning() {return isRunning;}
 }
 
