@@ -9,10 +9,11 @@ USE flash_card;
 
 -- Create the users table
 CREATE TABLE users (
-  user_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for users',
-  user_name VARCHAR(255) NOT NULL COMMENT 'Username of the user',
+  user_id VARCHAR(255) NOT NULL COMMENT 'Primary key for users',
+  first_name VARCHAR(255) NOT NULL COMMENT 'first name of the user',
+  last_name VARCHAR(255) NOT NULL COMMENT 'last name of the user',
   email VARCHAR(255) NOT NULL UNIQUE COMMENT 'Unique email address for the user',
-  password VARCHAR(255) NOT NULL COMMENT 'Hashed password of the user',
+  id_token TEXT NOT NULL COMMENT 'Id token of the user',
   PRIMARY KEY (user_id)
 ) ENGINE=InnoDB COMMENT='Stores user accounts for the flashcard app';
 
@@ -22,7 +23,7 @@ CREATE TABLE flashcard_sets (
   set_name VARCHAR(255) NOT NULL COMMENT 'Name of the flashcard set',
   set_description VARCHAR(255) COMMENT 'Optional description of the set',
   set_topic VARCHAR(255) COMMENT 'Topic of the flashcard set',
-  creator_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  creator_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (set_id),
   FOREIGN KEY (creator_id) REFERENCES users(user_id) ON DELETE CASCADE,
   INDEX idx_creator_id (creator_id) COMMENT 'Index to speed up queries on creator_id'
@@ -35,7 +36,7 @@ CREATE TABLE flashcards (
   definition TEXT NOT NULL COMMENT 'Definition of the term',
   difficult_level ENUM('easy', 'hard') COMMENT 'Difficulty level of the card',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
-  creator_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  creator_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (card_id),
   FOREIGN KEY (set_id) REFERENCES flashcard_sets(set_id) ON DELETE CASCADE,
   FOREIGN KEY (creator_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -48,7 +49,7 @@ CREATE TABLE classrooms (
   classroom_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for classrooms',
   classroom_name VARCHAR(255) NOT NULL COMMENT 'Name of the classroom',
   description VARCHAR(255) COMMENT 'Optional description of the classroom',
-  teacher_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  teacher_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (classroom_id),
   FOREIGN KEY (teacher_id) REFERENCES users(user_id) ON DELETE CASCADE,
   INDEX idx_teacher_id (teacher_id) COMMENT 'Index to speed up queries on teacher_id'
@@ -57,7 +58,7 @@ CREATE TABLE classrooms (
 -- Create the studies table
 CREATE TABLE studies (
   study_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for study sessions',
-  user_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  user_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   start_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Start time of the study session',
   end_time DATETIME DEFAULT NULL COMMENT 'End time of the study session',
@@ -72,7 +73,7 @@ CREATE TABLE studies (
 -- Create the quizzes table
 CREATE TABLE quizzes (
   quiz_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for quizzes',
-  user_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  user_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   start_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Start time of the quiz',
   end_time DATETIME DEFAULT NULL COMMENT 'End time of the quiz',
@@ -96,7 +97,7 @@ CREATE TABLE assigned_sets (
 
 -- Create the classroom_members table
 CREATE TABLE classroom_members (
-  student_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  student_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   classroom_id INT NOT NULL COMMENT 'Foreign key referencing classrooms(classroom_id)',
   PRIMARY KEY (student_id, classroom_id),
   FOREIGN KEY (student_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -105,7 +106,7 @@ CREATE TABLE classroom_members (
 
 -- Create the shared_sets table
 CREATE TABLE shared_sets (
-  user_id INT NOT NULL COMMENT 'Foreign key referencing users(user_id)',
+  user_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   PRIMARY KEY (user_id, set_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
