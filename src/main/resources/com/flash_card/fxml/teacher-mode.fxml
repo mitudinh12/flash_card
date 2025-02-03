@@ -83,7 +83,7 @@
                         <Insets bottom="40.0" />
                     </padding>
                 </HBox>
-                <Label styleClass="page-title" text="Your Flashcards" />
+                <Label styleClass="page-title" text="Teacher Mode" />
                 <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="107.0">
                     <children>
                         <StackPane prefHeight="100.0" prefWidth="53.0">
