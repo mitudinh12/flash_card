@@ -13,10 +13,6 @@ public class CreateFlashcardSetViewModel {
     }
 
     public void addSet(String name, String description, String topic) {
-        if (name.isEmpty() || description.isEmpty() || topic.isEmpty()) {
-            createFlashcardSetView.showAlert("Warning", "Please fill in all fields");
-            return;
-        } else {
             try {
                 FlashcardSet flashcardSet = new FlashcardSet(name, description, topic);
                 flashcardSetDao.persist(flashcardSet);
@@ -24,6 +20,5 @@ public class CreateFlashcardSetViewModel {
                 System.err.println("Error in adding flashcard set: " + e.getMessage());
                 e.printStackTrace();
             }
-        }
     }
 }

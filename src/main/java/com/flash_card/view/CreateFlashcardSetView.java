@@ -37,17 +37,28 @@ public class CreateFlashcardSetView {
 
     @FXML
     private void initialize() {
-        System.out.println("initialize() called");
         createSetButton.setOnAction(event -> handleCreateSet());
         cancelButton.setOnAction(event -> handleCancel());
     }
     @FXML
     private void handleCreateSet() {
-        System.out.println("handleCreateSet called");
         String name = setNameField.getText();
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
-        viewModel.addSet(name, description, topic);
+        if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
+            viewModel.addSet(name, description, topic);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create_flashcard-in-set.fxml"));
+                Parent homeRoot = loader.load();
+                Scene scene = new Scene(homeRoot);
+                stage.setScene(scene);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            showAlert("Warning", "Please fill in all fields");
+        }
     }
 
     @FXML
