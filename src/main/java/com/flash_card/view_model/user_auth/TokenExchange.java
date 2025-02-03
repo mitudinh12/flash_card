@@ -23,7 +23,7 @@ public class TokenExchange {
                 new GenericUrl(TOKEN_SERVER_URL),
                 authorizationCode)
                 .setRedirectUri(REDIRECT_URI)
-                .setClientAuthentication( new BasicAuthentication(CLIENT_ID, CLIENT_SECRET))
+                .setClientAuthentication(new BasicAuthentication(CLIENT_ID, CLIENT_SECRET))
                 .execute();
 
     }

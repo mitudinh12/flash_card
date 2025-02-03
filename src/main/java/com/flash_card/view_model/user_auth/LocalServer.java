@@ -1,6 +1,7 @@
 package com.flash_card.view_model.user_auth;
 
 import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -8,6 +9,7 @@ import java.net.InetSocketAddress;
 public class LocalServer {
     private HttpServer server;
     private String authorizationCode;
+    private boolean isRunning = false;
 
     public void start() throws IOException {
         server = HttpServer.create(new InetSocketAddress(3000), 0);
@@ -27,18 +29,22 @@ public class LocalServer {
             }
         });
         server.start();
-        System.out.println("Server started, waiting for redirect...");
+        isRunning = true;
     }
 
     public void stop() {
         if (server != null) {
             server.stop(0);
-            System.out.println("Server stopped.");
+            isRunning = false;
         }
     }
 
     public String getAuthorizationCode() {
         return authorizationCode;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 }
 

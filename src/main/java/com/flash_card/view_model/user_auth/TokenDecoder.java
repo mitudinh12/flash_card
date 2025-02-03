@@ -24,17 +24,8 @@ public class TokenDecoder {
             // User information
             String userId = payload.getSubject();
             String email = (String) payload.get("email");
-            String name = (String) payload.get("name");
             String lastName = (String) payload.get("family_name");
             String firstName = (String) payload.get("given_name");
-
-            // Display user information
-            System.out.println(payload);
-            System.out.println("User ID: " + userId);
-            System.out.println("Email: " + email);
-            System.out.println("Name: " + name);
-            System.out.println("Family Name: " + lastName);
-            System.out.println("Given Name: " + firstName);
 
             Map<String, String> userInfo = new HashMap<>();
             userInfo.put("userId", userId);

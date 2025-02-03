@@ -8,23 +8,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
+<?import javafx.scene.control.Label?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
    <children>
-      <ImageView fitHeight="401.0" fitWidth="605.0">
+      <ImageView fitHeight="827.0" fitWidth="1322.0">
          <image>
             <Image url="@../com/flash_card/assets/backgrounds/BG-landing3.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" prefHeight="272.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="791.0" prefWidth="1276.0">
          <children>
             <Button fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginWithGoogle" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Login with google" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="19.0" />
                </font>
             </Button>
+            <Label fx:id="countdownLabel" visible="false" />
          </children>
          <padding>
-            <Insets top="100.0" />
+            <Insets top="130.0" />
          </padding>
       </VBox>
    </children>
