@@ -1,9 +1,6 @@
 package com.flash_card.model.entity;
 import jakarta.persistence.*;
 
-import java.util.Set;
-import java.math.BigInteger;
-
 @Entity
 @Table(name = "flashcard_sets")
 
@@ -23,33 +20,15 @@ public class FlashcardSet {
     private String setTopic;
 
     @Column(name = "creator_id")
-    private BigInteger setCreator;
-
-/*
-    //Implement user that owns the set later. For now, all created sets are owned by user with id 1
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "creator_id", referencedColumnName = "user_id")
-    private User setCreator;
+    private String creatorId;
 
 
- */
-    /*
-    //Implement many-to-many relationship with Users, connected to shared_sets table
-    @ManyToMany
-    @JoinTable(
-            name = "shared_sets",
-            joinColumns = @JoinColumn(name = "set_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private SharedSets<User> sharedWithUsers;
-     */
-
-    public FlashcardSet(String setName, String setDescription, String setTopic) {
+    public FlashcardSet(String setName, String setDescription, String setTopic, String creatorId) {
         super();
         this.setName = setName;
         this.setDescription = setDescription;
         this.setTopic = setTopic;
-        this.setCreator = new BigInteger("202131503118642168253");
+        this.creatorId = creatorId;
     }
 
     public FlashcardSet() {}
@@ -70,9 +49,8 @@ public class FlashcardSet {
         return setTopic;
     }
 
-//    public User getSetCreator() {
-    public BigInteger getSetCreator() {
-        return setCreator;
+    public String getSetCreator() {
+        return creatorId;
     }
 
 
@@ -87,23 +65,5 @@ public class FlashcardSet {
     public void setSetTopic(String setTopic) {
         this.setTopic = setTopic;
     }
-/*
-//Uncomment when User class is implemented
-    public void setSetCreator(User setCreator) {
-        this.setCreator = setCreator;
-    }
-
- */
-
-    /*
-    public SharedSets<User> getSharedWithUsers() {
-        return sharedWithUsers;
-    }
-
-    public void setSharedWithUsers(SharedSets<User> sharedWithUsers) {
-        this.sharedWithUsers = sharedWithUsers;
-    }
-
-     */
 
 }

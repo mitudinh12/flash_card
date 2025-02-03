@@ -1,6 +1,6 @@
 package com.flash_card.view.create_flashcard_set;
 
-import com.flash_card.view.HomeView;
+import com.flash_card.view.auth.LoginView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,22 +14,13 @@ import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
 import java.io.IOException;
 
 public class CreateFlashcardSetView {
-    private Stage stage = HomeView.getStage();
+    private Stage stage = LoginView.getStage();
     private CreateFlashcardSetViewModel viewModel;
     // FXML UI components
     @FXML
     private TextField setNameField, setDescriptionField, setTopicField;
     @FXML
     private Button createSetButton, cancelButton;
-
-//    /*Guide to the code:
-//    * 1. Add method to handle createSetButton click event
-//    * 2. Initialize TextFields and Buttons
-//    * 3. Bind the TextFields to the ViewModel
-//    * 4. Set event when clicking the createSetButton to a viewModel method?
-//    * 5. Change scene?
-//    * 6. Create stage?
-//    * */
 
     public CreateFlashcardSetView() {
         this.viewModel = new CreateFlashcardSetViewModel(this);
@@ -64,7 +55,7 @@ public class CreateFlashcardSetView {
     @FXML
     private void handleCancel() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/homepage.fxml"));
             Parent homeRoot = loader.load();
             Scene scene = new Scene(homeRoot);
             stage.setScene(scene);
