@@ -117,3 +117,22 @@
     -fx-background-radius: 8;
     -fx-border-radius: 8;
 }
+
+/*FLASHCARD SET PAGE*/
+
+.hbox-flashcard-set {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+.hbox-flashcard-set .button {
+    -fx-background-color: #01C729;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}

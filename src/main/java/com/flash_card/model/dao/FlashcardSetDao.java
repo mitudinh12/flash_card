@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlashcardSetDao {
     private static FlashcardSetDao instance;
@@ -94,5 +95,21 @@ public class FlashcardSetDao {
         return flashcardSets;
     }
 
+    public List<FlashcardSet> findThreeNewestSets() {
+        List<FlashcardSet> flashcardSets = new ArrayList<>();
+        try {
+            flashcardSets = entityManager.createQuery("SELECT fs FROM FlashcardSet fs ORDER BY fs.id DESC", FlashcardSet.class)
+                    .setMaxResults(3)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.err.println("Database connection error: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while getting the newest flashcard sets: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+        return flashcardSets;
+    }
 
 }

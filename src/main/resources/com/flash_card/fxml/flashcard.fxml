@@ -84,34 +84,7 @@
                     </padding>
                 </HBox>
                 <Label styleClass="page-title" text="Your Flashcards" />
-                <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="107.0">
-                    <children>
-                        <StackPane prefHeight="100.0" prefWidth="53.0">
-                            <children>
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="Button" visible="false" />
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../assets/icons/left-arrow.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
-                                </ImageView>
-                            </children>
-                        </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="55.0">
-                            <children>
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="Button" visible="false" />
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../assets/icons/arrow-point-to-right.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                        </StackPane>
-                    </children>
-                </HBox>
-                <ListView fx:id="listFlashcards" prefHeight="200.0" prefWidth="700.0" />
+                <VBox fx:id="flashcardSetsContainer" spacing="10.0" alignment="CENTER" prefHeight="200.0" prefWidth="700.0" />
             </children>
             <padding>
                 <Insets left="100.0" right="100.0" top="40.0" />
