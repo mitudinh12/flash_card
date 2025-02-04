@@ -86,25 +86,6 @@ public class FlashcardController extends ViewController {
     private void handleShare(FlashcardSet set) {
     }
 
-    @FXML
-    protected void handleLogout(ActionEvent event) {
-        authSessionViewModel.logout();
-        displayLoginPage(event);
-    }
-
-    public void displayLoginPage(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            System.err.println("Error in display Login page. " + e);
-        }
-    }
-
     public void setUserName(String name) {
         userName.setText("Hi, " + name);
     }
