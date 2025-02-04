@@ -41,7 +41,7 @@ public class CreateFlashcardController extends ViewController {
         viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId);
         System.out.println("Flashcard saved. Back to Flashcard Page");
         clearFlashcardSetId();
-        goToFlashcardPage();
+        goToPage("/com/flash_card/fxml/flashcard.fxml", termField.getScene());
     }
 
     @FXML
@@ -49,26 +49,7 @@ public class CreateFlashcardController extends ViewController {
         viewModel.deleteFlashcardSetIfEmpty(flashcardSetId); //delete flashcard set if there's no flashcard in it
         System.out.println("Cancel");
         clearFlashcardSetId();
-        goToHomePage();
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void goToFlashcardPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/flashcard.fxml"));
-            Parent root = loader.load();
-            Scene scene = termField.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        goToPage("/com/flash_card/fxml/home.fxml", termField.getScene());
     }
 
     private void goToCreateFlashcardPage() {
@@ -76,18 +57,7 @@ public class CreateFlashcardController extends ViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
             Parent root = loader.load();
             CreateFlashcardController controller = loader.getController();
-            controller.setFlashcardSetId(flashcardSetId); //pass the flashcardSetId to the next flashcard
-            Scene scene = termField.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void goToHomePage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
-            Parent root = loader.load();
+            controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
             Scene scene = termField.getScene();
             scene.setRoot(root);
         } catch (IOException e) {

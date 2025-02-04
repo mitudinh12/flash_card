@@ -56,7 +56,7 @@ public class FlashcardController extends ViewController {
 
             learnButton.setOnAction(event -> handleLearn(set));
             quizButton.setOnAction(event -> handleQuiz(set));
-            editButton.setOnAction(event -> handleEdit(set));
+            editButton.setOnAction(event -> handleEdit(set.getSetId(), set.getSetName(), set.getSetDescription(), set.getSetTopic())); //pass set info
             shareButton.setOnAction(event -> handleShare(set));
 
             hbox.getChildren().addAll(setName, learnButton, quizButton, editButton, shareButton);
@@ -70,14 +70,14 @@ public class FlashcardController extends ViewController {
     private void handleQuiz(FlashcardSet set) {
     }
 
-    private void handleEdit(FlashcardSet set) {
+    private void handleEdit(int setId, String setName, String setDescription, String setTopic) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
             Parent root = loader.load();
 
-            // Get the controller and pass the FlashcardSet data
-            // EditFlashcardSetController controller = loader.getController();
-            // controller.setFlashcardSet(set);
+            //pass the FlashcardSet data to the EditFlashcardSetController
+            EditFlashcardSetController controller = loader.getController();
+            controller.setFlashcardSet(setId, setName, setDescription, setTopic);
 
             Scene scene = flashcardSetsContainer.getScene();
             scene.setRoot(root);

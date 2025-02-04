@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 public abstract class ViewController {
 
     @FXML
-    private void handleMenuClick(MouseEvent event) {
+    protected void handleMenuClick(MouseEvent event) {
         String id = ((Text) event.getSource()).getId();
         String fxmlFile = "";
 
@@ -48,6 +49,24 @@ public abstract class ViewController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    protected void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    protected void goToPage(String fxmlFile, Scene scene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
