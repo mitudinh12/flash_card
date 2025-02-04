@@ -1,4 +1,4 @@
-package com.flash_card.view;
+package com.flash_card.framework;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class MenuController {
+public abstract class ViewController {
 
     @FXML
     private void handleMenuClick(MouseEvent event) {
@@ -19,15 +19,21 @@ public class MenuController {
             case "home":
                 fxmlFile = "/com/flash_card/fxml/home.fxml";
                 break;
+                /*
             case "class":
                 fxmlFile = "/com/flash_card/fxml/class.fxml";
                 break;
+                */
+
             case "flashcard":
                 fxmlFile = "/com/flash_card/fxml/flashcard.fxml";
                 break;
+            /*
             case "teacher":
                 fxmlFile = "/com/flash_card/fxml/teacher-mode.fxml";
                 break;
+
+             */
             case "createFlashcardSet":
                 fxmlFile = "/com/flash_card/fxml/create-flashcard-set.fxml";
                 break;

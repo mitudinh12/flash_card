@@ -1,6 +1,6 @@
 package com.flash_card.view.create_flashcard_set;
 
-import com.flash_card.view.MenuController;
+import com.flash_card.framework.ViewController;
 import com.flash_card.view.auth.LoginView;
 import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
 import javafx.fxml.FXML;
@@ -15,7 +15,7 @@ import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
 
 import java.io.IOException;
 
-public class CreateFlashcardSetView extends MenuController {
+public class CreateFlashcardSetView extends ViewController {
     private Stage stage = LoginView.getStage();
     private CreateFlashcardSetViewModel viewModel;
     // FXML UI components
