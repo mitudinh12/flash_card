@@ -1,4 +1,5 @@
 package com.flash_card.model.entity;
+import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
 import com.flash_card.framework.DifficultyLevel;
@@ -79,5 +80,9 @@ public class Flashcard {
 
     public void setFlashcardSet(FlashcardSet flashcardSet) {
         this.flashcardSet = flashcardSet;
+    }
+
+    public void setFlashcardCreator(User flashcardCreator) {
+        this.flashcardCreator = flashcardCreator;
     }
 }

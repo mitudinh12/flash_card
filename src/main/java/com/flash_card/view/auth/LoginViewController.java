@@ -87,7 +87,7 @@ public class LoginViewController {
 
     void displayHomepage(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/homepage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             Parent root = loader.load();
             HomePageController controller = loader.getController();
             String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");

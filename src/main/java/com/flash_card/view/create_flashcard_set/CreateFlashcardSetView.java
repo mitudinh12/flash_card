@@ -1,6 +1,8 @@
 package com.flash_card.view.create_flashcard_set;
 
+import com.flash_card.framework.ViewController;
 import com.flash_card.view.auth.LoginView;
+import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +15,7 @@ import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
 
 import java.io.IOException;
 
-public class CreateFlashcardSetView {
+public class CreateFlashcardSetView extends ViewController {
     private Stage stage = LoginView.getStage();
     private CreateFlashcardSetViewModel viewModel;
     // FXML UI components
@@ -37,14 +39,18 @@ public class CreateFlashcardSetView {
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
-            viewModel.addSet(name, description, topic);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create_flashcard-in-set.fxml"));
-                Parent homeRoot = loader.load();
-                Scene scene = new Scene(homeRoot);
-                stage.setScene(scene);
-            } catch (IOException e) {
-                e.printStackTrace();
+            int flashcardSetId = viewModel.addSet(name, description, topic);
+            if (flashcardSetId != -1) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+                    Parent homeRoot = loader.load();
+                    CreateFlashcardController controller = loader.getController(); //load the controller of CreateFlashcard
+                    controller.setFlashcardSetId(flashcardSetId); //pass setId to the controller
+                    Scene scene = new Scene(homeRoot);
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         else {
@@ -55,7 +61,7 @@ public class CreateFlashcardSetView {
     @FXML
     private void handleCancel() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/homepage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             Parent homeRoot = loader.load();
             Scene scene = new Scene(homeRoot);
             stage.setScene(scene);

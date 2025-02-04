@@ -1,7 +1,7 @@
 * {
     -fx-font-family: "Poppins";
 }
-
+/*SIDE MENU*/
 .home-background {
     -fx-background-image: url("../assets/backgrounds/BG-home.png");
 }
@@ -31,14 +31,12 @@
 
 .menu-text-white {
     -fx-font-size: 20;
-    -fx-font-family: "Poppins";
     -fx-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
 .menu-text-black {
     -fx-font-size: 20;
-    -fx-font-family: "Poppins";
     -fx-fill: #000000;
     -fx-font-weight: bold;
 }
@@ -52,7 +50,6 @@
     -fx-background-radius: 20;
     -fx-padding: 10px 20px;
     -fx-font-size: 11;
-    -fx-font-family: "Poppins";
     -fx-border-color: #01c729;
     -fx-border-radius: 20;
 }
@@ -69,24 +66,54 @@
 .set-description,
 .set-topic {
     -fx-background-radius: 20;
+    -fx-border-style: none;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: grey;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0 0 30px;
 }
 
-.create-set-button, .cancel-button {
-    -fx-font-family: "System";
+
+/*CREATE FLASHCARD PAGE*/
+.page-title {
+    -fx-font-size: 35;
+    -fx-fill: #000000;
     -fx-font-weight: bold;
-    -fx-font-size: 25px;
+}
+
+.term,
+.definition {
+    -fx-background-radius: 20;
+    -fx-border-style: none;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: grey;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0 0 30px;
+}
+
+.create-button {
+    -fx-font-size: 30;
+    -fx-font-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #2545FE;
     -fx-background-radius: 8;
 }
 
-.create-set-button {
-    -fx-background-color: #2545FE;
-    -fx-text-fill: #FFFFFF;
-    -fx-end-margin: 10;
+.save-button {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-font-color: black;
+    -fx-background-color: #FFD700;
+    -fx-background-radius: 8;
 }
 
 .cancel-button {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
     -fx-background-color: #FFFFFF;
     -fx-border-color: #5F5F5F;
+    -fx-background-radius: 8;
     -fx-border-radius: 8;
 }
-

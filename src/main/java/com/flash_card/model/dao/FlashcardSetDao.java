@@ -8,10 +8,18 @@ import jakarta.persistence.PersistenceException;
 import java.util.ArrayList;
 
 public class FlashcardSetDao {
+    private static FlashcardSetDao instance;
     private EntityManager entityManager;
 
-    public FlashcardSetDao() {
-        this.entityManager = MariaDbJpaConnection.getInstance();
+    private FlashcardSetDao() {
+        entityManager = MariaDbJpaConnection.getInstance();
+    }
+
+    public static FlashcardSetDao getInstance() {
+        if (instance == null) {
+            instance = new FlashcardSetDao();
+        }
+        return instance;
     }
 
     public void persist(FlashcardSet flashcardSet) {
