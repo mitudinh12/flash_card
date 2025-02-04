@@ -1,6 +1,6 @@
 package com.flash_card.view.createFlashcardPage;
 
-import com.flash_card.view.MenuController;
+import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.flashcard.CreateFlashcardViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CreateFlashcardController extends MenuController {
+public class CreateFlashcardController extends ViewController {
     @FXML
     private TextField termField;
     @FXML
