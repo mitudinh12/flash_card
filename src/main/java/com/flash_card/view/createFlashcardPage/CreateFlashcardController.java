@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,21 +22,23 @@ public class CreateFlashcardController extends MenuController {
     private int flashcardSetId;
 
     @FXML
-    public void initialize() {
-        termField.textProperty().bindBidirectional(viewModel.termProperty());
-        definitionField.textProperty().bindBidirectional(viewModel.definitionProperty());
-    }
-
-    @FXML
     public void handleCreateFlashcard() {
-        viewModel.saveFlashcard(flashcardSetId);
+        if (termField.getText().isEmpty() || definitionField.getText().isEmpty()) {
+            showAlert("Warning", "Please fill in both term and definition fields");
+            return;
+        }
+        viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId);
         System.out.println("Flashcard saved. Create new one");
         goToCreateFlashcardPage();
     }
 
     @FXML
     public void handleSave() {
-        viewModel.saveFlashcard(flashcardSetId);
+        if (termField.getText().isEmpty() || definitionField.getText().isEmpty()) {
+            showAlert("Warning", "Please fill in both term and definition fields");
+            return;
+        }
+        viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId);
         System.out.println("Flashcard saved. Back to Flashcard Page");
         clearFlashcardSetId();
         goToFlashcardPage();
@@ -46,6 +49,14 @@ public class CreateFlashcardController extends MenuController {
         System.out.println("Cancel");
         clearFlashcardSetId();
         goToFlashcardPage();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void goToFlashcardPage() {
