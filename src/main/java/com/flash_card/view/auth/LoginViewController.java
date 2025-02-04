@@ -46,7 +46,6 @@ public class LoginViewController {
         );
     }
 
-
     private void startCountdown(int seconds) {
         Task<Void> countdownTask = new Task<>() {
             @Override

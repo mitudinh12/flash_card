@@ -88,27 +88,30 @@ CREATE TABLE quizzes (
 
 -- Create the assigned_sets table
 CREATE TABLE assigned_sets (
+  assigning_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for assigned_sets',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   classroom_id INT NOT NULL COMMENT 'Foreign key referencing classrooms(classroom_id)',
-  PRIMARY KEY (set_id, classroom_id),
+  PRIMARY KEY (assigning_id),
   FOREIGN KEY (set_id) REFERENCES flashcard_sets(set_id) ON DELETE CASCADE,
   FOREIGN KEY (classroom_id) REFERENCES classrooms(classroom_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='Tracks assignments of flashcard sets to classrooms';
 
 -- Create the classroom_members table
 CREATE TABLE classroom_members (
+  classroom_members_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for classroom_members',
   student_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   classroom_id INT NOT NULL COMMENT 'Foreign key referencing classrooms(classroom_id)',
-  PRIMARY KEY (student_id, classroom_id),
+  PRIMARY KEY (classroom_members_id),
   FOREIGN KEY (student_id) REFERENCES users(user_id) ON DELETE CASCADE,
   FOREIGN KEY (classroom_id) REFERENCES classrooms(classroom_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='Tracks membership of students in classrooms';
 
 -- Create the shared_sets table
 CREATE TABLE shared_sets (
+  sharing_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for shared_sets',
   user_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
-  PRIMARY KEY (user_id, set_id),
+  PRIMARY KEY (sharing_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
   FOREIGN KEY (set_id) REFERENCES flashcard_sets(set_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='Tracks shared flashcard sets between users';
