@@ -49,7 +49,7 @@ public class CreateFlashcardController extends MenuController {
         viewModel.deleteFlashcardSetIfEmpty(flashcardSetId); //delete flashcard set if there's no flashcard in it
         System.out.println("Cancel");
         clearFlashcardSetId();
-        goToFlashcardPage();
+        goToHomePage();
     }
 
     private void showAlert(String title, String message) {
@@ -78,6 +78,18 @@ public class CreateFlashcardController extends MenuController {
             Parent root = loader.load();
             CreateFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); //pass the flashcardSetId to the next flashcard
+            Stage stage = (Stage) termField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goToHomePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
+            Parent root = loader.load();
             Stage stage = (Stage) termField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

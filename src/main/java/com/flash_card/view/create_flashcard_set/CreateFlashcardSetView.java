@@ -1,5 +1,6 @@
 package com.flash_card.view.create_flashcard_set;
 
+import com.flash_card.view.MenuController;
 import com.flash_card.view.auth.LoginView;
 import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
 
 import java.io.IOException;
 
-public class CreateFlashcardSetView {
+public class CreateFlashcardSetView extends MenuController {
     private Stage stage = LoginView.getStage();
     private CreateFlashcardSetViewModel viewModel;
     // FXML UI components
@@ -60,7 +61,7 @@ public class CreateFlashcardSetView {
     @FXML
     private void handleCancel() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/homepage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             Parent homeRoot = loader.load();
             Scene scene = new Scene(homeRoot);
             stage.setScene(scene);

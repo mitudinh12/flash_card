@@ -66,27 +66,13 @@
 .set-description,
 .set-topic {
     -fx-background-radius: 20;
-}
-
-.create-set-button, .cancel-set-button {
-    -fx-font-family: "System";
+    -fx-border-style: none;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: grey;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-font-size: 25px;
-    -fx-background-radius: 8;
+    -fx-padding: 5px 0 0 30px;
 }
-
-.create-set-button {
-    -fx-background-color: #2545FE;
-    -fx-text-fill: #FFFFFF;
-    -fx-end-margin: 10;
-}
-
-.cancel-set-button {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #5F5F5F;
-    -fx-border-radius: 8;
-}
-
 
 
 /*CREATE FLASHCARD PAGE*/
