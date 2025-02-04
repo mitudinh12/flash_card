@@ -1,6 +1,6 @@
-package com.flash_card.model.entity;
+package com.flash_card.framework;
 
-enum DifficultyLevel {
+public enum DifficultyLevel {
     EASY,
     HARD
 }
