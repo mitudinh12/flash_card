@@ -136,3 +136,18 @@
     -fx-text-fill: white;
     -fx-background-radius: 5;
 }
+
+/*EDIT FLASHCARD PAGE*/
+.edit-button {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-background-color: #01C729;
+    -fx-background-radius: 8;
+}
+
+.delete-button {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-background-color: #FF0000;
+    -fx-background-radius: 8;
+}

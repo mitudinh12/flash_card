@@ -64,9 +64,8 @@ public class CreateFlashcardController extends ViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/flashcard.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) termField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = termField.getScene();
+            scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,9 +77,8 @@ public class CreateFlashcardController extends ViewController {
             Parent root = loader.load();
             CreateFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); //pass the flashcardSetId to the next flashcard
-            Stage stage = (Stage) termField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = termField.getScene();
+            scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,9 +88,8 @@ public class CreateFlashcardController extends ViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) termField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = termField.getScene();
+            scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

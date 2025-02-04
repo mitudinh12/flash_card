@@ -38,6 +38,8 @@ module com.flash_card {
     opens com.flash_card.view.createFlashcardPage to javafx.fxml;
     exports com.flash_card.view.flashcardPage;
     opens com.flash_card.view.flashcardPage to javafx.fxml;
+    exports com.flash_card.view.editFlashcardPage;
+    opens com.flash_card.view.editFlashcardPage to javafx.fxml;
     exports com.flash_card.framework;
     opens com.flash_card.framework to javafx.fxml;
 }
