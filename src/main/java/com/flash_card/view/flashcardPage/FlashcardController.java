@@ -27,7 +27,7 @@ public class FlashcardController extends ViewController {
     }
 
     @FXML
-    private void handleLogout(ActionEvent event) {
+    protected void handleLogout(ActionEvent event) {
         authSessionViewModel.logout();
         displayLoginPage(event);
     }

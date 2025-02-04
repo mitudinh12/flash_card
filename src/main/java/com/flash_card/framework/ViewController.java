@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public abstract class ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
     @FXML
-    private void handleMenuClick(MouseEvent event) {
+    protected void handleMenuClick(MouseEvent event) {
         Node clickedNode = (Node) event.getTarget();
         Node parentNode = clickedNode;
 
@@ -73,7 +74,7 @@ public abstract class ViewController {
     }
 
     // method to display login page
-    public void displayLoginPage(ActionEvent event) {
+    protected void displayLoginPage(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
             Parent root = loader.load();
@@ -88,8 +89,27 @@ public abstract class ViewController {
 
     // method to handleLogout button
     @FXML
-    private void handleLogout(ActionEvent event) {
+    protected void handleLogout(ActionEvent event) {
         authSessionViewModel.logout();
         displayLoginPage(event);
+    }
+
+    protected void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    protected void goToPage(String fxmlFile, Scene scene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
