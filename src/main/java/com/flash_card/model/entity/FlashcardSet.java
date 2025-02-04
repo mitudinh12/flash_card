@@ -19,16 +19,26 @@ public class FlashcardSet {
     @Column(name = "set_topic")
     private String setTopic;
 
-    @Column(name = "creator_id")
-    private String creatorId;
+    //Implement user that owns the set later. For now, all created sets are owned by user with id 1
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "creator_id", referencedColumnName = "user_id")
+    private User flashcardCreator;
 
+    //Implement many-to-many relationship with Users, connected to shared_sets table
+//    @ManyToMany
+//    @JoinTable(
+//            name = "shared_sets",
+//            joinColumns = @JoinColumn(name = "set_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+//    private SharedSets<User> sharedWithUsers;
 
-    public FlashcardSet(String setName, String setDescription, String setTopic, String creatorId) {
+    public FlashcardSet(String setName, String setDescription, String setTopic, User flashcardCreator) {
         super();
         this.setName = setName;
         this.setDescription = setDescription;
         this.setTopic = setTopic;
-        this.creatorId = creatorId;
+        this.flashcardCreator = flashcardCreator;
     }
 
     public FlashcardSet() {}
@@ -49,8 +59,8 @@ public class FlashcardSet {
         return setTopic;
     }
 
-    public String getSetCreator() {
-        return creatorId;
+    public User getSetCreator() {
+        return flashcardCreator;
     }
 
 

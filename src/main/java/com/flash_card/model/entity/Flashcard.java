@@ -2,6 +2,7 @@ package com.flash_card.model.entity;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
+import com.flash_card.framework.DifficultyLevel;
 
 @Entity
 @Table(name = "flashcards")

@@ -5,7 +5,7 @@ import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.UserDao;
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.model.entity.DifficultyLevel;
+import com. flash_card. framework. DifficultyLevel;
 import com.flash_card.model.entity.User;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.beans.property.SimpleStringProperty;
