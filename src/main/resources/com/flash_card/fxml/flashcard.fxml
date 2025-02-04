@@ -19,55 +19,55 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
                 <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="super-flash-title" text="SuperFlash" textAlignment="CENTER" wrappingWidth="263.72779846191406" />
-                <HBox alignment="CENTER" layoutX="45.0" layoutY="131.0" spacing="20.0">
+                <HBox fx:id="home" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="131.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-home-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="home" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
+                <HBox fx:id="flashcard" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-flashcard-set-black.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="flashcard" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Flashcard" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Flashcard" />
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
+                <HBox fx:id="class" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-class-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="class" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
+                <HBox fx:id="teacher" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-teacher-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="teacher" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
                     </children>
                 </HBox>
                 <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
-                <HBox alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
+                <HBox fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
                     </children>
                 </HBox>
             </children>

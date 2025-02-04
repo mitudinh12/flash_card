@@ -69,15 +69,6 @@ public class CreateFlashcardSetView extends ViewController {
         }
     }
 
-    //Alert messages, for empty fields
-    public void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
 
 
 }
