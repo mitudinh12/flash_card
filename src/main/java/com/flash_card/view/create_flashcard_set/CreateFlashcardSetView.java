@@ -1,6 +1,7 @@
 package com.flash_card.view.create_flashcard_set;
 
 import com.flash_card.view.auth.LoginView;
+import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,14 +38,18 @@ public class CreateFlashcardSetView {
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
-            viewModel.addSet(name, description, topic);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
-                Parent homeRoot = loader.load();
-                Scene scene = new Scene(homeRoot);
-                stage.setScene(scene);
-            } catch (IOException e) {
-                e.printStackTrace();
+            int flashcardSetId = viewModel.addSet(name, description, topic);
+            if (flashcardSetId != -1) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+                    Parent homeRoot = loader.load();
+                    CreateFlashcardController controller = loader.getController(); //load the controller of CreateFlashcard
+                    controller.setFlashcardSetId(flashcardSetId); //pass setId to the controller
+                    Scene scene = new Scene(homeRoot);
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         else {

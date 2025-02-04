@@ -26,6 +26,7 @@ public class CreateFlashcardController extends MenuController {
     private final UserDao userDao = UserDao.getInstance();
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private int flashcardSetId;
 
     @FXML
     public void initialize() {
@@ -57,12 +58,10 @@ public class CreateFlashcardController extends MenuController {
         goToFlashcardPage();
     }
 
-    //will try to get the current flashcard set info from previous page
     private FlashcardSet getCurrentFlashcardSet() {
-        return flashcardSetDao.findById(1);
+        return flashcardSetDao.findById(flashcardSetId);
     }
 
-    //will get User through AuthSessionViewModel
     private User getCurrentUser() {
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         return userDao.findById(userId);
@@ -90,5 +89,9 @@ public class CreateFlashcardController extends MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setFlashcardSetId(int flashcardSetId) {
+        this.flashcardSetId = flashcardSetId;
     }
 }

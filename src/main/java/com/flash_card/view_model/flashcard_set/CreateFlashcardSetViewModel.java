@@ -15,15 +15,17 @@ public class CreateFlashcardSetViewModel {
         this.createFlashcardSetView = view;
     }
 
-    public void addSet(String name, String description, String topic) {
+    public int addSet(String name, String description, String topic) {
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         System.out.println("User ID: " + userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, userId);
             flashcardSetDao.persist(flashcardSet);
+            return flashcardSet.getSetId(); //return the ID of created flashcardSet
         } catch (Exception e) {
             System.err.println("Error in adding flashcard set: " + e.getMessage());
             e.printStackTrace();
+            return -1; //return -1 to show error
         }
     }
 }
