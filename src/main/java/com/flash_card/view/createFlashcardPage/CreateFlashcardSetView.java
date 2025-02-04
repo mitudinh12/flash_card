@@ -1,8 +1,7 @@
-package com.flash_card.view.create_flashcard_set;
+package com.flash_card.view.createFlashcardPage;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.view.auth.LoginView;
-import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

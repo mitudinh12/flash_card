@@ -3,7 +3,6 @@ package com.flash_card.view.flashcardPage;
 import com.flash_card.framework.ViewController;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.view.editFlashcardPage.EditFlashcardSetController;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class FlashcardController extends ViewController {
