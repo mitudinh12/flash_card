@@ -36,7 +36,6 @@ public abstract class ViewController {
         switch (id) {
             case "home":
                 fxmlFile = "/com/flash_card/fxml/home.fxml";
-                System.out.println("Home");
                 break;
                 /*
             case "class":
@@ -46,7 +45,6 @@ public abstract class ViewController {
 
             case "flashcard":
                 fxmlFile = "/com/flash_card/fxml/flashcard.fxml";
-                System.out.println("flashcard");
                 break;
             /*
             case "teacher":
@@ -56,7 +54,6 @@ public abstract class ViewController {
              */
             case "createFlashcardSet":
                 fxmlFile = "/com/flash_card/fxml/create-flashcard-set.fxml";
-                System.out.println("create");
                 break;
         }
 
