@@ -20,6 +20,16 @@ public class CreateFlashcardViewModel {
         flashcardDao.persist(flashcard);
     }
 
+    public boolean isFlashcardSetEmpty(int flashcardSetId) {
+        return flashcardDao.findBySetId(flashcardSetId).isEmpty();
+    }
+
+    public void deleteFlashcardSetIfEmpty(int flashcardSetId) {
+        if (isFlashcardSetEmpty(flashcardSetId)) {
+            flashcardSetDao.delete(flashcardSetDao.findById(flashcardSetId));
+        }
+    }
+
     private FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
         return flashcardSetDao.findById(flashcardSetId);
     }

@@ -46,6 +46,7 @@ public class CreateFlashcardController extends MenuController {
 
     @FXML
     public void handleCancel() {
+        viewModel.deleteFlashcardSetIfEmpty(flashcardSetId); //delete flashcard set if there's no flashcard in it
         System.out.println("Cancel");
         clearFlashcardSetId();
         goToFlashcardPage();

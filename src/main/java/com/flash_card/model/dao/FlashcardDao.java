@@ -54,7 +54,6 @@ public class FlashcardDao {
         return flashcard;
     }
 
-
     public void update(Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
@@ -97,6 +96,26 @@ public class FlashcardDao {
             throw e;
         } catch (Exception e) {
             System.err.println("An unexpected error occurred while getting flashcards by user ID: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+        return flashcards;
+    }
+
+    public List<Flashcard> findBySetId(int setId) {
+        List<Flashcard> flashcards = null;
+        try {
+            flashcards = entityManager.createQuery("SELECT f FROM Flashcard f WHERE f.flashcardSet.setId = :setId", Flashcard.class)
+                    .setParameter("setId", setId)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.err.println("Database connection error: " + e.getMessage());
+            throw e;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Table flashcard does not exist or query is incorrect: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while getting flashcards by set ID: " + e.getMessage());
             e.printStackTrace();
             throw e;
         }
