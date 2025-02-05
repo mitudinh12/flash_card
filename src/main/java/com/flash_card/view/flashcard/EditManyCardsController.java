@@ -77,7 +77,22 @@ public class EditManyCardsController extends ViewController {
         }
     }
 
+    private void goToEditFlashcardPage(Flashcard flashcard) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-flashcard.fxml"));
+            Parent root = loader.load();
+            EditFlashcardController controller = loader.getController();
+            controller.setFlashcardSetId(flashcardSetId);
+            controller.setFlashcard(flashcard); //pass the flashcard to the controller
+            Scene scene = setName.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleEditFlashcard(Flashcard flashcard) {
+        goToEditFlashcardPage(flashcard);
     }
 
     private void handleDeleteFlashcard(Flashcard flashcard) {

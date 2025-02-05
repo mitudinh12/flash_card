@@ -20,6 +20,12 @@ public class CreateFlashcardViewModel {
         flashcardDao.persist(flashcard);
     }
 
+    public void updateFlashcard(Flashcard flashcard, String term, String definition) {
+        flashcard.setTerm(term);
+        flashcard.setDefinition(definition);
+        flashcardDao.update(flashcard);
+    }
+
     public boolean isFlashcardSetEmpty(int flashcardSetId) {
         return flashcardDao.findBySetId(flashcardSetId).isEmpty();
     }
