@@ -1,7 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.dao.FlashcardSetDao; //Dao need to be in ViewModel instead
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.fxml.FXML;
@@ -15,10 +15,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
-
+//this file for testing only not follow mvvm Dao need to be in ViewModel instead
 public class FlashcardSetPageController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
+    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(); //should be in ViewModel
 
     @FXML
     private Label userName;
@@ -33,7 +33,7 @@ public class FlashcardSetPageController extends ViewController {
     }
 
     private void loadThreeNewestFlashcardSets() {
-        List<FlashcardSet> newestSets = flashcardSetDao.findThreeNewestSets();
+        List<FlashcardSet> newestSets = flashcardSetDao.findThreeNewestSets(); //should be in ViewModel
         flashcardSetsContainer.getChildren().clear();
         for (FlashcardSet set : newestSets) {
             HBox hbox = new HBox(10);

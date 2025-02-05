@@ -1,10 +1,16 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.view.flashcard.EditManyCardsController;
 import com.flash_card.view_model.flashcard_set.EditFlashcardSetViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class EditFlashcardSetController extends ViewController {
     @FXML
@@ -31,6 +37,7 @@ public class EditFlashcardSetController extends ViewController {
 
     @FXML
     public void handleEditCards(ActionEvent actionEvent) {
+        goToEditManyCardsPage(setId);
     }
 
     @FXML
@@ -55,5 +62,18 @@ public class EditFlashcardSetController extends ViewController {
     public void handleDeleteSet(ActionEvent actionEvent) {
         viewModel.deleteFlashcardSet(setId);
         goToPage("/com/flash_card/fxml/flashcard.fxml", setNameField.getScene());
+    }
+
+    private void goToEditManyCardsPage(int setId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
+            Parent root = loader.load();
+            EditManyCardsController controller = loader.getController();
+            controller.setFlashcardSetId(setId);
+            Scene scene = setNameField.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
