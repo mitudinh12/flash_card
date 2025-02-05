@@ -1,13 +1,12 @@
-package com.flash_card.view.create_flashcard_set;
+package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.view.auth.LoginView;
-import com.flash_card.view.createFlashcardPage.CreateFlashcardController;
+import com.flash_card.view.flashcard.CreateFlashcardController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
