@@ -16,7 +16,7 @@ public class CreateFlashcardViewModel {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
     public void saveFlashcard(String term, String definition, int flashcardSetId) {
-        Flashcard flashcard = new Flashcard(term, definition, DifficultyLevel.HARD, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
+        Flashcard flashcard = new Flashcard(term, definition, DifficultyLevel.hard, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
         flashcardDao.persist(flashcard);
     }
 

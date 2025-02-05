@@ -6,11 +6,15 @@ import com.flash_card.model.dao.FlashcardSetDao; //Dao need to be in ViewModel i
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.List;
 //this file for testing only not follow mvvm Dao need to be in ViewModel instead
 public class EditManyCardsController extends ViewController {
@@ -55,12 +59,35 @@ public class EditManyCardsController extends ViewController {
         }
     }
 
+    @FXML
+    private void handleAddCard() {
+        goToCreateFlashcardPage(); //may need to have a seperate page for add single card
+    }
+
+    private void goToCreateFlashcardPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+            Parent root = loader.load();
+            CreateFlashcardController controller = loader.getController();
+            controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
+            Scene scene = setName.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleEditFlashcard(Flashcard flashcard) {
     }
 
     private void handleDeleteFlashcard(Flashcard flashcard) {
-        flashcardDao.delete(flashcard); //should be in ViewModel
-        loadFlashcards();
+        List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSetId); // should be in ViewModel
+        if (flashcards.size() == 1) {
+            showAlert("Warning", "The last card cannot be deleted. You need to delete the whole set.");
+        } else {
+            flashcardDao.delete(flashcard); // should be in ViewModel
+            loadFlashcards();
+        }
     }
 }
 

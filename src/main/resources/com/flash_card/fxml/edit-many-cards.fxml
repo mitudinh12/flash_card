@@ -16,7 +16,7 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
                 <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="super-flash-title" text="SuperFlash" textAlignment="CENTER" wrappingWidth="263.72779846191406" />
-                <HBox fx:id="home" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="131.0" spacing="20.0">
+                <HBox fx:id="home" alignment="CENTER" layoutX="45.0" layoutY="131.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -26,7 +26,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
                     </children>
                 </HBox>
-                <HBox fx:id="flashcard" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
+                <HBox fx:id="flashcard" alignment="CENTER" layoutX="45.0" layoutY="198.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -36,7 +36,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Flashcard" />
                     </children>
                 </HBox>
-                <HBox fx:id="class" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
+                <HBox fx:id="class" alignment="CENTER" layoutX="45.0" layoutY="261.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -46,7 +46,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
                     </children>
                 </HBox>
-                <HBox fx:id="teacher" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
+                <HBox fx:id="teacher" alignment="CENTER" layoutX="47.0" layoutY="323.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -57,7 +57,7 @@
                     </children>
                 </HBox>
                 <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
-                <HBox fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
+                <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="47.0" layoutY="430.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -81,7 +81,8 @@
                     </padding>
                 </HBox>
             <Label fx:id="setName" styleClass="page-title" text="Flashcard Set Name" />
-                <VBox fx:id="flashcardsContainer" alignment="CENTER" prefHeight="628.0" prefWidth="816.0" spacing="10.0" />
+            <Button mnemonicParsing="false" onAction="#handleAddCard" text="Add flashcard" />
+                <VBox fx:id="flashcardsContainer" prefHeight="628.0" prefWidth="816.0" spacing="10.0" />
             </children>
             <padding>
                 <Insets left="100.0" right="100.0" top="40.0" />
