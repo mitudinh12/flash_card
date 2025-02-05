@@ -1,29 +1,22 @@
-package com.flash_card.view.flashcardPage;
+package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
-public class FlashcardController extends ViewController {
-    private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
+public class FlashcardSetPageController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
 
