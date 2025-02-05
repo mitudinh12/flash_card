@@ -61,14 +61,14 @@ public class EditManyCardsController extends ViewController {
 
     @FXML
     private void handleAddCard() {
-        goToCreateFlashcardPage(); //may need to have a seperate page for add single card
+        goToAddFlashcardPage();
     }
 
-    private void goToCreateFlashcardPage() {
+    private void goToAddFlashcardPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/add-flashcard.fxml"));
             Parent root = loader.load();
-            CreateFlashcardController controller = loader.getController();
+            AddFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
             Scene scene = setName.getScene();
             scene.setRoot(root);
