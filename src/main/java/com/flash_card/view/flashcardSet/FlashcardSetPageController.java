@@ -1,4 +1,4 @@
-package com.flash_card.view.flashcardPage;
+package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.view.homepage.HomePageController;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FlashcardController extends ViewController {
+public class FlashcardSetPageController extends ViewController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
