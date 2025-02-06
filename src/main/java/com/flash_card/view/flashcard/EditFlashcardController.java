@@ -1,15 +1,12 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.model.entity.Flashcard;
-import com.flash_card.view_model.flashcard.CreateFlashcardViewModel;
+import com.flash_card.view_model.flashcard.EditFlashcardViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-
 import java.io.IOException;
 
 public class EditFlashcardController extends ViewController {
@@ -18,15 +15,15 @@ public class EditFlashcardController extends ViewController {
     @FXML
     private TextField definitionField;
 
-    private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel();
+    private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel();
     private int flashcardSetId;
-    private Flashcard card;
+    private int cardId = 0;
 
     @FXML
     public void initialize() {
-        if (card != null) {
-            termField.setText(card.getTerm());
-            definitionField.setText(card.getDefinition());
+        if (cardId != 0) {
+            termField.setText(viewModel.term(cardId));
+            definitionField.setText(viewModel.definition(cardId));
         }
     }
 
@@ -36,7 +33,7 @@ public class EditFlashcardController extends ViewController {
             showAlert("Warning", "Please fill in both term and definition fields");
             return;
         }
-        viewModel.updateFlashcard(card, termField.getText(), definitionField.getText());
+        viewModel.updateFlashcard(cardId, termField.getText(), definitionField.getText());
         goToEditManyCardsPage();
     }
 
@@ -62,11 +59,11 @@ public class EditFlashcardController extends ViewController {
         this.flashcardSetId = flashcardSetId;
     }
 
-    public void setFlashcard(Flashcard card) {
-        this.card = card;
+    public void setFlashcardId(int cardId) {
+        this.cardId = cardId;
         if (termField != null && definitionField != null) {
-            termField.setText(card.getTerm());
-            definitionField.setText(card.getDefinition());
+            termField.setText(viewModel.term(cardId));
+            definitionField.setText(viewModel.definition(cardId));
         }
     }
 }
