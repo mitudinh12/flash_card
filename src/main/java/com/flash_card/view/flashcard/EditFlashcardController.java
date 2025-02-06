@@ -10,14 +10,14 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class EditFlashcardController extends ViewController {
+    private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel();
+    private int flashcardSetId;
+    private int cardId = 0;
+
     @FXML
     private TextField termField;
     @FXML
     private TextField definitionField;
-
-    private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel();
-    private int flashcardSetId;
-    private int cardId = 0;
 
     @FXML
     public void initialize() {

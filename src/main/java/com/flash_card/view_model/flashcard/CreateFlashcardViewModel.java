@@ -15,11 +15,21 @@ public class CreateFlashcardViewModel {
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
+    //SAVE FLASHCARD METHODS
+    private FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
+        return flashcardSetDao.findById(flashcardSetId);
+    }
+
+    private User getCurrentUser() {
+        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+        return userDao.findById(userId);
+    }
     public void saveFlashcard(String term, String definition, int flashcardSetId) {
         Flashcard flashcard = new Flashcard(term, definition, DifficultyLevel.hard, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
         flashcardDao.persist(flashcard);
     }
 
+    //DELETE FLASHCARD IF EMPTY METHODS
     public boolean isFlashcardSetEmpty(int flashcardSetId) {
         return flashcardDao.findBySetId(flashcardSetId).isEmpty();
     }
@@ -28,14 +38,5 @@ public class CreateFlashcardViewModel {
         if (isFlashcardSetEmpty(flashcardSetId)) {
             flashcardSetDao.delete(flashcardSetDao.findById(flashcardSetId));
         }
-    }
-
-    private FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
-        return flashcardSetDao.findById(flashcardSetId);
-    }
-
-    private User getCurrentUser() {
-        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
-        return userDao.findById(userId);
     }
 }

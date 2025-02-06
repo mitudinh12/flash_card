@@ -13,27 +13,15 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class EditFlashcardSetController extends ViewController {
+    private int setId;
+    private EditFlashcardSetViewModel viewModel = new EditFlashcardSetViewModel();
+
     @FXML
     private TextField setNameField;
     @FXML
     private TextField setDescriptionField;
     @FXML
     private TextField setTopicField;
-
-    private int setId;
-    private EditFlashcardSetViewModel viewModel;
-
-    public EditFlashcardSetController() {
-        viewModel = new EditFlashcardSetViewModel();
-    }
-
-    //set the fields with the current set info
-    public void setFlashcardSet(int setId, String setName, String setDescription, String setTopic) {
-        this.setId = setId;
-        setNameField.setText(setName);
-        setDescriptionField.setText(setDescription);
-        setTopicField.setText(setTopic);
-    }
 
     @FXML
     public void handleEditCards(ActionEvent actionEvent) {
@@ -75,5 +63,13 @@ public class EditFlashcardSetController extends ViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //set the fields with the current set info
+    public void setFlashcardSet(int setId, String setName, String setDescription, String setTopic) {
+        this.setId = setId;
+        setNameField.setText(setName);
+        setDescriptionField.setText(setDescription);
+        setTopicField.setText(setTopic);
     }
 }

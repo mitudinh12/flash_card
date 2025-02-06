@@ -11,13 +11,13 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class CreateFlashcardController extends ViewController {
+    private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel();
+    private int flashcardSetId;
+
     @FXML
     private TextField termField;
     @FXML
     private TextField definitionField;
-
-    private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel();
-    private int flashcardSetId;
 
     @FXML
     public void handleCreateFlashcard() {

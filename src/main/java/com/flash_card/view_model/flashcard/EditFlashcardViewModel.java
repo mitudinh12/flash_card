@@ -7,11 +7,25 @@ import com.flash_card.model.entity.FlashcardSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class EditFlashcardViewModel {
     private final FlashcardDao flashcardDao = FlashcardDao.getInstance();
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
 
+    //GET FLASHCARD SET NAME FOR TITLE
+    public String getSetName(int flashcardSetId) {
+        FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);
+        return flashcardSet.getSetName();
+    }
+
+    //GET FLASHCARD IDS BY SET ID
+    public List<Integer> getFlashcardIdsBySetId(int flashcardSetId) {
+        List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSetId);
+        return flashcards.stream()
+                .map(Flashcard::getCardId)
+                .collect(Collectors.toList());
+    }
+
+    //GET FLASHCARD DETAILS
     private Flashcard getFlashcardById(int flashcardId) {
         return flashcardDao.findById(flashcardId);
     }
@@ -24,6 +38,7 @@ public class EditFlashcardViewModel {
         return getFlashcardById(flashcardId).getDefinition();
     }
 
+    //UPDATE FLASHCARD TO DATABASE
     public void updateFlashcard(int flashcardId, String term, String definition) {
         Flashcard flashcard = getFlashcardById(flashcardId);
         flashcard.setTerm(term);
@@ -31,6 +46,7 @@ public class EditFlashcardViewModel {
         flashcardDao.update(flashcard);
     }
 
+    //DELETE FLASHCARD AND CHECK IF IT IS THE LAST FLASHCARD
     public boolean isLastFlashcard(int flashcardSetId) {
         List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSetId);
         return flashcards.size() == 1;
@@ -38,17 +54,5 @@ public class EditFlashcardViewModel {
 
     public void deleteFlashcard(int flashcardId) {
         flashcardDao.delete(flashcardDao.findById(flashcardId));
-    }
-
-    public List<Integer> getFlashcardIdsBySetId(int flashcardSetId) {
-        List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSetId);
-        return flashcards.stream()
-                .map(Flashcard::getCardId)
-                .collect(Collectors.toList());
-    }
-
-    public String getSetName(int flashcardSetId) {
-        FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);
-        return flashcardSet.getSetName();
     }
 }

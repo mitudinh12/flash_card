@@ -75,6 +75,7 @@ public class EditManyCardsController extends ViewController {
         } else {
             viewModel.deleteFlashcard(flashcardId);
         }
+        loadFlashcards(); //reload the flashcards
     }
 
     private void goToAddFlashcardPage() {
