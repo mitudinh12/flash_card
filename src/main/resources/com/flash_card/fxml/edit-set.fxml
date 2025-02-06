@@ -82,7 +82,7 @@
                <children>
                       <HBox alignment="CENTER" prefHeight="28.0" prefWidth="816.0" spacing="10.0">
                           <children>
-                              <Button onAction="#handleEditCards" mnemonicParsing="false" styleClass="edit-button" text="Edit flash card" textFill="WHITE" />
+                              <Button onAction="#handleEditCards" mnemonicParsing="false" styleClass="edit-button" text="Edit flash cards" textFill="WHITE" />
                           </children>
                       </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="54.0" prefWidth="816.0" spacing="10.0">

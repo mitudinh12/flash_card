@@ -73,7 +73,7 @@ public class EditManyCardsController extends ViewController {
         if (viewModel.isLastFlashcard(flashcardSetId)) {
             showAlert("Warning", "The last card cannot be deleted. You need to delete the whole set.");
         } else {
-            viewModel.deleteFlashcard(flashcardId);
+            viewModel.deleteFlashcard(flashcardId, flashcardSetId); //delete the flashcard and decrease the number of flashcards in the set
         }
         loadFlashcards(); //reload the flashcards
     }

@@ -52,7 +52,12 @@ public class EditFlashcardViewModel {
         return flashcards.size() == 1;
     }
 
-    public void deleteFlashcard(int flashcardId) {
+    public void deleteFlashcard(int flashcardId, int flashcardSetId) {
         flashcardDao.delete(flashcardDao.findById(flashcardId));
+
+        //decrease number of flashcards in the set by 1
+        FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);;
+        flashcardSet.subtractNumberFlashcard();
+        flashcardSetDao.update(flashcardSet);
     }
 }

@@ -25,7 +25,7 @@ public class CreateFlashcardController extends ViewController {
             showAlert("Warning", "Please fill in both term and definition fields");
             return;
         }
-        viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId);
+        viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId); //save flashcard and increase number of flashcards in flashcard set
         System.out.println("Flashcard saved. Create new one");
         goToCreateFlashcardPage();
     }
