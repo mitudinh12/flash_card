@@ -95,6 +95,20 @@ public class FlashcardSetDao {
         return flashcardSets;
     }
 
+    public List<FlashcardSet> findAllSetsByCreatorId(String userId) {
+        List<FlashcardSet> flashcardSetList = new ArrayList<>();
+        try {
+             flashcardSetList = entityManager.createQuery(
+                    "SELECT f FROM FlashcardSet f WHERE f.flashcardCreator.userId = :userId",
+                    FlashcardSet.class
+            ).setParameter("userId", userId).getResultList();
+            System.out.println(flashcardSetList);
+            return flashcardSetList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return flashcardSetList;
+        }
+    }
     public List<FlashcardSet> findThreeNewestSets() {
         List<FlashcardSet> flashcardSets = new ArrayList<>();
         try {

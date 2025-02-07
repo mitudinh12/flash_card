@@ -151,3 +151,70 @@
     -fx-background-color: #FF0000;
     -fx-background-radius: 8;
 }
+
+#name-label {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-min-width: 350px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 20px 0 10px;
+}
+
+#topic-label {
+    -fx-font-size: 12;
+    -fx-font-weight: 6px;
+    -fx-min-width: 200px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 20px 0 0;
+}
+
+#number-flashcard {
+    -fx-font-size: 12;
+    -fx-min-width: 90px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 20px 0 0;
+}
+
+#action-button {
+    -fx-font-size:13;
+    -fx-font-weight: bold;
+    -fx-background-color: #E2F2E1;
+    -fx-border-color: #01C729;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 3px 25px 3px 25px;
+}
+
+#flashcard-set-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-alignment: center-left;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+#listFlashcards {
+    -fx-background-color: #E2F2E1;
+    -fx-alignment: top;
+    -fx-spacing: 8px;
+}
+
+#nextButton {
+    -fx-background-color: transparent
+
+}
+
+#backButton {
+    -fx-background-color: transparent
+}
+
+#action-list {
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+}
+
+.menu-item {
+    -fx-padding: 0 25px 0 25px;
+    -fx-alignment: center;
+}

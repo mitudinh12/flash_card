@@ -4,7 +4,6 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,60 +13,71 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="home-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.homepage.HomePageController">
+<?import javafx.scene.control.ListView?>
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="home-background" stylesheets="@../styles/styles.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.flash_card.view.homepage.HomePageController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="super-flash-title" text="SuperFlash" textAlignment="CENTER" wrappingWidth="263.72779846191406" />
-                <HBox fx:id="home" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="131.0" spacing="20.0">
+                <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="super-flash-title"
+                      text="SuperFlash" textAlignment="CENTER" wrappingWidth="263.72779846191406"/>
+                <HBox fx:id="home" alignment="CENTER" layoutX="45.0" layoutY="131.0" onMouseClicked="#handleMenuClick"
+                      spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-home-black.png" />
+                                <Image url="@../assets/icons/I-home-black.png"/>
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Home" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Home"/>
                     </children>
                 </HBox>
-                <HBox fx:id="flashcard" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="198.0" spacing="20.0">
+                <HBox fx:id="flashcard" alignment="CENTER" layoutX="45.0" layoutY="198.0"
+                      onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-flashcard-set-white.png" />
+                                <Image url="@../assets/icons/I-flashcard-set-white.png"/>
                             </image>
                         </ImageView>
-                        <Text  strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Flashcard"/>
                     </children>
                 </HBox>
-                <HBox fx:id="class" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="45.0" layoutY="261.0" spacing="20.0">
+                <HBox fx:id="class" alignment="CENTER" layoutX="45.0" layoutY="261.0" onMouseClicked="#handleMenuClick"
+                      spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-class-white.png" />
+                                <Image url="@../assets/icons/I-class-white.png"/>
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class"/>
                     </children>
                 </HBox>
-                <HBox fx:id="teacher" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="323.0" spacing="20.0">
+                <HBox fx:id="teacher" alignment="CENTER" layoutX="47.0" layoutY="323.0"
+                      onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-teacher-white.png" />
+                                <Image url="@../assets/icons/I-teacher-white.png"/>
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode"/>
                     </children>
                 </HBox>
-                <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0" startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0" />
-                <HBox fx:id="createFlashcardSet" onMouseClicked="#handleMenuClick" alignment="CENTER" layoutX="47.0" layoutY="430.0" spacing="20.0">
+                <Line endX="96.41452026367188" endY="15.36334228515625" layoutX="145.0" layoutY="376.0"
+                      startX="-97.3949203491211" startY="15.36334228515625" stroke="WHITE" strokeWidth="5.0"/>
+                <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="47.0" layoutY="430.0"
+                      onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-create-card-white.png" />
+                                <Image url="@../assets/icons/I-create-card-white.png"/>
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white"
+                              text="Create Flashcards"/>
                     </children>
                 </HBox>
             </children>
@@ -76,45 +86,49 @@
             <children>
                 <HBox alignment="TOP_RIGHT" prefHeight="28.0" prefWidth="200.0" spacing="15.0">
                     <children>
-                        <Label fx:id="userName" styleClass="menu-text-black" text="Username" />
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Logout" textFill="WHITE" />
+                        <Label fx:id="userName" styleClass="menu-text-black" text="Username"/>
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout"
+                                style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Logout"
+                                textFill="WHITE"/>
                     </children>
                     <padding>
-                        <Insets bottom="40.0" />
+                        <Insets bottom="40.0"/>
                     </padding>
                 </HBox>
-                <Label styleClass="page-title" text="Your Flashcards" />
+                <Label styleClass="page-title" text="Your Flashcards"/>
                 <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="107.0">
                     <children>
                         <StackPane prefHeight="100.0" prefWidth="53.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="Button" visible="false" />
-                                <ImageView>
+                                <ImageView fx:id="backIcon">
                                     <image>
-                                        <Image url="@../assets/icons/left-arrow.png" />
+                                        <Image url="@../assets/icons/left-arrow.png"/>
                                     </image>
                                     <viewport>
-                                        <Rectangle2D />
+                                        <Rectangle2D/>
                                     </viewport>
                                 </ImageView>
+                                <Button fx:id="backButton" onAction="#goBack" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0"/>
                             </children>
                         </StackPane>
                         <StackPane prefHeight="100.0" prefWidth="55.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="Button" visible="false" />
-                                <ImageView>
+                                <ImageView fx:id="nextIcon">
                                     <image>
-                                        <Image url="@../assets/icons/arrow-point-to-right.png" />
+                                        <Image url="@../assets/icons/arrow-point-to-right.png"/>
                                     </image>
                                 </ImageView>
+                                <Button fx:id="nextButton" onAction="#goNext" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0"/>
                             </children>
                         </StackPane>
                     </children>
                 </HBox>
-                <ListView fx:id="listFlashcards" prefHeight="200.0" prefWidth="700.0" />
+                <VBox fx:id="listFlashcards" prefHeight="226.0" prefWidth="817.0" >
+                </VBox>
+
             </children>
             <padding>
-                <Insets left="100.0" right="100.0" top="40.0" />
+                <Insets left="100.0" right="100.0" top="40.0"/>
             </padding>
         </VBox>
     </children>

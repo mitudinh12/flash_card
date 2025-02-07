@@ -41,6 +41,7 @@ public class FlashcardSet {
         this.setName = setName;
         this.setDescription = setDescription;
         this.setTopic = setTopic;
+        this.numberFlashcards = 0;
         this.flashcardCreator = flashcardCreator;
     }
 
@@ -60,6 +61,10 @@ public class FlashcardSet {
 
     public String getSetTopic() {
         return setTopic;
+    }
+
+    public int getNumberFlashcards() {
+        return numberFlashcards;
     }
 
     public User getSetCreator() {
