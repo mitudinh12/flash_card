@@ -1,17 +1,24 @@
 package com.flash_card.framework;
 
+import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.flashcard_set.DisplayFlashcardSetViewModel;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
 public class FlashcardSetContainer extends HBox {
     private DisplayFlashcardSetViewModel viewModel;
     private HomePageController controller;
+    private Label nameLabel;
 
     public FlashcardSetContainer(DisplayFlashcardSetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -21,7 +28,7 @@ public class FlashcardSetContainer extends HBox {
 
     private void initializeUI() {
 
-        Label nameLabel = new Label();
+        nameLabel = new Label();
         nameLabel.setId("name-label");
         nameLabel.textProperty().bind(viewModel.setNameProperty());
 
@@ -49,6 +56,25 @@ public class FlashcardSetContainer extends HBox {
         MenuItem study = new MenuItem("Study");
         MenuItem quiz = new MenuItem("Quiz");
         MenuItem edit = new MenuItem("Edit");
+        edit.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
+                Parent root = loader.load();
+
+                //pass the FlashcardSet data to the EditFlashcardSetController
+                EditFlashcardSetController editSetController = loader.getController();
+                editSetController.setFlashcardSet(
+                        viewModel.getSet().getSetId(),
+                        viewModel.getSet().getSetName(),
+                        viewModel.getSet().getSetDescription(),
+                        viewModel.getSet().getSetTopic());
+
+                Scene scene = nameLabel.getScene();
+                scene.setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         MenuItem delete = new MenuItem("Delete");
         delete.setOnAction(event -> {
             controller.deleteFlashcardSet(viewModel);
