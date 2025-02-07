@@ -25,13 +25,12 @@ public class FlashcardSet {
     @Column(name = "number_flashcards")
     private int numberFlashcards;
 
-    //Implement user that owns the set later. For now, all created sets are owned by user with id 1
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", referencedColumnName = "user_id")
     private User flashcardCreator;
 
-    @ManyToMany(mappedBy = "sharedFlashcardSets")
-    private List<User> sharedWithUsers = new ArrayList<>();
+    @OneToMany(mappedBy = "flashcardSet")
+    private List<SharedSet> sharedSets;
 
     public FlashcardSet(String setName, String setDescription, String setTopic, User flashcardCreator) {
         super();
@@ -83,6 +82,4 @@ public class FlashcardSet {
         numberFlashcards -= 1;
     }
 
-    public List<User> getSharedWithUsers() { return sharedWithUsers; }
-    public void shareWithUser(User user) { this.sharedWithUsers.add(user);}
 }
