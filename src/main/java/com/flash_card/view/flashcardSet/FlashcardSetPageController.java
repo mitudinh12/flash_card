@@ -4,6 +4,7 @@ import com.flash_card.framework.ViewController;
 import com.flash_card.model.dao.FlashcardSetDao; //Dao need to be in ViewModel instead
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.SharedSet;
+import com.flash_card.view_model.flashcard_set.DisplayFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.fxml.FXML;
@@ -22,10 +23,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-//this file for testing only not follow mvvm Dao need to be in ViewModel instead
+
 public class FlashcardSetPageController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(); //should be in ViewModel
+    private final DisplayFlashcardSetViewModel displayViewModel = new DisplayFlashcardSetViewModel();
     private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel();
 
     @FXML
@@ -37,47 +38,56 @@ public class FlashcardSetPageController extends ViewController {
     @FXML
     private void initialize() {
         setUserName(authSessionViewModel.getVerifiedUserInfo().get("firstName"));
-        loadThreeNewestFlashcardSets();
+        loadFlashcardSets();
     }
-
-    private void loadThreeNewestFlashcardSets() {
-        List<FlashcardSet> ownSets = flashcardSetDao.findByUserId(authSessionViewModel.getVerifiedUserInfo().get("userId")); //should be in ViewModel
+    //Load all flashcard sets that this person can see
+    private void loadFlashcardSets() {
         flashcardSetsContainer.getChildren().clear();
+        loadOwnFlashcardSets();
+        loadSharedFlashcardSets();
+    }
+    //Load all flashcard sets that this person created
+    private void loadOwnFlashcardSets() {
+        List<FlashcardSet> ownSets = displayViewModel.findOwnSets(authSessionViewModel.getVerifiedUserInfo().get("userId"));
         for (FlashcardSet set : ownSets) {
-            HBox hbox = new HBox(10);
-            hbox.getStyleClass().add("hbox-flashcard-set");
-            Label setName = new Label(set.getSetName());
-            Button learnButton = new Button("Learn");
-            Button quizButton = new Button("Quiz");
-            Button editButton = new Button("Edit");
-            Button shareButton = new Button("Share");
-
-            learnButton.setOnAction(event -> handleLearn(set));
-            quizButton.setOnAction(event -> handleQuiz(set));
-            editButton.setOnAction(event -> handleEdit(set.getSetId(), set.getSetName(), set.getSetDescription(), set.getSetTopic())); //pass set info
-            shareButton.setOnAction(event -> handleShare(set.getSetId()));
-
-            hbox.getChildren().addAll(setName, learnButton, quizButton, editButton, shareButton);
+            HBox hbox = createFlashcardSetHBox(set, true);
             flashcardSetsContainer.getChildren().add(hbox);
         }
-
+    }
+    //Load all flashcard sets that this person is shared to
+    private void loadSharedFlashcardSets() {
         List<FlashcardSet> sharedSets = sharedSetViewModel.getSharedFlashcardSets(authSessionViewModel.getVerifiedUserInfo().get("userId"));
         for (FlashcardSet set : sharedSets) {
-            HBox hbox = new HBox(10);
-            hbox.getStyleClass().add("hbox-flashcard-set");
-            Label setName = new Label(set.getSetName());
-            Button learnButton = new Button("Learn");
-            Button quizButton = new Button("Quiz");
-            Button deleteButton = new Button("Delete");
-
-            learnButton.setOnAction(event -> handleLearn(set));
-            quizButton.setOnAction(event -> handleQuiz(set));
-            deleteButton.setOnAction(event -> handleDelete(set.getSetId()));
-
-            hbox.getChildren().addAll(setName, learnButton, quizButton, deleteButton);
+            HBox hbox = createFlashcardSetHBox(set, false);
             flashcardSetsContainer.getChildren().add(hbox);
-
         }
+    }
+
+    private HBox createFlashcardSetHBox(FlashcardSet set, boolean isOwnSet) {
+        HBox hbox = new HBox(10);
+        hbox.getStyleClass().add("hbox-flashcard-set");
+        Label setName = new Label(set.getSetName());
+        Button learnButton = new Button("Learn");
+        Button quizButton = new Button("Quiz");
+
+        learnButton.setOnAction(event -> handleLearn(set));
+        quizButton.setOnAction(event -> handleQuiz(set));
+
+        hbox.getChildren().addAll(setName, learnButton, quizButton);
+
+        if (isOwnSet) {
+            Button editButton = new Button("Edit");
+            Button shareButton = new Button("Share");
+            editButton.setOnAction(event -> handleEdit(set.getSetId(), set.getSetName(), set.getSetDescription(), set.getSetTopic()));
+            shareButton.setOnAction(event -> handleShare(set.getSetId()));
+            hbox.getChildren().addAll(editButton, shareButton);
+        } else {
+            Button deleteButton = new Button("Delete");
+            deleteButton.setOnAction(event -> handleDelete(set.getSetId()));
+            hbox.getChildren().add(deleteButton);
+        }
+
+        return hbox;
     }
 
     private void handleLearn(FlashcardSet set) {
@@ -124,17 +134,13 @@ public class FlashcardSetPageController extends ViewController {
                 return;
             } else {
                 sharedSetViewModel.saveSharedFlashcardSet(emailField.getText(), setId);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText(null);
-                alert.setContentText("The flashcard set has been shared successfully!");
-                alert.showAndWait();
+                showAlert("Success", "The flashcard set has been shared successfully!");
             }
             newStage.close();
         });
 
     }
-
+    //Delete shared flashcard set
     private void handleDelete(int flashcardSetId) {
         sharedSetViewModel.deleteSharedFlashcardSet(flashcardSetId);
         showAlert("Success", "The flashcard set has been deleted successfully!");
