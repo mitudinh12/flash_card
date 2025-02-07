@@ -14,6 +14,7 @@ module com.flash_card {
     requires com.google.api.client.json.gson;
     requires com.google.api.client.auth;
     requires org.slf4j;
+    requires org.checkerframework.checker.qual;
 
     opens com.flash_card to javafx.fxml;
     opens com.flash_card.model.datasource;
