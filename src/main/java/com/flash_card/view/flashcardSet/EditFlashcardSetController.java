@@ -38,12 +38,12 @@ public class EditFlashcardSetController extends ViewController {
             return;
         }
         viewModel.saveFlashcardSet(setId, setName, setDescription, setTopic);//pass edited set info to view model
-        goToPage("/com/flash_card/fxml/flashcard.fxml", setNameField.getScene());
+        goToPage("/com/flash_card/fxml/home.fxml", setNameField.getScene());
     }
 
     @FXML
     public void handleCancel(ActionEvent actionEvent) {
-        goToPage("/com/flash_card/fxml/flashcard.fxml", setNameField.getScene());
+        goToPage("/com/flash_card/fxml/home.fxml", setNameField.getScene());
     }
 
     private void goToEditManyCardsPage(int setId) {

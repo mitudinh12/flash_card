@@ -39,7 +39,7 @@ public class CreateFlashcardController extends ViewController {
         viewModel.saveFlashcard(termField.getText(), definitionField.getText(),flashcardSetId);
         System.out.println("Flashcard saved. Back to Flashcard Page");
         clearFlashcardSetId();
-        goToPage("/com/flash_card/fxml/flashcard.fxml", termField.getScene());
+        goToPage("/com/flash_card/fxml/home.fxml", termField.getScene());
     }
 
     @FXML
