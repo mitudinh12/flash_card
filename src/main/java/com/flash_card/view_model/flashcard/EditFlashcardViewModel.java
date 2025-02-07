@@ -21,6 +21,7 @@ public class EditFlashcardViewModel {
     public List<Integer> getFlashcardIdsBySetId(int flashcardSetId) {
         List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSetId);
         return flashcards.stream()
+                .sorted((f1, f2) -> f2.getCardId() - f1.getCardId())
                 .map(Flashcard::getCardId)
                 .collect(Collectors.toList());
     }
