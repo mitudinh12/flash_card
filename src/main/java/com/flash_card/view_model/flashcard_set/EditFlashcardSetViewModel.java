@@ -19,11 +19,4 @@ public class EditFlashcardSetViewModel {
             flashcardSetDao.update(flashcardSet);
         }
     }
-
-    public void deleteFlashcardSet(int setId) {
-        FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
-        if (flashcardSet != null) {
-            flashcardSetDao.delete(flashcardSet);
-        }
-    }
 }

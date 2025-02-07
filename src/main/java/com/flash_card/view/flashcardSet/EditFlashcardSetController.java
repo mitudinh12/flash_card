@@ -46,12 +46,6 @@ public class EditFlashcardSetController extends ViewController {
         goToPage("/com/flash_card/fxml/flashcard.fxml", setNameField.getScene());
     }
 
-    @FXML
-    public void handleDeleteSet(ActionEvent actionEvent) {
-        viewModel.deleteFlashcardSet(setId);
-        goToPage("/com/flash_card/fxml/flashcard.fxml", setNameField.getScene());
-    }
-
     private void goToEditManyCardsPage(int setId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
