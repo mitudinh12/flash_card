@@ -19,6 +19,9 @@ public class FlashcardSet {
     @Column(name = "set_topic")
     private String setTopic;
 
+    @Column(name = "number_flashcards")
+    private int numberFlashcards;
+
     //Implement user that owns the set later. For now, all created sets are owned by user with id 1
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", referencedColumnName = "user_id")
@@ -38,6 +41,7 @@ public class FlashcardSet {
         this.setName = setName;
         this.setDescription = setDescription;
         this.setTopic = setTopic;
+        this.numberFlashcards = 0;
         this.flashcardCreator = flashcardCreator;
     }
 
@@ -59,6 +63,10 @@ public class FlashcardSet {
         return setTopic;
     }
 
+    public int getNumberFlashcards() {
+        return numberFlashcards;
+    }
+
     public User getSetCreator() {
         return flashcardCreator;
     }
@@ -76,4 +84,11 @@ public class FlashcardSet {
         this.setTopic = setTopic;
     }
 
+    public void addNumberFlashcards() {
+        numberFlashcards += 1;
+    }
+
+    public void subtractNumberFlashcard() {
+        numberFlashcards -= 1;
+    }
 }

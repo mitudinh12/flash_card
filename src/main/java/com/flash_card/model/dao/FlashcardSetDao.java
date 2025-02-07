@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlashcardSetDao {
     private static FlashcardSetDao instance;
@@ -94,5 +95,18 @@ public class FlashcardSetDao {
         return flashcardSets;
     }
 
-
+    public List<FlashcardSet> findAllSetsByCreatorId(String userId) {
+        List<FlashcardSet> flashcardSetList = new ArrayList<>();
+        try {
+             flashcardSetList = entityManager.createQuery(
+                    "SELECT f FROM FlashcardSet f WHERE f.flashcardCreator.userId = :userId",
+                    FlashcardSet.class
+            ).setParameter("userId", userId).getResultList();
+            System.out.println(flashcardSetList);
+            return flashcardSetList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return flashcardSetList;
+        }
+    }
 }
