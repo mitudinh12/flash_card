@@ -31,13 +31,8 @@ public class User {
     @OneToMany(mappedBy = "flashcardCreator")
     private List<FlashcardSet> flashcardSets;
 
-    @ManyToMany
-    @JoinTable(
-            name = "shared_sets",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "set_id")
-    )
-    private List<FlashcardSet> sharedFlashcardSets = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<SharedSet> sharedSets = new ArrayList<>();
 
     public User(String userId, String firstName, String lastName, String email, String idToken) {
         super();
@@ -59,8 +54,13 @@ public class User {
 
     public String getEmail() {return email;}
 
-    public List<FlashcardSet> getSharedFlashcardSets() { return sharedFlashcardSets; }
-    public void addSharedFlashcardSet(FlashcardSet flashcardSet) { this.sharedFlashcardSets.add(flashcardSet); }
+    public List<SharedSet> getSharedSets() {
+        return sharedSets;
+    }
+
+    public List<FlashcardSet> getFlashcardSets() {
+        return flashcardSets;
+    }
 
 }
 
