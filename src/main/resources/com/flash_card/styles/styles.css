@@ -7,20 +7,12 @@
     -fx-background-image: url("../assets/backgrounds/BG-home.png");
 }
 
-.flashcard-background {
-    -fx-background-image: url("../assets/backgrounds/BG-flashcard.png");
-}
-
-.class-background {
-    -fx-background-image: url("../assets/backgrounds/BG-class.png");
-}
-
 .teacher-background {
-    -fx-background-image: url("../assets/backgrounds/BG-Teacher.png");
+    -fx-background-image: url("../assets/backgrounds/BG-teacherMode.png");
 }
 
 .create-flashcard-background {
-    -fx-background-image: url("../assets/backgrounds/BG-createflashcard.png");
+    -fx-background-image: url("../assets/backgrounds/BG-create.png");
 }
 
 .super-flash-title {
