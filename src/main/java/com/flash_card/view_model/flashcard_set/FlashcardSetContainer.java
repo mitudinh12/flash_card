@@ -47,9 +47,11 @@ public class FlashcardSetContainer extends HBox {
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
         this.getChildren().addAll(nameLabel, topicLabel, numberFlashcard, actionButton);
         this.setId("flashcard-set-container");
-        this.setOnMouseClicked(event -> {
-            editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene());
-        });
+        if (this.viewModel.getType().equals("own")){
+            this.setOnMouseClicked(event -> {
+                editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene());
+            });
+        }
         this.setAlignment(Pos.CENTER_LEFT);
 //
     }
