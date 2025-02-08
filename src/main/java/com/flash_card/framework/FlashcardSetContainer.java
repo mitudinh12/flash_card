@@ -2,7 +2,8 @@ package com.flash_card.framework;
 
 import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view.homepage.HomePageController;
-import com.flash_card.view_model.flashcard_set.DisplayFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.SetViewModel;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,11 +17,11 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class FlashcardSetContainer extends HBox {
-    private DisplayFlashcardSetViewModel viewModel;
+    private SetViewModel viewModel;
     private HomePageController controller;
     private Label nameLabel;
 
-    public FlashcardSetContainer(DisplayFlashcardSetViewModel viewModel, HomePageController controller) {
+    public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
         initializeUI();
@@ -38,7 +39,7 @@ public class FlashcardSetContainer extends HBox {
 
         Label numberFlashcard = new Label();
         numberFlashcard.setId("number-flashcard");
-        numberFlashcard.textProperty().bind(viewModel.setNumberFLashcard());
+        numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
 
         Button actionButton = new Button("Action");
         actionButton.setId("action-button");
@@ -81,7 +82,12 @@ public class FlashcardSetContainer extends HBox {
         });
         MenuItem share = new MenuItem("Share");
 
-        menu.getItems().addAll(study, quiz, edit, delete, share);
+        if (viewModel.getType().equals("own")) {
+            menu.getItems().addAll(study, quiz, edit, delete, share);
+        } else {
+            menu.getItems().addAll(study, quiz, edit, delete);
+        }
+
         menu.setId("action-list");
         menu.show(button, javafx.geometry.Side.BOTTOM, 0, 0);
     }
