@@ -7,7 +7,7 @@ import com.flash_card.view.flashcardSet.CreateFlashcardSetView;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 
 public class CreateFlashcardSetViewModel {
-    private final FlashcardSetDao flashcardSetDao =  FlashcardSetDao.getInstance();;
+    private final FlashcardSetDao flashcardSetDao =  FlashcardSetDao.getInstance();
     private final CreateFlashcardSetView createFlashcardSetView;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
@@ -18,7 +18,6 @@ public class CreateFlashcardSetViewModel {
     public int addSet(String name, String description, String topic) {
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         User user = UserDao.getInstance().findById(userId);
-        System.out.println("User ID: " + userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, user);
             flashcardSetDao.persist(flashcardSet);

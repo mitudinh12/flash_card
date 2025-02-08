@@ -1,4 +1,5 @@
 package com.flash_card.framework;
+import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,15 +39,6 @@ public abstract class ViewController {
                 fxmlFile = "/com/flash_card/fxml/home.fxml";
                 break;
                 /*
-            case "class":
-                fxmlFile = "/com/flash_card/fxml/class.fxml";
-                break;
-                */
-
-            case "flashcard":
-                fxmlFile = "/com/flash_card/fxml/flashcard.fxml";
-                break;
-            /*
             case "teacher":
                 fxmlFile = "/com/flash_card/fxml/teacher-mode.fxml";
                 break;
@@ -107,6 +99,22 @@ public abstract class ViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    protected void displayHomepage(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
+            Parent root = loader.load();
+            HomePageController controller = loader.getController();
+            String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
+            controller.setUserName(userFirstName);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

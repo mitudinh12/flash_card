@@ -14,11 +14,12 @@ module com.flash_card {
     requires com.google.api.client.json.gson;
     requires com.google.api.client.auth;
     requires org.slf4j;
+    requires org.checkerframework.checker.qual;
 
     opens com.flash_card to javafx.fxml;
     opens com.flash_card.model.datasource;
     opens com.flash_card.model.entity to org.hibernate.orm.core;
-
+    opens com.flash_card.view_model.flashcard_set;
 
     opens com.flash_card.model.dao;
     opens com.flash_card.view_model.user to javafx.fxml;
@@ -30,12 +31,13 @@ module com.flash_card {
 
     exports com.flash_card.view_model.user;
     exports com.flash_card;
+    exports com.flash_card.view_model.flashcard_set;
     exports com.flash_card.view.auth;
     exports com.flash_card.view_model.user_auth;
     exports com.flash_card.framework;
-    opens com.flash_card.framework to javafx.fxml;
     exports com.flash_card.view.flashcardSet;
-    opens com.flash_card.view.flashcardSet to javafx.fxml;
     exports com.flash_card.view.flashcard;
     opens com.flash_card.view.flashcard to javafx.fxml;
+    opens com.flash_card.framework;
+    opens com.flash_card.view.flashcardSet;
 }

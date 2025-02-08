@@ -1,11 +1,13 @@
 package com.flash_card.model.dao;
 
 import com.flash_card.model.datasource.MariaDbJpaConnection;
+import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlashcardSetDao {
     private static FlashcardSetDao instance;
@@ -94,5 +96,56 @@ public class FlashcardSetDao {
         return flashcardSets;
     }
 
+    public List<FlashcardSet> findAllSetsByCreatorId(String userId) {
+        List<FlashcardSet> flashcardSetList = new ArrayList<>();
+        try {
+             flashcardSetList = entityManager.createQuery(
+                    "SELECT f FROM FlashcardSet f WHERE f.flashcardCreator.userId = :userId",
+                    FlashcardSet.class
+            ).setParameter("userId", userId).getResultList();
+            System.out.println(flashcardSetList);
+            return flashcardSetList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return flashcardSetList;
+        }
+    }
+    public List<FlashcardSet> findThreeNewestSets() {
+        List<FlashcardSet> flashcardSets = new ArrayList<>();
+        try {
+            flashcardSets = entityManager.createQuery("SELECT fs FROM FlashcardSet fs ORDER BY fs.id DESC", FlashcardSet.class)
+                    .setMaxResults(6)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.err.println("Database connection error: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while getting the newest flashcard sets: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+        return flashcardSets;
+    }
+
+    public List<FlashcardSet> findByUserId(String userId) {
+        List<FlashcardSet> flashcardSets = null;
+        try {
+            flashcardSets = entityManager.createQuery("SELECT fs FROM FlashcardSet fs WHERE fs.flashcardCreator.userId = :userId", FlashcardSet.class)
+                    .setParameter("userId", userId)
+                    .getResultList();
+        }catch (PersistenceException e) {
+            System.err.println("Database connection error: " + e.getMessage());
+            throw e;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Table flashcard does not exist or query is incorrect: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while getting flashcards by user ID: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+
+        return flashcardSets;
+    }
 
 }

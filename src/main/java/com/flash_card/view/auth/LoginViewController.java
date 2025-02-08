@@ -1,5 +1,6 @@
 package com.flash_card.view.auth;
 
+import com.flash_card.framework.ViewController;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.*;
 import javafx.event.ActionEvent;
@@ -14,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.concurrent.Task;
 
-public class LoginViewController {
+public class LoginViewController extends ViewController {
     UserAuthViewModel userAuthViewModel = UserAuthViewModel.getInstance();
     AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
@@ -84,19 +85,5 @@ public class LoginViewController {
         alert.showAndWait();
     }
 
-    void displayHomepage(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
-            Parent root = loader.load();
-            HomePageController controller = loader.getController();
-            String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
-            controller.setUserName(userFirstName);
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

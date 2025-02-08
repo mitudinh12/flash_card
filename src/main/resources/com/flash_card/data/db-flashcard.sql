@@ -23,6 +23,7 @@ CREATE TABLE flashcard_sets (
   set_name VARCHAR(255) NOT NULL COMMENT 'Name of the flashcard set',
   set_description VARCHAR(255) COMMENT 'Optional description of the set',
   set_topic VARCHAR(255) COMMENT 'Topic of the flashcard set',
+  number_flashcards INT DEFAULT 0 COMMENT 'Number of flashcards in this set',
   creator_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (set_id),
   FOREIGN KEY (creator_id) REFERENCES users(user_id) ON DELETE CASCADE,

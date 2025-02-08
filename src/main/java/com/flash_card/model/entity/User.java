@@ -2,6 +2,7 @@ package com.flash_card.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,9 @@ public class User {
     @OneToMany(mappedBy = "flashcardCreator")
     private List<FlashcardSet> flashcardSets;
 
+    @OneToMany(mappedBy = "user")
+    private List<SharedSet> sharedSets = new ArrayList<>();
+
     public User(String userId, String firstName, String lastName, String email, String idToken) {
         super();
         this.userId = userId;
@@ -49,6 +53,14 @@ public class User {
     public String getLastName() {return lastName;}
 
     public String getEmail() {return email;}
+
+    public List<SharedSet> getSharedSets() {
+        return sharedSets;
+    }
+
+    public List<FlashcardSet> getFlashcardSets() {
+        return flashcardSets;
+    }
 
 }
 
