@@ -1,6 +1,6 @@
 package com.flash_card.view.homepage;
 
-import com.flash_card.view_model.flashcard_set.FlashcardSetContainer;
+import com.flash_card.view.flashcardSet.FlashcardSetContainer;
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
 import com.flash_card.framework.SetViewModel;

@@ -1,7 +1,6 @@
-package com.flash_card.view_model.flashcard_set;
+package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.SetViewModel;
-import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view.homepage.HomePageController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -51,8 +50,7 @@ public class FlashcardSetContainer extends HBox {
             this.setOnMouseClicked(event -> {
                 editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene());
             });
-        }
-        this.setAlignment(Pos.CENTER_LEFT);
+        }        this.setAlignment(Pos.CENTER_LEFT);
 //
     }
 
