@@ -3,7 +3,9 @@ package com.flash_card.view.homepage;
 import com.flash_card.framework.FlashcardSetContainer;
 import com.flash_card.view.auth.LoginView;
 import com.flash_card.framework.ViewController;
-import com.flash_card.view_model.flashcard_set.DisplayFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.SetViewModel;
+import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
 import com.flash_card.view_model.user.HomepageViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.collections.ListChangeListener;
@@ -19,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.ImageView;
 
@@ -26,7 +30,9 @@ import javafx.scene.image.ImageView;
 public class HomePageController extends ViewController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private List<DisplayFlashcardSetViewModel> flashcardList;
+    private List<OwnFlashcardSetViewModel> ownFlashcardList;
+    private List<SharedFlashcardSetViewModel> sharedFlashcardList;
+    private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
     private final int pageSize = 3;
     private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
@@ -56,10 +62,9 @@ public class HomePageController extends ViewController {
     private void initialize() {
         setUserName(authSessionViewModel.getVerifiedUserInfo().get("firstName"));
         flashcardList = homepageViewModel.getFlashcardList();
-        updatePage();
 
         // listen for changes in flashcardList to automatically update UI
-        homepageViewModel.getFlashcardList().addListener((ListChangeListener<DisplayFlashcardSetViewModel>) change -> {
+        homepageViewModel.getFlashcardList().addListener((ListChangeListener<SetViewModel>) change -> {
             while (change.next()) {
                 if (change.wasRemoved() || change.wasAdded()) {
                     resetPageToFirst();
@@ -120,8 +125,8 @@ public class HomePageController extends ViewController {
         updatePage();
     }
 
-    public void deleteFlashcardSet(DisplayFlashcardSetViewModel flashcardSetViewModel) {
-        if (flashcardSetViewModel == null) return;
-        homepageViewModel.deleteFlashcardSet(flashcardSetViewModel);
+    public void deleteFlashcardSet(SetViewModel setViewModel) {
+        if (setViewModel == null) return;
+        homepageViewModel.deleteFlashcardSet(setViewModel);
     }
 }
