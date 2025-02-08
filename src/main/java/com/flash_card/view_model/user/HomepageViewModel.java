@@ -5,9 +5,8 @@ import com.flash_card.model.dao.SharedSetsDao;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.SharedSet;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
-import com.flash_card.view_model.flashcard_set.SetViewModel;
+import com.flash_card.framework.SetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
-import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

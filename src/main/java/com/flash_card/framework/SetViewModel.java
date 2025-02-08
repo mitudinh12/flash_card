@@ -1,4 +1,4 @@
-package com.flash_card.view_model.flashcard_set;
+package com.flash_card.framework;
 
 import com.flash_card.model.entity.FlashcardSet;
 import javafx.beans.property.StringProperty;

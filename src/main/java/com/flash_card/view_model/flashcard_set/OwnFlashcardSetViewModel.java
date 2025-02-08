@@ -1,10 +1,11 @@
 package com.flash_card.view_model.flashcard_set;
 
+import com.flash_card.framework.SetViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import com.flash_card.model.entity.FlashcardSet;
 
-public class OwnFlashcardSetViewModel extends SetViewModel{
+public class OwnFlashcardSetViewModel extends SetViewModel {
 
     private final FlashcardSet flashcardSet;
     private final StringProperty setName;

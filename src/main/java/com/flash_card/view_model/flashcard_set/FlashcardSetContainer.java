@@ -1,18 +1,15 @@
-package com.flash_card.framework;
+package com.flash_card.view_model.flashcard_set;
 
+import com.flash_card.framework.SetViewModel;
 import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view.homepage.HomePageController;
-import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
-import com.flash_card.view_model.flashcard_set.SetViewModel;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -20,6 +17,8 @@ public class FlashcardSetContainer extends HBox {
     private SetViewModel viewModel;
     private HomePageController controller;
     private Label nameLabel;
+    private EditFlashcardSetController editSetController = new EditFlashcardSetController();
+
 
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -48,6 +47,9 @@ public class FlashcardSetContainer extends HBox {
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
         this.getChildren().addAll(nameLabel, topicLabel, numberFlashcard, actionButton);
         this.setId("flashcard-set-container");
+        this.setOnMouseClicked(event -> {
+            editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene());
+        });
         this.setAlignment(Pos.CENTER_LEFT);
 //
     }
@@ -61,7 +63,7 @@ public class FlashcardSetContainer extends HBox {
         // edit
         MenuItem edit = new MenuItem("Edit");
         edit.setOnAction(event -> {
-            gotoEditFlashcard();
+            gotoEditFlashcardSet();
         });
         // delete
         MenuItem delete = new MenuItem("Delete");
@@ -78,14 +80,14 @@ public class FlashcardSetContainer extends HBox {
         if (viewModel.getType().equals("own")) {                        // action for own flashcard
             menu.getItems().addAll(study, quiz, edit, delete, share);
         } else {                                                        // action for shared flashcard
-            menu.getItems().addAll(study, quiz, edit, delete);
+            menu.getItems().addAll(study, quiz, delete);
         }
 
         menu.setId("action-list");
         menu.show(button, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
-    public void gotoEditFlashcard() {
+    public void gotoEditFlashcardSet() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
             Parent root = loader.load();

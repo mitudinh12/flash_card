@@ -92,10 +92,13 @@ public class SharedSetsDao {
     public SharedSet findBySetIdAndUserId(int fsId, String userId) {
         SharedSet sharedSet = null;
         try {
-            sharedSet = entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.flashcardSet.setId = :fsId and s.user.userId = :userId", SharedSet.class)
+            List<SharedSet> results = entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.flashcardSet.setId = :fsId and s.user.userId = :userId", SharedSet.class)
                     .setParameter("fsId", fsId)
                     .setParameter("userId", userId)
-                    .getSingleResult();
+                    .getResultList();
+            if (!results.isEmpty()) {
+                sharedSet = results.getFirst();
+            }
         } catch (Exception e) {
             System.err.println("An unexpected error occured while getting a shared set:" + e.getMessage());
             e.printStackTrace();

@@ -32,6 +32,9 @@ public class EditManyCardsController extends ViewController {
     private ImageView backIcon;
     @FXML
     private ImageView nextIcon;
+    @FXML
+    private Button backToHomepage;
+
 
     //INITIALIZE PAGE
     @FXML

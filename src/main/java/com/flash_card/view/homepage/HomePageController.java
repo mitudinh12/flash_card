@@ -1,28 +1,21 @@
 package com.flash_card.view.homepage;
 
-import com.flash_card.framework.FlashcardSetContainer;
-import com.flash_card.view.auth.LoginView;
+import com.flash_card.view_model.flashcard_set.FlashcardSetContainer;
 import com.flash_card.framework.ViewController;
-import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
-import com.flash_card.view_model.flashcard_set.SetViewModel;
+import com.flash_card.framework.SetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import com.flash_card.view_model.user.HomepageViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,7 +23,6 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.ImageView;
@@ -100,6 +92,7 @@ public class HomePageController extends ViewController {
 
         for (int i = start; i < end; i++) {
             FlashcardSetContainer flashcardUI = new FlashcardSetContainer(flashcardList.get(i), this);
+
             listFlashcards.getChildren().add(flashcardUI);
         }
         if (currentPage == 0) {

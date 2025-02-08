@@ -35,9 +35,9 @@ module com.flash_card {
     exports com.flash_card.view.auth;
     exports com.flash_card.view_model.user_auth;
     exports com.flash_card.framework;
-    opens com.flash_card.framework to javafx.fxml;
     exports com.flash_card.view.flashcardSet;
     opens com.flash_card.view.flashcardSet to javafx.fxml;
     exports com.flash_card.view.flashcard;
     opens com.flash_card.view.flashcard to javafx.fxml;
+    opens com.flash_card.framework;
 }

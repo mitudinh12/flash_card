@@ -238,8 +238,15 @@
 }
 
 #add-flashcard-button {
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-background-color: #01C729;
     -fx-background-radius: 8;
+}
+
+#backToHomepage {
+    -fx-text-fill: #01971F;
+    -fx-background-color: transparent;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }

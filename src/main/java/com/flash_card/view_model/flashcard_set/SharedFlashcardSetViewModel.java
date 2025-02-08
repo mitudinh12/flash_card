@@ -1,6 +1,7 @@
 package com.flash_card.view_model.flashcard_set;
 
 
+import com.flash_card.framework.SetViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import com.flash_card.model.entity.FlashcardSet;

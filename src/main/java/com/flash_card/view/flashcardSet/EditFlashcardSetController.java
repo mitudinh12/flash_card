@@ -25,7 +25,7 @@ public class EditFlashcardSetController extends ViewController {
 
     @FXML
     public void handleEditCards(ActionEvent actionEvent) {
-        goToEditManyCardsPage(setId);
+        goToEditManyCardsPage(setId, setNameField.getScene());
     }
 
     @FXML
@@ -46,13 +46,13 @@ public class EditFlashcardSetController extends ViewController {
         goToPage("/com/flash_card/fxml/home.fxml", setNameField.getScene());
     }
 
-    private void goToEditManyCardsPage(int setId) {
+    public void goToEditManyCardsPage(int setId, Scene currentScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
             Parent root = loader.load();
             EditManyCardsController controller = loader.getController();
             controller.setFlashcardSetId(setId);
-            Scene scene = setNameField.getScene();
+            Scene scene = currentScene;
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
