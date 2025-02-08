@@ -18,7 +18,6 @@ public class CreateFlashcardSetViewModel {
     public int addSet(String name, String description, String topic) {
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         User user = UserDao.getInstance().findById(userId);
-        System.out.println("User ID: " + userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, user);
             flashcardSetDao.persist(flashcardSet);
