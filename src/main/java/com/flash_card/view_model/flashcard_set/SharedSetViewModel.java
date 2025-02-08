@@ -36,6 +36,11 @@ public class SharedSetViewModel {
         return userDao.findByEmail(email) != null; //true if user exists, false otherwise
     }
 
+    public boolean isUserAndSetShared(String email, int setId) {                        // check if this user is shared this set or not
+        User user = userDao.findByEmail(email);
+        return sharedSetDao.findBySetIdAndUserId(setId, user.getUserId()) != null;      // true if this user is shared this set
+    }
+
     public List<FlashcardSet> getSharedFlashcardSets() {
         List<SharedSet> sharedSets = sharedSetDao.findByUserId(userId);
         List<FlashcardSet> flashcardSets = new ArrayList<>();

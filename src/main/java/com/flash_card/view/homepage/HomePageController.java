@@ -3,25 +3,34 @@ package com.flash_card.view.homepage;
 import com.flash_card.framework.FlashcardSetContainer;
 import com.flash_card.view.auth.LoginView;
 import com.flash_card.framework.ViewController;
+import com.flash_card.view.flashcardSet.EditFlashcardSetController;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import com.flash_card.view_model.user.HomepageViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.ImageView;
@@ -36,6 +45,7 @@ public class HomePageController extends ViewController {
     private int currentPage = 0;
     private final int pageSize = 3;
     private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
+    private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
 
     @FXML
     private Label userName;
@@ -128,5 +138,37 @@ public class HomePageController extends ViewController {
     public void deleteFlashcardSet(SetViewModel setViewModel) {
         if (setViewModel == null) return;
         homepageViewModel.deleteFlashcardSet(setViewModel);
+    }
+
+    public void handleShare(int setId ) {
+        Stage newStage = new Stage();
+        newStage.setTitle("FLASHCARDS SHARING");
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+
+        Label emailLabel = new Label("Enter email: ");
+        TextField emailField = new TextField();
+        Button shareButton = new Button("Share");
+
+        hBox.getChildren().addAll(emailLabel, emailField, shareButton);
+        Scene scene = new Scene(hBox);
+        newStage.setScene(scene);
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.show();
+
+        shareButton.setOnAction(event -> {
+            if (!sharedSetViewModel.isUserValid(emailField.getText())) {
+                showAlert("Invalid email", "The email you entered is not valid. Please try again.");
+                return;
+            } else if (sharedSetViewModel.isUserAndSetShared(emailField.getText(), setId)) {
+                showAlert("Invalid sharing","This Flashcard set is already shared with this user");
+            }
+            else {
+                sharedSetViewModel.saveSharedFlashcardSet(emailField.getText(), setId);
+                showAlert("Success", "The flashcard set has been shared successfully!");
+            }
+            newStage.close();
+        });
+
     }
 }

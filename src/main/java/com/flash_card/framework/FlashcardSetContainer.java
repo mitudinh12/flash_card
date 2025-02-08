@@ -54,41 +54,54 @@ public class FlashcardSetContainer extends HBox {
 
     private void showContextMenu(Button button) {
         ContextMenu menu = new ContextMenu();
+        // study
         MenuItem study = new MenuItem("Study");
+        // quiz
         MenuItem quiz = new MenuItem("Quiz");
+        // edit
         MenuItem edit = new MenuItem("Edit");
         edit.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
-                Parent root = loader.load();
-
-                //pass the FlashcardSet data to the EditFlashcardSetController
-                EditFlashcardSetController editSetController = loader.getController();
-                editSetController.setFlashcardSet(
-                        viewModel.getSet().getSetId(),
-                        viewModel.getSet().getSetName(),
-                        viewModel.getSet().getSetDescription(),
-                        viewModel.getSet().getSetTopic());
-
-                Scene scene = nameLabel.getScene();
-                scene.setRoot(root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            gotoEditFlashcard();
         });
+        // delete
         MenuItem delete = new MenuItem("Delete");
         delete.setOnAction(event -> {
             controller.deleteFlashcardSet(viewModel);
         });
+        // share
         MenuItem share = new MenuItem("Share");
+        share.setOnAction(event -> {
+            controller.handleShare(viewModel.getSet().getSetId());
+        });
 
-        if (viewModel.getType().equals("own")) {
+        // conditional render
+        if (viewModel.getType().equals("own")) {                        // action for own flashcard
             menu.getItems().addAll(study, quiz, edit, delete, share);
-        } else {
+        } else {                                                        // action for shared flashcard
             menu.getItems().addAll(study, quiz, edit, delete);
         }
 
         menu.setId("action-list");
         menu.show(button, javafx.geometry.Side.BOTTOM, 0, 0);
+    }
+
+    public void gotoEditFlashcard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
+            Parent root = loader.load();
+
+            //pass the FlashcardSet data to the EditFlashcardSetController
+            EditFlashcardSetController editSetController = loader.getController();
+            editSetController.setFlashcardSet(
+                    viewModel.getSet().getSetId(),
+                    viewModel.getSet().getSetName(),
+                    viewModel.getSet().getSetDescription(),
+                    viewModel.getSet().getSetTopic());
+
+            Scene scene = nameLabel.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
