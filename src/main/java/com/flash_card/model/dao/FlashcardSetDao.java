@@ -14,7 +14,7 @@ public class FlashcardSetDao {
     private EntityManager entityManager;
 
     private FlashcardSetDao(EntityManager entityManager) {
-        entityManager = MariaDbJpaConnection.getInstance();
+        this.entityManager = entityManager;
     }
 
     public static FlashcardSetDao getInstance(EntityManager entityManager) {

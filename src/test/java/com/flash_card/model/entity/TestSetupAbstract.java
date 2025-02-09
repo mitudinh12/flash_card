@@ -1,8 +1,14 @@
 package com.flash_card.model.entity;
 
 import com.flash_card.framework.DifficultyLevel;
+import com.flash_card.framework.SetViewModel;
+import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.dao.SharedSetsDao;
 import com.flash_card.model.dao.UserDao;
+import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -12,49 +18,57 @@ import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Ensures @BeforeAll runs only once
 public abstract class TestSetupAbstract {
-    protected static EntityManagerFactory entityManagerFactory;
-    protected static EntityManager entityManager;
+    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
+    protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    private User testUser1;
-    private String userId = "123";
-    private String firstName = "John";
-    private String lastName = "Doe";
-    private String email = "john.doe@example.com";
-    private String idToken = "sample-id-token";
+    protected User testUser1;
+    protected String userId = "123";
+    protected String firstName = "John";
+    protected String lastName = "Doe";
+    protected String email = "john.doe@example.com";
+    protected String idToken = "sample-id-token";
 
-    private FlashcardSet testFlashcardSet1;
-    private String setName = "Java Basics";
-    private String setDescription = "Basic concepts of Java programming";
-    private String setTopic = "Java";
-    private User flashcardCreator = testUser1;
+    protected FlashcardSet testFlashcardSet1;
+    protected String setName = "Java Basics";
+    protected String setDescription = "Basic concepts of Java programming";
+    protected String setTopic = "Java";
+    protected User flashcardCreator = testUser1;
 
-    private Flashcard testFlashcard1;
-    private String term = "Java";
-    private String definition = "A programming language";
-    private DifficultyLevel difficultyLevel = DifficultyLevel.easy;
-    private FlashcardSet flashcardSet = testFlashcardSet1;
+    protected Flashcard testFlashcard1;
+    protected String term = "Java";
+    protected String definition = "A programming language";
+    protected DifficultyLevel difficultyLevel = DifficultyLevel.easy;
+    protected FlashcardSet flashcardSet = testFlashcardSet1;
 
-    private User testUser2;
-    private String userId2 = "456";
-    private String firstName2 = "Jane";
-    private String lastName2 = "Doe";
-    private String email2 = "jane.doe@example.com";
-    private String idToken2 = "sample-id-token-2";
+    protected User testUser2;
+    protected String userId2 = "456";
+    protected String firstName2 = "Jane";
+    protected String lastName2 = "Doe";
+    protected String email2 = "jane.doe@example.com";
+    protected String idToken2 = "sample-id-token-2";
 
-    private FlashcardSet testFlashcardSet2;
-    private String setName2 = "Java Advanced";
-    private String setDescription2 = "Advanced concepts of Java programming";
-    private String setTopic2 = "Java";
-    private User flashcardCreator2 = testUser2;
+    protected FlashcardSet testFlashcardSet2;
+    protected String setName2 = "Java Advanced";
+    protected String setDescription2 = "Advanced concepts of Java programming";
+    protected String setTopic2 = "Java";
+    protected User flashcardCreator2 = testUser2;
 
-    private Flashcard testFlashcard2;
-    private String term2 = "Java";
-    private String definition2 = "A programming language";
-    private DifficultyLevel difficultyLevel2 = DifficultyLevel.easy;
-    private FlashcardSet flashcardSet2 = testFlashcardSet2;
+    protected Flashcard testFlashcard2;
+    protected String term2 = "Java";
+    protected String definition2 = "A programming language";
+    protected DifficultyLevel difficultyLevel2 = DifficultyLevel.easy;
+    protected FlashcardSet flashcardSet2 = testFlashcardSet2;
 
-    private SharedSet testSharedSet1;
-    private SharedSet testSharedSet2;
+    protected SharedSet testSharedSet1;
+    protected SharedSet testSharedSet2;
+
+    protected FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
+    protected FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    protected SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(entityManager);
+    protected UserDao userDao = UserDao.getInstance(entityManager);
+
+    protected OwnFlashcardSetViewModel ownFlashcardSetViewModel;
+    protected SharedFlashcardSetViewModel sharedSetViewModel;
 
     @BeforeAll
     public void setUpDatabase() {
@@ -74,7 +88,12 @@ public abstract class TestSetupAbstract {
         // set up Dao instances
         UserDao userDao = UserDao.getInstance(entityManager);
         FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+        FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
+        SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(entityManager);
 
+        // set up ViewModel instances
+        ownFlashcardSetViewModel = new OwnFlashcardSetViewModel(testFlashcardSet1);
+        sharedSetViewModel = new SharedFlashcardSetViewModel(testFlashcardSet2);
     }
 
     @AfterAll

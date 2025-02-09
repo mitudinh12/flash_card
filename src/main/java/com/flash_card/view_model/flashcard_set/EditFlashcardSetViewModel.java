@@ -1,13 +1,14 @@
 package com.flash_card.view_model.flashcard_set;
 
 import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.FlashcardSet;
 
 public class EditFlashcardSetViewModel {
     private FlashcardSetDao flashcardSetDao;
 
     public EditFlashcardSetViewModel() {
-        flashcardSetDao = FlashcardSetDao.getInstance();
+        flashcardSetDao = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
     }
 
     public void saveFlashcardSet(int setId, String setName, String setDescription, String setTopic) {

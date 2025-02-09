@@ -15,19 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomepageViewModel {
-    private final FlashcardSetDao flashcardSetDAO = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(MariaDbJpaConnection.getInstance());
+    private final FlashcardSetDao flashcardSetDAO;
+    private final SharedSetsDao sharedSetsDao;
     private final ObservableList<OwnFlashcardSetViewModel> ownFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SharedFlashcardSetViewModel> sharedFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SetViewModel> flashcardList = FXCollections.observableArrayList();
     private String userId;
 
-    public HomepageViewModel(String userId) {
+    public HomepageViewModel(String userId, FlashcardSetDao flashcardSetDAO, SharedSetsDao sharedSetsDao) {
         this.userId = userId;
+        this.flashcardSetDAO = flashcardSetDAO;
+        this.sharedSetsDao = sharedSetsDao;
         loadFlashcards(userId);
     }
 
-    private void loadFlashcards(String userId) {
+    public void loadFlashcards(String userId) {
         List<FlashcardSet> ownFlashcardSets = flashcardSetDAO.findAllSetsByCreatorId(userId);
         List<SharedSet> sharedSets = sharedSetsDao.findByUserId(userId);
         List<FlashcardSet> sharedFlashcardSets = new ArrayList<>();

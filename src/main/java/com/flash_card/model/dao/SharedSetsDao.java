@@ -10,7 +10,7 @@ public class SharedSetsDao {
     private EntityManager entityManager;
 
     private SharedSetsDao(EntityManager entityManager) {
-        entityManager = MariaDbJpaConnection.getInstance();
+        this.entityManager = entityManager;
     }
 
     public static SharedSetsDao getInstance(EntityManager entityManager) {

@@ -1,13 +1,17 @@
 package com.flash_card.view.homepage;
 
+import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.dao.SharedSetsDao;
 import com.flash_card.view.flashcardSet.FlashcardSetContainer;
 import com.flash_card.framework.ViewController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
 import com.flash_card.framework.SetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import com.flash_card.view_model.user.HomepageViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,12 +35,14 @@ import javafx.scene.image.ImageView;
 public class HomePageController extends ViewController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
+    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
     private List<OwnFlashcardSetViewModel> ownFlashcardList;
     private List<SharedFlashcardSetViewModel> sharedFlashcardList;
     private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
     private final int pageSize = 3;
-    private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
+    private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), FlashcardSetDao.getInstance(entityManager), SharedSetsDao.getInstance(entityManager));
     private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
 
     @FXML

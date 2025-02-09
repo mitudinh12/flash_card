@@ -18,9 +18,9 @@ public class SharedSetViewModel {
     private String userId;
 
     public SharedSetViewModel( String userId) {
-        sharedSetDao = sharedSetDao.getInstance();
+        sharedSetDao = sharedSetDao.getInstance(MariaDbJpaConnection.getInstance());
         userDao = userDao.getInstance(MariaDbJpaConnection.getInstance());
-        flashcardSetDao = flashcardSetDao.getInstance();
+        flashcardSetDao = flashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
         this.userId = userId;
     }
 
