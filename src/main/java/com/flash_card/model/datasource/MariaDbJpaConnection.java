@@ -25,8 +25,10 @@ public class MariaDbJpaConnection {
     public static EntityManager getInstance() {
         if (em == null) {
             if (emf == null) {
+                // Determine the persistence unit name based on the environment
+                String persistenceUnitName = System.getProperty("persistenceUnitName", "FlashcardMariaDbUnit");
                 // Create the EntityManagerFactory using the persistence unit name
-                emf = Persistence.createEntityManagerFactory("FlashcardMariaDbUnit");
+                emf = Persistence.createEntityManagerFactory(persistenceUnitName);
             }
             // Create the EntityManager from the EntityManagerFactory
             em = emf.createEntityManager();
