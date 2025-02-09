@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomepageViewModel {
-    private final FlashcardSetDao flashcardSetDAO = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(MariaDbJpaConnection.getInstance());
     private final ObservableList<OwnFlashcardSetViewModel> ownFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SharedFlashcardSetViewModel> sharedFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SetViewModel> flashcardList = FXCollections.observableArrayList();
@@ -56,11 +54,10 @@ public class HomepageViewModel {
         if (viewModel == null) return;
 
         if (viewModel.getType().equals("own")) {
-            flashcardSetDAO.delete(viewModel.getSet());
+            flashcardSetViewModel.deleteOwnFlashcardSet(viewModel.getSet());
             ownFlashcardList.remove(viewModel);
         } else {
-            SharedSet sharedSet = sharedSetsDao.findBySetIdAndUserId(viewModel.getSet().getSetId(), userId);
-            sharedSetsDao.delete(sharedSet);
+            flashcardSetViewModel.deleteSharedFlashcardSet(userId, viewModel.getSet().getSetId());
             sharedFlashcardList.remove(viewModel);
         }
         flashcardList.remove(viewModel);

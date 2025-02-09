@@ -25,13 +25,13 @@ public class HomepageViewModelTest extends TestSetupAbstract {
 
     @BeforeEach
     public void setUp() {
-        homepageViewModel = new HomepageViewModel(testUser1.getUserId(), flashcardSetDao, sharedSetsDao);
+        homepageViewModel = new HomepageViewModel(testUser1.getUserId(),entityManager);
 
     }
 
     @Test
     public void testHomepageViewModel() {
-        homepageViewModel = new HomepageViewModel(testUser1.getUserId(), flashcardSetDao, sharedSetsDao);
+        homepageViewModel = new HomepageViewModel(testUser1.getUserId(), entityManager);
         assertNotNull(homepageViewModel);
     }
 

@@ -37,4 +37,13 @@ public class FlashcardSetViewModel {
     public List<FlashcardSet> findOwnSets() {
         return flashcardSetDao.findByUserId(userId);
     }
+
+    public void deleteOwnFlashcardSet(FlashcardSet flashcardSet) {
+        flashcardSetDao.delete(flashcardSet);
+    }
+
+    public void deleteSharedFlashcardSet(String userId, int setId) {
+        SharedSet sharedSet = sharedSetsDao.findBySetIdAndUserId(setId, userId);
+        sharedSetsDao.delete(sharedSet);
+    }
 }
