@@ -43,26 +43,35 @@
                                 <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Flashcards" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Set" />
                     </children>
                 </HBox>
             </children>
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1025.0">
             <children>
-            <HBox spacing="15.0">
-                <Button fx:id="backToHomepage" onAction="#displayHomepage" text="Back to Home" />
+            <HBox prefHeight="2.0" prefWidth="816.0">
+                <Button fx:id="backToHomepage" onAction="#displayHomepage" styleClass="back-home" text="Back to Home" />
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
                   <Insets bottom="40.0" />
                </padding>
             </HBox>
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="setName" prefHeight="51.0" prefWidth="665.0" styleClass="page-title" text="Flashcard Set Name" />
-                  <Button id="add-flashcard-button" mnemonicParsing="false" onAction="#handleAddCard" text="Add flashcard" />
+                  <Label fx:id="setName" prefHeight="51.0" prefWidth="665.0" styleClass="page-title" text="Flashcard Set Name">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Label>
+                  <Button id="add-flashcard-button" mnemonicParsing="false" onAction="#handleAddCard" prefHeight="42.0" prefWidth="200.0" text="Add flashcard" textFill="WHITE" />
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
-                  <Insets left="50.0" />
+                  <Insets bottom="5.0" />
                </padding>
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="816.0">
@@ -92,16 +101,13 @@
                   <Insets />
                </VBox.margin>
                <padding>
-                  <Insets left="50.0" />
+                  <Insets bottom="5.0" left="50.0" />
                </padding>
             </HBox>
-                <VBox fx:id="flashcardsContainer" prefHeight="569.0" prefWidth="816.0" spacing="10.0">
-               <padding>
-                  <Insets left="50.0" />
-               </padding></VBox>
+                <VBox fx:id="flashcardsContainer" prefHeight="501.0" prefWidth="816.0" spacing="10.0" />
             </children>
             <padding>
-                <Insets left="50.0" right="100.0" top="40.0" />
+                <Insets left="100.0" right="100.0" top="60.0" />
             </padding>
         </VBox>
     </children>
