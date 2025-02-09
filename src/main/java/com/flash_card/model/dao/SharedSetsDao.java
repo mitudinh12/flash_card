@@ -9,13 +9,13 @@ public class SharedSetsDao {
     private static SharedSetsDao instance;
     private EntityManager entityManager;
 
-    private SharedSetsDao() {
+    private SharedSetsDao(EntityManager entityManager) {
         entityManager = MariaDbJpaConnection.getInstance();
     }
 
-    public static SharedSetsDao getInstance() {
+    public static SharedSetsDao getInstance(EntityManager entityManager) {
         if (instance == null) {
-            instance = new SharedSetsDao();
+            instance = new SharedSetsDao(entityManager);
         }
         return instance;
     }

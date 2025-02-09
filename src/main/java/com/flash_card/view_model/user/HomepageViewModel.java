@@ -2,6 +2,7 @@ package com.flash_card.view_model.user;
 
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.SharedSetsDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.SharedSet;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
@@ -14,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomepageViewModel {
-    private final FlashcardSetDao flashcardSetDAO = FlashcardSetDao.getInstance();
-    private final SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance();
+    private final FlashcardSetDao flashcardSetDAO = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
+    private final SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(MariaDbJpaConnection.getInstance());
     private final ObservableList<OwnFlashcardSetViewModel> ownFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SharedFlashcardSetViewModel> sharedFlashcardList = FXCollections.observableArrayList();
     private final ObservableList<SetViewModel> flashcardList = FXCollections.observableArrayList();
@@ -45,14 +46,6 @@ public class HomepageViewModel {
 
         flashcardList.addAll(ownFlashcardList);
         flashcardList.addAll(sharedFlashcardList);
-    }
-
-    public ObservableList<OwnFlashcardSetViewModel> getOwnFlashcardList() {
-        return ownFlashcardList;
-    }
-
-    public ObservableList<SharedFlashcardSetViewModel> getSharedFlashcardList() {
-        return sharedFlashcardList;
     }
 
     public ObservableList<SetViewModel> getFlashcardList() {return flashcardList;}
