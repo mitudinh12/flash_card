@@ -49,22 +49,25 @@ public class HomepageViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testDeleteFlashcardSet() {
+
+        homepageViewModel.deleteFlashcardSet(null);
+        assertTrue(homepageViewModel.getOwnFlashcardList().isEmpty());
+
         assertNotNull(homepageViewModel);
         homepageViewModel.loadFlashcards(testUser1.getUserId());
         ObservableList<SetViewModel> flashcardList = homepageViewModel.getFlashcardList();
         assertNotNull(flashcardList);
 
         homepageViewModel.deleteFlashcardSet(ownFlashcardSetViewModel);
-        assertNull (homepageViewModel.getOwnFlashcardList());
-        assertNull(flashcardSetDao.findByUserId(testUser1.getUserId()));
+        assertTrue(homepageViewModel.getOwnFlashcardList().isEmpty());
 
         homepageViewModel.deleteFlashcardSet(sharedFlashcardSetViewModel);
-        assertNull(homepageViewModel.getSharedFlashcardList().getFirst());
+        assertTrue(homepageViewModel.getSharedFlashcardList().isEmpty());
         assertNull(sharedSetsDao.findBySetIdAndUserId(testFlashcardSet2.getSetId(), testUser1.getUserId()));
 
-        assertNull(homepageViewModel.getFlashcardList().getFirst());
+        assertNull(flashcardSetDao.findById(testFlashcardSet1.getSetId()));
 
- }
+    }
 
     @Test
     public void testGetFlashcardList() {
