@@ -1,6 +1,7 @@
 package com.flash_card.view_model.user_auth;
 
 import com.flash_card.model.dao.UserDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.User;
 import javafx.concurrent.Task;
 import com.flash_card.view_model.user_auth.LocalServer;
@@ -11,7 +12,7 @@ import com.flash_card.view_model.user_auth.TokenExchange;
 import java.util.Map;
 
 public class UserAuthViewModel {
-    private final UserDao userDao = UserDao.getInstance();
+    private final UserDao userDao = UserDao.getInstance(MariaDbJpaConnection.getInstance());
     private OAuthFlow oauthFlow = new OAuthFlow();
     private LocalServer localServer = new LocalServer();
     private static UserAuthViewModel userAuthViewModel = null;

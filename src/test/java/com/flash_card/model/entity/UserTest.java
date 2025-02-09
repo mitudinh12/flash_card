@@ -39,6 +39,17 @@ public class UserTest extends TestSetupAbstract {
     }
 
     @Test
+    void testEmptyConstructor() {
+        User emptyUser = new User(); // Using the no-arg constructor
+
+        assertNotNull(emptyUser, "User object should not be null");
+        assertNull(emptyUser.getUserId(), "UserId should be null for empty constructor");
+        assertNull(emptyUser.getFirstName(), "FirstName should be null for empty constructor");
+        assertNull(emptyUser.getLastName(), "LastName should be null for empty constructor");
+        assertNull(emptyUser.getEmail(), "Email should be null for empty constructor");
+    }
+
+    @Test
     void testGetUserId() {
         testUser = entityManager.find(User.class, userId);
         assertEquals(userId, testUser.getUserId(), "Fail to get UserId");

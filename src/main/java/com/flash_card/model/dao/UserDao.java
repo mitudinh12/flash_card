@@ -8,12 +8,16 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class UserDao {
-    static EntityManager em = MariaDbJpaConnection.getInstance();
+    private EntityManager em = null;
     private static UserDao userDao = null;
 
-    public static UserDao getInstance() {
+    private UserDao(EntityManager entityManager) {
+        em = entityManager;
+    }
+
+    public static UserDao getInstance(EntityManager em) {
         if (userDao== null) {
-            userDao = new UserDao();
+            userDao = new UserDao(em);
         }
         return userDao;
     }

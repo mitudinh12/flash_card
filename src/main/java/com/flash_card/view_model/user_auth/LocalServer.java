@@ -46,9 +46,5 @@ public class LocalServer {
     public void clearAuthorizationCode() {
         this.authorizationCode = null;
     }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
 }
 

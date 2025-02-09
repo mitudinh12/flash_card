@@ -3,6 +3,7 @@ package com.flash_card.view_model.flashcard_set;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.SharedSetsDao;
 import com.flash_card.model.dao.UserDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.SharedSet;
 import com.flash_card.model.entity.User;
@@ -17,9 +18,9 @@ public class SharedSetViewModel {
     private String userId;
 
     public SharedSetViewModel( String userId) {
-        sharedSetDao = sharedSetDao.getInstance();
-        userDao = userDao.getInstance();
-        flashcardSetDao = flashcardSetDao.getInstance();
+        sharedSetDao = sharedSetDao.getInstance(MariaDbJpaConnection.getInstance());
+        userDao = userDao.getInstance(MariaDbJpaConnection.getInstance());
+        flashcardSetDao = flashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
         this.userId = userId;
     }
 
