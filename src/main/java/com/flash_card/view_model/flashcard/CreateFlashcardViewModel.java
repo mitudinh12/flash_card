@@ -15,23 +15,24 @@ public class CreateFlashcardViewModel {
     private final FlashcardDao flashcardDao;
     private final UserDao userDao;
     private final FlashcardSetDao flashcardSetDao;
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private final String userId;
 
-    public CreateFlashcardViewModel(EntityManager entityManager) {
+    public CreateFlashcardViewModel(String userId, EntityManager entityManager) {
         this.flashcardDao = FlashcardDao.getInstance(entityManager);
         this.userDao = UserDao.getInstance(entityManager);
         this.flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+        this.userId = userId;
     }
 
     //SAVE FLASHCARD METHODS
-    private FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
+    public FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
         return flashcardSetDao.findById(flashcardSetId);
     }
 
-    private User getCurrentUser() {
-        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+    public User getCurrentUser() {
         return userDao.findById(userId);
     }
+
     public void saveFlashcard(String term, String definition, int flashcardSetId) {
         Flashcard flashcard = new Flashcard(term, definition, DifficultyLevel.hard, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
         flashcardDao.persist(flashcard);

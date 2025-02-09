@@ -78,8 +78,8 @@ public abstract class TestSetupAbstract {
 
         // set up test data (entity instances)
         testUser1 = new User(userId, firstName, lastName, email, idToken);
-        testFlashcardSet1 = new FlashcardSet(setName, setDescription, setTopic, flashcardCreator);
-        testFlashcard1 = new Flashcard(term, definition, difficultyLevel, flashcardSet, testUser1);
+        testFlashcardSet1 = new FlashcardSet(setName, setDescription, setTopic, testUser1);
+        testFlashcard1 = new Flashcard(term, definition, difficultyLevel, testFlashcardSet1, testUser1);
         testFlashcardSet2 = new FlashcardSet(setName2, setDescription2, setTopic2, flashcardCreator2);
         testFlashcard2 = new Flashcard(term2, definition2, difficultyLevel2, flashcardSet2, testUser2);
         testSharedSet1 = new SharedSet(testUser2, testFlashcardSet1);
