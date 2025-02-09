@@ -68,7 +68,7 @@ public abstract class TestSetupAbstract {
     protected UserDao userDao = UserDao.getInstance(entityManager);
 
     protected OwnFlashcardSetViewModel ownFlashcardSetViewModel;
-    protected SharedFlashcardSetViewModel sharedSetViewModel;
+    protected SharedFlashcardSetViewModel sharedFlashcardSetViewModel;
 
     @BeforeAll
     public void setUpDatabase() {
@@ -93,7 +93,7 @@ public abstract class TestSetupAbstract {
 
         // set up ViewModel instances
         ownFlashcardSetViewModel = new OwnFlashcardSetViewModel(testFlashcardSet1);
-        sharedSetViewModel = new SharedFlashcardSetViewModel(testFlashcardSet2);
+        sharedFlashcardSetViewModel = new SharedFlashcardSetViewModel(testFlashcardSet2);
     }
 
     @AfterAll

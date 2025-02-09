@@ -42,7 +42,7 @@ public class HomePageController extends ViewController {
     private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
     private final int pageSize = 3;
-    private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), FlashcardSetDao.getInstance(entityManager), SharedSetsDao.getInstance(entityManager));
+    private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
     private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
 
     @FXML
@@ -69,6 +69,7 @@ public class HomePageController extends ViewController {
     @FXML
     private void initialize() {
         setUserName(authSessionViewModel.getVerifiedUserInfo().get("firstName"));
+        homepageViewModel.loadFlashcards(authSessionViewModel.getVerifiedUserInfo().get("userId"));
         flashcardList = homepageViewModel.getFlashcardList();
 
         // listen for changes in flashcardList to automatically update UI
