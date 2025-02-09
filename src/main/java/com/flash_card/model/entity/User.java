@@ -54,13 +54,6 @@ public class User {
 
     public String getEmail() {return email;}
 
-    public List<SharedSet> getSharedSets() {
-        return sharedSets;
-    }
-
-    public List<FlashcardSet> getFlashcardSets() {
-        return flashcardSets;
-    }
 
 }
 

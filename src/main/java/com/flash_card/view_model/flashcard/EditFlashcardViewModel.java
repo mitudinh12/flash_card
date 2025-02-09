@@ -2,14 +2,15 @@ package com.flash_card.view_model.flashcard;
 
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EditFlashcardViewModel {
-    private final FlashcardDao flashcardDao = FlashcardDao.getInstance();
-    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance();
+    private final FlashcardDao flashcardDao = FlashcardDao.getInstance(MariaDbJpaConnection.getInstance());
+    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
 
     //GET FLASHCARD SET NAME FOR TITLE
     public String getSetName(int flashcardSetId) {

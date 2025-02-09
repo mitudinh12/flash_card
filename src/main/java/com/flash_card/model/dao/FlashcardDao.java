@@ -11,13 +11,13 @@ public class FlashcardDao {
     private static FlashcardDao instance;
     private EntityManager entityManager;
 
-    private FlashcardDao() {
-        entityManager = MariaDbJpaConnection.getInstance();
+    private FlashcardDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
-    public static FlashcardDao getInstance() {
+    public static FlashcardDao getInstance(EntityManager entityManager) {
         if (instance == null) {
-            instance = new FlashcardDao();
+            instance = new FlashcardDao(entityManager);
         }
         return instance;
     }
