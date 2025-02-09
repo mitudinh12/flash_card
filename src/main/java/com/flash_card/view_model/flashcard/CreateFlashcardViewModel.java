@@ -9,12 +9,19 @@ import com.flash_card.model.entity.FlashcardSet;
 import com. flash_card. framework. DifficultyLevel;
 import com.flash_card.model.entity.User;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 
 public class CreateFlashcardViewModel {
-    private final FlashcardDao flashcardDao = FlashcardDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final UserDao userDao = UserDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
+    private final FlashcardDao flashcardDao;
+    private final UserDao userDao;
+    private final FlashcardSetDao flashcardSetDao;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+
+    public CreateFlashcardViewModel(EntityManager entityManager) {
+        this.flashcardDao = FlashcardDao.getInstance(entityManager);
+        this.userDao = UserDao.getInstance(entityManager);
+        this.flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    }
 
     //SAVE FLASHCARD METHODS
     private FlashcardSet getCurrentFlashcardSet(int flashcardSetId) {
