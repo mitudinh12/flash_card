@@ -20,7 +20,6 @@ module com.flash_card {
     opens com.flash_card.model.datasource;
     opens com.flash_card.model.entity to org.hibernate.orm.core;
     opens com.flash_card.view_model.flashcard_set;
-
     opens com.flash_card.model.dao;
     opens com.flash_card.view_model.user to javafx.fxml;
     opens com.flash_card.view_model.user_auth to javafx.fxml;
@@ -37,7 +36,9 @@ module com.flash_card {
     exports com.flash_card.framework;
     exports com.flash_card.view.flashcardSet;
     exports com.flash_card.view.flashcard;
+    exports com.flash_card.model.entity;
     opens com.flash_card.view.flashcard to javafx.fxml;
     opens com.flash_card.framework;
     opens com.flash_card.view.flashcardSet;
+
 }
