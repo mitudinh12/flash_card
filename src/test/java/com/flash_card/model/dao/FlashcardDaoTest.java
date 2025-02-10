@@ -8,6 +8,7 @@ import com.flash_card.model.entity.TestSetupAbstract;
 import com.flash_card.model.entity.User;
 import com.flash_card.framework.DifficultyLevel;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,12 +50,14 @@ class FlashcardDaoTest extends TestSetupAbstract {
         assertEquals("Java", retrievedFlashcard.getTerm());
     }
 
+
     @Test
     void testFindById() {
         Flashcard foundFlashcard = flashcardDao.findById(flashcard.getCardId());
         assertNotNull(foundFlashcard);
         assertEquals(flashcard.getCardId(), foundFlashcard.getCardId());
     }
+
 
     @Test
     void testUpdate() {
@@ -65,15 +68,27 @@ class FlashcardDaoTest extends TestSetupAbstract {
     }
 
     @Test
-    void testFindBySetId() {
-        List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSet.getSetId());
-        assertFalse(flashcards.isEmpty());
-    }
-
-    @Test
     void testDelete() {
         flashcardDao.delete(flashcardDao.findById(flashcard.getCardId()));
         Flashcard deletedFlashcard = flashcardDao.findById(flashcard.getCardId());
         assertNull(deletedFlashcard);
+    }
+
+    @Test
+    void testFindBySetId() {
+        List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSet.getSetId());
+        assertFalse(flashcards.isEmpty(), "Flashcards should not be empty for valid set ID");
+    }
+
+    @Test
+    void testFindBySetIdNoResults() {
+        List<Flashcard> flashcards = flashcardDao.findBySetId(99999); // Invalid set ID
+        assertTrue(flashcards.isEmpty(), "Flashcards should be empty for invalid set ID");
+    }
+
+
+    @AfterEach
+    void tearDown() {
+        entityManager.close();
     }
 }

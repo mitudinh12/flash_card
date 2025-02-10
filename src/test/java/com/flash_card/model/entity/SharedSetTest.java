@@ -27,22 +27,46 @@ class SharedSetTest extends TestSetupAbstract {
     }
 
     @Test
-    void testGetters() {
-        assertEquals(mockUser, sharedSet.getUser());
-        assertEquals(mockFlashcardSet, sharedSet.getFlashcardSet());
+    void testConstructorWithValidParams() {
+        SharedSet validSharedSet = new SharedSet(mockUser, mockFlashcardSet);
+        assertEquals(mockUser, validSharedSet.getUser(), "User should be correctly set in constructor");
+        assertEquals(mockFlashcardSet, validSharedSet.getFlashcardSet(), "FlashcardSet should be correctly set in constructor");
+    }
+
+    @Test
+    void testGetUser() {
+        assertEquals(mockUser, sharedSet.getUser(), "User should match the one passed in constructor");
+    }
+
+    @Test
+    void testGetFlashcardSet() {
+        assertEquals(mockFlashcardSet, sharedSet.getFlashcardSet(), "FlashcardSet should match the one passed in constructor");
     }
 
     @Test
     void testSetUser() {
         User newUser = new User("456", "New", "User", "new.user@gmail.com", "3f7c9d5e-5d12-4a8f-bf6e-9c3d2a6b8e5f");
         sharedSet.setUser(newUser);
-        assertEquals(newUser, sharedSet.getUser());
+        assertEquals(newUser, sharedSet.getUser(), "User should be updated correctly");
     }
 
     @Test
     void testSetFlashcardSet() {
         FlashcardSet newSet = new FlashcardSet("Advanced Java", "For experienced developers", "Programming", mockUser);
         sharedSet.setFlashcardSet(newSet);
-        assertEquals(newSet, sharedSet.getFlashcardSet());
+        assertEquals(newSet, sharedSet.getFlashcardSet(), "FlashcardSet should be updated correctly");
     }
+
+    @Test
+    void testSetUserWithNull() {
+        sharedSet.setUser(null);
+        assertNull(sharedSet.getUser(), "User should be null after setting it to null");
+    }
+
+    @Test
+    void testSetFlashcardSetWithNull() {
+        sharedSet.setFlashcardSet(null);
+        assertNull(sharedSet.getFlashcardSet(), "FlashcardSet should be null after setting it to null");
+    }
+
 }

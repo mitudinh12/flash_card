@@ -2,7 +2,6 @@ package com.flash_card.model.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +18,19 @@ class FlashcardSetTest extends TestSetupAbstract {
         this.testFlashCardSet = flashcardSetDao.findById(Integer.parseInt("1"));
         assertNotNull(testFlashCardSet, "FlashcardSet should be found in the database");
     }
+
+    @Test
+    void testConstructor() {
+        FlashcardSet newFlashcardSet = new FlashcardSet("Advanced Java", "A set for advanced Java learners", "Programming", flashcardCreator);
+
+        assertNotNull(newFlashcardSet, "FlashcardSet should not be null");
+        assertEquals("Advanced Java", newFlashcardSet.getSetName());
+        assertEquals("A set for advanced Java learners", newFlashcardSet.getSetDescription());
+        assertEquals("Programming", newFlashcardSet.getSetTopic());
+        assertEquals(flashcardCreator, newFlashcardSet.getSetCreator());
+        assertEquals(0, newFlashcardSet.getNumberFlashcards());
+    }
+
     @Test
     void testEmptyConstructor() {
         FlashcardSet emptyFlashcardSet = new FlashcardSet(); // Using the no-arg constructor
@@ -33,11 +45,27 @@ class FlashcardSetTest extends TestSetupAbstract {
     }
 
     @Test
-    void testGetters() {
+    void testGetSetName() {
         assertEquals("Java Basics", flashcardSet.getSetName());
+    }
+
+    @Test
+    void testGetSetDescription() {
         assertEquals("A set for Java beginners", flashcardSet.getSetDescription());
+    }
+
+    @Test
+    void testGetSetTopic() {
         assertEquals("Programming", flashcardSet.getSetTopic());
+    }
+
+    @Test
+    void testGetNumberFlashcards() {
         assertEquals(0, flashcardSet.getNumberFlashcards());
+    }
+
+    @Test
+    void testGetSetCreator() {
         assertEquals(flashcardCreator, flashcardSet.getSetCreator());
     }
 
@@ -70,5 +98,23 @@ class FlashcardSetTest extends TestSetupAbstract {
         flashcardSet.addNumberFlashcards();
         flashcardSet.subtractNumberFlashcard();
         assertEquals(0, flashcardSet.getNumberFlashcards());
+    }
+
+    @Test
+    void testSetSetNameWithNull() {
+        flashcardSet.setSetName(null);
+        assertNull(flashcardSet.getSetName(), "Name should be null after setting null value");
+    }
+
+    @Test
+    void testSetSetDescriptionWithNull() {
+        flashcardSet.setSetDescription(null);
+        assertNull(flashcardSet.getSetDescription(), "Description should be null after setting null value");
+    }
+
+    @Test
+    void testSetSetTopicWithNull() {
+        flashcardSet.setSetTopic(null);
+        assertNull(flashcardSet.getSetTopic(), "Topic should be null after setting null value");
     }
 }
