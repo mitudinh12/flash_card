@@ -1,6 +1,5 @@
 package com.flash_card.view_model.flashcard;
 
-import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ public class CreateFlashcardViewModelTest extends TestSetupAbstract {
         createFlashcardViewModel = new CreateFlashcardViewModel(testUser1.getUserId(),entityManager);
     }
 
-
     @Test
     public void testCreateFlashcardViewModel() {
         assertNotNull(createFlashcardViewModel);
@@ -25,18 +23,20 @@ public class CreateFlashcardViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testGetCurrentFlashcardSet() {
-        /*FlashcardSet flashcardSet = createFlashcardViewModel.getCurrentFlashcardSet(testFlashcardSet1.getSetId());
-        assertEquals(testFlashcardSet1, flashcardSet);*/
+        FlashcardSet flashcardSet = createFlashcardViewModel.getCurrentFlashcardSet(testFlashcardSet1.getSetId());
+        assertNotNull(flashcardSet);
     }
 
     @Test
     public void testGetCurrentUser() {
-        /*User currentUser = createFlashcardViewModel.getCurrentUser();
-        assertEquals(testUser1, currentUser);*/
+        User currentUser = createFlashcardViewModel.getCurrentUser();
+        assertNotNull(currentUser);
     }
 
     @Test
     public void testSaveFlashcard() {
+        createFlashcardViewModel.saveFlashcard("testTerm", "testDefinition", testFlashcardSet1.getSetId());
+        assertEquals(2, flashcardDao.findBySetId(testFlashcardSet1.getSetId()).size());
     }
 
     @Test

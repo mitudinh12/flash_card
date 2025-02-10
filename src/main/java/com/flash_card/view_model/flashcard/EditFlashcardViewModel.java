@@ -2,8 +2,6 @@ package com.flash_card.view_model.flashcard;
 
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
-import com.flash_card.model.dao.UserDao;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import jakarta.persistence.EntityManager;
@@ -56,9 +54,11 @@ public class EditFlashcardViewModel {
     //UPDATE FLASHCARD TO DATABASE
     public void updateFlashcard(int flashcardId, String term, String definition) {
         Flashcard flashcard = getFlashcardById(flashcardId);
-        flashcard.setTerm(term);
-        flashcard.setDefinition(definition);
-        flashcardDao.update(flashcard);
+        if (flashcard != null) {
+            flashcard.setTerm(term);
+            flashcard.setDefinition(definition);
+            flashcardDao.update(flashcard);
+        }
     }
 
     //DELETE FLASHCARD AND CHECK IF IT IS THE LAST FLASHCARD
@@ -71,7 +71,7 @@ public class EditFlashcardViewModel {
         flashcardDao.delete(flashcardDao.findById(flashcardId));
 
         //decrease number of flashcards in the set by 1
-        FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);;
+        FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);
         flashcardSet.subtractNumberFlashcard();
         flashcardSetDao.update(flashcardSet);
     }
