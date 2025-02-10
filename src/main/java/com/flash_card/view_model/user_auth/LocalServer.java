@@ -39,6 +39,14 @@ public class LocalServer {
         }
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public HttpServer getServer() {
+        return server;
+    }
+
     public String getAuthorizationCode() {
         return authorizationCode;
     }

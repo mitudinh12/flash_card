@@ -1,7 +1,6 @@
 package com.flash_card.view_model.flashcard;
 
 import com.flash_card.model.entity.Flashcard;
-import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.TestSetupAbstract;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,13 +49,12 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testUpdateFlashcard() {
-        /*String newTerm = "Updated Term";
+        String newTerm = "Updated Term";
         String newDefinition = "Updated Definition";
         editFlashcardViewModel.updateFlashcard(testFlashcard1.getCardId(), newTerm, newDefinition);
-
         Flashcard updatedFlashcard = flashcardDao.findById(testFlashcard1.getCardId());
         assertEquals(newTerm, updatedFlashcard.getTerm());
-        assertEquals(newDefinition, updatedFlashcard.getDefinition());*/
+        assertEquals(newDefinition, updatedFlashcard.getDefinition());
     }
 
     @Test

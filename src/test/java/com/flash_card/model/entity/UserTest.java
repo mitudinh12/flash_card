@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest extends TestSetupAbstract {
-    private EntityManager entityManager;
     private User testUser;
     private String userId = "123";
     private String firstName = "John";
@@ -19,6 +18,7 @@ public class UserTest extends TestSetupAbstract {
 
     @BeforeAll
     void setUpEntityManager() {
+        userDao.persist(new User(userId, firstName, lastName, email, idToken));
         this.testUser = userDao.findById(userId);
         assertNotNull(testUser, "User should be found in the database");
         assertEquals("John", testUser.getFirstName());

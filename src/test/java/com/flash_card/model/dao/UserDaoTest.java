@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest extends TestSetupAbstract {
-    private EntityManager entityManager;
-    private UserDao userDao;
     private final String userId = "300";
     private final String firstName = "Alice";
     private final String lastName = "Wonderland";
@@ -22,14 +20,8 @@ public class UserDaoTest extends TestSetupAbstract {
 
     @BeforeAll
     void setUp() {
-        entityManager = entityManagerFactory.createEntityManager();
-
-        userDao = UserDao.getInstance(entityManager);
-
-        entityManager.getTransaction().begin();
         User testUser = new User(userId, firstName, lastName, email, idToken);
-        entityManager.persist(testUser);
-        entityManager.getTransaction().commit();
+        userDao.persist(testUser);
     }
 
     @Test
@@ -65,9 +57,9 @@ public class UserDaoTest extends TestSetupAbstract {
 
     @Test
     void testFindById() {
-        User foundUser = userDao.findById(userId);
+        User foundUser = userDao.findById(testUser1.getUserId());
         assertNotNull(foundUser, "User should be found");
-        assertEquals(firstName, foundUser.getFirstName(), "First name should match");
+        assertEquals(testUser1.getFirstName(), foundUser.getFirstName(), "First name should match");
     }
 
     @Test
