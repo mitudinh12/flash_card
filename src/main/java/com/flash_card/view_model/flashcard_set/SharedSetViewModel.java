@@ -7,6 +7,7 @@ import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.SharedSet;
 import com.flash_card.model.entity.User;
+import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,10 +18,10 @@ public class SharedSetViewModel {
     private FlashcardSetDao flashcardSetDao;
     private String userId;
 
-    public SharedSetViewModel( String userId) {
-        sharedSetDao = sharedSetDao.getInstance(MariaDbJpaConnection.getInstance());
-        userDao = userDao.getInstance(MariaDbJpaConnection.getInstance());
-        flashcardSetDao = flashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
+    public SharedSetViewModel(String userId, EntityManager entityManager) {
+        sharedSetDao = sharedSetDao.getInstance(entityManager);
+        userDao = userDao.getInstance(entityManager);
+        flashcardSetDao = flashcardSetDao.getInstance(entityManager);
         this.userId = userId;
     }
 
@@ -42,19 +43,4 @@ public class SharedSetViewModel {
         return sharedSetDao.findBySetIdAndUserId(setId, user.getUserId()) != null;      // true if this user is shared this set
     }
 
-    public List<FlashcardSet> getSharedFlashcardSets() {
-        List<SharedSet> sharedSets = sharedSetDao.findByUserId(userId);
-        List<FlashcardSet> flashcardSets = new ArrayList<>();
-        for (SharedSet sharedSet : sharedSets) {
-            flashcardSets.add(sharedSet.getFlashcardSet());
-        }
-        return flashcardSets;
-    }
-
-    public void deleteSharedFlashcardSet(int setId) {
-        SharedSet sharedSet = sharedSetDao.findBySetIdAndUserId(setId, userId);
-        if (sharedSet != null) {
-            sharedSetDao.delete(sharedSet);
-        }
-    }
 }
