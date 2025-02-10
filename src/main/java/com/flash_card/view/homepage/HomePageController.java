@@ -43,7 +43,7 @@ public class HomePageController extends ViewController {
     private int currentPage = 0;
     private final int pageSize = 3;
     private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
-    private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"));
+    private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
 
     @FXML
     private Label userName;

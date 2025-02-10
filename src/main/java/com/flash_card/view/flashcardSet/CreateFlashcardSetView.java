@@ -1,8 +1,14 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.model.dao.UserDao;
+import com.flash_card.model.datasource.MariaDbJpaConnection;
+import com.flash_card.model.entity.User;
 import com.flash_card.view.auth.LoginView;
 import com.flash_card.view.flashcard.CreateFlashcardController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,16 +22,18 @@ import java.io.IOException;
 
 public class CreateFlashcardSetView extends ViewController {
     private Stage stage = LoginView.getStage();
-    private CreateFlashcardSetViewModel viewModel;
+    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
+    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private CreateFlashcardSetViewModel viewModel = new CreateFlashcardSetViewModel(entityManager);
+    private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private String userId;
+
     // FXML UI components
     @FXML
     private TextField setNameField, setDescriptionField, setTopicField;
     @FXML
     private Button createSetButton, cancelButton;
 
-    public CreateFlashcardSetView() {
-        this.viewModel = new CreateFlashcardSetViewModel(this);
-    }
 
     @FXML
     private void initialize() {
@@ -37,8 +45,9 @@ public class CreateFlashcardSetView extends ViewController {
         String name = setNameField.getText();
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
+        userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
-            int flashcardSetId = viewModel.addSet(name, description, topic);
+            int flashcardSetId = viewModel.addSet(name, description, topic, userId);
             if (flashcardSetId != -1) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));

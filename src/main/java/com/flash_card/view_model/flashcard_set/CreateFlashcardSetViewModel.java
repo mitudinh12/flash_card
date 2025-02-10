@@ -9,17 +9,16 @@ import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 
 public class CreateFlashcardSetViewModel {
-    private final FlashcardSetDao flashcardSetDao =  FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final CreateFlashcardSetView createFlashcardSetView;
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private FlashcardSetDao flashcardSetDao;
+    private UserDao userDao;
 
-    public CreateFlashcardSetViewModel(CreateFlashcardSetView view) {
-        this.createFlashcardSetView = view;
+    public CreateFlashcardSetViewModel(EntityManager em) {
+        flashcardSetDao = FlashcardSetDao.getInstance(em);
+        userDao = UserDao.getInstance(em);
     }
 
-    public int addSet(String name, String description, String topic) {
-        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
-        User user = UserDao.getInstance(MariaDbJpaConnection.getInstance()).findById(userId);
+    public int addSet(String name, String description, String topic, String userId) {
+        User user = userDao.findById(userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, user);
             flashcardSetDao.persist(flashcardSet);
