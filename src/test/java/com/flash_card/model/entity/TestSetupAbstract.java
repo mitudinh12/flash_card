@@ -12,13 +12,11 @@ import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Ensures @BeforeAll runs only once
 public abstract class TestSetupAbstract {
-    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
+    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
     protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     protected User testUser1;
@@ -70,37 +68,43 @@ public abstract class TestSetupAbstract {
     protected OwnFlashcardSetViewModel ownFlashcardSetViewModel;
     protected SharedFlashcardSetViewModel sharedFlashcardSetViewModel;
 
-    @BeforeAll
+    @BeforeEach
     public void setUpDatabase() {
         System.out.println("Initializing EntityManagerFactory...");
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
-        entityManager = entityManagerFactory.createEntityManager();
 
         // set up test data (entity instances)
         testUser1 = new User(userId, firstName, lastName, email, idToken);
-        testFlashcardSet1 = new FlashcardSet(setName, setDescription, setTopic, flashcardCreator);
-        testFlashcard1 = new Flashcard(term, definition, difficultyLevel, flashcardSet, testUser1);
+        testUser2 = new User(userId2, firstName2, lastName2, email2, idToken2);
+
+        testFlashcardSet1 = new FlashcardSet(setName, setDescription, setTopic, testUser1);
+        testFlashcard1 = new Flashcard(term, definition, difficultyLevel, testFlashcardSet1, testUser1);
+
         testFlashcardSet2 = new FlashcardSet(setName2, setDescription2, setTopic2, flashcardCreator2);
         testFlashcard2 = new Flashcard(term2, definition2, difficultyLevel2, flashcardSet2, testUser2);
+
         testSharedSet1 = new SharedSet(testUser2, testFlashcardSet1);
         testSharedSet2 = new SharedSet(testUser1, testFlashcardSet2);
 
-        // set up Dao instances
-        UserDao userDao = UserDao.getInstance(entityManager);
-        FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
-        FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
-        SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(entityManager);
+        userDao.persist(testUser1);
+        userDao.persist(testUser2);
+        flashcardSetDao.persist(testFlashcardSet1);
+        flashcardSetDao.persist(testFlashcardSet2);
+        flashcardDao.persist(testFlashcard1);
+        flashcardDao.persist(testFlashcard2);
 
         // set up ViewModel instances
         ownFlashcardSetViewModel = new OwnFlashcardSetViewModel(testFlashcardSet1);
         sharedFlashcardSetViewModel = new SharedFlashcardSetViewModel(testFlashcardSet2);
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDownDatabase() {
-        System.out.println("Closing EntityManagerFactory...");
-        if (entityManagerFactory != null) {
-            entityManagerFactory.close();
-        }
+        userDao.delete(testUser1);
+        userDao.delete(testUser2);
+//
+//        System.out.println("Closing EntityManagerFactory...");
+//        if (entityManagerFactory != null) {
+//            entityManagerFactory.close();
+//        }
     }
 }

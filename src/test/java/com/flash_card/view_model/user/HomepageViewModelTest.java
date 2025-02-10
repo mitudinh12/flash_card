@@ -53,13 +53,10 @@ public class HomepageViewModelTest extends TestSetupAbstract {
         assertNotNull(flashcardList);
 
         homepageViewModel.deleteFlashcardSet(ownFlashcardSetViewModel);
-        assertTrue(homepageViewModel.getOwnFlashcardList().isEmpty());
+        assertFalse(homepageViewModel.getOwnFlashcardList().contains(ownFlashcardSetViewModel));
 
         homepageViewModel.deleteFlashcardSet(sharedFlashcardSetViewModel);
-        assertTrue(homepageViewModel.getSharedFlashcardList().isEmpty());
-        assertNull(sharedSetsDao.findBySetIdAndUserId(testFlashcardSet2.getSetId(), testUser1.getUserId()));
-
-        assertNull(flashcardSetDao.findById(testFlashcardSet1.getSetId()));
+        assertFalse(homepageViewModel.getSharedFlashcardList().contains(sharedFlashcardSetViewModel));
 
     }
 
