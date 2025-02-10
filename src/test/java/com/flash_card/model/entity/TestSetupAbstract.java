@@ -16,7 +16,7 @@ import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Ensures @BeforeAll runs only once
 public abstract class TestSetupAbstract {
-    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
+    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
     protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     protected User testUser1;
@@ -71,8 +71,6 @@ public abstract class TestSetupAbstract {
     @BeforeEach
     public void setUpDatabase() {
         System.out.println("Initializing EntityManagerFactory...");
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
-        entityManager = entityManagerFactory.createEntityManager();
 
         // set up test data (entity instances)
         testUser1 = new User(userId, firstName, lastName, email, idToken);
@@ -104,9 +102,9 @@ public abstract class TestSetupAbstract {
         userDao.delete(testUser1);
         userDao.delete(testUser2);
 //
-        System.out.println("Closing EntityManagerFactory...");
-        if (entityManagerFactory != null) {
-            entityManagerFactory.close();
-        }
+//        System.out.println("Closing EntityManagerFactory...");
+//        if (entityManagerFactory != null) {
+//            entityManagerFactory.close();
+//        }
     }
 }

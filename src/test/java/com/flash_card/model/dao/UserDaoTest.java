@@ -57,9 +57,9 @@ public class UserDaoTest extends TestSetupAbstract {
 
     @Test
     void testFindById() {
-        User foundUser = userDao.findById(userId);
+        User foundUser = userDao.findById(testUser1.getUserId());
         assertNotNull(foundUser, "User should be found");
-        assertEquals(firstName, foundUser.getFirstName(), "First name should match");
+        assertEquals(testUser1.getFirstName(), foundUser.getFirstName(), "First name should match");
     }
 
     @Test
