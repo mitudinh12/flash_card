@@ -2,20 +2,33 @@ package com.flash_card.view_model.flashcard;
 
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.dao.UserDao;
 import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EditFlashcardViewModel {
-    private final FlashcardDao flashcardDao = FlashcardDao.getInstance(MariaDbJpaConnection.getInstance());
-    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(MariaDbJpaConnection.getInstance());
+    private final FlashcardDao flashcardDao;
+    private final FlashcardSetDao flashcardSetDao;
+
+    public EditFlashcardViewModel(EntityManager entityManager) {
+        this.flashcardDao = FlashcardDao.getInstance(entityManager);
+        this.flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    }
 
     //GET FLASHCARD SET NAME FOR TITLE
     public String getSetName(int flashcardSetId) {
         FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);
-        return flashcardSet.getSetName();
+        if (flashcardSet != null) {
+            return flashcardSet.getSetName();
+        }
+        else {
+            return null;
+        }
     }
 
     //GET FLASHCARD IDS BY SET ID
