@@ -68,7 +68,7 @@ public abstract class TestSetupAbstract {
     protected OwnFlashcardSetViewModel ownFlashcardSetViewModel;
     protected SharedFlashcardSetViewModel sharedFlashcardSetViewModel;
 
-    @BeforeAll
+    @BeforeEach
     public void setUpDatabase() {
         System.out.println("Initializing EntityManagerFactory...");
         entityManagerFactory = Persistence.createEntityManagerFactory("test-persistence-unit");
@@ -99,7 +99,7 @@ public abstract class TestSetupAbstract {
         sharedFlashcardSetViewModel = new SharedFlashcardSetViewModel(testFlashcardSet2);
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDownDatabase() {
         userDao.delete(testUser1);
         userDao.delete(testUser2);

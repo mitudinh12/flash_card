@@ -53,7 +53,8 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
         String newDefinition = "Updated Definition";
         editFlashcardViewModel.updateFlashcard(testFlashcard1.getCardId(), newTerm, newDefinition);
         Flashcard updatedFlashcard = flashcardDao.findById(testFlashcard1.getCardId());
-        assertNull(updatedFlashcard);
+        assertEquals(newTerm, updatedFlashcard.getTerm());
+        assertEquals(newDefinition, updatedFlashcard.getDefinition());
     }
 
     @Test
