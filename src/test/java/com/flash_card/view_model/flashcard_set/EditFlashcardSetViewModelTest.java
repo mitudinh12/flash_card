@@ -23,7 +23,7 @@ public class EditFlashcardSetViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testSaveFlashcardSet() {
-/*        String newName = "Updated Set Name";
+        String newName = "Updated Set Name";
         String newDescription = "Updated Description";
         String newTopic = "Updated Topic";
 
@@ -33,7 +33,7 @@ public class EditFlashcardSetViewModelTest extends TestSetupAbstract {
         assertNotNull(updatedSet);
         assertEquals(newName, updatedSet.getSetName());
         assertEquals(newDescription, updatedSet.getSetDescription());
-        assertEquals(newTopic, updatedSet.getSetTopic());*/
+        assertEquals(newTopic, updatedSet.getSetTopic());
     }
 
     @Test

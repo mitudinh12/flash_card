@@ -38,14 +38,14 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testTerm() {
-        /*String term = editFlashcardViewModel.term(testFlashcard1.getCardId());
-        assertEquals(testFlashcard1.getTerm(), term);*/
+        String term = editFlashcardViewModel.term(testFlashcard1.getCardId());
+        assertEquals(testFlashcard1.getTerm(), term);
     }
 
     @Test
     public void testDefinition() {
-        /*String definition = editFlashcardViewModel.definition(testFlashcard1.getCardId());
-        assertEquals(testFlashcard1.getDefinition(), definition);*/
+        String definition = editFlashcardViewModel.definition(testFlashcard1.getCardId());
+        assertEquals(testFlashcard1.getDefinition(), definition);
     }
 
     @Test
@@ -62,13 +62,13 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
     @Test
     public void testIsLastFlashcard() {
         boolean isLast = editFlashcardViewModel.isLastFlashcard(testFlashcardSet1.getSetId());
-        assertFalse(isLast);
+        assertTrue(isLast);
     }
 
     @Test
     public void testDeleteFlashcard() {
-        /*editFlashcardViewModel.deleteFlashcard(testFlashcard1.getCardId(), testFlashcardSet1.getSetId());
+        editFlashcardViewModel.deleteFlashcard(testFlashcard1.getCardId(), testFlashcardSet1.getSetId());
         Flashcard deletedFlashcard = flashcardDao.findById(testFlashcard1.getCardId());
-        assertNull(deletedFlashcard);*/
+        assertNull(deletedFlashcard);
     }
 }

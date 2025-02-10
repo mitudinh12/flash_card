@@ -1,6 +1,8 @@
 package com.flash_card.view_model.flashcard;
 
+import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
+import com.flash_card.model.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.flash_card.model.entity.TestSetupAbstract;
@@ -23,18 +25,19 @@ public class CreateFlashcardViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testGetCurrentFlashcardSet() {
-
+        /*FlashcardSet flashcardSet = createFlashcardViewModel.getCurrentFlashcardSet(testFlashcardSet1.getSetId());
+        assertEquals(testFlashcardSet1, flashcardSet);*/
     }
 
     @Test
     public void testGetCurrentUser() {
-
+        /*User currentUser = createFlashcardViewModel.getCurrentUser();
+        assertEquals(testUser1, currentUser);*/
     }
 
     @Test
     public void testSaveFlashcard() {
     }
-
 
     @Test
     public void testIsFlashcardSetEmpty() {
