@@ -27,11 +27,7 @@ public class CreateFlashcardSetViewModelTest extends TestSetupAbstract {
     public void setUp() {
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         userDao = UserDao.getInstance(entityManager);
-
-        entityManager.getTransaction().begin();
         userDao.persist(testUser1); // Save test user
-        entityManager.getTransaction().commit();
-
         createFlashcardSetViewModel = new CreateFlashcardSetViewModel(entityManager);
     }
 
