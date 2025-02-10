@@ -10,7 +10,6 @@ import com.flash_card.framework.DifficultyLevel;
 import java.math.BigInteger;
 
 class FlashcardTest extends TestSetupAbstract {
-    private EntityManager entityManager;
     private Flashcard flashcard;
     private FlashcardSet mockFlashcardSet;
     private User mockUser;

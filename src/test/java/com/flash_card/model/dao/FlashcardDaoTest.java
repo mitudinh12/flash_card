@@ -8,6 +8,7 @@ import com.flash_card.model.entity.TestSetupAbstract;
 import com.flash_card.model.entity.User;
 import com.flash_card.framework.DifficultyLevel;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
