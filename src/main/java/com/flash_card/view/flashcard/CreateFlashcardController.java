@@ -1,7 +1,10 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.CreateFlashcardViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +14,10 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class CreateFlashcardController extends ViewController {
-    private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel();
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
+    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"),entityManager);
     private int flashcardSetId;
 
     @FXML

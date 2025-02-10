@@ -1,7 +1,10 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.EditFlashcardViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +13,9 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class EditFlashcardController extends ViewController {
-    private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel();
+    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
+    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
     private int flashcardSetId;
     private int cardId = 0;
 
