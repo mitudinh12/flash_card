@@ -12,6 +12,8 @@ import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
+
 import java.util.List;
 
 class FlashcardDaoTest extends TestSetupAbstract {
@@ -54,8 +56,14 @@ class FlashcardDaoTest extends TestSetupAbstract {
     @Test
     void testFindById() {
         Flashcard foundFlashcard = flashcardDao.findById(flashcard.getCardId());
-        assertNotNull(foundFlashcard);
-        assertEquals(flashcard.getCardId(), foundFlashcard.getCardId());
+        assertNotNull(foundFlashcard, "Flashcard should not be null");
+        assertEquals(flashcard.getCardId(), foundFlashcard.getCardId(), "Flashcard ID should match");
+    }
+
+    @Test
+    void testFindByIdInvalidId() {
+        Flashcard foundFlashcard = flashcardDao.findById(-1); // Invalid ID
+        assertNull(foundFlashcard, "Flashcard should be null for invalid ID");
     }
 
 
@@ -68,16 +76,54 @@ class FlashcardDaoTest extends TestSetupAbstract {
     }
 
     @Test
+    void testUpdateNullFlashcard() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            flashcardDao.update(null);
+        }, "Updating a null flashcard should throw a IllegalArgumentException");
+    }
+
+    @Test
     void testDelete() {
         flashcardDao.delete(flashcardDao.findById(flashcard.getCardId()));
         Flashcard deletedFlashcard = flashcardDao.findById(flashcard.getCardId());
         assertNull(deletedFlashcard);
     }
 
+
+    @Test
+    void testDeleteDatabaseError() {
+        entityManager.close(); // Simulate a database error by closing the EntityManager
+        assertThrows(IllegalArgumentException.class, () -> {
+            flashcardDao.delete(flashcard);
+        }, "A database error should throw a PersistenceException");
+    }
+
+    @Test
+    void testDeleteNullFlashcard() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            flashcardDao.delete(null);
+        }, "Deleting a null flashcard should throw a PersistenceException");
+    }
+
+
+    @Test
+    void testDeleteFlashcardWithNullFlashcardSet() {
+        flashcard.setFlashcardSet(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            flashcardDao.delete(flashcard);
+        }, "Deleting a flashcard with a null flashcardSet should throw a PersistenceException");
+    }
+
     @Test
     void testFindBySetId() {
         List<Flashcard> flashcards = flashcardDao.findBySetId(flashcardSet.getSetId());
         assertFalse(flashcards.isEmpty(), "Flashcards should not be empty for valid set ID");
+    }
+
+    @Test
+    void testFindBySetIdInvalidSetId() {
+        List<Flashcard> flashcards = flashcardDao.findBySetId(-1); // Invalid set ID
+        assertTrue(flashcards.isEmpty(), "Flashcards should be empty for invalid set ID");
     }
 
     @Test

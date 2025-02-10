@@ -85,10 +85,17 @@ class FlashcardSetDaoTest extends TestSetupAbstract {
         assertTrue(flashcardSets.isEmpty(), "FlashcardSets should be empty for invalid userId");
     }
 
-
-
     @AfterEach
     void tearDown() {
-        entityManager.close();
+        if (entityManager != null && entityManager.isOpen()) {
+            // Re-fetch the User entity to ensure it is managed
+            User managedUser = entityManager.find(User.class, user2.getUserId());
+            if (managedUser != null) {
+                entityManager.getTransaction().begin();
+                entityManager.remove(managedUser); // Delete the managed entity
+                entityManager.getTransaction().commit();
+            }
+            entityManager.close();
+        }
     }
 }

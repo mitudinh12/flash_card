@@ -31,6 +31,7 @@ public class SharedSetsDao {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            throw e;
         }
     }
 
@@ -57,6 +58,7 @@ public class SharedSetsDao {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            throw e;
         }
     }
 
