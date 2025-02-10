@@ -28,7 +28,6 @@ public class AuthSessionViewModel {
     }
 
     public boolean isAuthenticated() {
-        System.out.println("Authenticated");
         return verifiedUserInfo != null;
     }
 
