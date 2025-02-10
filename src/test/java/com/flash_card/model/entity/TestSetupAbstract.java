@@ -12,9 +12,7 @@ import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Ensures @BeforeAll runs only once
 public abstract class TestSetupAbstract {
@@ -89,19 +87,12 @@ public abstract class TestSetupAbstract {
         testSharedSet1 = new SharedSet(testUser2, testFlashcardSet1);
         testSharedSet2 = new SharedSet(testUser1, testFlashcardSet2);
 
-        // set up Dao instances
-        UserDao userDao = UserDao.getInstance(entityManager);
-        FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
-        FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
-        SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(entityManager);
-
-        entityManager.getTransaction().begin();
         userDao.persist(testUser1);
+        userDao.persist(testUser2);
         flashcardSetDao.persist(testFlashcardSet1);
         flashcardSetDao.persist(testFlashcardSet2);
         flashcardDao.persist(testFlashcard1);
         flashcardDao.persist(testFlashcard2);
-        entityManager.getTransaction().commit();
 
         // set up ViewModel instances
         ownFlashcardSetViewModel = new OwnFlashcardSetViewModel(testFlashcardSet1);
@@ -110,6 +101,9 @@ public abstract class TestSetupAbstract {
 
     @AfterAll
     public void tearDownDatabase() {
+        userDao.delete(testUser1);
+        userDao.delete(testUser2);
+//
         System.out.println("Closing EntityManagerFactory...");
         if (entityManagerFactory != null) {
             entityManagerFactory.close();

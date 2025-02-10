@@ -23,15 +23,32 @@ public class UserDao {
     }
 
     public void persist(User user) {
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error in persisting User: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void update(User user) {
-        em.getTransaction().begin();
-        em.merge(user);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error in updating User: " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public User findById(String id) {
@@ -43,5 +60,19 @@ public class UserDao {
         query.setParameter("email", email);
         List<User> users = query.getResultList();
         return users.isEmpty() ? null : users.get(0);
+    }
+
+    public void delete(User user) {
+       try {
+              em.getTransaction().begin();
+              em.remove(user);
+              em.getTransaction().commit();
+         } catch (Exception e) {
+              if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+              }
+              System.err.println("Error in deleting User: " + e.getMessage());
+              e.printStackTrace();
+       }
     }
 }

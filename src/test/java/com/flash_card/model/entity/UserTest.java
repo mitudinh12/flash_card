@@ -19,14 +19,7 @@ public class UserTest extends TestSetupAbstract {
 
     @BeforeAll
     void setUpEntityManager() {
-        entityManager = entityManagerFactory.createEntityManager();
-
-        entityManager.getTransaction().begin();
-        User user = new User(userId, firstName, lastName, email, idToken);
-        entityManager.persist(user);
-        entityManager.getTransaction().commit();
-
-        this.testUser = entityManager.find(User.class, "123");
+        this.testUser = userDao.findById(userId);
         assertNotNull(testUser, "User should be found in the database");
         assertEquals("John", testUser.getFirstName());
         assertEquals("Doe", testUser.getLastName());
@@ -51,25 +44,21 @@ public class UserTest extends TestSetupAbstract {
 
     @Test
     void testGetUserId() {
-        testUser = entityManager.find(User.class, userId);
         assertEquals(userId, testUser.getUserId(), "Fail to get UserId");
     }
 
     @Test
     void testGetFirstName() {
-        testUser = entityManager.find(User.class, userId);
         assertEquals(firstName, testUser.getFirstName(), "Fail to get FirstName");
     }
 
     @Test
     void testGetLastName() {
-        testUser = entityManager.find(User.class, userId);
         assertEquals(lastName, testUser.getLastName(), "Fail to get LastName");
     }
 
     @Test
     void testGetEmail() {
-        testUser = entityManager.find(User.class, userId);
         assertEquals(email, testUser.getEmail(), "Fail to get Email");
     }
 

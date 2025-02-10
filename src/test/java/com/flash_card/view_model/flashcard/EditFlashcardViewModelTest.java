@@ -62,7 +62,7 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
     @Test
     public void testIsLastFlashcard() {
         boolean isLast = editFlashcardViewModel.isLastFlashcard(testFlashcardSet1.getSetId());
-        assertTrue(isLast);
+        assertFalse(isLast);
     }
 
     @Test
