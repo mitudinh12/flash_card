@@ -23,7 +23,12 @@ public class EditFlashcardViewModel {
     //GET FLASHCARD SET NAME FOR TITLE
     public String getSetName(int flashcardSetId) {
         FlashcardSet flashcardSet = flashcardSetDao.findById(flashcardSetId);
-        return flashcardSet.getSetName();
+        if (flashcardSet != null) {
+            return flashcardSet.getSetName();
+        }
+        else {
+            return null;
+        }
     }
 
     //GET FLASHCARD IDS BY SET ID

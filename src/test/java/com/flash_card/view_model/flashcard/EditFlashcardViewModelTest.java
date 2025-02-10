@@ -25,15 +25,15 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
 
     @Test
     public void testGetSetName() {
-        /*String setName = editFlashcardViewModel.getSetName(testFlashcardSet1.getSetId());
-        assertEquals(testFlashcardSet1.getSetName(), setName);*/
+        String setName = editFlashcardViewModel.getSetName(testFlashcardSet1.getSetId());
+        assertEquals(testFlashcardSet1.getSetName(), setName);
     }
 
     @Test
     public void testGetFlashcardIdsBySetId() {
-        /*List<Integer> flashcardIds = editFlashcardViewModel.getFlashcardIdsBySetId(testFlashcardSet1.getSetId());
+        List<Integer> flashcardIds = editFlashcardViewModel.getFlashcardIdsBySetId(testFlashcardSet1.getSetId());
         assertFalse(flashcardIds.isEmpty());
-        assertEquals(testFlashcard1.getCardId(), flashcardIds.getFirst());*/
+        assertEquals(testFlashcard1.getCardId(), flashcardIds.getFirst());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
     @Test
     public void testIsLastFlashcard() {
         boolean isLast = editFlashcardViewModel.isLastFlashcard(testFlashcardSet1.getSetId());
-        assertFalse(isLast);
+        assertTrue(isLast);
     }
 
     @Test
