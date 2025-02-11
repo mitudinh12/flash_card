@@ -40,12 +40,6 @@ public class FlashcardDao {
         Flashcard flashcard = null;
         try {
             flashcard = entityManager.find(Flashcard.class, id);
-        } catch (PersistenceException e) {
-            System.err.println("Database connection error " + e.getMessage());
-            throw e;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Table flashcard does not exist or query is incorrect: " + e.getMessage());
-            throw e;
         } catch (Exception e) {
             System.err.println("An unexpected error occured while getting a flashcard:" + e.getMessage());
             e.printStackTrace();
@@ -65,6 +59,7 @@ public class FlashcardDao {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            throw e;
         }
     }
 
@@ -79,6 +74,7 @@ public class FlashcardDao {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            throw e;
         }
     }
 
@@ -89,12 +85,6 @@ public class FlashcardDao {
             flashcards = entityManager.createQuery("SELECT f FROM Flashcard f WHERE f.flashcardSet.setId = :setId", Flashcard.class)
                     .setParameter("setId", setId)
                     .getResultList();
-        } catch (PersistenceException e) {
-            System.err.println("Database connection error: " + e.getMessage());
-            throw e;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Table flashcard does not exist or query is incorrect: " + e.getMessage());
-            throw e;
         } catch (Exception e) {
             System.err.println("An unexpected error occurred while getting flashcards by set ID: " + e.getMessage());
             e.printStackTrace();

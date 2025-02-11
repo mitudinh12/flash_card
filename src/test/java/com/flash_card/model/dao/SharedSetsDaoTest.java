@@ -55,6 +55,13 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         assertEquals(flashcardSet.getSetId(), retrievedSharedSet.getFlashcardSet().getSetId());
     }
 
+    @Test
+    void testPersistException() {
+        SharedSet invalidSharedSet = new SharedSet(null, null);
+        entityManager.getTransaction().begin();
+        assertThrows(Exception.class, () -> entityManager.persist(invalidSharedSet));
+        entityManager.getTransaction().rollback();
+    }
 
     @Test
     void testFindById() {
@@ -68,6 +75,7 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         List<SharedSet> sharedSets = sharedSetDao.findByUserId(user3.getUserId());
         assertFalse(sharedSets.isEmpty(), "SharedSets should not be empty for valid userId");
     }
+
 
     @Test
     void testFindByUserIdNoResults() {
@@ -89,6 +97,7 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         assertEquals(flashcardSet.getSetId(), retrievedSharedSet.getFlashcardSet().getSetId());
         assertEquals(user3.getUserId(), retrievedSharedSet.getUser().getUserId());
     }
+
 
     @Test
     void testFindBySetIdAndUserIdNoResults() {
