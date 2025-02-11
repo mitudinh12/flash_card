@@ -70,21 +70,12 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         assertEquals(sharedSet.getSharingId(), foundSharedSet.getSharingId());
     }
 
-//    @Test
-//    void testFindByIdException() {
-//        assertThrows(IllegalArgumentException.class, () -> sharedSetDao.findById(9999));
-//    }
-
     @Test
     void testFindByUserId() {
         List<SharedSet> sharedSets = sharedSetDao.findByUserId(user3.getUserId());
         assertFalse(sharedSets.isEmpty(), "SharedSets should not be empty for valid userId");
     }
 
-//    @Test
-//    void testFindByUserIdException() {
-//        assertThrows(IllegalArgumentException.class, () -> sharedSetDao.findByUserId("9999"));
-//    }
 
     @Test
     void testFindByUserIdNoResults() {
@@ -107,10 +98,6 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         assertEquals(user3.getUserId(), retrievedSharedSet.getUser().getUserId());
     }
 
-//    @Test
-//    void testFindBySetIdAndUserIdException() {
-//        assertThrows(IllegalArgumentException.class, () -> sharedSetDao.findBySetIdAndUserId(8888, null));
-//    }
 
     @Test
     void testFindBySetIdAndUserIdNoResults() {
@@ -118,14 +105,6 @@ class SharedSetsDaoTest extends TestSetupAbstract {
         assertNull(sharedSetResult, "No shared set should be found for an invalid userId");
     }
 
-//    @Test
-//    void testUpdate() {
-//        SharedSet retrievedSharedSet = sharedSetDao.findById(sharedSet.getSharingId());
-//        retrievedSharedSet.setUser(new User(UUID.randomUUID().toString(), "Updated", "User", "updated.user@gmail.com", "227b9c4e-5d12-4a8f-bf6e-9c3d2a6b8e5f"));
-//        sharedSetDao.update(retrievedSharedSet);
-//        assertNotNull(retrievedSharedSet);
-//        assertEquals("Updated", retrievedSharedSet.getUser().getFirstName());
-//    }
 
     @AfterEach
     void tearDown() {

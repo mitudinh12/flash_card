@@ -31,7 +31,6 @@ public class SharedSetsDao {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e;
         }
     }
 
@@ -42,24 +41,8 @@ public class SharedSetsDao {
         } catch (Exception e) {
             System.err.println("An unexpected error occured while getting a shared set:" + e.getMessage());
             e.printStackTrace();
-            throw e;
         }
         return sharedSet;
-    }
-
-    public void update(SharedSet sharedSet) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(sharedSet);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            System.err.println("Error in updating a SharedSet: " + e.getMessage());
-            e.printStackTrace();
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-            throw e;
-        }
     }
 
     public void delete(SharedSet sharedSet) {
@@ -85,7 +68,6 @@ public class SharedSetsDao {
         } catch (Exception e) {
             System.err.println("An unexpected error occured while getting shared sets by user id:" + e.getMessage());
             e.printStackTrace();
-            throw e;
         }
         return sharedSets;
     }
@@ -104,7 +86,6 @@ public class SharedSetsDao {
         } catch (Exception e) {
             System.err.println("An unexpected error occured while getting a shared set:" + e.getMessage());
             e.printStackTrace();
-            throw e;
         }
         return sharedSet;
     }
