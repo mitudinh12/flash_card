@@ -15,8 +15,7 @@ import java.io.IOException;
 
 public class CreateFlashcardController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"),entityManager);
     private int flashcardSetId;
 

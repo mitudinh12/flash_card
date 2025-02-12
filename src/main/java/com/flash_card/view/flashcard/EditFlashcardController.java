@@ -13,8 +13,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class EditFlashcardController extends ViewController {
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
     private int flashcardSetId;
     private int cardId = 0;
