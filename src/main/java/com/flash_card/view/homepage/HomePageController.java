@@ -35,8 +35,7 @@ import javafx.scene.image.ImageView;
 public class HomePageController extends ViewController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private List<OwnFlashcardSetViewModel> ownFlashcardList;
     private List<SharedFlashcardSetViewModel> sharedFlashcardList;
     private List<SetViewModel> flashcardList = new ArrayList<>();

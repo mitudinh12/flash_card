@@ -22,8 +22,7 @@ import java.io.IOException;
 
 public class CreateFlashcardSetView extends ViewController {
     private Stage stage = LoginView.getStage();
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private CreateFlashcardSetViewModel viewModel = new CreateFlashcardSetViewModel(entityManager);
     private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private String userId;

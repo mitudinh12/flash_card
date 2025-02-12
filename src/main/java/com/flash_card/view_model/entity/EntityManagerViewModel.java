@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 public class EntityManagerViewModel {
     private EntityManager entityManager;
 
-    public EntityManager getEntityManager() {
+    public static EntityManager getEntityManager() {
         return MariaDbJpaConnection.getInstance();
     }
 

@@ -15,8 +15,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class EditFlashcardSetController extends ViewController {
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private int setId;
     private EditFlashcardSetViewModel viewModel = new EditFlashcardSetViewModel(entityManager);
 

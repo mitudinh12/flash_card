@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class EditManyCardsController extends ViewController {
-    private EntityManagerViewModel entityManagerViewModel = new EntityManagerViewModel();
-    private EntityManager entityManager = entityManagerViewModel.getEntityManager();
+    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private int flashcardSetId;
     private EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
     private int currentPage = 0;

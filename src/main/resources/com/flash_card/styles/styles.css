@@ -7,6 +7,10 @@
     -fx-background-image: url("../assets/backgrounds/BG-home.png");
 }
 
+.class-background {
+    -fx-background-image: url("../assets/backgrounds/BG-class.png");
+}
+
 .teacher-background {
     -fx-background-image: url("../assets/backgrounds/BG-teacherMode.png");
 }
