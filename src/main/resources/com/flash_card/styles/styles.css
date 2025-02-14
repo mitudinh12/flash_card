@@ -255,3 +255,10 @@
     -fx-font-size: 18;
     -fx-font-weight: bold;
 }
+
+/* Teacher mode*/
+
+.list-title {
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
