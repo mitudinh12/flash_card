@@ -249,7 +249,7 @@
     -fx-font-color: white;
 }
 
-#backToHomepage {
+.back-home {
     -fx-text-fill: #01971F;
     -fx-background-color: transparent;
     -fx-font-size: 18;
@@ -261,4 +261,29 @@
 .list-title {
     -fx-font-size: 25;
     -fx-font-weight: bold;
+}
+
+#createClassButton {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-background-color: #205BFD;
+    -fx-background-radius: 8;
+    -fx-font-color: white;
+}
+
+.create-class-button {
+    -fx-font-size: 18;
+    -fx-font-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #2545FE;
+    -fx-background-radius: 8;
+}
+
+.cancel-class-button {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #5F5F5F;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
 }

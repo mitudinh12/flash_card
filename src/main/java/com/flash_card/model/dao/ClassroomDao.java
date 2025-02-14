@@ -73,7 +73,7 @@ public class ClassroomDao {
         return classroom;
     }
 
-    public List<Classroom> findClassByTeacherId(int teacherId) {
+    public List<Classroom> findAllClassByTeacherId(String teacherId) {
         List<Classroom> classrooms = null;
         try {
             classrooms = em.createQuery("SELECT c FROM Classroom c WHERE c.teacher.id = :teacherId", Classroom.class)
