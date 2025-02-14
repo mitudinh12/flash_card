@@ -34,6 +34,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<SharedSet> sharedSets = new ArrayList<>();
 
+    @OneToMany(mappedBy = "teacher")
+    private List<Classroom> classrooms;
+
+    @OneToOne(mappedBy = "student")
+    private ClassMember classMember;
+
     public User(String userId, String firstName, String lastName, String email, String idToken) {
         super();
         this.userId = userId;
