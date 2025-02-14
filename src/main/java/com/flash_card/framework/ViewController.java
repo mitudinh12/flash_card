@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,6 +17,9 @@ import java.io.IOException;
 
 public abstract class ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+
+    @FXML
+    protected Label userName;
 
     @FXML
     protected void handleMenuClick(MouseEvent event) {
@@ -38,16 +42,17 @@ public abstract class ViewController {
             case "home":
                 fxmlFile = "/com/flash_card/fxml/home.fxml";
                 break;
-                /*
-            case "class":
-                    fxmlFile = "/com/flash_card/fxml/class.fxml";
-                    break;
+
+//            case "class":
+//                    fxmlFile = "/com/flash_card/fxml/class.fxml";
+//                    break;
 
             case "teacher":
                 fxmlFile = "/com/flash_card/fxml/teacher-mode.fxml";
+
                 break;
 
-             */
+
             case "createFlashcardSet":
                 fxmlFile = "/com/flash_card/fxml/create-flashcard-set.fxml";
                 break;
@@ -71,7 +76,6 @@ public abstract class ViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -105,15 +109,17 @@ public abstract class ViewController {
         }
     }
 
+    public void setUserName() {
+        String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
+        userName.setText("Hi, " + userFirstName);
+    }
+
+
     @FXML
     protected void displayHomepage(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             Parent root = loader.load();
-            HomePageController controller = loader.getController();
-            String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
-            controller.setUserName(userFirstName);
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

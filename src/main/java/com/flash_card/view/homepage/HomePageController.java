@@ -40,12 +40,12 @@ public class HomePageController extends ViewController {
     private List<SharedFlashcardSetViewModel> sharedFlashcardList;
     private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
-    private final int pageSize = 3;
+    private final int pageSize = 6;
     private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
     private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
 
     @FXML
-    private Label userName;
+    protected Label userName;
 
     @FXML
     private Button logoutButton;
@@ -67,7 +67,7 @@ public class HomePageController extends ViewController {
 
     @FXML
     private void initialize() {
-        setUserName(authSessionViewModel.getVerifiedUserInfo().get("firstName"));
+        setUserName();
         homepageViewModel.loadFlashcards(authSessionViewModel.getVerifiedUserInfo().get("userId"));
         flashcardList = homepageViewModel.getFlashcardList();
 
@@ -85,10 +85,6 @@ public class HomePageController extends ViewController {
 
     @FXML
     private HBox flashcardSetContainer;
-
-    public void setUserName(String name) {
-        userName.setText("Hi, " + name);
-    }
 
     private void updatePage() {
         listFlashcards.getChildren().clear();
