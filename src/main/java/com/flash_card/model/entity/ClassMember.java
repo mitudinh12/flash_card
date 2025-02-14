@@ -12,22 +12,18 @@ public class ClassMember {
     @Column(name = "classroom_members_id")
     private int classMemberId;
 
-    @Column(name = "student_id")
-    private String studentId;
-
-    @Column(name = "classroom_id")
-    private int classroomId;
-
-    @OneToOne(mappedBy = "classMember")
-    private Classroom classroom;
-
-    @OneToOne(mappedBy = "classMember")
+    @OneToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "user_id", nullable = false)
     private User student;
 
-    public ClassMember(String studentId, int classroomId) {
+    @OneToOne
+    @JoinColumn(name = "classroom_id", referencedColumnName = "classroom_id", nullable = false)
+    private Classroom classroom;
+
+    public ClassMember(User student, Classroom classroom) {
         super();
-        this.studentId = studentId;
-        this.classroomId = classroomId;
+        this.student = student;
+        this.classroom = classroom;
     }
 
     public ClassMember() {}
@@ -36,19 +32,11 @@ public class ClassMember {
         return classMemberId;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public User getStudent() {
+        return student;
     }
 
-    public int getClassroomId() {
-        return classroomId;
-    }
-
-    public void setClassroomId(int classroomId) {
-        this.classroomId = classroomId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public Classroom getClassroom() {
+        return classroom;
     }
 }
