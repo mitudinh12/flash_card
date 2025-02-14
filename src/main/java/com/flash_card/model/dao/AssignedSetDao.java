@@ -1,0 +1,75 @@
+package com.flash_card.model.dao;
+
+import com.flash_card.model.entity.AssignedSet;
+import com.flash_card.model.entity.FlashcardSet;
+import jakarta.persistence.EntityManager;
+
+import java.util.List;
+
+public class AssignedSetDao {
+    private static AssignedSetDao assignedSetDao = null;
+    private EntityManager em;
+
+    private AssignedSetDao(EntityManager entityManager) {
+        this.em = entityManager;
+    }
+
+    public static AssignedSetDao getInstance(EntityManager em) {
+        if (assignedSetDao == null) {
+            assignedSetDao = new AssignedSetDao(em);
+        }
+        return assignedSetDao;
+    }
+
+    public void persistAssignedSet(AssignedSet assignedSet) {
+        try {
+            em.getTransaction().begin();
+            em.persist(assignedSet);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error in persisting AssignedSet: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAssignedSet(AssignedSet assignedSet) {
+        try {
+            em.getTransaction().begin();
+            em.remove(assignedSet);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error in deleting AssignedSet: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public List<FlashcardSet> findAllSetsByClassId(int classId) {
+        List<FlashcardSet> sets = null;
+        try {
+            sets = em.createQuery("SELECT fs FROM FlashcardSet fs JOIN AssignedSet aset ON fs.setId = aset.flashcardSet.setId WHERE aset.classroom.classroomId = :classId", FlashcardSet.class)
+                    .setParameter("classId", classId)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println("Error in finding all sets by class id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return sets;
+    }
+
+    public AssignedSet findAssignedSetById(int id) {
+        AssignedSet assignedSet = null;
+        try {
+            assignedSet = em.find(AssignedSet.class, id);
+        } catch (Exception e) {
+            System.err.println("Error in finding assigned set by id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return assignedSet;
+    }
+}
