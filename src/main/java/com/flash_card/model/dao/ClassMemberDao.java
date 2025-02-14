@@ -52,7 +52,7 @@ public class ClassMemberDao {
     public List<User> findAllStudentByClassId(int classId) {
         List<User> students = null;
         try {
-            students = em.createQuery("SELECT u FROM User u JOIN ClassMember cm ON u.userId = cm.studentId WHERE cm.classroomId = :classId", User.class)
+            students = em.createQuery("SELECT u FROM User u JOIN ClassMember cm ON u.userId = cm.student.userId WHERE cm.classroom.classroomId = :classId", User.class)
                     .setParameter("classId", classId)
                     .getResultList();
         } catch (Exception e) {
@@ -63,6 +63,13 @@ public class ClassMemberDao {
     }
 
     public ClassMember findClassMemberById(int id) {
-        return em.find(ClassMember.class, id);
+        ClassMember classMember = null;
+        try {
+            classMember = em.find(ClassMember.class, id);
+        } catch (Exception e) {
+            System.err.println("Error in finding class member by id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return classMember;
     }
 }
