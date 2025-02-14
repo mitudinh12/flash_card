@@ -71,7 +71,19 @@
                         <Insets bottom="40.0" />
                     </padding>
                 </HBox>
-                <Label styleClass="page-title" text="Teacher Mode" />
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+               <children>
+                      <Label styleClass="page-title" text="Teacher Mode" />
+                  <Button fx:id="createClassButton" mnemonicParsing="false" onAction="#gotoCreateClass" text="Create New Class" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="400.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
                 <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="107.0">
                     <children>
                         <Label styleClass="list-title" text="Classes">

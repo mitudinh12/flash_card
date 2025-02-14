@@ -31,6 +31,9 @@ public class HomeTeacherController extends ViewController {
     private Button logoutButton;
 
     @FXML
+    private Button createClassButton;
+
+    @FXML
     private Button backButton;
 
     @FXML
@@ -52,5 +55,10 @@ public class HomeTeacherController extends ViewController {
     @FXML
     private void goBack(ActionEvent event) {
 
+    }
+
+    @FXML
+    private void gotoCreateClass() {
+        goToPage("/com/flash_card/fxml/create-class.fxml", createClassButton.getScene());
     }
 }
