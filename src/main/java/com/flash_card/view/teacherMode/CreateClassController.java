@@ -48,7 +48,6 @@ public class CreateClassController extends ViewController {
 
     @FXML
     public void handleCancel() {
-        System.out.println("Cancel");
         goToPage("/com/flash_card/fxml/teacher-mode.fxml", classNameField.getScene());
     }
 
