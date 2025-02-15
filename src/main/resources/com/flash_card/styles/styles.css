@@ -179,11 +179,11 @@
     -fx-spacing: 8px;
 }
 
-#nextButton {
+.next-button {
     -fx-background-color: transparent;
 }
 
-#backButton {
+.back-button {
     -fx-background-color: transparent;
 }
 
@@ -195,6 +195,72 @@
 .menu-item {
     -fx-padding: 0 25px 0 25px;
     -fx-alignment: CENTER;
+}
+
+/* CLASS CONTAINER */
+#class-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+listClassesUI {
+    -fx-background-color: #E2F2E1;
+    -fx-alignment: TOP_CENTER;
+    -fx-spacing: 8px;
+}
+
+#class-name-label {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-min-width: 350px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 20px 0 10px;
+}
+
+#number-student-label {
+    -fx-font-size: 12;
+}
+
+#number-student-container {
+    -fx-min-width: 100px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 20px 0 0;
+    -fx-alignment: CENTER;
+}
+
+#number-flashcard-label {
+    -fx-font-size: 12;
+}
+
+#number-set-container {
+    -fx-min-width: 100px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 30px 0 0;
+    -fx-alignment: CENTER;
+}
+
+#edit-button {
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-background-color: #E2F2E1;
+    -fx-border-color: #01C729;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 3px 25px 3px 25px;
+}
+
+#delete-button {
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-background-color: #E2F2E1;
+    -fx-border-color: #01C729;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 3px 25px 3px 25px;
 }
 
 /* FLASHCARD BOX */
@@ -275,6 +341,7 @@
     -fx-font-size: 18;
     -fx-font-color: #FFFFFF;
     -fx-font-weight: bold;
+    -fx-min-width: 80;
     -fx-background-color: #2545FE;
     -fx-background-radius: 8;
 }
