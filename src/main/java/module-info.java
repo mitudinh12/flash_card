@@ -26,6 +26,7 @@ module com.flash_card {
     exports com.flash_card.view.teacherMode to javafx.fxml;
     opens com.flash_card.view.auth;
     opens com.flash_card.view.homepage;
+    opens com.flash_card.view_model.teacher_mode;
     opens com.flash_card.view.teacherMode to javafx.fxml;
 
 
@@ -39,6 +40,7 @@ module com.flash_card {
     exports com.flash_card.view.flashcardSet;
     exports com.flash_card.view.flashcard;
     exports com.flash_card.model.entity;
+    exports com.flash_card.view_model.teacher_mode;
 
     opens com.flash_card.view.flashcard to javafx.fxml;
     opens com.flash_card.framework;
