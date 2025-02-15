@@ -1,0 +1,85 @@
+package com.flash_card.view.teacherMode;
+
+import com.flash_card.view_model.teacher_mode.ClassRoomViewModel;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class ClassContainer extends HBox {
+    private HomeTeacherController controller;
+    private ClassRoomViewModel viewModel;
+    private Label classNameLabel;
+
+    public ClassContainer(ClassRoomViewModel viewModel, HomeTeacherController controller) {
+        this.controller = controller;
+        this.viewModel = viewModel;
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        classNameLabel = new Label();
+        classNameLabel.setId("class-name-label");
+        classNameLabel.textProperty().bind(viewModel.getClassName());
+
+        HBox numberStudentContainer = new HBox();
+        numberStudentContainer.setId("number-student-container");
+        Label numberStudent = new Label();
+        numberStudent.setId("number-student-label");
+        numberStudent.textProperty().bind(viewModel.getNumberStudents());
+        Label studentLabel1 = new Label("  student");
+        Label studentLabel2 = new Label("  students");
+        int numStudent = Integer.parseInt(viewModel.getNumberStudents().getValue());
+        if (numStudent > 0) {
+            numberStudentContainer.getChildren().addAll(numberStudent, studentLabel2);
+        } else {
+            numberStudentContainer.getChildren().addAll(numberStudent, studentLabel1);
+        }
+        HBox numberFlashcardContainer = new HBox();
+        numberFlashcardContainer.setId("number-set-container");
+        Label numberFlashcard = new Label();
+        numberFlashcard.setId("number-flashcard-label");
+        numberFlashcard.textProperty().bind(viewModel.getNumberSets());
+        Label setLabel1 = new Label("  set");
+        Label setLabel2 = new Label("  sets");
+        int numSet = Integer.parseInt(viewModel.getNumberSets().getValue());
+        if (numSet > 0) {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, setLabel2);
+        } else {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, setLabel1);
+        }
+
+        Button editButton = new Button("Edit");
+        editButton.setId("edit-button");
+        editButton.setOnAction(event -> gotoEditClassPage());
+
+        Button deleteButton = new Button("Delete");
+        deleteButton.setId("delete-button");
+        deleteButton.setOnAction(event -> controller.deleteClass(viewModel));
+
+        HBox.setHgrow(classNameLabel, Priority.ALWAYS);
+        this.getChildren().addAll(classNameLabel, numberStudentContainer, numberFlashcardContainer, editButton, deleteButton);
+        this.setId("class-container");
+        this.setAlignment(Pos.CENTER_LEFT);
+    }
+
+    public void gotoEditClassPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-class.fxml"));
+            Parent root = loader.load();
+            EditClassController controller = loader.getController();
+            controller.setClassRoom(viewModel.getClassId() , viewModel.getClassName().getValue(), viewModel.getClassDescription());
+            Scene scene = classNameLabel.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
