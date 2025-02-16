@@ -62,10 +62,16 @@ public class ClassMemberDao {
         return students;
     }
 
-    public ClassMember findClassMemberById(int id) {
+    public ClassMember findByStudentIdAndClassId(int classId, String studentId) {
         ClassMember classMember = null;
         try {
-            classMember = em.find(ClassMember.class, id);
+            List<ClassMember> resultList = em.createQuery("SELECT cm FROM ClassMember cm WHERE cm.student.userId = :studentId and cm.classroom.classroomId = :classId", ClassMember.class)
+                    .setParameter("studentId", studentId)
+                    .setParameter("classId", classId)
+                    .getResultList();
+            if (!resultList.isEmpty()) {
+                classMember = resultList.getFirst();
+            }
         } catch (Exception e) {
             System.err.println("Error in finding class member by id: " + e.getMessage());
             e.printStackTrace();

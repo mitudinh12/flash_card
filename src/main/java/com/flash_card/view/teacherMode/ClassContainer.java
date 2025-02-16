@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -68,6 +67,7 @@ public class ClassContainer extends HBox {
         this.getChildren().addAll(classNameLabel, numberStudentContainer, numberFlashcardContainer, editButton, deleteButton);
         this.setId("class-container");
         this.setAlignment(Pos.CENTER_LEFT);
+        this.setOnMouseClicked(event -> controller.gotoClassDetailPage(viewModel.getClassId()));
     }
 
     public void gotoEditClassPage() {
