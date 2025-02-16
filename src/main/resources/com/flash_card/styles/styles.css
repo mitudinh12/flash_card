@@ -329,7 +329,7 @@ listClassesUI {
     -fx-font-weight: bold;
 }
 
-#createClassButton {
+.blueClassButton {
     -fx-font-size: 18;
     -fx-font-weight: bold;
     -fx-background-color: #205BFD;
