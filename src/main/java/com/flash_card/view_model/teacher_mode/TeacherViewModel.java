@@ -72,6 +72,21 @@ public class TeacherViewModel {
         }
     }
 
+    public int deleteStudent(int classId, String studentId) {
+        ClassMember classMember = classMemberDao.findByStudentIdAndClassId(classId, studentId);
+        if (classMember != null) {
+            try {
+                classMemberDao.deleteClassMember(classMember);
+                return classMember.getId();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1;
+            }
+        } else {
+            return 0;
+        }
+    }
+
     public List<Classroom> getAllClassByTeacherId() {
         return classroomDao.findAllClassByTeacherId(userId);
     }

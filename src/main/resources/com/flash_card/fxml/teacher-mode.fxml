@@ -74,7 +74,7 @@
             <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
                <children>
                       <Label styleClass="page-title" text="Teacher Mode" />
-                  <Button fx:id="createClassButton" mnemonicParsing="false" onAction="#gotoCreateClass" text="Create New Class" textFill="WHITE">
+                  <Button fx:id="createClassButton" mnemonicParsing="false" onAction="#gotoCreateClass" text="Create New Class" textFill="WHITE" styleClass="blueClassButton">
                      <font>
                         <Font size="18.0" />
                      </font>
