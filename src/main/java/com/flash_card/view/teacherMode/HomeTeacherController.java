@@ -134,4 +134,17 @@ public class HomeTeacherController extends ViewController {
         if (classRoomViewModel == null) return;
         homeTeacherViewModel.deleteClass(classRoomViewModel);
     }
+
+    public void gotoClassDetailPage(int classId) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/class-detail.fxml"));
+        try {
+            Parent root = loader.load();
+            ClassDetailController controller = loader.getController();
+            controller.setClassId(classId);
+            Scene scene = listClassesUI.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

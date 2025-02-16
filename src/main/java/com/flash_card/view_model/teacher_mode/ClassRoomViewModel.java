@@ -11,13 +11,11 @@ public class ClassRoomViewModel {
     private final StringProperty numberSets;
     private final int classId;
     private String classDescription;
-    private final TeacherViewModel teacherViewModel;
 
     public ClassRoomViewModel(Classroom classroom, TeacherViewModel teacherViewModel) {
         this.classroom = classroom;
         this.classId = classroom.getClassroomId();
         this.classDescription = classroom.getDescription();
-        this.teacherViewModel = teacherViewModel;
         this.className = new SimpleStringProperty(this.classroom.getClassroomName());
         this.numberStudents = new SimpleStringProperty(String.valueOf(teacherViewModel.getAllStudentsByClassId(this.classroom.getClassroomId()).size()));
         this.numberSets = new SimpleStringProperty(String.valueOf(teacherViewModel.getAllSetsByClassId(this.classroom.getClassroomId()).size()));
