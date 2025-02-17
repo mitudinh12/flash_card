@@ -58,6 +58,9 @@ public class FlashcardSetContainer extends HBox {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem("Study");
+        study.setOnAction(event -> {
+            gotoStudyFlashcardSet();
+        });
         // quiz
         MenuItem quiz = new MenuItem("Quiz");
         // edit
@@ -95,10 +98,25 @@ public class FlashcardSetContainer extends HBox {
             //pass the FlashcardSet data to the EditFlashcardSetController
             EditFlashcardSetController editSetController = loader.getController();
             editSetController.setFlashcardSet(
-                    viewModel.getSet().getSetId(),
-                    viewModel.getSet().getSetName(),
+                    viewModel.getSet().getSetId(),viewModel.getSet().getSetName(),
                     viewModel.getSet().getSetDescription(),
                     viewModel.getSet().getSetTopic());
+
+            Scene scene = nameLabel.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gotoStudyFlashcardSet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
+            Parent root = loader.load();
+
+            //pass the FlashcardSet data to the StudyFlashcardSetController
+            StudyFlashcardSetController studySetController = loader.getController();
+            studySetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
 
             Scene scene = nameLabel.getScene();
             scene.setRoot(root);
