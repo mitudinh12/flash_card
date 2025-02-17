@@ -36,7 +36,7 @@ public class ClassContainer extends HBox {
         Label studentLabel1 = new Label("  student");
         Label studentLabel2 = new Label("  students");
         int numStudent = Integer.parseInt(viewModel.getNumberStudents().getValue());
-        if (numStudent > 0) {
+        if (numStudent > 1) {
             numberStudentContainer.getChildren().addAll(numberStudent, studentLabel2);
         } else {
             numberStudentContainer.getChildren().addAll(numberStudent, studentLabel1);

@@ -42,7 +42,7 @@ public class FlashcardSetContainer extends HBox {
         numberFlashcardContainer.setId("number-flashcard");
         numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
         int numFlashcard = Integer.parseInt(viewModel.setNumberFlashcard().getValue());
-        if (numFlashcard > 0) {
+        if (numFlashcard > 1) {
             numberFlashcardContainer.getChildren().addAll(numberFlashcard, term2);
         } else {
             numberFlashcardContainer.getChildren().addAll(numberFlashcard, term1);
