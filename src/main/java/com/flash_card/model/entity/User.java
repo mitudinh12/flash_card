@@ -37,8 +37,8 @@ public class User {
     @OneToMany(mappedBy = "teacher")
     private List<Classroom> classrooms;
 
-    @OneToOne(mappedBy = "student")
-    private ClassMember classMember;
+    @OneToMany(mappedBy = "student")
+    private List<ClassMember> classMembers;
 
     public User(String userId, String firstName, String lastName, String email, String idToken) {
         super();

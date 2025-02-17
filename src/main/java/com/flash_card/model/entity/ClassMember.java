@@ -12,11 +12,11 @@ public class ClassMember {
     @Column(name = "classroom_members_id")
     private int classMemberId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "user_id", nullable = false)
     private User student;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "classroom_id", referencedColumnName = "classroom_id", nullable = false)
     private Classroom classroom;
 

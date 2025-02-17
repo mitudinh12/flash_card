@@ -2,19 +2,22 @@ package com.flash_card.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "assigned_sets")
 public class AssignedSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "assigning_id")
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "set_id", referencedColumnName = "set_id", nullable = false)
     private FlashcardSet flashcardSet;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "classroom_id", referencedColumnName = "classroom_id", nullable = false)
     private Classroom classroom;
 
