@@ -14,14 +14,12 @@ public class ClassDetailViewModel {
     private final ObservableList<StudentViewModel> studentList = FXCollections.observableArrayList();
     private final ObservableList<AssignedFlashcardSetViewModel> setList = FXCollections.observableArrayList();
     private TeacherViewModel teacherViewModel;
-    private int classId;
 
-    public ClassDetailViewModel(int classId, String teacherId, EntityManager em) {
-        this.classId = classId;
+    public ClassDetailViewModel(String teacherId, EntityManager em) {
         this.teacherViewModel = new TeacherViewModel(teacherId, em);
     }
 
-    public void loadStudents() {
+    public void loadStudents(int classId) {
         List<User> students = teacherViewModel.getAllStudentsByClassId(classId);
         studentList.clear();
         students.stream()
@@ -29,7 +27,7 @@ public class ClassDetailViewModel {
                 .forEach(studentList::add);
     }
 
-    public void loadSets() {
+    public void loadSets(int classId) {
         List<FlashcardSet> flashcardSets = teacherViewModel.getAllSetsByClassId(classId);
         setList.clear();
         flashcardSets.stream()
@@ -37,7 +35,30 @@ public class ClassDetailViewModel {
                 .forEach(setList::add);
     }
 
-    public String deleteStudent(StudentViewModel viewModel) {
+    public int assignSets(List<Integer> setIds, int classId) {
+        int result = teacherViewModel.assignFlashcardSets(setIds, classId);
+        if (result == 1) {
+            loadSets(classId);
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    public int deleteSet(int classId, AssignedFlashcardSetViewModel viewModel) {
+        int setId = viewModel.getSet().getSetId();
+        int result = teacherViewModel.deleteAssignedSet(setId, classId);
+        if (result == 1) {
+            setList.remove(viewModel);
+            return 1;
+        } else if (result == 0) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    public String deleteStudent(int classId ,StudentViewModel viewModel) {
         if (viewModel == null) return null;
         int result = teacherViewModel.deleteStudent(classId, viewModel.getStudentId());
         if (result != -1) {
