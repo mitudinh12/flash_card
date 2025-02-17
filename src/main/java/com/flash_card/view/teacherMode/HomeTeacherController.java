@@ -121,26 +121,19 @@ public class HomeTeacherController extends ViewController {
         goToPage("/com/flash_card/fxml/create-class.fxml", createClassButton.getScene());
     }
 
-    public void editClass(int classId) {
-        goToPage("/com/flash_card/fxml/edit-class.fxml", createClassButton.getScene());
-    }
-
-    private void loadClasses() {
-        classList.clear();
-        classList.addAll(homeTeacherViewModel.getClassroomList());
-    }
-
     public void deleteClass(ClassRoomViewModel classRoomViewModel) {
         if (classRoomViewModel == null) return;
         homeTeacherViewModel.deleteClass(classRoomViewModel);
     }
 
-    public void gotoClassDetailPage(int classId) {
+    public void gotoClassDetailPage(int classId, String className) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/class-detail.fxml"));
         try {
             Parent root = loader.load();
             ClassDetailController controller = loader.getController();
             controller.setClassId(classId);
+            controller.setClassName(className);
+            controller.initializeUI();
             Scene scene = listClassesUI.getScene();
             scene.setRoot(root);
         } catch (IOException e) {
