@@ -76,14 +76,14 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
                     <children>
-                        <Label fx:id="className" styleClass="page-title" text="Teacher Mode" />
+                        <Label fx:id="className" minWidth="650.0" styleClass="page-title" text="Teacher Mode">
+                     <padding>
+                        <Insets right="150.0" />
+                     </padding></Label>
                         <Button fx:id="trackProgressButton" mnemonicParsing="false" onAction="#gotoTrackProgress" styleClass="blueClassButton" text="Track progress" textFill="WHITE">
                             <font>
                                 <Font size="18.0" />
                             </font>
-                            <HBox.margin>
-                                <Insets left="400.0" />
-                            </HBox.margin>
                         </Button>
                     </children>
                 </HBox>

@@ -72,7 +72,7 @@
 
 /* CREATE FLASHCARD PAGE */
 .page-title {
-    -fx-font-size: 35;
+    -fx-font-size: 30;
     -fx-fill: #000000;
     -fx-font-weight: bold;
 }
@@ -134,23 +134,23 @@
 #name-label {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-min-width: 250px;
+    -fx-min-width: 300px;
     -fx-min-height: 25px;
-    -fx-padding: 0 150px 0 10px;
+    -fx-padding: 0 80px 0 10px;
 }
 
 #topic-label {
     -fx-font-size: 13;
     -fx-min-width: 250px;
     -fx-min-height: 25px;
-    -fx-padding: 0 150px 0 10px;
+    -fx-padding: 0 80px 0 10px;
 }
 
 #number-flashcard {
     -fx-font-size: 13;
     -fx-min-width: 90px;
     -fx-min-height: 25px;
-    -fx-padding: 0 80px 0 0;
+    -fx-padding: 0 30px 0 0;
 }
 
 #action-button {
@@ -252,7 +252,7 @@ listClassesUI {
 }
 
 #delete-button {
-    -fx-font-size: 12;
+    -fx-font-size: 13;
     -fx-font-weight: bold;
     -fx-background-color: #E2F2E1;
     -fx-border-color: #01C729;
@@ -282,14 +282,16 @@ listClassesUI {
 }
 
 #student-email-label {
-    -fx-min-width: 310px;
+    -fx-min-width: 300px;
     -fx-font-size: 13;
+    -fx-padding: 0px 25px 0px 25px;
 }
 
 #student-name-label {
     -fx-font-size: 14;
-    -fx-min-width: 310px;
+    -fx-min-width: 320px;
     -fx-font-weight: bold;
+    -fx-padding: 0 10px 0 10px;
 }
 
 /* FLASHCARD BOX */
@@ -359,7 +361,7 @@ listClassesUI {
 }
 
 .blueClassButton {
-    -fx-font-size: 18;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
     -fx-background-color: #205BFD;
     -fx-background-radius: 8;
@@ -367,7 +369,7 @@ listClassesUI {
 }
 
 .create-class-button {
-    -fx-font-size: 18;
+    -fx-font-size: 16;
     -fx-font-color: #FFFFFF;
     -fx-font-weight: bold;
     -fx-min-width: 80;
@@ -376,7 +378,7 @@ listClassesUI {
 }
 
 .cancel-class-button {
-    -fx-font-size: 18;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
     -fx-background-color: #FFFFFF;
     -fx-border-color: #5F5F5F;
