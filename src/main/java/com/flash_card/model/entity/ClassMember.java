@@ -32,10 +32,6 @@ public class ClassMember {
         return classMemberId;
     }
 
-    public User getStudent() {
-        return student;
-    }
-
     public Classroom getClassroom() {
         return classroom;
     }

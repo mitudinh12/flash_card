@@ -1,6 +1,5 @@
 package com.flash_card.view_model.teacher_mode;
 
-import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.User;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;

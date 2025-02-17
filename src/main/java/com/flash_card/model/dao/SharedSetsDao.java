@@ -1,5 +1,5 @@
 package com.flash_card.model.dao;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
+
 import com.flash_card.model.entity.SharedSet;
 import jakarta.persistence.EntityManager;
 

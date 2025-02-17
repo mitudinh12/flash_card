@@ -62,17 +62,6 @@ public class AssignedSetDao {
         return sets;
     }
 
-    public AssignedSet findAssignedSetById(int id) {
-        AssignedSet assignedSet = null;
-        try {
-            assignedSet = em.find(AssignedSet.class, id);
-        } catch (Exception e) {
-            System.err.println("Error in finding assigned set by id: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return assignedSet;
-    }
-
     public AssignedSet findBySetIdAndClassId(int setId, int classId) {
         AssignedSet assignedSet = null;
         try {

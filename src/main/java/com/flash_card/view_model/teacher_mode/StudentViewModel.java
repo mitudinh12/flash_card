@@ -20,7 +20,5 @@ public class StudentViewModel {
 
     public StringProperty getStudentEmail() {return studentEmail;}
 
-    public User getStudent() {return this.student;}
-
     public String getStudentId() {return this.student.getUserId();}
 }

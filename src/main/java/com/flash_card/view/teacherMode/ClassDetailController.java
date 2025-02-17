@@ -1,12 +1,9 @@
 package com.flash_card.view.teacherMode;
 
-import com.flash_card.framework.SetViewModel;
 import com.flash_card.framework.ViewController;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.view.flashcardSet.FlashcardSetContainer;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;
-import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
 import com.flash_card.view_model.teacher_mode.*;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
@@ -19,7 +16,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -293,10 +289,6 @@ public class ClassDetailController extends ViewController {
     @FXML
     public void setClassId(int classId) {
         this.classId = classId;
-    }
-
-    public int getClassId() {
-        return classId;
     }
 
     public void deleteAssignedSet(AssignedFlashcardSetViewModel viewModel) {

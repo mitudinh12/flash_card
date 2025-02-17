@@ -37,10 +37,6 @@ public class Classroom {
     public Classroom() {
     }
 
-    public void setClassroomId(int classroomId) {
-        this.classroomId = classroomId;
-    }
-
     public int getClassroomId() {
         return classroomId;
     }

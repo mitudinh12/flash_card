@@ -1,8 +1,5 @@
 package com.flash_card.view.teacherMode;
 
-import com.flash_card.framework.SetViewModel;
-import com.flash_card.view.flashcardSet.EditFlashcardSetController;
-import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

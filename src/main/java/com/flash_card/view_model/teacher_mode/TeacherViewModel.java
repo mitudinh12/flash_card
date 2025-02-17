@@ -3,8 +3,6 @@ package com.flash_card.view_model.teacher_mode;
 import com.flash_card.model.dao.*;
 import com.flash_card.model.entity.*;
 import jakarta.persistence.EntityManager;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherViewModel {
@@ -44,7 +42,7 @@ public class TeacherViewModel {
             updateClass.setDescription(classDescription);
             try {
                 classroomDao.updateClass(updateClass);
-                return updateClass.getClassroomId();
+                return 1;
             } catch (Exception e) {
                 e.printStackTrace();
                 return -1;
@@ -59,7 +57,7 @@ public class TeacherViewModel {
         if (foundClassroom != null) {
             try {
                 classroomDao.deleteClass(foundClassroom);
-                return classroom.getClassroomId();
+                return 1;
             } catch (Exception e) {
                 e.printStackTrace();
                 return -1;

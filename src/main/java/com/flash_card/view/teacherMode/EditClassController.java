@@ -8,8 +8,6 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.awt.event.ActionEvent;
-
 public class EditClassController extends ViewController {
 
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
@@ -38,8 +36,12 @@ public class EditClassController extends ViewController {
             showAlert("Warning", "Please fill in all fields");
             return;
         }
-        viewModel.editClass(classId, className, classDescription);
-        goToPage("/com/flash_card/fxml/teacher-mode.fxml", classNameField.getScene());
+        int result = viewModel.editClass(classId, className, classDescription);
+        if (result != 1) {
+            showAlert("Error", "Error in updating class");
+        } else {
+            goToPage("/com/flash_card/fxml/teacher-mode.fxml", classNameField.getScene());
+        }
     }
 
     @FXML
