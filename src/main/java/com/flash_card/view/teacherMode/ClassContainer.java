@@ -67,7 +67,7 @@ public class ClassContainer extends HBox {
         this.getChildren().addAll(classNameLabel, numberStudentContainer, numberFlashcardContainer, editButton, deleteButton);
         this.setId("class-container");
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setOnMouseClicked(event -> controller.gotoClassDetailPage(viewModel.getClassId()));
+        this.setOnMouseClicked(event -> controller.gotoClassDetailPage(viewModel.getClassId(), viewModel.getClassName().getValue()));
     }
 
     public void gotoEditClassPage() {

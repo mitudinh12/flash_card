@@ -25,10 +25,10 @@ public class StudentContainer extends HBox {
 
         Label email = new Label();
         email.setId("student-email-label");
-        email.textProperty().bind(viewModel.getStudentName());
+        email.textProperty().bind(viewModel.getStudentEmail());
 
-        Button deleteButton = new Button("Delete");
-        deleteButton.setId("delete-button");
+        Button deleteButton = new Button("Remove");
+        deleteButton.setId("remove-button");
         deleteButton.setOnAction(event -> controller.deleteStudent(viewModel));
 
         HBox.setHgrow(studentLabel, Priority.ALWAYS);

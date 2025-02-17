@@ -13,11 +13,12 @@ import javafx.scene.layout.Priority;
 public class SetContainer extends HBox {
     private AssignedFlashcardSetViewModel viewModel;
     private Label nameLabel;
-    private EditFlashcardSetController editSetController = new EditFlashcardSetController();
+    private ClassDetailController controller;
 
 
-    public SetContainer(AssignedFlashcardSetViewModel viewModel) {
+    public SetContainer(AssignedFlashcardSetViewModel viewModel, ClassDetailController controller) {
         this.viewModel = viewModel;
+        this.controller = controller;
         initializeUI();
     }
 
@@ -31,15 +32,28 @@ public class SetContainer extends HBox {
         topicLabel.setId("topic-label");
         topicLabel.textProperty().bind(viewModel.setTopicProperty());
 
+        HBox numberFlashcardContainer = new HBox();
         Label numberFlashcard = new Label();
-        numberFlashcard.setId("number-flashcard");
+        Label term1 = new Label(" term");
+        Label term2 = new Label(" terms");
+        numberFlashcardContainer.setId("number-flashcard");
         numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
+        int numFlashcard = Integer.parseInt(viewModel.setNumberFlashcard().getValue());
+        if (numFlashcard > 0) {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, term2);
+        } else {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, term1);
+        }
+        numberFlashcardContainer.alignmentProperty().setValue(Pos.CENTER);
 
-        Button actionButton = new Button("Delete");
+        Button actionButton = new Button("Remove");
         actionButton.setId("action-button");
+        actionButton.setOnAction(event -> {
+            controller.deleteAssignedSet(viewModel);
+        });
 
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
-        this.getChildren().addAll(nameLabel, topicLabel, numberFlashcard, actionButton);
+        this.getChildren().addAll(nameLabel, topicLabel, numberFlashcardContainer, actionButton);
         this.setId("flashcard-set-container");
         this.setAlignment(Pos.CENTER_LEFT);
     }
