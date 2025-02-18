@@ -21,9 +21,9 @@ import java.util.List;
 public class StudyFlashcardSetViewModel {
     private final StudyDao studyDao;
     private Study currentStudy;
-    private UserDao userDao;
+    private final UserDao userDao;
     private final FlashcardDao flashcardDao;
-    private FlashcardSetDao flashcardSetDao;
+    private final FlashcardSetDao flashcardSetDao;
     private List<Flashcard> flashcards;
     private int setId;
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
@@ -37,6 +37,9 @@ public class StudyFlashcardSetViewModel {
         userDao = UserDao.getInstance(entityManager);
     }
 
+
+    /* DB INTERACTION METHODS */
+
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
         flashcards = flashcardDao.getHardFlashcards(setId);
@@ -49,11 +52,12 @@ public class StudyFlashcardSetViewModel {
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
         currentStudy = studyDao.findByUserIdAndSetId(userId, setId);
 
+        //if there is no study record, create a new one
         if (currentStudy == null) {
             currentStudy = new Study(user, flashcardSet, LocalDateTime.now(), null, 0);
             studyDao.persist(currentStudy);
         } else {
-            currentStudy.setStartTime(LocalDateTime.now());
+            currentStudy.setStartTime(LocalDateTime.now()); //else update the start time
             studyDao.update(currentStudy);
         }
     }
@@ -67,11 +71,26 @@ public class StudyFlashcardSetViewModel {
                     .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
                     .count();
 
-            //update the number of studied cards
+            //then update the number of studied cards to study table
             currentStudy.setNumberStudiedWords((int) easyFlashcardsCount);
             studyDao.update(currentStudy);
         }
     }
+
+    public void updateFlashcardLevel(DifficultyLevel difficulty) {
+        Flashcard currentFlashcard = getCurrentFlashcard();
+        currentFlashcard.setDifficultLevel(difficulty);
+        flashcardDao.update(currentFlashcard);
+    }
+
+    public void resetAllFlashcardLevel() {
+        flashcardDao.findBySetId(setId).forEach(flashcard -> {
+            flashcard.setDifficultLevel(DifficultyLevel.hard);
+            flashcardDao.update(flashcard);
+        });
+    }
+
+    /* HELPER METHODS */
 
     public Flashcard getCurrentFlashcard() {
         return flashcards.get(currentIndex.get());
@@ -99,18 +118,5 @@ public class StudyFlashcardSetViewModel {
 
     public StringProperty totalProperty() {
         return total;
-    }
-
-    public void updateFlashcardLevel(DifficultyLevel difficulty) {
-        Flashcard currentFlashcard = getCurrentFlashcard();
-        currentFlashcard.setDifficultLevel(difficulty);
-        flashcardDao.update(currentFlashcard);
-    }
-
-    public void resetAllFlashcardLevel() {
-        flashcardDao.findBySetId(setId).forEach(flashcard -> {
-            flashcard.setDifficultLevel(DifficultyLevel.hard);
-            flashcardDao.update(flashcard);
-        });
     }
 }

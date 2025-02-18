@@ -22,6 +22,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class StudyFlashcardSetController extends ViewController {
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private int setId;
+
     @FXML
     public Label index;
     @FXML
@@ -39,10 +44,6 @@ public class StudyFlashcardSetController extends ViewController {
     @FXML
     private Button hardButton;
 
-    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private int setId;
     @FXML
     public void initialize() {
         setName.textProperty().bind(viewModel.setNameProperty());
@@ -50,6 +51,7 @@ public class StudyFlashcardSetController extends ViewController {
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
     }
 
+    //pass the setId and setName to the viewModel to start the study when click study or review
     public void setFlashcardSet(int setId, String setName) {
         this.setId = setId;
         viewModel.loadFlashcards(setId, setName);
@@ -64,12 +66,14 @@ public class StudyFlashcardSetController extends ViewController {
         updateButtonStates();
     }
 
+    //update both back/next button and easy/hard button states
     private void updateButtonStates() {
+        //set visible for back/next button
         backIcon.setVisible(viewModel.currentIndexProperty().get() != 0);
         nextIcon.setVisible(true);
 
+        //highlight the button based on current card's difficulty level
         DifficultyLevel difficultyLevel = viewModel.getCurrentFlashcard().getDifficultLevel();
-
         easyButton.getStyleClass().remove("highlighted-button");
         hardButton.getStyleClass().remove("highlighted-button");
         if (difficultyLevel == DifficultyLevel.easy) {
@@ -80,27 +84,19 @@ public class StudyFlashcardSetController extends ViewController {
     }
 
     @FXML
+    public void handleClose(MouseEvent mouseEvent) {
+        goToReviewPage();
+        viewModel.endStudy(); //end the study when press close and go to review page
+    }
+
+    @FXML
     public void handleNext(MouseEvent mouseEvent) {
         if (viewModel.currentIndexProperty().get() < Integer.parseInt(viewModel.totalProperty().get()) - 1) {
             viewModel.nextFlashcard();
             showFlashcard();
         } else {
             goToReviewPage();
-            viewModel.endStudy();
-        }
-    }
-
-    private void goToReviewPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
-            Parent root = loader.load();
-            ReviewFlashcardSetController reviewController = loader.getController();
-            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get());
-            Stage stage = (Stage) flashcardContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            viewModel.endStudy(); //end the study when after the last card
         }
     }
 
@@ -128,9 +124,9 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handleReset(MouseEvent mouseEvent) {
-        viewModel.resetAllFlashcardLevel();
-        viewModel.currentIndexProperty().set(0);
-        viewModel.loadFlashcards(setId, viewModel.setNameProperty().get());
+        viewModel.resetAllFlashcardLevel(); //reset all flashcard levels to hard
+        viewModel.currentIndexProperty().set(0); //reset the card index to show the first card
+        viewModel.loadFlashcards(setId, viewModel.setNameProperty().get()); //reload the flashcards
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
         total.textProperty().bind(viewModel.totalProperty());
         showFlashcard();
@@ -139,10 +135,17 @@ public class StudyFlashcardSetController extends ViewController {
     @FXML
     public void handleShuffle(MouseEvent mouseEvent) {
     }
-
-    @FXML
-    public void handleClose(MouseEvent mouseEvent) {
-        goToReviewPage();
-        viewModel.endStudy();
+    private void goToReviewPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
+            Parent root = loader.load();
+            ReviewFlashcardSetController reviewController = loader.getController();
+            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get());
+            Stage stage = (Stage) flashcardContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
