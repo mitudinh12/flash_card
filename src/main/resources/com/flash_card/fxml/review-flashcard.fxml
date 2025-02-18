@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -65,6 +63,11 @@
             </padding>
             <children>
                 <Label fx:id="setNameLabel" styleClass="page-title" text="Your Flashcards" />
+            <Label fx:id="studyTimeLabel" text="You have study for time" />
+            <Label fx:id="studiedNumLabel" layoutX="110.0" layoutY="153.0" text="You have study number flashcards" />
+            <Button mnemonicParsing="false" onAction="#handleReview" text="REVIEW" />
+            <Button layoutX="110.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleQuiz" text="QUIZ" />
+            <Button layoutX="110.0" layoutY="187.0" mnemonicParsing="false" onAction="#goToHome" text="BACK TO HOME" />
             </children>
         </VBox>
     </children>

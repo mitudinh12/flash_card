@@ -61,9 +61,21 @@
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1025.0">
             <padding>
-                <Insets left="100.0" right="100.0" top="100.0" />
+                <Insets left="100.0" right="100.0" top="40.0" />
             </padding>
             <children>
+            <HBox alignment="TOP_RIGHT">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="29.0" onMouseClicked="#handleClose" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icons/icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="45.0" />
+               </padding>
+            </HBox>
                 <Label fx:id="setName" styleClass="page-title" text="Your Flashcards" />
             <HBox alignment="CENTER" styleClass="index">
                <children>

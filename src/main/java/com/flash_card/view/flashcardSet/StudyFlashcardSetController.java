@@ -105,4 +105,9 @@ public class StudyFlashcardSetController extends ViewController {
     @FXML
     public void handleShuffle(MouseEvent mouseEvent) {
     }
+
+    @FXML
+    public void handleClose(MouseEvent mouseEvent) {
+        goToReviewPage();
+    }
 }
