@@ -32,7 +32,7 @@ public class StudyFlashcardSetViewModel {
     private final StringProperty setName = new SimpleStringProperty();
     private final StringProperty total = new SimpleStringProperty();
     private final StringProperty studyTime = new SimpleStringProperty();
-    private final IntegerProperty studiedNum = new SimpleIntegerProperty();
+    private final StringProperty studiedNum = new SimpleStringProperty();
 
     public StudyFlashcardSetViewModel(EntityManager entityManager) {
         flashcardDao = FlashcardDao.getInstance(entityManager);
@@ -109,18 +109,18 @@ public class StudyFlashcardSetViewModel {
                 long minutes = seconds / 60;
                 seconds = seconds % 60;
                 if (minutes > 0) {
-                    studyTime.set(minutes + " minutes " + seconds + " seconds");
+                    studyTime.set("Study duration: " + minutes + " minutes " + seconds + " seconds");
                 } else {
-                    studyTime.set(seconds + " seconds");
+                    studyTime.set("Study duration: " + seconds + " seconds");
                 }
-                studiedNum.set(study.getNumberStudiedWords());
+                studiedNum.set("Flashcard studied: "+ study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
             } else {
-                studyTime.set("0 seconds");
-                studiedNum.set(0);
+                studyTime.set("Study duration: 0 seconds");
+                studiedNum.set("Flashcard studied: 0/" + flashcardDao.findBySetId(setId).size());
             }
         } else {
             studyTime.set("0 seconds");
-            studiedNum.set(0);
+            studiedNum.set("Flashcard studied: 0/"+ flashcardDao.findBySetId(setId).size());
         }
     }
 
@@ -163,7 +163,7 @@ public class StudyFlashcardSetViewModel {
         return studyTime;
     }
 
-    public IntegerProperty studiedNumProperty() {
+    public StringProperty studiedNumProperty() {
         return studiedNum;
     }
 

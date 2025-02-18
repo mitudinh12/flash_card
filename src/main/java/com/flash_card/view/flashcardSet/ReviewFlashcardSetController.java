@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class ReviewFlashcardSetController extends ViewController {
     public Label studyTimeLabel;
     @FXML
     public Label studiedNumLabel;
+    @FXML
+    public PieChart pieChart;
 
     private int setId;
     private String setName;
@@ -36,7 +39,7 @@ public class ReviewFlashcardSetController extends ViewController {
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         viewModel.updateStudyDetails(userId, setId);
         studyTimeLabel.textProperty().bind(viewModel.studyTimeProperty());
-        studiedNumLabel.textProperty().bind(viewModel.studiedNumProperty().asString());
+        studiedNumLabel.textProperty().bind(viewModel.studiedNumProperty());
     }
 
     @FXML

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -63,11 +64,31 @@
             </padding>
             <children>
                 <Label fx:id="setNameLabel" styleClass="page-title" text="Your Flashcards" />
-            <Label fx:id="studyTimeLabel" text="You have study for time" />
-            <Label fx:id="studiedNumLabel" layoutX="110.0" layoutY="153.0" text="You have study number flashcards" />
-            <Button mnemonicParsing="false" onAction="#handleReview" text="REVIEW" />
-            <Button layoutX="110.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleQuiz" text="QUIZ" />
-            <Button layoutX="110.0" layoutY="187.0" mnemonicParsing="false" onAction="#goToHome" text="BACK TO HOME" />
+            <HBox>
+               <children>
+                  <PieChart fx:id="pieChart" prefHeight="400.0" prefWidth="400.0" />
+                  <VBox prefHeight="400.0" prefWidth="417.0" styleClass="menu-text-black">
+                     <children>
+                        <Label fx:id="studiedNumLabel" text="3/3" />
+                        <Label fx:id="studyTimeLabel" text="time" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleReview" styleClass="create-button" text="REVIEW" textFill="#fffdfd" />
+                  <Button mnemonicParsing="false" onAction="#handleQuiz" styleClass="save-button" text="QUIZ" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#goToHome" styleClass="cancel-button" text="BACK TO HOME" />
+               </children>
+            </HBox>
             </children>
         </VBox>
     </children>
