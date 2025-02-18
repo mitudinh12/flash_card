@@ -4,6 +4,7 @@ import com.flash_card.framework.ViewController;
 import com.flash_card.view.flashcard.FlashcardView;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,7 @@ public class StudyFlashcardSetController extends ViewController {
 
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private int setId;
     @FXML
     public void initialize() {
@@ -45,6 +47,7 @@ public class StudyFlashcardSetController extends ViewController {
     public void setFlashcardSet(int setId, String setName) {
         this.setId = setId;
         viewModel.loadFlashcards(setId, setName);
+        viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
         showFlashcard();
     }
 
