@@ -134,7 +134,10 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handleShuffle(MouseEvent mouseEvent) {
+        viewModel.shuffleFlashcards(); //shuffle cards and reset the index to show the first card
+        showFlashcard(); //refresh the display to show the shuffled flashcards
     }
+
     private void goToReviewPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));

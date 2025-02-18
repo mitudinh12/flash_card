@@ -16,6 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 public class StudyFlashcardSetViewModel {
@@ -106,6 +107,11 @@ public class StudyFlashcardSetViewModel {
         if (currentIndex.get() > 0) {
             currentIndex.set(currentIndex.get() - 1);
         }
+    }
+
+    public void shuffleFlashcards() {
+        Collections.shuffle(flashcards);
+        currentIndex.set(0); //reset the index to show the first card
     }
 
     public IntegerProperty currentIndexProperty() {
