@@ -35,16 +35,27 @@ public class FlashcardSetContainer extends HBox {
         topicLabel.setId("topic-label");
         topicLabel.textProperty().bind(viewModel.setTopicProperty());
 
+        HBox numberFlashcardContainer = new HBox();
         Label numberFlashcard = new Label();
-        numberFlashcard.setId("number-flashcard");
+        Label term1 = new Label(" term");
+        Label term2 = new Label(" terms");
+        numberFlashcardContainer.setId("number-flashcard");
         numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
+        int numFlashcard = Integer.parseInt(viewModel.setNumberFlashcard().getValue());
+        if (numFlashcard > 1) {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, term2);
+        } else {
+            numberFlashcardContainer.getChildren().addAll(numberFlashcard, term1);
+        }
+        numberFlashcardContainer.alignmentProperty().setValue(Pos.CENTER);
+
 
         Button actionButton = new Button("Action");
         actionButton.setId("action-button");
         actionButton.setOnAction(event -> showContextMenu(actionButton));
 
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
-        this.getChildren().addAll(nameLabel, topicLabel, numberFlashcard, actionButton);
+        this.getChildren().addAll(nameLabel, topicLabel, numberFlashcardContainer, actionButton);
         this.setId("flashcard-set-container");
         if (this.viewModel.getType().equals("own")){
             this.setOnMouseClicked(event -> {

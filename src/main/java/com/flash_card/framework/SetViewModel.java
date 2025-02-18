@@ -9,7 +9,8 @@ public abstract class SetViewModel {
     public abstract StringProperty setNumberFlashcard();
     public abstract String getType();
 
-    public abstract void updateEntity();
+//    public abstract void updateEntity();
     public abstract FlashcardSet getSet();
+
 
 }

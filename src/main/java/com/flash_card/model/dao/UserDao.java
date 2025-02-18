@@ -2,7 +2,6 @@ package com.flash_card.model.dao;
 
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
