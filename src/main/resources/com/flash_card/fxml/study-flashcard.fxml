@@ -80,7 +80,7 @@
             <HBox alignment="CENTER" styleClass="index">
                <children>
                   <Label fx:id="index" text="index" textFill="#656565" />
-                  <Text fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                  <Text fx:id="middleText" fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
                   <Label fx:id="total" text="total" textFill="#656565" />
                </children>
             </HBox>
@@ -88,9 +88,9 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" spacing="20.0">
                      <children>
-                        <ImageView fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleShuffle" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="shuffleIcon" fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleShuffle" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../assets/icons/Shuffle.png" />
+                              <Image  url="@../assets/icons/Shuffle.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleReset" pickOnBounds="true" preserveRatio="true">
@@ -100,7 +100,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Text fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Click card to flip" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                  <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Click card to flip" textAlignment="CENTER" wrappingWidth="404.55029296875" />
                </children>
             </StackPane>
                 <VBox fx:id="flashcardContainer" prefHeight="450.0" prefWidth="816.0">

@@ -10,13 +10,16 @@ import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,7 +46,12 @@ public class StudyFlashcardSetController extends ViewController {
     private Button easyButton;
     @FXML
     private Button hardButton;
-
+    @FXML
+    public Text middleText;
+    @FXML
+    public ImageView shuffleIcon;
+    @FXML
+    public Text instructionText;
     @FXML
     public void initialize() {
         setName.textProperty().bind(viewModel.setNameProperty());
@@ -59,11 +67,30 @@ public class StudyFlashcardSetController extends ViewController {
         showFlashcard();
     }
 
-    private void showFlashcard() {
+   private void showFlashcard() {
         flashcardContainer.getChildren().clear();
-        FlashcardView flashcardView = new FlashcardView(viewModel.getCurrentFlashcard().getTerm(), viewModel.getCurrentFlashcard().getDefinition());
-        flashcardContainer.getChildren().add(flashcardView);
-        updateButtonStates();
+        boolean flashcardsEmpty = viewModel.getFlashcards().isEmpty();
+
+        index.setVisible(!flashcardsEmpty);
+        total.setVisible(!flashcardsEmpty);
+        backIcon.setVisible(!flashcardsEmpty);
+        nextIcon.setVisible(!flashcardsEmpty);
+        easyButton.setVisible(!flashcardsEmpty);
+        hardButton.setVisible(!flashcardsEmpty);
+        middleText.setVisible(!flashcardsEmpty);
+        shuffleIcon.setVisible(!flashcardsEmpty);
+        instructionText.setVisible(!flashcardsEmpty);
+
+        if (flashcardsEmpty) {
+            Label messageLabel = new Label("You have studied all flashcards, press reset to study again.");
+            messageLabel.getStyleClass().add("message-label");
+            flashcardContainer.setAlignment(Pos.TOP_CENTER);
+            flashcardContainer.getChildren().add(messageLabel);
+        } else {
+            FlashcardView flashcardView = new FlashcardView(viewModel.getCurrentFlashcard().getTerm(), viewModel.getCurrentFlashcard().getDefinition());
+            flashcardContainer.getChildren().add(flashcardView);
+            updateButtonStates();
+        }
     }
 
     //update both back/next button and easy/hard button states

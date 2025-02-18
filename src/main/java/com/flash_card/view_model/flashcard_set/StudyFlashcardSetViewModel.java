@@ -166,4 +166,8 @@ public class StudyFlashcardSetViewModel {
     public IntegerProperty studiedNumProperty() {
         return studiedNum;
     }
+
+    public List<Flashcard> getFlashcards() {
+        return flashcards;
+    }
 }

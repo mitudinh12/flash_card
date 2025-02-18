@@ -279,3 +279,9 @@
     -fx-border-width: 2;
     -fx-border-radius: 8;
 }
+
+.message-label {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #01971F;
+}
