@@ -93,7 +93,7 @@
                                       <Image url="@../assets/icons/left-arrow.png" />
                                   </image>
                               </ImageView>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" />
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button"/>
                           </children>
                       </StackPane>
                       <StackPane prefHeight="100.0" prefWidth="55.0">
@@ -103,7 +103,7 @@
                                       <Image url="@../assets/icons/arrow-point-to-right.png" />
                                   </image>
                               </ImageView>
-                              <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" />
+                              <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button"/>
                           </children>
                       </StackPane>
                </children>
