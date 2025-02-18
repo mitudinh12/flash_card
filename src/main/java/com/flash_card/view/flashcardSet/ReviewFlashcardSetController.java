@@ -1,5 +1,6 @@
 package com.flash_card.view.flashcardSet;
 
+import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
@@ -37,9 +38,25 @@ public class ReviewFlashcardSetController extends ViewController {
         this.setName = setName;
         setNameLabel.setText(setName);
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+
+        // Load flashcards
+        viewModel.loadFlashcards(setId, setName);
         viewModel.updateStudyDetails(userId, setId);
         studyTimeLabel.textProperty().bind(viewModel.studyTimeProperty());
         studiedNumLabel.textProperty().bind(viewModel.studiedNumProperty());
+
+        //calculate studied and left cards
+        int totalCards = viewModel.getTotalFlashcards();
+        int studiedCards = viewModel.getStudiedFlashcards();
+        int leftCards = totalCards - studiedCards;
+
+        //create PieChart data
+        PieChart.Data studiedData = new PieChart.Data("Studied (" + studiedCards + ")", studiedCards);
+        PieChart.Data leftData = new PieChart.Data("Left (" + leftCards + ")", leftCards);
+
+        //sdd data to PieChart
+        pieChart.getData().clear();
+        pieChart.getData().addAll(studiedData, leftData);
     }
 
     @FXML

@@ -124,6 +124,16 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
+    public int getTotalFlashcards() {
+        return flashcardDao.findBySetId(setId).size();
+    }
+
+    public int getStudiedFlashcards() {
+        return (int) flashcardDao.findBySetId(setId).stream()
+                .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
+                .count();
+    }
+
     /* HELPER METHODS */
 
     public Flashcard getCurrentFlashcard() {

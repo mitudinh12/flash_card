@@ -64,10 +64,10 @@
             </padding>
             <children>
                 <Label fx:id="setNameLabel" styleClass="page-title" text="Your Flashcards" />
-            <HBox>
+            <HBox spacing="20.0">
                <children>
                   <PieChart fx:id="pieChart" prefHeight="400.0" prefWidth="400.0" />
-                  <VBox prefHeight="400.0" prefWidth="417.0" styleClass="menu-text-black">
+                  <VBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="334.0" styleClass="menu-text-black">
                      <children>
                         <Label fx:id="studiedNumLabel" text="3/3" />
                         <Label fx:id="studyTimeLabel" text="time" />
