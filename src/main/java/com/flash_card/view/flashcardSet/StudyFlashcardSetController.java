@@ -86,7 +86,7 @@ public class StudyFlashcardSetController extends ViewController {
             showFlashcard();
         } else {
             goToReviewPage();
-            viewModel.updateStudyEndTime();
+            viewModel.endStudy();
         }
     }
 
@@ -137,6 +137,6 @@ public class StudyFlashcardSetController extends ViewController {
     @FXML
     public void handleClose(MouseEvent mouseEvent) {
         goToReviewPage();
-        viewModel.updateStudyEndTime();
+        viewModel.endStudy();
     }
 }

@@ -25,6 +25,7 @@ public class StudyFlashcardSetViewModel {
     private final FlashcardDao flashcardDao;
     private FlashcardSetDao flashcardSetDao;
     private List<Flashcard> flashcards;
+    private int setId;
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
     private final StringProperty setName = new SimpleStringProperty();
     private final StringProperty total = new SimpleStringProperty();
@@ -37,6 +38,7 @@ public class StudyFlashcardSetViewModel {
     }
 
     public void loadFlashcards(int setId, String setName) {
+        this.setId = setId;
         flashcards = flashcardDao.getHardFlashcards(setId);
         this.setName.set(setName);
         this.total.set(String.valueOf(flashcards.size()));
@@ -56,9 +58,17 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
-    public void updateStudyEndTime() {
+    public void endStudy() {
         if (currentStudy != null) {
             currentStudy.setEndTime(LocalDateTime.now());
+
+            //count the number of "easy" flashcards
+            long easyFlashcardsCount = flashcardDao.findBySetId(setId).stream()
+                    .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
+                    .count();
+
+            //update the number of studied cards
+            currentStudy.setNumberStudiedWords((int) easyFlashcardsCount);
             studyDao.update(currentStudy);
         }
     }
