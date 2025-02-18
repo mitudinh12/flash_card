@@ -22,7 +22,7 @@ public class StudyFlashcardSetViewModel {
     }
 
     public void loadFlashcards(int setId, String setName) {
-        flashcards = flashcardDao.findBySetId(setId);
+        flashcards = flashcardDao.getHardFlashcards(setId);
         this.setName.set(setName);
         this.total.set(String.valueOf(flashcards.size()));
     }
