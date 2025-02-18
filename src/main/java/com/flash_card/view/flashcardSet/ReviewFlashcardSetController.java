@@ -1,6 +1,10 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
+import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -12,6 +16,9 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class ReviewFlashcardSetController extends ViewController {
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     @FXML
     public Label setNameLabel;
     @FXML
@@ -26,6 +33,10 @@ public class ReviewFlashcardSetController extends ViewController {
         this.setId = setId;
         this.setName = setName;
         setNameLabel.setText(setName);
+        String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+        viewModel.updateStudyDetails(userId, setId);
+        studyTimeLabel.textProperty().bind(viewModel.studyTimeProperty());
+        studiedNumLabel.textProperty().bind(viewModel.studiedNumProperty().asString());
     }
 
     @FXML
@@ -34,9 +45,9 @@ public class ReviewFlashcardSetController extends ViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
             Parent root = loader.load();
 
+            //pass data back to studyFlashcardController
             StudyFlashcardSetController studySetController = loader.getController();
             studySetController.setFlashcardSet(setId, setName);
-
             Scene scene = setNameLabel.getScene();
             scene.setRoot(root);
         } catch (IOException e) {

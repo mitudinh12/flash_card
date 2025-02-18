@@ -85,8 +85,8 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handleClose(MouseEvent mouseEvent) {
-        goToReviewPage();
         viewModel.endStudy(); //end the study when press close and go to review page
+        goToReviewPage();
     }
 
     @FXML
@@ -95,8 +95,8 @@ public class StudyFlashcardSetController extends ViewController {
             viewModel.nextFlashcard();
             showFlashcard();
         } else {
-            goToReviewPage();
             viewModel.endStudy(); //end the study when after the last card
+            goToReviewPage();
         }
     }
 

@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,8 @@ public class StudyFlashcardSetViewModel {
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
     private final StringProperty setName = new SimpleStringProperty();
     private final StringProperty total = new SimpleStringProperty();
+    private final StringProperty studyTime = new SimpleStringProperty();
+    private final IntegerProperty studiedNum = new SimpleIntegerProperty();
 
     public StudyFlashcardSetViewModel(EntityManager entityManager) {
         flashcardDao = FlashcardDao.getInstance(entityManager);
@@ -43,8 +46,9 @@ public class StudyFlashcardSetViewModel {
 
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
-        flashcards = flashcardDao.getHardFlashcards(setId);
         this.setName.set(setName);
+        flashcards = flashcardDao.getHardFlashcards(setId);
+
         this.total.set(String.valueOf(flashcards.size()));
     }
 
@@ -59,6 +63,7 @@ public class StudyFlashcardSetViewModel {
             studyDao.persist(currentStudy);
         } else {
             currentStudy.setStartTime(LocalDateTime.now()); //else update the start time
+            currentStudy.setEndTime(null);
             studyDao.update(currentStudy);
         }
     }
@@ -89,6 +94,34 @@ public class StudyFlashcardSetViewModel {
             flashcard.setDifficultLevel(DifficultyLevel.hard);
             flashcardDao.update(flashcard);
         });
+    }
+
+    public void updateStudyDetails(String userId, int setId) {
+        Study study = studyDao.findByUserIdAndSetId(userId, setId);
+        if (study != null) {
+            LocalDateTime startTime = study.getStartTime();
+            LocalDateTime endTime = study.getEndTime() != null ? study.getEndTime() : LocalDateTime.now();
+
+            //calculate the study time in minutes and seconds
+            if (startTime != null && endTime != null && !endTime.isBefore(startTime)) {
+                Duration duration = Duration.between(startTime, endTime);
+                long seconds = duration.getSeconds();
+                long minutes = seconds / 60;
+                seconds = seconds % 60;
+                if (minutes > 0) {
+                    studyTime.set(minutes + " minutes " + seconds + " seconds");
+                } else {
+                    studyTime.set(seconds + " seconds");
+                }
+                studiedNum.set(study.getNumberStudiedWords());
+            } else {
+                studyTime.set("0 seconds");
+                studiedNum.set(0);
+            }
+        } else {
+            studyTime.set("0 seconds");
+            studiedNum.set(0);
+        }
     }
 
     /* HELPER METHODS */
@@ -124,5 +157,13 @@ public class StudyFlashcardSetViewModel {
 
     public StringProperty totalProperty() {
         return total;
+    }
+
+    public StringProperty studyTimeProperty() {
+        return studyTime;
+    }
+
+    public IntegerProperty studiedNumProperty() {
+        return studiedNum;
     }
 }
