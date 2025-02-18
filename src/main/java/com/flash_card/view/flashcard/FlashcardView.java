@@ -7,23 +7,28 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class FlashcardView extends StackPane {
-    private Text termText;
-    private Text definitionText;
+    private final Text termText;
+    private final Text definitionText;
     private boolean showingTerm;
 
     public FlashcardView(String term, String definition) {
         termText = new Text(term);
         termText.setFill(Color.WHITE);
         termText.setFont(Font.font(24));
-        termText.setStyle("-fx-font-weight: bold; -fx-alignment: center;");
+        termText.setTextAlignment(TextAlignment.CENTER);
+        termText.setStyle("-fx-font-weight: bold;");
+        termText.wrappingWidthProperty().bind(widthProperty().subtract(20));
 
         definitionText = new Text(definition);
         definitionText.setFill(Color.DARKBLUE);
         definitionText.setFont(Font.font(24));
-        definitionText.setStyle("-fx-font-weight: bold; -fx-alignment: center;");
+        definitionText.setTextAlignment(TextAlignment.CENTER);
+        definitionText.setStyle("-fx-font-weight: bold;");
+        definitionText.wrappingWidthProperty().bind(widthProperty().subtract(20));
 
         showingTerm = true;
 
