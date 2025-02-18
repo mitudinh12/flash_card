@@ -128,6 +128,12 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handleReset(MouseEvent mouseEvent) {
+        viewModel.resetAllFlashcardLevel();
+        viewModel.currentIndexProperty().set(0);
+        viewModel.loadFlashcards(setId, viewModel.setNameProperty().get());
+        index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
+        total.textProperty().bind(viewModel.totalProperty());
+        showFlashcard();
     }
 
     @FXML

@@ -106,4 +106,11 @@ public class StudyFlashcardSetViewModel {
         currentFlashcard.setDifficultLevel(difficulty);
         flashcardDao.update(currentFlashcard);
     }
+
+    public void resetAllFlashcardLevel() {
+        flashcardDao.findBySetId(setId).forEach(flashcard -> {
+            flashcard.setDifficultLevel(DifficultyLevel.hard);
+            flashcardDao.update(flashcard);
+        });
+    }
 }
