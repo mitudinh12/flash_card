@@ -48,7 +48,6 @@ public class StudyFlashcardSetViewModel {
         this.setId = setId;
         this.setName.set(setName);
         flashcards = flashcardDao.getHardFlashcards(setId);
-
         this.total.set(String.valueOf(flashcards.size()));
     }
 
@@ -71,12 +70,10 @@ public class StudyFlashcardSetViewModel {
     public void endStudy() {
         if (currentStudy != null) {
             currentStudy.setEndTime(LocalDateTime.now());
-
             //count the number of "easy" flashcards
             long easyFlashcardsCount = flashcardDao.findBySetId(setId).stream()
                     .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
                     .count();
-
             //then update the number of studied cards to study table
             currentStudy.setNumberStudiedWords((int) easyFlashcardsCount);
             studyDao.update(currentStudy);
@@ -98,29 +95,19 @@ public class StudyFlashcardSetViewModel {
 
     public void updateStudyDetails(String userId, int setId) {
         Study study = studyDao.findByUserIdAndSetId(userId, setId);
-        if (study != null) {
-            LocalDateTime startTime = study.getStartTime();
-            LocalDateTime endTime = study.getEndTime() != null ? study.getEndTime() : LocalDateTime.now();
-
-            //calculate the study time in minutes and seconds
-            if (startTime != null && endTime != null && !endTime.isBefore(startTime)) {
-                Duration duration = Duration.between(startTime, endTime);
-                long seconds = duration.getSeconds();
-                long minutes = seconds / 60;
-                seconds = seconds % 60;
-                if (minutes > 0) {
-                    studyTime.set("Study duration: " + minutes + " minutes " + seconds + " seconds");
-                } else {
-                    studyTime.set("Study duration: " + seconds + " seconds");
-                }
-                studiedNum.set("Flashcard studied: "+ study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
-            } else {
-                studyTime.set("Study duration: 0 seconds");
-                studiedNum.set("Flashcard studied: 0/" + flashcardDao.findBySetId(setId).size());
-            }
+        LocalDateTime startTime = study.getStartTime();
+        LocalDateTime endTime = study.getEndTime() != null ? study.getEndTime() : LocalDateTime.now();
+        //calculate the study time in minutes and seconds
+        if (startTime != null && endTime != null && !endTime.isBefore(startTime)) {
+            Duration duration = Duration.between(startTime, endTime);
+            long seconds = duration.getSeconds();
+            long minutes = seconds / 60;
+            seconds = seconds % 60;
+            studyTime.set("Study duration: " + minutes + " minutes " + seconds + " seconds");
+            studiedNum.set("Flashcard studied: " + study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
         } else {
-            studyTime.set("0 seconds");
-            studiedNum.set("Flashcard studied: 0/"+ flashcardDao.findBySetId(setId).size());
+            studyTime.set("Study duration: 0 seconds");
+            studiedNum.set("Flashcard studied: 0/" + flashcardDao.findBySetId(setId).size());
         }
     }
 
