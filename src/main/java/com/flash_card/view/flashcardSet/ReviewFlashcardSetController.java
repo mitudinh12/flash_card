@@ -1,6 +1,5 @@
 package com.flash_card.view.flashcardSet;
 
-import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
@@ -8,7 +7,6 @@ import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +19,7 @@ public class ReviewFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+
     @FXML
     public Label setNameLabel;
     @FXML
@@ -39,22 +38,18 @@ public class ReviewFlashcardSetController extends ViewController {
         setNameLabel.setText(setName);
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
 
-        // Load flashcards
+        //load flashcards and update study details
         viewModel.loadFlashcards(setId, setName);
         viewModel.updateStudyDetails(userId, setId);
         studyTimeLabel.textProperty().bind(viewModel.studyTimeProperty());
         studiedNumLabel.textProperty().bind(viewModel.studiedNumProperty());
 
-        //calculate studied and left cards
+        //calculate data and display piechart
         int totalCards = viewModel.getTotalFlashcards();
         int studiedCards = viewModel.getStudiedFlashcards();
         int leftCards = totalCards - studiedCards;
-
-        //create PieChart data
         PieChart.Data studiedData = new PieChart.Data("Studied (" + studiedCards + ")", studiedCards);
         PieChart.Data leftData = new PieChart.Data("Left (" + leftCards + ")", leftCards);
-
-        //sdd data to PieChart
         pieChart.getData().clear();
         pieChart.getData().addAll(studiedData, leftData);
     }
