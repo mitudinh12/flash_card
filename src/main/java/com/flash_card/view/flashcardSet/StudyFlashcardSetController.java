@@ -20,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -108,9 +107,8 @@ public class StudyFlashcardSetController extends ViewController {
             Parent root = loader.load();
             ReviewFlashcardSetController reviewController = loader.getController();
             reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get());
-            Stage stage = (Stage) flashcardContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Scene scene = easyButton.getScene();
+            scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
