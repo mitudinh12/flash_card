@@ -5,12 +5,14 @@ import com.flash_card.view.flashcard.FlashcardView;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
+import com.flash_card.framework.DifficultyLevel;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -32,6 +34,10 @@ public class StudyFlashcardSetController extends ViewController {
     public StackPane nextIcon;
     @FXML
     private VBox flashcardContainer;
+    @FXML
+    private Button easyButton;
+    @FXML
+    private Button hardButton;
 
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
@@ -61,6 +67,16 @@ public class StudyFlashcardSetController extends ViewController {
     private void updateButtonStates() {
         backIcon.setVisible(viewModel.currentIndexProperty().get() != 0);
         nextIcon.setVisible(true);
+
+        DifficultyLevel difficultyLevel = viewModel.getCurrentFlashcard().getDifficultLevel();
+
+        easyButton.getStyleClass().remove("highlighted-button");
+        hardButton.getStyleClass().remove("highlighted-button");
+        if (difficultyLevel == DifficultyLevel.easy) {
+            easyButton.getStyleClass().add("highlighted-button");
+        } else if (difficultyLevel == DifficultyLevel.hard) {
+            hardButton.getStyleClass().add("highlighted-button");
+        }
     }
 
     @FXML
@@ -70,6 +86,7 @@ public class StudyFlashcardSetController extends ViewController {
             showFlashcard();
         } else {
             goToReviewPage();
+            viewModel.updateStudyEndTime();
         }
     }
 
@@ -95,10 +112,18 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handelEasy(ActionEvent actionEvent) {
+        viewModel.updateFlashcardLevel(DifficultyLevel.easy);
+        easyButton.getStyleClass().remove("highlighted-button");
+        hardButton.getStyleClass().remove("highlighted-button");
+        easyButton.getStyleClass().add("highlighted-button");
     }
 
     @FXML
     public void handleHard(ActionEvent actionEvent) {
+        viewModel.updateFlashcardLevel(DifficultyLevel.hard);
+        easyButton.getStyleClass().remove("highlighted-button");
+        hardButton.getStyleClass().remove("highlighted-button");
+        hardButton.getStyleClass().add("highlighted-button");
     }
 
     @FXML
@@ -112,5 +137,6 @@ public class StudyFlashcardSetController extends ViewController {
     @FXML
     public void handleClose(MouseEvent mouseEvent) {
         goToReviewPage();
+        viewModel.updateStudyEndTime();
     }
 }

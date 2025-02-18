@@ -1,5 +1,6 @@
 package com.flash_card.view_model.flashcard_set;
 
+import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.StudyDao;
@@ -88,5 +89,11 @@ public class StudyFlashcardSetViewModel {
 
     public StringProperty totalProperty() {
         return total;
+    }
+
+    public void updateFlashcardLevel(DifficultyLevel difficulty) {
+        Flashcard currentFlashcard = getCurrentFlashcard();
+        currentFlashcard.setDifficultLevel(difficulty);
+        flashcardDao.update(currentFlashcard);
     }
 }
