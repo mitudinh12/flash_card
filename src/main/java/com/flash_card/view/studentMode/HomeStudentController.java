@@ -24,19 +24,19 @@ public class HomeStudentController extends ViewController {
     @FXML
     private ImageView backIcon, nextIcon;
     @FXML
-    private VBox listClassesUI;
+    private VBox classList;
 
     @FXML
     private void initialize() {
         setUserName();
         viewModel.loadClasses();
-        classInfoList = viewModel.getClassInfo();
+        classInfoList = viewModel.getClassInfo(); //list of classes info: each class map with classId, className, teacherName, numberSet, numberStudent
         displayClassInfo();
         updateIconsVisibility();
     }
 
     private void displayClassInfo() {
-        listClassesUI.getChildren().clear();
+        classList.getChildren().clear();
         int start = currentPage * pageSize;
         int end = Math.min(start + pageSize, classInfoList.size());
         for (int i = start; i < end; i++) {
@@ -47,7 +47,7 @@ public class HomeStudentController extends ViewController {
             int numberSet = (int) classInfo.get("numberSet");
             int numberStudent = (int) classInfo.get("numberStudent");
             StudentClassContainer classContainer = new StudentClassContainer(classId, className, teacherName, numberSet, numberStudent);
-            listClassesUI.getChildren().add(classContainer);
+            classList.getChildren().add(classContainer);
         }
     }
 
