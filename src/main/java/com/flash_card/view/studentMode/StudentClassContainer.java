@@ -7,10 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class StudentClassContainer extends HBox {
-    private Label classNameLabel;
-
-    public StudentClassContainer(String className, String teacherName, int numberSet, int numberStudent) {
-        classNameLabel = new Label();
+    public StudentClassContainer(int classId, String className, String teacherName, int numberSet, int numberStudent) {
+        Label classNameLabel = new Label();
         classNameLabel.setId("class-name-label");
         classNameLabel.setText(className);
 
@@ -49,10 +47,13 @@ public class StudentClassContainer extends HBox {
 
         Button viewButton = new Button("View");
         viewButton.setId("edit-button");
+        viewButton.setOnAction(event -> goToClassDetail(classId));
 
         HBox.setHgrow(classNameLabel, Priority.ALWAYS);
         this.getChildren().addAll(classNameLabel, teacherNameContainer, numberFlashcardContainer, numberStudentContainer, viewButton);
         this.setId("class-container");
         this.setAlignment(Pos.CENTER_LEFT);
     }
+
+    private void goToClassDetail(int classId) {}
 }

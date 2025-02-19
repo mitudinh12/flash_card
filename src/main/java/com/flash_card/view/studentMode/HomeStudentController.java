@@ -41,11 +41,12 @@ public class HomeStudentController extends ViewController {
         int end = Math.min(start + pageSize, classInfoList.size());
         for (int i = start; i < end; i++) {
             Map<String, Object> classInfo = classInfoList.get(i);
+            int classId = (int) classInfo.get("classId");
             String className = (String) classInfo.get("className");
             String teacherName = (String) classInfo.get("teacherName");
             int numberSet = (int) classInfo.get("numberSet");
             int numberStudent = (int) classInfo.get("numberStudent");
-            StudentClassContainer classContainer = new StudentClassContainer(className, teacherName, numberSet, numberStudent);
+            StudentClassContainer classContainer = new StudentClassContainer(classId, className, teacherName, numberSet, numberStudent);
             listClassesUI.getChildren().add(classContainer);
         }
     }

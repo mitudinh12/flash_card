@@ -29,6 +29,7 @@ public class HomeStudentViewModel {
         List<Map<String, Object>> classInfoList = new ArrayList<>();
         for (Classroom classroom : classes) {
             Map<String, Object> classInfo = new HashMap<>();
+            classInfo.put("classId", classroom.getClassroomId());
             classInfo.put("className", classroom.getClassroomName());
             classInfo.put("teacherName", classroom.getTeacher().getFirstName() + " " + classroom.getTeacher().getLastName());
             classInfo.put("numberSet", assignedSetDao.findAllSetsByClassId(classroom.getClassroomId()).size());
