@@ -71,10 +71,10 @@
                         <Insets bottom="40.0" />
                     </padding>
                 </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="816.0">
                <children>
                       <Label styleClass="page-title" text="Teacher Mode" />
-                  <Button fx:id="createClassButton" mnemonicParsing="false" onAction="#gotoCreateClass" text="Create New Class" textFill="WHITE" styleClass="blueClassButton">
+                  <Button fx:id="createClassButton" mnemonicParsing="false" onAction="#gotoCreateClass" styleClass="blueClassButton" text="Create New Class" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
