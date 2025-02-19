@@ -92,4 +92,18 @@ public class FlashcardDao {
         }
         return flashcards;
     }
+
+    public List<Flashcard> getHardFlashcards(int setId) {
+        List<Flashcard> flashcards = null;
+        try {
+            flashcards = entityManager.createQuery("SELECT f FROM Flashcard f WHERE f.flashcardSet.setId = :setId AND f.difficultLevel = 'hard'", Flashcard.class)
+                    .setParameter("setId", setId)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while getting flashcards by set ID: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+        return flashcards;
+    }
 }

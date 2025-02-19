@@ -422,3 +422,34 @@ listClassesUI {
     -fx-min-width: 400px;
 }
 
+
+
+/* STUDY FLASHCARD PAGE */
+.hard-button {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-background-color: #FF6302;
+    -fx-background-radius: 8;
+}
+.index {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.instruction {
+    -fx-font-size: 20;
+}
+
+.highlighted-button {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-border-color: #2545FE;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}
+
+.message-label {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #01971F;
+}

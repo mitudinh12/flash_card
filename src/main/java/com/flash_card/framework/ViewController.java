@@ -43,7 +43,7 @@ public abstract class ViewController {
                 fxmlFile = "/com/flash_card/fxml/home.fxml";
                 break;
 
-//            case "class":
+//            case "student":
 //                    fxmlFile = "/com/flash_card/fxml/class.fxml";
 //                    break;
 
