@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
 import java.util.Map;
 
 public class HomeStudentController extends ViewController {
@@ -18,6 +19,7 @@ public class HomeStudentController extends ViewController {
     private HomeStudentViewModel viewModel = new HomeStudentViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
     private int currentPage = 0;
     private final int pageSize = 8;
+    private List<Map<String, Object>> classInfoList;
 
     @FXML
     private ImageView backIcon, nextIcon;
@@ -28,12 +30,17 @@ public class HomeStudentController extends ViewController {
     private void initialize() {
         setUserName();
         viewModel.loadClasses();
+        classInfoList = viewModel.getClassInfo();
         displayClassInfo();
+        updateIconsVisibility();
     }
 
     private void displayClassInfo() {
         listClassesUI.getChildren().clear();
-        for (Map<String, Object> classInfo : viewModel.getClassInfo()) {
+        int start = currentPage * pageSize;
+        int end = Math.min(start + pageSize, classInfoList.size());
+        for (int i = start; i < end; i++) {
+            Map<String, Object> classInfo = classInfoList.get(i);
             String className = (String) classInfo.get("className");
             String teacherName = (String) classInfo.get("teacherName");
             int numberSet = (int) classInfo.get("numberSet");
@@ -43,12 +50,26 @@ public class HomeStudentController extends ViewController {
         }
     }
 
+    private void updateIconsVisibility() {
+        backIcon.setVisible(currentPage > 0);
+        nextIcon.setVisible((currentPage + 1) * pageSize < classInfoList.size());
+    }
 
     @FXML
     private void goNext(ActionEvent event) {
+        if ((currentPage + 1) * pageSize < classInfoList.size()) {
+            currentPage++;
+            displayClassInfo();
+            updateIconsVisibility();
+        }
     }
 
     @FXML
     private void goBack(ActionEvent event) {
+        if (currentPage > 0) {
+            currentPage--;
+            displayClassInfo();
+            updateIconsVisibility();
+        }
     }
 }
