@@ -73,14 +73,14 @@ public class HomeTeacherController extends ViewController {
             listClassesUI.getChildren().add(classUI);
         }
         if (currentPage == 0) {
-            backButton.setVisible(true);
+            backIcon.setVisible(false);
         } else {
-            backButton.setVisible(false);
+            backIcon.setVisible(true);
         }
         if (end == classList.size()) {
-            nextButton.setVisible(true);
+            nextIcon.setVisible(false);
         } else {
-            nextButton.setVisible(false);
+            nextIcon.setVisible(true);
         }
     }
 
