@@ -1,6 +1,7 @@
 package com.flash_card.model.dao;
 
 import com.flash_card.model.entity.ClassMember;
+import com.flash_card.model.entity.Classroom;
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
 
@@ -77,5 +78,18 @@ public class ClassMemberDao {
             e.printStackTrace();
         }
         return classMember;
+    }
+
+    public List<Classroom> findAllClassesByStudentId(String userId) {
+        List<Classroom> classrooms = null;
+        try {
+            classrooms = em.createQuery("SELECT cm.classroom FROM ClassMember cm WHERE cm.student.userId = :userId", Classroom.class)
+                    .setParameter("userId", userId)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println("Error in finding all classes by user id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return classrooms;
     }
 }

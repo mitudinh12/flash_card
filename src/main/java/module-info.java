@@ -28,8 +28,7 @@ module com.flash_card {
     opens com.flash_card.view.homepage;
     opens com.flash_card.view_model.teacher_mode;
     opens com.flash_card.view.teacherMode to javafx.fxml;
-
-
+    opens com.flash_card.view.studentMode to javafx.fxml;
 
     exports com.flash_card.view_model.user;
     exports com.flash_card;

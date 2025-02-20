@@ -453,3 +453,14 @@ listClassesUI {
     -fx-font-weight: bold;
     -fx-text-fill: #01971F;
 }
+
+/* STUDENT HOME PAGE */
+#teacher-name-label {
+    -fx-font-size: 12;
+}
+
+#teacher-name-container {
+    -fx-min-width: 100px;
+    -fx-min-height: 25px;
+    -fx-alignment: CENTER;
+}
