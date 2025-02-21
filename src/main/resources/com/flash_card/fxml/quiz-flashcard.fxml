@@ -100,7 +100,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
                <children>
-                  <Text fx:id="instructionText2" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Choose the correct definition" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                  <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Choose the correct definition" textAlignment="CENTER" wrappingWidth="404.55029296875" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -108,22 +108,22 @@
             </HBox>
                 <VBox fx:id="flashcardContainer" prefHeight="509.0" prefWidth="816.0">
                <children>
-                  <Button id="answer-buttons" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button id="answer-buttons" fx:id="answerButton1" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button id="answer-buttons" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button id="answer-buttons" fx:id="answerButton2" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button id="answer-buttons" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button id="answer-buttons" fx:id="answerButton3" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button id="answer-buttons" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true" />
+                  <Button id="answer-buttons" fx:id="answerButton4" mnemonicParsing="false" prefWidth="816.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true" />
                </children></VBox>
             </children>
         </VBox>

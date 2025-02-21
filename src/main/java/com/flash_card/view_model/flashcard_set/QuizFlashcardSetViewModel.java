@@ -16,6 +16,7 @@ import javafx.beans.property.StringProperty;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 public class QuizFlashcardSetViewModel {
@@ -33,6 +34,12 @@ public class QuizFlashcardSetViewModel {
     private final StringProperty setName = new SimpleStringProperty();
     private final StringProperty total = new SimpleStringProperty();
     private final StringProperty quizTime = new SimpleStringProperty();
+    private final StringProperty currentTerm = new SimpleStringProperty();
+    private final StringProperty instructionText = new SimpleStringProperty();
+    private StringProperty answer1 = new SimpleStringProperty();
+    private StringProperty answer2 = new SimpleStringProperty();
+    private StringProperty answer3 = new SimpleStringProperty();
+    private StringProperty answer4 = new SimpleStringProperty();
 
     public QuizFlashcardSetViewModel(EntityManager entityManager) {
         userDao = UserDao.getInstance(entityManager);
@@ -91,6 +98,23 @@ public class QuizFlashcardSetViewModel {
         return correctAnswer;
     }
 
+    public void loadQuestion() {
+        currentTerm.set(flashcards.get(currentIndex.get()).getTerm());
+        answer1.set(flashcards.get(currentIndex.get()).getDefinition());
+        System.out.println(flashcards.get(currentIndex.get()).getDefinition());
+//        instructionText.set("What is the definition of the term?");
+//        List<String> answers = List.of(flashcards.get(currentIndex.get()).getDefinition(),
+//                flashcards.get((currentIndex.get() + 1) % flashcards.size()).getDefinition(),
+//                flashcards.get((currentIndex.get() + 2) % flashcards.size()).getDefinition(),
+//                flashcards.get((currentIndex.get() + 3) % flashcards.size()).getDefinition());
+//        Collections.shuffle(answers);
+//        answer1.set(answers.get(0));
+//        answer2.set(answers.get(1));
+//        answer3.set(answers.get(2));
+//        answer4.set(answers.get(3));
+    }
+
+
     //TODO: These methods can be implemented in a parent class
     public int getTotalFlashcards() { return flashcardDao.findBySetId(setId).size(); }
 
@@ -123,6 +147,27 @@ public class QuizFlashcardSetViewModel {
 
     public List<Flashcard> getFlashcards() {
         return flashcards;
+    }
+
+    public StringProperty currentTermProperty() {
+        return currentTerm;
+    }
+
+    public StringProperty instructionTextProperty() {
+        return instructionText;
+    }
+
+    public StringProperty answer1Property() {
+        return answer1;
+    }
+    public StringProperty answer2Property() {
+        return answer2;
+    }
+    public StringProperty answer3Property() {
+        return answer3;
+    }
+    public StringProperty answer4Property() {
+        return answer4;
     }
 
 }
