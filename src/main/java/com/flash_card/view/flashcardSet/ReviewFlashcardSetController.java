@@ -72,6 +72,7 @@ public class ReviewFlashcardSetController extends ViewController {
 
     @FXML
     public void handleQuiz(ActionEvent actionEvent) {
+        goToPage("/com/flash_card/fxml/quiz-flashcard.fxml", setNameLabel.getScene());
     }
 
     @FXML

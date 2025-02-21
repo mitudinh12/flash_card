@@ -74,6 +74,9 @@ public class FlashcardSetContainer extends HBox {
         });
         // quiz
         MenuItem quiz = new MenuItem("Quiz");
+        quiz.setOnAction(e -> {
+            goToQuizFlashcardSet();
+        });
         // edit
         MenuItem edit = new MenuItem("Edit");
         edit.setOnAction(event -> {
@@ -128,6 +131,20 @@ public class FlashcardSetContainer extends HBox {
             //pass the FlashcardSet data to the StudyFlashcardSetController
             StudyFlashcardSetController studySetController = loader.getController();
             studySetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+
+            Scene scene = nameLabel.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goToQuizFlashcardSet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+            Parent root = loader.load();
+            QuizFlashcardSetController quizSetController = loader.getController();
+            quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
 
             Scene scene = nameLabel.getScene();
             scene.setRoot(root);
