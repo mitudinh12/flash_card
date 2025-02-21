@@ -13,11 +13,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.flash_card.view_model.flashcard_set.TriviaQuestionGenerator;
 
 public class QuizFlashcardSetViewModel {
     private UserDao userDao;
@@ -100,18 +101,20 @@ public class QuizFlashcardSetViewModel {
 
     public void loadQuestion() {
         currentTerm.set(flashcards.get(currentIndex.get()).getTerm());
-        answer1.set(flashcards.get(currentIndex.get()).getDefinition());
-        System.out.println(flashcards.get(currentIndex.get()).getDefinition());
-//        instructionText.set("What is the definition of the term?");
-//        List<String> answers = List.of(flashcards.get(currentIndex.get()).getDefinition(),
-//                flashcards.get((currentIndex.get() + 1) % flashcards.size()).getDefinition(),
-//                flashcards.get((currentIndex.get() + 2) % flashcards.size()).getDefinition(),
-//                flashcards.get((currentIndex.get() + 3) % flashcards.size()).getDefinition());
-//        Collections.shuffle(answers);
-//        answer1.set(answers.get(0));
-//        answer2.set(answers.get(1));
-//        answer3.set(answers.get(2));
-//        answer4.set(answers.get(3));
+        instructionText.set("Choose the correct definition");
+
+        List<String> answers = new ArrayList<>();
+        answers.add(flashcards.get(currentIndex.get()).getDefinition());
+        String topic = flashcardSetDao.findById(setId).getSetTopic();
+        TriviaQuestionGenerator triviaQuestionGenerator = new TriviaQuestionGenerator();
+        answers.addAll(triviaQuestionGenerator.getFakeAnswers(topic));
+
+        Collections.shuffle(answers);
+
+        answer1.set(answers.get(0));
+        answer2.set(answers.get(1));
+        answer3.set(answers.get(2));
+        answer4.set(answers.get(3));
     }
 
 

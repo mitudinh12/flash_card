@@ -29,9 +29,9 @@ public class QuizFlashcardSetController extends ViewController {
         term.textProperty().bind(viewModel.currentTermProperty());
         instructionText.textProperty().bind(viewModel.instructionTextProperty());
         answerButton1.textProperty().bind(viewModel.answer1Property());
-//        answerButton2.textProperty().bind(viewModel.answer2Property());
-//        answerButton3.textProperty().bind(viewModel.answer3Property());
-//        answerButton4.textProperty().bind(viewModel.answer4Property());
+        answerButton2.textProperty().bind(viewModel.answer2Property());
+        answerButton3.textProperty().bind(viewModel.answer3Property());
+        answerButton4.textProperty().bind(viewModel.answer4Property());
     }
 
     public void setFlashcardSet(int setId, String setName) {
