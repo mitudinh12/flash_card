@@ -18,7 +18,6 @@ public class FlashcardSetContainer extends HBox {
     private Label nameLabel;
     private EditFlashcardSetController editSetController = new EditFlashcardSetController();
 
-
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
@@ -148,6 +147,7 @@ public class FlashcardSetContainer extends HBox {
 
             Scene scene = nameLabel.getScene();
             scene.setRoot(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -29,6 +29,7 @@ public class QuizFlashcardSetViewModel {
     private List<Flashcard> flashcards;
     private Quiz currentQuiz;
     private boolean correctAnswer;
+    private TriviaQuestionGenerator triviaQuestionGenerator;
 
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
     private final StringProperty setName = new SimpleStringProperty();
@@ -46,6 +47,8 @@ public class QuizFlashcardSetViewModel {
         quizDao = QuizDao.getInstance(entityManager);
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
+        triviaQuestionGenerator = new TriviaQuestionGenerator();
+
     }
     //Determine the Flashcard Set, load its name and flashcards
     public void loadFlashcards(int setId, String setName) {
@@ -80,7 +83,7 @@ public class QuizFlashcardSetViewModel {
     public void addWrongTimes() {
         currentQuiz.setWrongTimes(currentQuiz.getWrongTimes() + 1);
     }
-
+    //Calculate the time taken to complete the quiz
     public void calculateTime(LocalDateTime start, LocalDateTime end) {
         Duration duration = Duration.between(start, end);
         long seconds = duration.getSeconds();
@@ -91,7 +94,7 @@ public class QuizFlashcardSetViewModel {
     }
     //check correct answer
     public boolean isAnswerCorrect(String answer) {
-        correctAnswer = answer.equals(flashcards.get(currentIndex.get()).getDefinition());
+        correctAnswer = answer.equals(getCurrentFlashcard().getDefinition());
         if (correctAnswer) {
             addCorrectTimes();
             instructionText.set("Correct!");
@@ -103,13 +106,12 @@ public class QuizFlashcardSetViewModel {
     }
     //Load the term, definition, and fake answers of the current flashcard(index)
     public void loadQuestion() {
-        currentTerm.set(flashcards.get(currentIndex.get()).getTerm());
+        currentTerm.set(getCurrentFlashcard().getTerm());
         instructionText.set("Choose the correct definition");
 
         List<String> answers = new ArrayList<>();
-        answers.add(flashcards.get(currentIndex.get()).getDefinition());
+        answers.add(getCurrentFlashcard().getDefinition());
         String topic = flashcardSetDao.findById(setId).getSetTopic();
-        TriviaQuestionGenerator triviaQuestionGenerator = new TriviaQuestionGenerator();
         answers.addAll(triviaQuestionGenerator.getFakeAnswers(topic));
 
         Collections.shuffle(answers);
@@ -118,21 +120,20 @@ public class QuizFlashcardSetViewModel {
         answer2.set(answers.get(1));
         answer3.set(answers.get(2));
         answer4.set(answers.get(3));
+
     }
+
 
     //check last flashcard
     public boolean isLastFlashcard() {
         return currentIndex.get() == flashcards.size() - 1;
     }
 
-
-    //TODO: These methods can be implemented in a parent class
-    public int getTotalFlashcards() { return flashcardDao.findBySetId(setId).size(); }
-
     public Flashcard getCurrentFlashcard() {
         return flashcards.get(currentIndex.get());
     }
 
+    //Move to the next flashcard in the set
     public void nextFlashcard() {
         if (currentIndex.get() < flashcards.size() - 1) {
             currentIndex.set(currentIndex.get() + 1);

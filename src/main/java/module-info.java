@@ -47,4 +47,5 @@ module com.flash_card {
     opens com.flash_card.framework;
     opens com.flash_card.view.flashcardSet;
 
+    exports com.flash_card.view.components;
 }

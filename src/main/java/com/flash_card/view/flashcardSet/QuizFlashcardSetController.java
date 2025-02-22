@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.view.components.LoadingView;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -8,10 +9,13 @@ import jakarta.persistence.EntityManager;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class QuizFlashcardSetController extends ViewController {
@@ -93,4 +97,6 @@ public class QuizFlashcardSetController extends ViewController {
         answerButton4.getStyleClass().removeAll("correct-answer", "wrong-answer");
         answerButton4.getStyleClass().add("answer-buttons");
     }
+
+
 }

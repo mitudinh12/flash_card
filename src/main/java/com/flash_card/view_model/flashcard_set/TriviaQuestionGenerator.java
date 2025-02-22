@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TriviaQuestionGenerator {
+    private volatile boolean isLoading;
 
     public List<String> getFakeAnswers(String topic) {
         List<String> fakeAnswers = new ArrayList<>();
+        isLoading = true;
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://quizmania-api.p.rapidapi.com/trivia-by-category?category=" + topic.substring(0, 1).toUpperCase() + topic.substring(1)))
@@ -28,6 +30,7 @@ public class TriviaQuestionGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isLoading = false;
         return fakeAnswers.subList(0,3);
     }
 
@@ -59,5 +62,9 @@ public class TriviaQuestionGenerator {
     public static void main(String[] args) {
         TriviaQuestionGenerator triviaQuestionGenerator = new TriviaQuestionGenerator();
         triviaQuestionGenerator.getFakeAnswers("geography");
+    }
+
+    public boolean isLoading() {
+        return isLoading();
     }
 }
