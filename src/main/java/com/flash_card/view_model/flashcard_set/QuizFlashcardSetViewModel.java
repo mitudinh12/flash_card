@@ -47,7 +47,7 @@ public class QuizFlashcardSetViewModel {
         quizDao = QuizDao.getInstance(entityManager);
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
-        triviaQuestionGenerator = new TriviaQuestionGenerator();
+        triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
 
     }
     //Determine the Flashcard Set, load its name and flashcards
@@ -106,13 +106,13 @@ public class QuizFlashcardSetViewModel {
     }
     //Load the term, definition, and fake answers of the current flashcard(index)
     public void loadQuestion() {
+
         currentTerm.set(getCurrentFlashcard().getTerm());
         instructionText.set("Choose the correct definition");
 
         List<String> answers = new ArrayList<>();
         answers.add(getCurrentFlashcard().getDefinition());
-        String topic = flashcardSetDao.findById(setId).getSetTopic();
-        answers.addAll(triviaQuestionGenerator.getFakeAnswers(topic));
+        answers.addAll(triviaQuestionGenerator.getFakeAnswers());
 
         Collections.shuffle(answers);
 
@@ -120,6 +120,8 @@ public class QuizFlashcardSetViewModel {
         answer2.set(answers.get(1));
         answer3.set(answers.get(2));
         answer4.set(answers.get(3));
+
+        triviaQuestionGenerator.reloadAnswer(flashcardSetDao.findById(setId).getSetTopic());
 
     }
 

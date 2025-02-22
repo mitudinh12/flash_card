@@ -1,7 +1,10 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.SetViewModel;
+import com.flash_card.view.components.LoadingView;
 import com.flash_card.view.homepage.HomePageController;
+import com.flash_card.view_model.flashcard_set.TriviaQuestionGenerator;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -9,14 +12,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.List;
 
 public class FlashcardSetContainer extends HBox {
     private SetViewModel viewModel;
     private HomePageController controller;
     private Label nameLabel;
     private EditFlashcardSetController editSetController = new EditFlashcardSetController();
+    private TriviaQuestionGenerator triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
 
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -139,17 +146,41 @@ public class FlashcardSetContainer extends HBox {
     }
 
     private void goToQuizFlashcardSet() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
-            Parent root = loader.load();
-            QuizFlashcardSetController quizSetController = loader.getController();
-            quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+        Stage loadingStage = showLoading();
 
-            Scene scene = nameLabel.getScene();
-            scene.setRoot(root);
+        new Thread(() -> {
+            // Get fake answers in the background
+            triviaQuestionGenerator.generateFakeAnswers(viewModel.getSet().getSetTopic());
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            Platform.runLater(() -> {
+                loadingStage.close(); // Close loading view
+                //Open quiz flashcard view after trivia questions are generated
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                    Parent root = loader.load();
+                    QuizFlashcardSetController quizSetController = loader.getController();
+                    quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+
+                    Scene scene = nameLabel.getScene();
+                    scene.setRoot(root);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }).start();
+    }
+
+
+    private Stage showLoading() {
+        Stage newStage = new Stage();
+        LoadingView loadingView = new LoadingView();
+        Scene scene = new Scene(loadingView, 400, 200);
+        scene.setFill(null);
+        newStage.initStyle(StageStyle.TRANSPARENT);
+        newStage.setScene(scene);
+        newStage.setX(650);
+        newStage.setY(300);
+        newStage.show();
+        return newStage;
     }
 }

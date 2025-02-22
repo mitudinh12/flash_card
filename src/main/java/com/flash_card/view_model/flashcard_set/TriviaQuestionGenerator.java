@@ -8,10 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TriviaQuestionGenerator {
-    private volatile boolean isLoading;
+    private static TriviaQuestionGenerator instance;
+    private boolean isLoading;
+    List<String> fakeAnswers;
 
-    public List<String> getFakeAnswers(String topic) {
-        List<String> fakeAnswers = new ArrayList<>();
+    private TriviaQuestionGenerator() {
+        fakeAnswers = new ArrayList<>();
+    }
+
+    public static synchronized TriviaQuestionGenerator getInstance() {
+        if (instance == null) {
+            instance = new TriviaQuestionGenerator();
+        }
+        return instance;
+    }
+
+    public List<String> generateFakeAnswers(String topic) {
         isLoading = true;
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -59,12 +71,16 @@ public class TriviaQuestionGenerator {
         //Output: [Geography, Literature, Science, History, Art, Music, Technology, Sports, Entertainment, Biology, Mathematics, Food, Mythology, Astronomy, YouTubers/Streamers, Language, Animals, Culture, Landmarks, Economics, Linguistics, Chemistry, Physics, Philosophy, Geology, Medicine]
     }
 
-    public static void main(String[] args) {
-        TriviaQuestionGenerator triviaQuestionGenerator = new TriviaQuestionGenerator();
-        triviaQuestionGenerator.getFakeAnswers("geography");
-    }
-
     public boolean isLoading() {
         return isLoading();
+    }
+
+    public List<String> getFakeAnswers() {
+        return fakeAnswers;
+    }
+
+    public void reloadAnswer(String topic) {
+        fakeAnswers.clear();
+        generateFakeAnswers(topic);
     }
 }

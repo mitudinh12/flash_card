@@ -11,22 +11,14 @@ import javafx.util.Duration;
 
 public class LoadingView extends StackPane {
     public LoadingView() {
-        // Create a spinning wheel to show the loading progress
         ProgressIndicator progressIndicator = new ProgressIndicator();
-
-        // Create a label for the loading message
         Label loadingLabel = new Label("Loading...");
-
-        // Create a vertical box to hold the spinning wheel and the loading message
         VBox loadingPane = new VBox();
         loadingPane.setAlignment(Pos.CENTER);
         loadingPane.getChildren().addAll(progressIndicator, loadingLabel);
-
-        // Set the style of the spinning wheel and the loading message
-        loadingPane.setStyle("-fx-font-size: 32pt; -fx-text-fill: white; -fx-background-color: black;");
-        progressIndicator.setStyle("-fx-progress-color: white;");
-
-        // Add the vertical box to the stack pane
+        loadingPane.setStyle("-fx-font-size: 20pt; -fx-text-fill: white; -fx-background-color: transparent;");
+        progressIndicator.setStyle("-fx-progress-color: #01971F;");
+        setStyle("-fx-background-color: transparent;");
         getChildren().add(loadingPane);
     }
 }
