@@ -479,7 +479,7 @@ listClassesUI {
     -fx-text-tranform: uppercase;
 }
 
-#answer-buttons {
+.answer-buttons {
     -fx-background-color: #ffffff;
     -fx-border-color: #5F5F5F;
     -fx-border-width: 0.4;
@@ -492,8 +492,22 @@ listClassesUI {
 
 .correct-answer {
     -fx-background-color: #01C729;
+    -fx-border-color: #5F5F5F;
+    -fx-border-width: 0.4;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-wrap-text: true;
 }
 
 .wrong-answer {
     -fx-background-color: #C70801;
+    -fx-border-color: #5F5F5F;
+    -fx-border-width: 0.4;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-wrap-text: true;
 }

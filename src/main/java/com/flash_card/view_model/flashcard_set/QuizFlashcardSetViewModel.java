@@ -28,7 +28,6 @@ public class QuizFlashcardSetViewModel {
     private int setId;
     private List<Flashcard> flashcards;
     private Quiz currentQuiz;
-    private boolean stopQuiz = true;
     private boolean correctAnswer;
 
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
@@ -48,32 +47,29 @@ public class QuizFlashcardSetViewModel {
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
     }
-
+    //Determine the Flashcard Set, load its name and flashcards
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
         this.setName.set(setName);
         flashcards = flashcardDao.findBySetId(setId);
         this.total.set(String.valueOf(flashcards.size()));
     }
-
+    //Start the quiz and the clock
     public void startQuiz(String userId, int setId) {
         User user = userDao.findById(userId);
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
         currentQuiz = new Quiz(user, flashcardSet, LocalDateTime.now(), null, 0,0);
         quizDao.persist(currentQuiz);
-        stopQuiz = false;
-    }
 
-    public void endQuiz(int correctAnswers, int wrongAnswers) {
+    }
+    //Complete the quiz and update the clock
+    public void finishQuiz() {
         currentQuiz.setEndTime(LocalDateTime.now());
-        currentQuiz.setCorrectTimes(correctAnswers);
-        currentQuiz.setWrongTimes(wrongAnswers);
         quizDao.update(currentQuiz);
-        stopQuiz = true;
+        calculateTime(currentQuiz.getStartTime(), currentQuiz.getEndTime());
     }
-
+    //Stop or cancel the quiz in the middle of progress
     public void stopQuiz() {
-        stopQuiz = true;
         quizDao.delete(currentQuiz);
     }
 
@@ -85,20 +81,27 @@ public class QuizFlashcardSetViewModel {
         currentQuiz.setWrongTimes(currentQuiz.getWrongTimes() + 1);
     }
 
-    public void stopQuizTimer() {
-        LocalDateTime endTime = LocalDateTime.now();
-        Duration duration = Duration.between(currentQuiz.getStartTime(), endTime);
+    public void calculateTime(LocalDateTime start, LocalDateTime end) {
+        Duration duration = Duration.between(start, end);
         long seconds = duration.getSeconds();
         long minutes = seconds / 60;
         seconds = seconds % 60;
+        System.out.println("Quiz time: " + minutes + "m " + seconds + "s");
         quizTime.set("Quiz time: " + minutes + "m " + seconds + "s");
     }
-
+    //check correct answer
     public boolean isAnswerCorrect(String answer) {
         correctAnswer = answer.equals(flashcards.get(currentIndex.get()).getDefinition());
+        if (correctAnswer) {
+            addCorrectTimes();
+            instructionText.set("Correct!");
+        } else {
+            addWrongTimes();
+            instructionText.set("Wrong!");
+        }
         return correctAnswer;
     }
-
+    //Load the term, definition, and fake answers of the current flashcard(index)
     public void loadQuestion() {
         currentTerm.set(flashcards.get(currentIndex.get()).getTerm());
         instructionText.set("Choose the correct definition");
@@ -117,6 +120,11 @@ public class QuizFlashcardSetViewModel {
         answer4.set(answers.get(3));
     }
 
+    //check last flashcard
+    public boolean isLastFlashcard() {
+        return currentIndex.get() == flashcards.size() - 1;
+    }
+
 
     //TODO: These methods can be implemented in a parent class
     public int getTotalFlashcards() { return flashcardDao.findBySetId(setId).size(); }
@@ -128,11 +136,7 @@ public class QuizFlashcardSetViewModel {
     public void nextFlashcard() {
         if (currentIndex.get() < flashcards.size() - 1) {
             currentIndex.set(currentIndex.get() + 1);
-        }
-    }
-    public void previousFlashcard() {
-        if (currentIndex.get() > 0) {
-            currentIndex.set(currentIndex.get() - 1);
+            loadQuestion();
         }
     }
 

@@ -19,7 +19,6 @@ public class TriviaQuestionGenerator {
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
             // Parse the JSON response
             JSONObject jsonResponse = new JSONObject(response.body());
             // Extract fake answers array and convert it to List<String>
