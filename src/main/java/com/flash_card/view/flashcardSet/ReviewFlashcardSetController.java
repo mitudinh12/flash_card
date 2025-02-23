@@ -23,7 +23,6 @@ public class ReviewFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private final QuizFlashcardSetViewModel quizViewModel = new QuizFlashcardSetViewModel(entityManager);
 
     @FXML
     public Label setNameLabel;
@@ -77,29 +76,22 @@ public class ReviewFlashcardSetController extends ViewController {
 
     @FXML
     public void handleQuiz(ActionEvent actionEvent) {
-        Stage loadingStage = showLoading();
+        if (viewModel.getTotalFlashcards() < 4) {
+            showAlert("Error","You need at least 4 flashcards to start a quiz");
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                Parent root = loader.load();
+                QuizFlashcardSetController quizSetController = loader.getController();
+                quizSetController.setFlashcardSet(setId, setName);
 
-        new Thread(() -> {
-            // Get fake answers in the background
-            TriviaQuestionGenerator triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
-            triviaQuestionGenerator.generateFakeAnswers(quizViewModel.getQuizTopic(setId));
+                Scene scene = setNameLabel.getScene();
+                scene.setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-            Platform.runLater(() -> {
-                loadingStage.close(); // Close loading view
-                //Open quiz flashcard view after trivia questions are generated
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
-                    Parent root = loader.load();
-                    QuizFlashcardSetController quizSetController = loader.getController();
-                    quizSetController.setFlashcardSet(setId, setName);
-
-                    Scene scene = setNameLabel.getScene();
-                    scene.setRoot(root);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }).start();
     }
 
     @FXML

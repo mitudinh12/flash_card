@@ -145,29 +145,27 @@ public class FlashcardSetContainer extends HBox {
     }
 
     private void goToQuizFlashcardSet() {
-        Stage loadingStage = showLoading();
+        if (viewModel.getSet().getNumberFlashcards() < 4) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("You need at least 4 flashcards to start a quiz");
+            alert.showAndWait();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                Parent root = loader.load();
+                QuizFlashcardSetController quizSetController = loader.getController();
+                quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
 
-        new Thread(() -> {
-            // Get fake answers in the background
-            triviaQuestionGenerator.generateFakeAnswers(viewModel.getSet().getSetTopic());
-
-            Platform.runLater(() -> {
-                loadingStage.close(); // Close loading view
-                //Open quiz flashcard view after trivia questions are generated
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
-                    Parent root = loader.load();
-                    QuizFlashcardSetController quizSetController = loader.getController();
-                    quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
-
-                    Scene scene = nameLabel.getScene();
-                    scene.setRoot(root);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }).start();
+                Scene scene = nameLabel.getScene();
+                scene.setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 
 
     private Stage showLoading() {

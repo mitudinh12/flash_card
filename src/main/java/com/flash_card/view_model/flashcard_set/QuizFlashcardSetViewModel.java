@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.flash_card.framework.TriviaQuestionGenerator;
 
 public class QuizFlashcardSetViewModel {
@@ -107,14 +109,26 @@ public class QuizFlashcardSetViewModel {
 
         List<String> answers = new ArrayList<>();
         answers.add(getCurrentFlashcard().getDefinition());
-        answers.addAll(triviaQuestionGenerator.getFakeAnswers());
 
+        // Filter out the current flashcard and shuffle the remaining ones
+        List<Flashcard> newFlashcards = flashcards.stream()
+                .filter(flashcard -> !flashcard.getTerm().equals(getCurrentFlashcard().getTerm()))
+                .collect(Collectors.toList());
+
+        Collections.shuffle(newFlashcards);
+
+        // Add three unique incorrect definitions
+        newFlashcards.stream()
+                .limit(3)
+                .map(Flashcard::getDefinition)
+                .forEach(answers::add);
+
+        // Shuffle answers and assign them
         Collections.shuffle(answers);
         answer1.set(answers.get(0));
         answer2.set(answers.get(1));
         answer3.set(answers.get(2));
         answer4.set(answers.get(3));
-        triviaQuestionGenerator.reloadAnswer(flashcardSetDao.findById(setId).getSetTopic());
     }
 
 
@@ -134,6 +148,8 @@ public class QuizFlashcardSetViewModel {
             loadQuestion();
         }
     }
+
+
     public String getQuizTopic(int setId) {
         FlashcardSet set = flashcardSetDao.findById(setId);
         return set.getSetTopic();
