@@ -2,13 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
 <HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.flashcardSet.CreateFlashcardSetView">
@@ -63,10 +63,7 @@
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Create Flashcard Set" />
                 <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name" />
                 <TextField fx:id="setDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description" />
-                <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></TextField>
+            <ComboBox fx:id="topicDropDown" prefHeight="49.49" prefWidth="820.0" promptText="Choose Set Topic" styleClass="set-topic-dropdown" />
                 <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0" spacing="10.0">
                     <children>
                         <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-button" text="Create Flashcard Set" textFill="WHITE" />

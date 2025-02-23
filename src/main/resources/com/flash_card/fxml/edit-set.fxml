@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ComboBox?>
 <HBox prefHeight="832.0" prefWidth="1280.0" styleClass="home-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.flashcardSet.EditFlashcardSetController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -78,10 +79,7 @@
                 </HBox>
                 <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name" />
                 <TextField fx:id="setDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description" />
-                <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="45.0" prefWidth="816.0" promptText="Enter Set Topic" styleClass="set-topic">
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin></TextField>
+                <ComboBox fx:id="topicDropDown" prefHeight="49.49" prefWidth="820.0" promptText="Choose Set Topic" styleClass="set-topic-dropdown" />
             <VBox alignment="CENTER" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="54.0" prefWidth="816.0" spacing="10.0" VBox.vgrow="NEVER">
