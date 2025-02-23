@@ -32,7 +32,6 @@ public class QuizResultController extends ViewController {
     public void setResultView(int quizId) {
         QuizResultViewModel quizResultViewModel = new QuizResultViewModel(entityManager, quizId);
 
-        //TODO: get data from quizResultViewModel
         this.setId = quizResultViewModel.getFlashcardSetId();
         this.setName = quizResultViewModel.getSetName();
         int correctCount = quizResultViewModel.getTotalCorrect();

@@ -108,22 +108,22 @@
             </HBox>
                 <VBox fx:id="flashcardContainer" prefHeight="509.0" prefWidth="816.0">
                <children>
-                  <Button fx:id="answerButton1" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button fx:id="answerButton1" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="answerButton2" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button fx:id="answerButton2" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="answerButton3" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true">
+                  <Button fx:id="answerButton3" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="answerButton4" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis nec felis aliquet volutpat ut et orci. Nam sit amet mattis neque, in pellentesque mauris. Aenean sed arcu sit amet lorem tincidunt ultricies vel a tortor. Nullam accumsan mollis urna at mollis. Donec dignissim mi tincidunt bibendum volutpat." wrapText="true" />
+                  <Button fx:id="answerButton4" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true" />
                </children></VBox>
             </children>
         </VBox>
