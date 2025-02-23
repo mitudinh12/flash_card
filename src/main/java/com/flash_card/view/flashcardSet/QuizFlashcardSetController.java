@@ -9,6 +9,8 @@ import jakarta.persistence.EntityManager;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,15 +20,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+
 public class QuizFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final QuizFlashcardSetViewModel viewModel = new QuizFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private int setId;
+    private int quizId;
 
-    @FXML private Label index, total, setName;
-    @FXML private Button answerButton1, answerButton2, answerButton3, answerButton4;
-    @FXML private Text term, instructionText;
+    @FXML
+    private Label index, total, setName;
+    @FXML
+    private Button answerButton1, answerButton2, answerButton3, answerButton4;
+    @FXML
+    private Text term, instructionText;
 
     @FXML
     public void initialize() {
@@ -58,6 +66,7 @@ public class QuizFlashcardSetController extends ViewController {
         this.setId = setId;
         viewModel.loadFlashcards(setId, setName);
         viewModel.startQuiz(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
+        this.quizId = viewModel.getQuizId();
         showFlashcard();
     }
 
@@ -82,7 +91,8 @@ public class QuizFlashcardSetController extends ViewController {
 
             if (viewModel.isLastFlashcard()) {
                 viewModel.finishQuiz();
-                goToPage("/com/flash_card/fxml/home.fxml", setName.getScene());
+                quizId = viewModel.getQuizId();
+                goToResultPage();
             } else {
                 viewModel.nextFlashcard();
             }
@@ -102,6 +112,19 @@ public class QuizFlashcardSetController extends ViewController {
         for (Button button : new Button[]{answerButton1, answerButton2, answerButton3, answerButton4}) {
             button.getStyleClass().removeAll("correct-answer", "wrong-answer");
             button.getStyleClass().add("answer-buttons");
+        }
+    }
+
+    private void goToResultPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-result.fxml"));
+            Parent root = loader.load();
+            QuizResultController resultController = loader.getController();
+            resultController.setResultView(quizId);
+            Scene scene = setName.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

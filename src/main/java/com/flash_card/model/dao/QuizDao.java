@@ -75,47 +75,4 @@ public class QuizDao {
         }
     }
 
-    public Quiz findByUserIdAndSetId(String userId, int setId) {
-        Quiz quiz = null;
-        try {
-            quiz = entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
-                    .setParameter("userId", userId)
-                    .setParameter("setId", setId)
-                    .getSingleResult();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a quiz: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-        return quiz;
-    }
-
-    public List<Quiz> findByUserId(String userId) {
-        List<Quiz> quizzes = null;
-        try {
-            quizzes = entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId", Quiz.class)
-                    .setParameter("userId", userId)
-                    .getResultList();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a quiz: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-        return quizzes;
-    }
-
-    public List<Quiz> findBySetId(int setId) {
-        List<Quiz> quizzes = null;
-        try {
-            quizzes = entityManager.createQuery("SELECT q FROM Quiz q WHERE q.flashcardSet.setId = :setId", Quiz.class)
-                    .setParameter("setId", setId)
-                    .getResultList();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a quiz: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-        return quizzes;
-    }
-
 }

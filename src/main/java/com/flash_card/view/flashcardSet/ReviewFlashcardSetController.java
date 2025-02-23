@@ -82,8 +82,7 @@ public class ReviewFlashcardSetController extends ViewController {
         new Thread(() -> {
             // Get fake answers in the background
             TriviaQuestionGenerator triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
-            quizViewModel.setQuizTopic(setId);
-            triviaQuestionGenerator.generateFakeAnswers(quizViewModel.getQuizTopic());
+            triviaQuestionGenerator.generateFakeAnswers(quizViewModel.getQuizTopic(setId));
 
             Platform.runLater(() -> {
                 loadingStage.close(); // Close loading view

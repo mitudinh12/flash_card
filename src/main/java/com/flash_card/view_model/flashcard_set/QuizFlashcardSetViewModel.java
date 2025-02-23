@@ -29,8 +29,10 @@ public class QuizFlashcardSetViewModel {
     private List<Flashcard> flashcards;
     private Quiz currentQuiz;
     private boolean correctAnswer;
-    private String quizTopic;
     private TriviaQuestionGenerator triviaQuestionGenerator;
+    private int correctTimes;
+    private int wrongTimes;
+    private int quizId;
 
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
     private final StringProperty setName = new SimpleStringProperty();
@@ -69,7 +71,9 @@ public class QuizFlashcardSetViewModel {
     public void finishQuiz() {
         currentQuiz.setEndTime(LocalDateTime.now());
         quizDao.update(currentQuiz);
-        calculateTime(currentQuiz.getStartTime(), currentQuiz.getEndTime());
+        correctTimes = currentQuiz.getCorrectTimes();
+        wrongTimes = currentQuiz.getWrongTimes();
+        quizId = currentQuiz.getQuizId();
     }
     //Stop or cancel the quiz in the middle of progress
     public void stopQuiz() {
@@ -84,15 +88,6 @@ public class QuizFlashcardSetViewModel {
         currentQuiz.setWrongTimes(currentQuiz.getWrongTimes() + 1);
     }
 
-    //Calculate the time taken to complete the quiz
-    public void calculateTime(LocalDateTime start, LocalDateTime end) {
-        Duration duration = Duration.between(start, end);
-        long seconds = duration.getSeconds();
-        long minutes = seconds / 60;
-        seconds = seconds % 60;
-        System.out.println("Quiz time: " + minutes + "m " + seconds + "s");
-        quizTime.set("Quiz time: " + minutes + "m " + seconds + "s");
-    }
     //check correct answer
     public boolean isAnswerCorrect(String answer) {
         correctAnswer = answer.equals(getCurrentFlashcard().getDefinition());
@@ -122,6 +117,7 @@ public class QuizFlashcardSetViewModel {
         triviaQuestionGenerator.reloadAnswer(flashcardSetDao.findById(setId).getSetTopic());
     }
 
+
     //check last flashcard
     public boolean isLastFlashcard() {
         return currentIndex.get() == flashcards.size() - 1;
@@ -138,15 +134,17 @@ public class QuizFlashcardSetViewModel {
             loadQuestion();
         }
     }
-    //Set up quiz from study mode
-    public void setQuizTopic(int setId) {
-        this.quizTopic = flashcardSetDao.findById(setId).getSetTopic();
+    public String getQuizTopic(int setId) {
+        FlashcardSet set = flashcardSetDao.findById(setId);
+        return set.getSetTopic();
     }
-    public String getQuizTopic() {
-        return quizTopic;
+
+    public int getQuizId() {
+        return quizId;
     }
 
     //Bind properties
+
     public IntegerProperty currentIndexProperty() {
         return currentIndex;
     }
@@ -157,10 +155,6 @@ public class QuizFlashcardSetViewModel {
 
     public StringProperty totalProperty() {
         return total;
-    }
-
-    public List<Flashcard> getFlashcards() {
-        return flashcards;
     }
 
     public StringProperty currentTermProperty() {
