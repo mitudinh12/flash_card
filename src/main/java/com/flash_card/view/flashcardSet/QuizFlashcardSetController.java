@@ -1,7 +1,6 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.view.components.LoadingView;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;

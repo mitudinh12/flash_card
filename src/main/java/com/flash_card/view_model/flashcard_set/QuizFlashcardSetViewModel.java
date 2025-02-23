@@ -13,14 +13,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import java.time.Duration;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.flash_card.framework.TriviaQuestionGenerator;
 
 public class QuizFlashcardSetViewModel {
     private UserDao userDao;
@@ -31,7 +29,6 @@ public class QuizFlashcardSetViewModel {
     private List<Flashcard> flashcards;
     private Quiz currentQuiz;
     private boolean correctAnswer;
-    private TriviaQuestionGenerator triviaQuestionGenerator;
     private int correctTimes;
     private int wrongTimes;
     private int quizId;
@@ -52,7 +49,6 @@ public class QuizFlashcardSetViewModel {
         quizDao = QuizDao.getInstance(entityManager);
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
-        triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
     }
     //Determine the Flashcard Set, load its name and flashcards
     public void loadFlashcards(int setId, String setName) {
@@ -110,14 +106,12 @@ public class QuizFlashcardSetViewModel {
         List<String> answers = new ArrayList<>();
         answers.add(getCurrentFlashcard().getDefinition());
 
-        // Filter out the current flashcard and shuffle the remaining ones
         List<Flashcard> newFlashcards = flashcards.stream()
                 .filter(flashcard -> !flashcard.getTerm().equals(getCurrentFlashcard().getTerm()))
                 .collect(Collectors.toList());
 
         Collections.shuffle(newFlashcards);
 
-        // Add three unique incorrect definitions
         newFlashcards.stream()
                 .limit(3)
                 .map(Flashcard::getDefinition)
@@ -147,12 +141,6 @@ public class QuizFlashcardSetViewModel {
             currentIndex.set(currentIndex.get() + 1);
             loadQuestion();
         }
-    }
-
-
-    public String getQuizTopic(int setId) {
-        FlashcardSet set = flashcardSetDao.findById(setId);
-        return set.getSetTopic();
     }
 
     public int getQuizId() {
