@@ -24,23 +24,30 @@ public class QuizFlashcardSetController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private int setId;
 
-
     @FXML private Label index, total, setName;
     @FXML private Button answerButton1, answerButton2, answerButton3, answerButton4;
     @FXML private Text term, instructionText;
 
     @FXML
     public void initialize() {
+        bindProperties();
+        setAnswerButtonActions();
+    }
+
+    private void bindProperties() {
         setName.textProperty().bind(viewModel.setNameProperty());
         total.textProperty().bind(viewModel.totalProperty());
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
         term.textProperty().bind(viewModel.currentTermProperty());
         instructionText.textProperty().bind(viewModel.instructionTextProperty());
+
         answerButton1.textProperty().bind(viewModel.answer1Property());
         answerButton2.textProperty().bind(viewModel.answer2Property());
         answerButton3.textProperty().bind(viewModel.answer3Property());
         answerButton4.textProperty().bind(viewModel.answer4Property());
+    }
 
+    private void setAnswerButtonActions() {
         answerButton1.setOnAction(event -> handleAnswer(answerButton1));
         answerButton2.setOnAction(event -> handleAnswer(answerButton2));
         answerButton3.setOnAction(event -> handleAnswer(answerButton3));
@@ -64,47 +71,38 @@ public class QuizFlashcardSetController extends ViewController {
     }
 
     public void handleAnswer(Button button) {
-            //Check correct answer
-            if (viewModel.isAnswerCorrect(button.getText())) {
-                button.getStyleClass().add("correct-answer");
-                disableButtons(true, button);
+        boolean isCorrect = viewModel.isAnswerCorrect(button.getText());
+        button.getStyleClass().add(isCorrect ? "correct-answer" : "wrong-answer");
+        disableButtons(true, button);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+        pause.setOnFinished(event -> {
+            resetButtonStyles();
+            disableButtons(false, button);
+
+            if (viewModel.isLastFlashcard()) {
+                viewModel.finishQuiz();
+                goToPage("/com/flash_card/fxml/home.fxml", setName.getScene());
             } else {
-                button.getStyleClass().add("wrong-answer");
-                disableButtons(true, button);
+                viewModel.nextFlashcard();
             }
+        });
+        pause.play();
+    }
 
-            // Create a pause transition
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> {
-                resetButtonStyles();
-                disableButtons(false, button);
-                // Go to next flashcard or finish quiz
-                if (viewModel.isLastFlashcard()) {
-                    viewModel.finishQuiz();
-                    goToPage("/com/flash_card/fxml/home.fxml", setName.getScene());
-                } else {
-                    viewModel.nextFlashcard();
-                }
-            });
-            pause.play();
-        }
-
-    private void disableButtons(boolean on, Button chosenButton) {
-        answerButton1.setDisable(on);
-        answerButton2.setDisable(on);
-        answerButton3.setDisable(on);
-        answerButton4.setDisable(on);
+    private void disableButtons(boolean disable, Button chosenButton) {
+        answerButton1.setDisable(disable);
+        answerButton2.setDisable(disable);
+        answerButton3.setDisable(disable);
+        answerButton4.setDisable(disable);
         chosenButton.setDisable(false);
     }
 
     private void resetButtonStyles() {
-        answerButton1.getStyleClass().removeAll("correct-answer", "wrong-answer");
-        answerButton1.getStyleClass().add("answer-buttons");
-        answerButton2.getStyleClass().removeAll("correct-answer", "wrong-answer");
-        answerButton2.getStyleClass().add("answer-buttons");
-        answerButton3.getStyleClass().removeAll("correct-answer", "wrong-answer");
-        answerButton3.getStyleClass().add("answer-buttons");
-        answerButton4.getStyleClass().removeAll("correct-answer", "wrong-answer");
-        answerButton4.getStyleClass().add("answer-buttons");
+        for (Button button : new Button[]{answerButton1, answerButton2, answerButton3, answerButton4}) {
+            button.getStyleClass().removeAll("correct-answer", "wrong-answer");
+            button.getStyleClass().add("answer-buttons");
+        }
     }
 }
+
