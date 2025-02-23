@@ -83,6 +83,7 @@ public class QuizFlashcardSetViewModel {
     public void addWrongTimes() {
         currentQuiz.setWrongTimes(currentQuiz.getWrongTimes() + 1);
     }
+
     //Calculate the time taken to complete the quiz
     public void calculateTime(LocalDateTime start, LocalDateTime end) {
         Duration duration = Duration.between(start, end);
@@ -106,7 +107,6 @@ public class QuizFlashcardSetViewModel {
     }
     //Load the term, definition, and fake answers of the current flashcard(index)
     public void loadQuestion() {
-
         currentTerm.set(getCurrentFlashcard().getTerm());
         instructionText.set("Choose the correct definition");
 
@@ -115,14 +115,11 @@ public class QuizFlashcardSetViewModel {
         answers.addAll(triviaQuestionGenerator.getFakeAnswers());
 
         Collections.shuffle(answers);
-
         answer1.set(answers.get(0));
         answer2.set(answers.get(1));
         answer3.set(answers.get(2));
         answer4.set(answers.get(3));
-
         triviaQuestionGenerator.reloadAnswer(flashcardSetDao.findById(setId).getSetTopic());
-
     }
 
     //check last flashcard
@@ -141,7 +138,7 @@ public class QuizFlashcardSetViewModel {
             loadQuestion();
         }
     }
-
+    //Set up quiz from study mode
     public void setQuizTopic(int setId) {
         this.quizTopic = flashcardSetDao.findById(setId).getSetTopic();
     }
@@ -149,6 +146,7 @@ public class QuizFlashcardSetViewModel {
         return quizTopic;
     }
 
+    //Bind properties
     public IntegerProperty currentIndexProperty() {
         return currentIndex;
     }
