@@ -22,11 +22,11 @@ public class Classroom {
     @JoinColumn(name = "teacher_id", referencedColumnName = "user_id")
     private User teacher;
 
-    @OneToMany(mappedBy = "classroom")
-    private List<ClassMember> classMembers;
-
-    @OneToMany(mappedBy = "classroom")
-    private List<AssignedSet> assignedSets;
+//    @OneToMany(mappedBy = "classroom")
+//    private List<ClassMember> classMembers;
+//
+//    @OneToMany(mappedBy = "classroom")
+//    private List<AssignedSet> assignedSets;
 
     public Classroom(String classroomName, String description, User teacher) {
         this.classroomName = classroomName;
@@ -57,9 +57,9 @@ public class Classroom {
         return description;
     }
 
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
+//    public void setTeacher(User teacher) {
+//        this.teacher = teacher;
+//    }
 
     public User getTeacher() {
         return teacher;

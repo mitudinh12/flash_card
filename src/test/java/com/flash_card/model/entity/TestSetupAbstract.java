@@ -2,10 +2,7 @@ package com.flash_card.model.entity;
 
 import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.framework.SetViewModel;
-import com.flash_card.model.dao.FlashcardDao;
-import com.flash_card.model.dao.FlashcardSetDao;
-import com.flash_card.model.dao.SharedSetsDao;
-import com.flash_card.model.dao.UserDao;
+import com.flash_card.model.dao.*;
 import com.flash_card.view_model.flashcard_set.OwnFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.SharedSetViewModel;
@@ -64,6 +61,7 @@ public abstract class TestSetupAbstract {
     protected FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     protected SharedSetsDao sharedSetsDao = SharedSetsDao.getInstance(entityManager);
     protected UserDao userDao = UserDao.getInstance(entityManager);
+    protected ClassroomDao classroomDao = ClassroomDao.getInstance(entityManager);
 
     protected OwnFlashcardSetViewModel ownFlashcardSetViewModel;
     protected SharedFlashcardSetViewModel sharedFlashcardSetViewModel;
