@@ -64,18 +64,20 @@ public class QuizFlashcardSetController extends ViewController {
     }
 
     public void handleAnswer(Button button) {
-            System.out.println("Button clicked");
             //Check correct answer
             if (viewModel.isAnswerCorrect(button.getText())) {
                 button.getStyleClass().add("correct-answer");
+                disableButtons(true, button);
             } else {
                 button.getStyleClass().add("wrong-answer");
+                disableButtons(true, button);
             }
 
             // Create a pause transition
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {
                 resetButtonStyles();
+                disableButtons(false, button);
                 // Go to next flashcard or finish quiz
                 if (viewModel.isLastFlashcard()) {
                     viewModel.finishQuiz();
@@ -86,6 +88,14 @@ public class QuizFlashcardSetController extends ViewController {
             });
             pause.play();
         }
+
+    private void disableButtons(boolean on, Button chosenButton) {
+        answerButton1.setDisable(on);
+        answerButton2.setDisable(on);
+        answerButton3.setDisable(on);
+        answerButton4.setDisable(on);
+        chosenButton.setDisable(false);
+    }
 
     private void resetButtonStyles() {
         answerButton1.getStyleClass().removeAll("correct-answer", "wrong-answer");

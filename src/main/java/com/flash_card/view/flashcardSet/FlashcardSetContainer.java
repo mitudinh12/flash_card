@@ -3,7 +3,7 @@ package com.flash_card.view.flashcardSet;
 import com.flash_card.framework.SetViewModel;
 import com.flash_card.view.components.LoadingView;
 import com.flash_card.view.homepage.HomePageController;
-import com.flash_card.view_model.flashcard_set.TriviaQuestionGenerator;
+import com.flash_card.framework.TriviaQuestionGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.List;
 
 public class FlashcardSetContainer extends HBox {
     private SetViewModel viewModel;

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.flash_card.view_model.flashcard_set.TriviaQuestionGenerator;
+import com.flash_card.framework.TriviaQuestionGenerator;
 
 public class QuizFlashcardSetViewModel {
     private UserDao userDao;

@@ -1,4 +1,5 @@
 package com.flash_card.framework;
+import com.flash_card.view.components.LoadingView;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -126,5 +128,18 @@ public abstract class ViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Stage showLoading() {
+        Stage newStage = new Stage();
+        LoadingView loadingView = new LoadingView();
+        Scene scene = new Scene(loadingView, 400, 200);
+        scene.setFill(null);
+        newStage.initStyle(StageStyle.TRANSPARENT);
+        newStage.setScene(scene);
+        newStage.setX(650);
+        newStage.setY(300);
+        newStage.show();
+        return newStage;
     }
 }

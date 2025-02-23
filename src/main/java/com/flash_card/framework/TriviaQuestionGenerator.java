@@ -1,4 +1,4 @@
-package com.flash_card.view_model.flashcard_set;
+package com.flash_card.framework;
 import java.net.*;
 import org.json.JSONObject;
 import java.net.http.HttpClient;
@@ -22,7 +22,7 @@ public class TriviaQuestionGenerator {
         }
         return instance;
     }
-
+    //Generate fake questions from the API based on the topic
     public List<String> generateFakeAnswers(String topic) {
         isLoading = true;
         try {
@@ -33,9 +33,7 @@ public class TriviaQuestionGenerator {
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            // Parse the JSON response
             JSONObject jsonResponse = new JSONObject(response.body());
-            // Extract fake answers array and convert it to List<String>
             for (Object fakeAnswer : jsonResponse.getJSONArray("answers")) {
                 fakeAnswers.add((String) fakeAnswer);
             }
@@ -43,7 +41,8 @@ public class TriviaQuestionGenerator {
             e.printStackTrace();
         }
         isLoading = false;
-        return fakeAnswers.subList(0,3);
+        fakeAnswers = fakeAnswers.subList(0,3);
+        return fakeAnswers;
     }
 
 
