@@ -29,6 +29,7 @@ public class QuizFlashcardSetViewModel {
     private List<Flashcard> flashcards;
     private Quiz currentQuiz;
     private boolean correctAnswer;
+    private String quizTopic;
     private TriviaQuestionGenerator triviaQuestionGenerator;
 
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
@@ -48,7 +49,6 @@ public class QuizFlashcardSetViewModel {
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
         triviaQuestionGenerator = TriviaQuestionGenerator.getInstance();
-
     }
     //Determine the Flashcard Set, load its name and flashcards
     public void loadFlashcards(int setId, String setName) {
@@ -125,7 +125,6 @@ public class QuizFlashcardSetViewModel {
 
     }
 
-
     //check last flashcard
     public boolean isLastFlashcard() {
         return currentIndex.get() == flashcards.size() - 1;
@@ -141,6 +140,13 @@ public class QuizFlashcardSetViewModel {
             currentIndex.set(currentIndex.get() + 1);
             loadQuestion();
         }
+    }
+
+    public void setQuizTopic(int setId) {
+        this.quizTopic = flashcardSetDao.findById(setId).getSetTopic();
+    }
+    public String getQuizTopic() {
+        return quizTopic;
     }
 
     public IntegerProperty currentIndexProperty() {

@@ -107,6 +107,4 @@ public class QuizFlashcardSetController extends ViewController {
         answerButton4.getStyleClass().removeAll("correct-answer", "wrong-answer");
         answerButton4.getStyleClass().add("answer-buttons");
     }
-
-
 }

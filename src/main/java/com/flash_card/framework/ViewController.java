@@ -130,7 +130,7 @@ public abstract class ViewController {
         }
     }
 
-    private Stage showLoading() {
+    public Stage showLoading() {
         Stage newStage = new Stage();
         LoadingView loadingView = new LoadingView();
         Scene scene = new Scene(loadingView, 400, 200);
