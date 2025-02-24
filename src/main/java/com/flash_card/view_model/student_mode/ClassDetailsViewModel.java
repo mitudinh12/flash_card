@@ -32,13 +32,6 @@ public class ClassDetailsViewModel {
         this.classId = classId;
     }
 
-    public String getTeacherName() {
-        Classroom classroom = classroomDao.findClassById(classId);
-        String firstName = classroom.getTeacher().getFirstName();
-        String lastName = classroom.getTeacher().getLastName();
-        return firstName + " " + lastName.charAt(0);
-    }
-
     public ObservableList<SetViewModel> loadSets() {
         List<FlashcardSet> set = assignedSetDao.findAllSetsByClassId(classId);
         flashcardSetList.clear();

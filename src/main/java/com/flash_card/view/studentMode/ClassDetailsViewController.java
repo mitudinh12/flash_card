@@ -37,8 +37,17 @@ public class ClassDetailsViewController extends ViewController {
 
     public void loadClass(int classId, String className, String teacherName) {
         this.classId = classId;
+        setClassDetails(className, teacherName);
+        loadFlashcardSets();
+        updateNavigationControls();
+    }
+
+    private void setClassDetails(String className, String teacherName) {
         this.className.setText(className);
         this.teacherName.setText(teacherName);
+    }
+
+    private void loadFlashcardSets() {
         viewModel.loadClass(classId);
         flashcardList = viewModel.loadSets();
         updatePage();
@@ -46,26 +55,22 @@ public class ClassDetailsViewController extends ViewController {
 
     private void updatePage() {
         flashcardSetList.getChildren().clear();
+        populateFlashcardList();
+        updateNavigationControls();
+    }
 
+    private void populateFlashcardList() {
         int start = currentPage * pageSize;
         int end = Math.min(start + pageSize, flashcardList.size());
 
         for (int i = start; i < end; i++) {
-            System.out.println(flashcardList.get(i).getSet().getSetName());
-            SetInClassContainer flashcardUI = new SetInClassContainer(flashcardList.get(i));
+            flashcardSetList.getChildren().add(new SetInClassContainer(flashcardList.get(i)));
+        }
+    }
 
-            flashcardSetList.getChildren().add(flashcardUI);
-        }
-        if (currentPage == 0) {
-            backIcon.setVisible(false);
-        } else {
-            backIcon.setVisible(true);
-        }
-        if (end >= flashcardList.size()) {
-            nextIcon.setVisible(false);
-        } else {
-            nextIcon.setVisible(true);
-        }
+    private void updateNavigationControls() {
+        backIcon.setVisible(currentPage > 0);
+        nextIcon.setVisible((currentPage + 1) * pageSize < flashcardList.size());
     }
 
     @FXML
@@ -84,3 +89,4 @@ public class ClassDetailsViewController extends ViewController {
         }
     }
 }
+
