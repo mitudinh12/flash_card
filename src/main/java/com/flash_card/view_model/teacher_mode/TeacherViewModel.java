@@ -3,17 +3,18 @@ package com.flash_card.view_model.teacher_mode;
 import com.flash_card.model.dao.*;
 import com.flash_card.model.entity.*;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public class TeacherViewModel {
-    private ClassroomDao classroomDao;
-    private UserDao userDao;
-    private AssignedSetDao assignedSetDao;
-    private FlashcardSetDao flashcardSetDao;
-    private ClassMemberDao classMemberDao;
-    private String teacherId;
+    private final ClassroomDao classroomDao;
+    private final UserDao userDao;
+    private final AssignedSetDao assignedSetDao;
+    private final FlashcardSetDao flashcardSetDao;
+    private final ClassMemberDao classMemberDao;
+    private final String teacherId;
 
-    public TeacherViewModel (String userId, EntityManager em) {
+    public TeacherViewModel(String userId, EntityManager em) {
         classroomDao = ClassroomDao.getInstance(em);
         userDao = UserDao.getInstance(em);
         assignedSetDao = AssignedSetDao.getInstance(em);
@@ -24,46 +25,33 @@ public class TeacherViewModel {
 
     public int addClass(String name, String description) {
         User user = userDao.findById(teacherId);
-        try {
-            Classroom classroom = new Classroom(name, description, user);
-            classroomDao.persistClass(classroom);
-            return classroom.getClassroomId();
-        } catch (Exception e) {
-            System.err.println("Error in creating new class: " + e.getMessage());
-            e.printStackTrace();
+        Classroom classroom = new Classroom(name, description, user);
+        boolean result = classroomDao.persistClass(classroom);
+        if (result) {
+            return 1;
+        } else {
             return -1;
         }
     }
 
     public int editClass(int classId, String className, String classDescription) {
         Classroom updateClass = classroomDao.findClassById(classId);
-        if (updateClass != null) {
+        if (updateClass == null) {
+            return 0;
+        } else {
             updateClass.setClassroomName(className);
             updateClass.setDescription(classDescription);
-            try {
-                classroomDao.updateClass(updateClass);
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
-        } else {
-            return 0;
+            classroomDao.updateClass(updateClass);
+            return 1;
         }
     }
 
     public int deleteClass(Classroom classroom) {
-        Classroom foundClassroom = classroomDao.findClassById(classroom.getClassroomId());
-        if (foundClassroom != null) {
-            try {
-                classroomDao.deleteClass(foundClassroom);
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
+        boolean result = classroomDao.deleteClass(classroom);
+        if (result) {
+            return 1;
         } else {
-            return 0;
+            return -1;
         }
     }
 
@@ -72,13 +60,8 @@ public class TeacherViewModel {
         Classroom classroom = classroomDao.findClassById(classId);
         if (student != null && classroom != null) {
             ClassMember classMember = new ClassMember(student, classroom);
-            try {
-                classMemberDao.persistClassMember(classMember);
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
+            classMemberDao.persistClassMember(classMember);
+            return 1;
         } else {
             return 0;
         }
@@ -87,13 +70,8 @@ public class TeacherViewModel {
     public int deleteStudent(int classId, String studentId) {
         ClassMember classMember = classMemberDao.findByStudentIdAndClassId(classId, studentId);
         if (classMember != null) {
-            try {
-                classMemberDao.deleteClassMember(classMember);
-                return classMember.getId();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
+            classMemberDao.deleteClassMember(classMember);
+            return 1;
         } else {
             return 0;
         }
@@ -128,32 +106,27 @@ public class TeacherViewModel {
     }
 
     public int assignFlashcardSets(List<Integer> listSetIds, int classId) {
+        int result = -1;
         for (int setId : listSetIds) {
             FlashcardSet set = flashcardSetDao.findById(setId);
             Classroom classroom = classroomDao.findClassById(classId);
-            try {
-                AssignedSet assignedSet = new AssignedSet(set, classroom);
-                assignedSetDao.persistAssignedSet(assignedSet);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
+            AssignedSet assignedSet = new AssignedSet(set, classroom);
+            boolean result1 = assignedSetDao.persistAssignedSet(assignedSet);
+            if (result1) {
+                result = 1;
             }
         }
-        return 1;
+        return result;
+
     }
 
     public int deleteAssignedSet(int setId, int classId) {
         AssignedSet assignedSet = assignedSetDao.findBySetIdAndClassId(setId, classId);
-        if (assignedSet != null) {
-            try {
-                assignedSetDao.deleteAssignedSet(assignedSet);
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
+        boolean result = assignedSetDao.deleteAssignedSet(assignedSet);
+        if (result) {
+            return 1;
         } else {
-            return 0;
+            return -1;
         }
     }
 
