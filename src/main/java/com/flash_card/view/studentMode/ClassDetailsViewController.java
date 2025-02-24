@@ -89,5 +89,10 @@ public class ClassDetailsViewController extends ViewController {
             updatePage();
         }
     }
+
+    @FXML
+    private void goBackToStudentHome(ActionEvent event) {
+        goToPage("/com/flash_card/fxml/student-class.fxml", className.getScene());
+    }
 }
 
