@@ -18,6 +18,7 @@ public class FlashcardSetContainer extends HBox {
     private HomePageController controller;
     private Label nameLabel;
     private EditFlashcardSetController editSetController = new EditFlashcardSetController();
+    private boolean studentMode = false;
 
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -25,7 +26,7 @@ public class FlashcardSetContainer extends HBox {
         initializeUI();
     }
 
-    private void initializeUI() {
+    protected void initializeUI() {
 
         nameLabel = new Label();
         nameLabel.setId("name-label");
@@ -65,17 +66,17 @@ public class FlashcardSetContainer extends HBox {
 //
     }
 
-    private void showContextMenu(Button button) {
+    protected void showContextMenu(Button button) {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem("Study");
         study.setOnAction(event -> {
-            gotoStudyFlashcardSet();
+            gotoStudyFlashcardSet(studentMode);
         });
         // quiz
         MenuItem quiz = new MenuItem("Quiz");
         quiz.setOnAction(e -> {
-            goToQuizFlashcardSet();
+            goToQuizFlashcardSet(studentMode);
         });
         // edit
         MenuItem edit = new MenuItem("Edit");
@@ -96,7 +97,11 @@ public class FlashcardSetContainer extends HBox {
         // conditional render
         if (viewModel.getType().equals("own")) {                        // action for own flashcard
             menu.getItems().addAll(study, quiz, edit, delete, share);
-        } else {                                                        // action for shared flashcard
+        } else if (viewModel.getType().equals("assigned")) {       // action for assigned flashcard
+            studentMode = true;
+            menu.getItems().addAll(study, quiz);
+        }
+        else {                                                        // action for shared flashcard
             menu.getItems().addAll(study, quiz, delete);
         }
 
@@ -123,9 +128,14 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
-    public void gotoStudyFlashcardSet() {
+    public void gotoStudyFlashcardSet(boolean isStudentMode) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
+            FXMLLoader loader;
+            if (isStudentMode) {
+                loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-study-flashcard.fxml"));
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
+            }
             Parent root = loader.load();
 
             //pass the FlashcardSet data to the StudyFlashcardSetController
@@ -139,7 +149,7 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
-    private void goToQuizFlashcardSet() {
+    public void goToQuizFlashcardSet(boolean isStudentMode) {
         if (viewModel.getSet().getNumberFlashcards() < 4) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -148,7 +158,12 @@ public class FlashcardSetContainer extends HBox {
             alert.showAndWait();
         } else {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                FXMLLoader loader;
+                if (isStudentMode) {
+                    loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-quiz-flashcard.fxml"));
+                } else {
+                    loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                }
                 Parent root = loader.load();
                 QuizFlashcardSetController quizSetController = loader.getController();
                 quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());

@@ -60,7 +60,8 @@
 /* CREATE FLASHCARD SET PAGE */
 .set-name,
 .set-description,
-.set-topic {
+.set-topic,
+.set-topic-dropdown {
     -fx-background-radius: 20;
     -fx-border-style: none;
     -fx-background-color: #ffffff;
@@ -69,6 +70,7 @@
     -fx-font-weight: bold;
     -fx-padding: 5px 0 0 30px;
 }
+
 
 /* CREATE FLASHCARD PAGE */
 .page-title {
@@ -510,4 +512,16 @@ listClassesUI {
     -fx-background-radius: 15;
     -fx-border-radius: 15;
     -fx-wrap-text: true;
+}
+
+/*Student class details page (Show flashcard sets)*/
+.teacher,
+.teacher-name {
+    -fx-font-size: 15;
+    -fx-font-family: "Poppins";
+    -fx-text-fill: #047201;
+}
+
+.teacher-name {
+    -fx-font-weight: bold;
 }

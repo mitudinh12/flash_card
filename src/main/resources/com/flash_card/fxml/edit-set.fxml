@@ -72,8 +72,8 @@
                         <Button mnemonicParsing="false" onAction="#handleEditCards" prefHeight="42.0" prefWidth="240.0" styleClass="edit-button" text="View flashcards" textFill="WHITE" HBox.hgrow="NEVER">
                             <HBox.margin>
                                 <Insets left="300.0" />
-                     </HBox.margin>
-                  </Button>
+                            </HBox.margin>
+                        </Button>
                     </children>
                 </HBox>
                 <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name" />
@@ -82,16 +82,16 @@
                     <VBox.margin>
                         <Insets />
                     </VBox.margin></TextField>
-            <VBox alignment="CENTER" spacing="10.0">
-               <children>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="54.0" prefWidth="816.0" spacing="10.0" VBox.vgrow="NEVER">
-                     <children>
-                              <Button mnemonicParsing="false" onAction="#handleSaveSet" styleClass="save-button" text="SAVE" />
-                        <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="cancel-button" text="CANCEL" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
+                <VBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="54.0" prefWidth="816.0" spacing="10.0" VBox.vgrow="NEVER">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleSaveSet" styleClass="save-button" text="SAVE" />
+                                <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="cancel-button" text="CANCEL" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
             </children>
             <padding>
                 <Insets left="100.0" right="100.0" top="60.0" />

@@ -25,16 +25,16 @@ import java.io.IOException;
 
 public class StudyFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
+    protected final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private int setId;
+    protected int setId;
 
     @FXML private Label index, total, setName;
     @FXML private StackPane backIcon, nextIcon;
     @FXML private VBox flashcardContainer;
     @FXML private Button easyButton, hardButton;
     @FXML private Text middleText, instructionText;
-    @FXML private ImageView shuffleIcon;
+    @FXML protected ImageView shuffleIcon;
 
     @FXML
     public void initialize() {
@@ -101,7 +101,7 @@ public class StudyFlashcardSetController extends ViewController {
         goToReviewPage();
     }
 
-    private void goToReviewPage() {
+    protected void goToReviewPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
             Parent root = loader.load();
