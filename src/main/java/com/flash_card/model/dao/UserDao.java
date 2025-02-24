@@ -35,17 +35,19 @@ public class UserDao {
         }
     }
 
-    public void update(User user) {
+    public boolean update(User user) {
         try {
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             System.err.println("Error in updating User: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
 
     }
