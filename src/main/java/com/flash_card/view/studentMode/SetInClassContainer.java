@@ -14,8 +14,6 @@ public class SetInClassContainer extends FlashcardSetContainer {
     }
 
     @Override
-
-    @Override
     public void showContextMenu(Button button) {
         ContextMenu menu = new ContextMenu();
 
