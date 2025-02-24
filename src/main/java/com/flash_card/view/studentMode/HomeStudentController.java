@@ -47,6 +47,7 @@ public class HomeStudentController extends ViewController {
             int numberSet = (int) classInfo.get("numberSet");
             int numberStudent = (int) classInfo.get("numberStudent");
             StudentClassContainer classContainer = new StudentClassContainer(classId, className, teacherName, numberSet, numberStudent);
+            classContainer.setOnMouseClicked(event -> classContainer.goToClassDetail(classId, className, teacherName, classList.getScene()));
             classList.getChildren().add(classContainer);
         }
     }

@@ -64,4 +64,8 @@ public class Classroom {
     public User getTeacher() {
         return teacher;
     }
+
+    public List<AssignedSet> getAssignedSets() {
+        return assignedSets;
+    }
 }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.flashcardSet.CreateFlashcardSetView">
+<HBox prefHeight="832.0" prefWidth="1280.0" styleClass="class-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.studentMode.StudentReviewFlashcardSetController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -30,10 +30,10 @@
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-class-white.png" />
+                                <Image url="@../assets/icons/I-class-black.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="For Student" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="For Student" />
                     </children>
                 </HBox>
                 <HBox fx:id="teacher" alignment="CENTER" layoutX="44.0" layoutY="266.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -50,33 +50,40 @@
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/icons/I-create-card-black.png" />
+                                <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Create Set" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Set" />
                     </children>
                 </HBox>
             </children>
         </AnchorPane>
-        <VBox prefHeight="832.0" prefWidth="1017.0" spacing="40.0">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Create Flashcard Set" />
-                <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Set Name" styleClass="set-name" />
-                <TextField fx:id="setDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Set Description" styleClass="set-description" />
-                <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="697.0" promptText="Enter Set Topic" styleClass="set-topic">
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin></TextField>
-                <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0" spacing="10.0">
-                    <children>
-                        <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-button" text="Create Flashcard Set" textFill="WHITE" />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" text="CANCEL" />
-                    </children>
-                </HBox>
-            </children>
+        <VBox prefHeight="832.0" prefWidth="1025.0">
             <padding>
                 <Insets left="100.0" right="100.0" top="100.0" />
             </padding>
+            <children>
+                <Label fx:id="setNameLabel" styleClass="page-title" text="Your Flashcards" />
+            <HBox spacing="20.0">
+               <children>
+                  <PieChart fx:id="pieChart" prefHeight="400.0" prefWidth="400.0" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="334.0" styleClass="menu-text-black">
+                     <children>
+                        <Label fx:id="studiedNumLabel" text="3/3" />
+                        <Label fx:id="studyTimeLabel" text="time" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#goToStudentHome" styleClass="cancel-button" text="BACK TO STUDENT HOME">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+            </children>
         </VBox>
     </children>
 </HBox>
