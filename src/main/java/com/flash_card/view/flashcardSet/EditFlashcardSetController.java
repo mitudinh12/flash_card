@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -25,12 +24,7 @@ public class EditFlashcardSetController extends ViewController {
     @FXML
     private TextField setDescriptionField;
     @FXML
-    private ComboBox<String> topicDropDown;
-
-    @FXML
-    private void initialize() {
-        topicDropDown.getItems().setAll(viewModel.reloadTopics());
-    }
+    private TextField setTopicField;
 
     @FXML
     public void handleEditCards(ActionEvent actionEvent) {
@@ -41,7 +35,7 @@ public class EditFlashcardSetController extends ViewController {
     public void handleSaveSet(ActionEvent actionEvent) {
         String setName = setNameField.getText();
         String setDescription = setDescriptionField.getText();
-        String setTopic = (String) topicDropDown.getValue();
+        String setTopic = setTopicField.getText();
         if (setName.isEmpty() || setDescription.isEmpty() || setTopic.isEmpty()) {
             showAlert("Warning", "Please fill in all fields");
             return;
@@ -73,6 +67,6 @@ public class EditFlashcardSetController extends ViewController {
         this.setId = setId;
         setNameField.setText(setName);
         setDescriptionField.setText(setDescription);
-        topicDropDown.setValue(setTopic);
+        setTopicField.setText(setTopic);
     }
 }

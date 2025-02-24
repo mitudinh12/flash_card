@@ -14,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
@@ -33,21 +32,18 @@ public class CreateFlashcardSetView extends ViewController {
     private TextField setNameField, setDescriptionField, setTopicField;
     @FXML
     private Button createSetButton, cancelButton;
-    @FXML
-    private ComboBox<String> topicDropDown;
+
 
     @FXML
     private void initialize() {
         createSetButton.setOnAction(event -> handleCreateSet());
         cancelButton.setOnAction(event -> handleCancel());
-        viewModel.loadTopics();
-        topicDropDown.getItems().setAll(viewModel.getTopics());
     }
     @FXML
     private void handleCreateSet() {
         String name = setNameField.getText();
         String description = setDescriptionField.getText();
-        String topic = (String) topicDropDown.getValue();
+        String topic = setTopicField.getText();
         userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
             int flashcardSetId = viewModel.addSet(name, description, topic, userId);

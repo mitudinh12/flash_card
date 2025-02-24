@@ -7,16 +7,10 @@ import com.flash_card.model.entity.User;
 import com.flash_card.view.flashcardSet.CreateFlashcardSetView;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CreateFlashcardSetViewModel {
     private FlashcardSetDao flashcardSetDao;
     private UserDao userDao;
-    private final ObservableList<String> topics = FXCollections.observableArrayList();
 
     public CreateFlashcardSetViewModel(EntityManager em) {
         flashcardSetDao = FlashcardSetDao.getInstance(em);
@@ -34,14 +28,5 @@ public class CreateFlashcardSetViewModel {
             e.printStackTrace();
             return -1; //return -1 to show error
         }
-    }
-
-    public void loadTopics() {
-        List<String> topicList = Arrays.asList("Geography", "Literature", "Science", "History", "Art", "Music", "Technology", "Sports", "Entertainment", "Biology", "Mathematics", "Food", "Mythology", "Astronomy", "YouTubers/Streamers", "Language", "Animals", "Culture", "Landmarks", "Economics", "Linguistics", "Chemistry", "Physics", "Philosophy", "Geology", "Medicine");
-        topics.addAll(topicList);
-    }
-
-    public ObservableList<String> getTopics() {
-        return topics;
     }
 }
