@@ -5,12 +5,11 @@ import com.flash_card.model.dao.UserDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ClassroomTest {
     private Classroom testClassroom;
     private User testTeacher;
@@ -44,6 +43,7 @@ public class ClassroomTest {
     }
 
     @Test
+    @Order(1)
     void testEmptyConstructor() {
         Classroom emptyClassroom = new Classroom(); // Using the no-arg constructor
 
@@ -51,16 +51,19 @@ public class ClassroomTest {
     }
 
     @Test
+    @Order(2)
     void testGetClassroomId() {
         assertNotEquals(0, testClassroom.getClassroomId(), "Fail to get ClassroomId");
     }
 
     @Test
+    @Order(3)
     void testGetClassName() {
         assertEquals(className, testClassroom.getClassroomName(), "Fail to get ClassName");
     }
 
     @Test
+    @Order(4)
     void testSetClassName() {
         String newClassName = "Java 102";
         testClassroom.setClassroomName(newClassName);
@@ -68,11 +71,13 @@ public class ClassroomTest {
     }
 
     @Test
+    @Order(5)
     void testGetDescription() {
         assertEquals(description, testClassroom.getDescription(), "Fail to get ClassCode");
     }
 
     @Test
+    @Order(6)
     void testSetDescription() {
         String newDescription = "def456";
         testClassroom.setDescription(newDescription);
@@ -80,6 +85,7 @@ public class ClassroomTest {
     }
 
     @Test
+    @Order(7)
     void testGetTeacher() {
         assertEquals(testTeacher, testClassroom.getTeacher(), "Fail to get TeacherId");
     }
