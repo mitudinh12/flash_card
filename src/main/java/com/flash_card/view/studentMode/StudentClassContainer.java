@@ -60,7 +60,7 @@ public class StudentClassContainer extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
     }
 
-    private void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
+    public void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-class-details.fxml"));
             Parent root = loader.load();
