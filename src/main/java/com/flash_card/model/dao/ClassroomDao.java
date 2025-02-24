@@ -29,6 +29,9 @@ public class ClassroomDao {
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             System.err.println("Error in persisting Classroom: " + e.getMessage());
             e.printStackTrace();
             return false;
