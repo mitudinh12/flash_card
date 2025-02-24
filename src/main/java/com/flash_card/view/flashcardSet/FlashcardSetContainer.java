@@ -96,7 +96,10 @@ public class FlashcardSetContainer extends HBox {
         // conditional render
         if (viewModel.getType().equals("own")) {                        // action for own flashcard
             menu.getItems().addAll(study, quiz, edit, delete, share);
-        } else {                                                        // action for shared flashcard
+        } else if (viewModel.getType().equals("assigned")) {       // action for assigned flashcard
+            menu.getItems().addAll(study, quiz);
+        }
+        else {                                                        // action for shared flashcard
             menu.getItems().addAll(study, quiz, delete);
         }
 

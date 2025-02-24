@@ -12,19 +12,4 @@ public class SetInClassContainer extends FlashcardSetContainer {
         super(viewModel, null);
         this.viewModel = viewModel;
     }
-
-    @Override
-    public void showContextMenu(Button button) {
-        ContextMenu menu = new ContextMenu();
-
-        MenuItem study = new MenuItem("Study");
-        study.setOnAction(event -> {
-            gotoStudyFlashcardSet();
-        });
-
-        MenuItem quiz = new MenuItem("Quiz");
-        quiz.setOnAction(e -> {
-            goToQuizFlashcardSet();
-        });
-    }
 }

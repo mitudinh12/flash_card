@@ -12,7 +12,7 @@ public class ClassSetViewModel extends SetViewModel {
     private final StringProperty setName;
     private final StringProperty setTopic;
     private final StringProperty numberFLashcard;
-    private final String type = "shared";
+    private final String type = "assigned";
 
     public ClassSetViewModel(FlashcardSet flashcardSet) {
         this.flashcardSet = flashcardSet;
