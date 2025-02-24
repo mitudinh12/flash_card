@@ -26,10 +26,10 @@ public class QuizFlashcardSetController extends ViewController {
     private final QuizFlashcardSetViewModel viewModel = new QuizFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private int setId;
-    private int quizId;
+    protected int quizId;
 
     @FXML
-    private Label index, total, setName;
+    protected Label index, total, setName;
     @FXML
     private Button answerButton1, answerButton2, answerButton3, answerButton4;
     @FXML
@@ -114,7 +114,7 @@ public class QuizFlashcardSetController extends ViewController {
         }
     }
 
-    private void goToResultPage() {
+    protected void goToResultPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-result.fxml"));
             Parent root = loader.load();
