@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -17,7 +18,6 @@ public class FlashcardSetContainer extends HBox {
     private HomePageController controller;
     private Label nameLabel;
     private EditFlashcardSetController editSetController = new EditFlashcardSetController();
-
 
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -74,6 +74,9 @@ public class FlashcardSetContainer extends HBox {
         });
         // quiz
         MenuItem quiz = new MenuItem("Quiz");
+        quiz.setOnAction(e -> {
+            goToQuizFlashcardSet();
+        });
         // edit
         MenuItem edit = new MenuItem("Edit");
         edit.setOnAction(event -> {
@@ -135,4 +138,27 @@ public class FlashcardSetContainer extends HBox {
             e.printStackTrace();
         }
     }
+
+    private void goToQuizFlashcardSet() {
+        if (viewModel.getSet().getNumberFlashcards() < 4) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("You need at least 4 flashcards to start a quiz");
+            alert.showAndWait();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                Parent root = loader.load();
+                QuizFlashcardSetController quizSetController = loader.getController();
+                quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+
+                Scene scene = nameLabel.getScene();
+                scene.setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
