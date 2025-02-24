@@ -36,6 +36,7 @@ public class ClassDetailsViewController extends ViewController {
     private ImageView backIcon, nextIcon;
 
     public void loadClass(int classId, String className, String teacherName) {
+        setUserName();
         this.classId = classId;
         setClassDetails(className, teacherName);
         loadFlashcardSets();
