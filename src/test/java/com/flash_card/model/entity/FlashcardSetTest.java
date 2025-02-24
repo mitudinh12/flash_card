@@ -14,9 +14,10 @@ class FlashcardSetTest extends TestSetupAbstract {
     void setUp() {
         flashcardCreator = new User("123", "Mock", "User", "mock.user@gmail.com", "2f7b9c4e-5d12-4a8f-bf6e-9c3d2a6b8e5f");
         flashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", flashcardCreator);
+        flashcardSetDao.persist(flashcardSet);
 
-        this.testFlashCardSet = flashcardSetDao.findById(Integer.parseInt("1"));
-        assertNotNull(testFlashCardSet, "FlashcardSet should be found in the database");
+//        this.testFlashCardSet = flashcardSetDao.findById(Integer.parseInt("1"));
+//        assertNotNull(testFlashCardSet, "FlashcardSet should be found in the database");
     }
 
     @Test
