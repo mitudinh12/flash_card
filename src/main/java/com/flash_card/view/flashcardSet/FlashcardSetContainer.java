@@ -26,7 +26,7 @@ public class FlashcardSetContainer extends HBox {
         initializeUI();
     }
 
-    public void initializeUI() {
+    protected void initializeUI() {
 
         nameLabel = new Label();
         nameLabel.setId("name-label");
@@ -66,7 +66,7 @@ public class FlashcardSetContainer extends HBox {
 //
     }
 
-    public void showContextMenu(Button button) {
+    protected void showContextMenu(Button button) {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem("Study");
