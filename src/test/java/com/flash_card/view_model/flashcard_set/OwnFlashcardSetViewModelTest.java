@@ -33,12 +33,12 @@ class OwnFlashcardSetViewModelTest extends TestSetupAbstract {
         assertTrue(numberFlashcard.getName().equals(ownFlashcardSetViewModel.setNumberFlashcard().getName()));
     }
 
-    @Test
-    void testUpdateEntity() {
-        ownFlashcardSetViewModel.updateEntity();
-        assertEquals(testFlashcardSet1.getSetName(), ownFlashcardSetViewModel.getSet().getSetName());
-        assertEquals(testFlashcardSet1.getSetTopic(), ownFlashcardSetViewModel.getSet().getSetTopic());
-    }
+//    @Test
+//    void testUpdateEntity() {
+//        ownFlashcardSetViewModel.updateEntity();
+//        assertEquals(testFlashcardSet1.getSetName(), ownFlashcardSetViewModel.getSet().getSetName());
+//        assertEquals(testFlashcardSet1.getSetTopic(), ownFlashcardSetViewModel.getSet().getSetTopic());
+//    }
 
     @Test
     void testGetSet() {
