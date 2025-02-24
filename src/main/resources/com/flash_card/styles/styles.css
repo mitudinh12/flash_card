@@ -513,3 +513,15 @@ listClassesUI {
     -fx-border-radius: 15;
     -fx-wrap-text: true;
 }
+
+/*Student class details page (Show flashcard sets)*/
+.teacher,
+.teacher-name {
+    -fx-font-size: 15;
+    -fx-font-family: "Poppins";
+    -fx-text-fill: #047201;
+}
+
+.teacher-name {
+    -fx-font-weight: bold;
+}

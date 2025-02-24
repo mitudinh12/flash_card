@@ -1,10 +1,15 @@
 package com.flash_card.view.studentMode;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+
+import java.io.IOException;
 
 public class StudentClassContainer extends HBox {
     public StudentClassContainer(int classId, String className, String teacherName, int numberSet, int numberStudent) {
@@ -47,7 +52,7 @@ public class StudentClassContainer extends HBox {
 
         Button viewButton = new Button("View");
         viewButton.setId("edit-button");
-        viewButton.setOnAction(event -> goToClassDetail(classId));
+        viewButton.setOnAction(event -> goToClassDetail(classId, className, teacherName, classNameLabel.getScene()));
 
         HBox.setHgrow(classNameLabel, Priority.ALWAYS);
         this.getChildren().addAll(classNameLabel, teacherNameContainer, numberFlashcardContainer, numberStudentContainer, viewButton);
@@ -55,5 +60,15 @@ public class StudentClassContainer extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
     }
 
-    private void goToClassDetail(int classId) {}
+    private void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-class-details.fxml"));
+            Parent root = loader.load();
+            ClassDetailsViewController controller = loader.getController();
+            controller.loadClass(classId, className, teacherName);
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

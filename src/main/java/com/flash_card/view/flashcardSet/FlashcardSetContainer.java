@@ -25,7 +25,7 @@ public class FlashcardSetContainer extends HBox {
         initializeUI();
     }
 
-    private void initializeUI() {
+    public void initializeUI() {
 
         nameLabel = new Label();
         nameLabel.setId("name-label");
@@ -65,7 +65,7 @@ public class FlashcardSetContainer extends HBox {
 //
     }
 
-    private void showContextMenu(Button button) {
+    public void showContextMenu(Button button) {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem("Study");
@@ -139,7 +139,7 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
-    private void goToQuizFlashcardSet() {
+    public void goToQuizFlashcardSet() {
         if (viewModel.getSet().getNumberFlashcards() < 4) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
