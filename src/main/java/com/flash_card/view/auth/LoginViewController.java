@@ -2,7 +2,9 @@ package com.flash_card.view.auth;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.view.homepage.HomePageController;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.user_auth.*;
+import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,8 @@ import javafx.stage.Stage;
 import javafx.concurrent.Task;
 
 public class LoginViewController extends ViewController {
-    UserAuthViewModel userAuthViewModel = UserAuthViewModel.getInstance();
+    EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    UserAuthViewModel userAuthViewModel = UserAuthViewModel.getInstance(entityManager);
     AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
     @FXML
