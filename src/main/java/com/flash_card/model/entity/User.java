@@ -24,22 +24,6 @@ public class User {
     @Column(name="id_token")
     private String idToken;
 
-    // Relationships
-    @OneToMany(mappedBy = "flashcardCreator")
-    private List<Flashcard> flashcards;
-
-    @OneToMany(mappedBy = "flashcardCreator")
-    private List<FlashcardSet> flashcardSets;
-
-    @OneToMany(mappedBy = "user")
-    private List<SharedSet> sharedSets = new ArrayList<>();
-
-    @OneToMany(mappedBy = "teacher")
-    private List<Classroom> classrooms;
-
-    @OneToMany(mappedBy = "student")
-    private List<ClassMember> classMembers;
-
     public User(String userId, String firstName, String lastName, String email, String idToken) {
         super();
         this.userId = userId;

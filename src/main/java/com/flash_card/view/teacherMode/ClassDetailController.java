@@ -293,11 +293,9 @@ public class ClassDetailController extends ViewController {
 
     public void deleteAssignedSet(AssignedFlashcardSetViewModel viewModel) {
         int result = classDetailViewModel.deleteSet(classId, viewModel);
-        if (result == -1) {
+        if (result == 0) {
             showAlert("Error", "Error in deleting flashcard set");
-        } else if (result == 0) {
-            showAlert("Error", "This set is not assigned to this class");
-        } else {
+        }  else {
             updatePage();
         }
     }

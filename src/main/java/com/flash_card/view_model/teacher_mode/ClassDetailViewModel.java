@@ -50,17 +50,15 @@ public class ClassDetailViewModel {
         if (result == 1) {
             setList.remove(viewModel);
             return 1;
-        } else if (result == 0) {
-            return 0;
         } else {
-            return -1;
+            return 0;
         }
     }
 
     public String deleteStudent(int classId ,StudentViewModel viewModel) {
         if (viewModel == null) return null;
         int result = teacherViewModel.deleteStudent(classId, viewModel.getStudentId());
-        if (result != -1) {
+        if (result == 1) {
             studentList.remove(viewModel);
             return null;
         } else {
