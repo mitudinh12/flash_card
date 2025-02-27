@@ -26,6 +26,7 @@ public class EditFlashcardViewModelTest extends TestSetupAbstract {
     public void testGetSetName() {
         String setName = editFlashcardViewModel.getSetName(testFlashcardSet1.getSetId());
         assertEquals(testFlashcardSet1.getSetName(), setName);
+        assertNull(editFlashcardViewModel.getSetName(0));
     }
 
     @Test

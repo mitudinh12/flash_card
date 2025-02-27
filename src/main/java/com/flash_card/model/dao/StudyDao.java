@@ -19,59 +19,56 @@ public class StudyDao {
         return instance;
     }
 
-    public void persist(Study study) {
+    public boolean persist(Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(study);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            System.err.println("Error in persisting Study: " + e.getMessage());
-            e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            System.err.println("Error in persisting Study: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
     public Study findById(int id) {
-        Study study = null;
-        try {
-            study = entityManager.find(Study.class, id);
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a study: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+        Study study = entityManager.find(Study.class, id);
         return study;
     }
 
-    public void update(Study study) {
+    public boolean update(Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(study);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            System.err.println("Error in updating a study: " + e.getMessage());
-            e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e;
+            System.err.println("Error in updating a study: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
-    public void delete(Study study) {
+    public boolean delete(Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(study);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            System.err.println("Error in deleting a study: " + e.getMessage());
-            e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e;
+            System.err.println("Error in deleting a study: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
