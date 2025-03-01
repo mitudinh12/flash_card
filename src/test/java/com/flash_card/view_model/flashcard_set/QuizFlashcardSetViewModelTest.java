@@ -103,13 +103,13 @@ class QuizFlashcardSetViewModelTest {
         quizFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
         quizFlashcardSetViewModel.loadQuestion();
         String correctDefinition = quizFlashcardSetViewModel.getCurrentFlashcard().getDefinition();
-
-        // Test correct answer scenario
+//
+//        // Test correct answer scenario
         boolean resultCorrect = quizFlashcardSetViewModel.isAnswerCorrect(correctDefinition);
         assertTrue(resultCorrect, "The answer should be correct");
         assertEquals("Correct!", quizFlashcardSetViewModel.instructionTextProperty().get(), "Instruction text should indicate a correct answer");
 
-        // Test wrong answer scenario
+//         Test wrong answer scenario
         boolean resultWrong = quizFlashcardSetViewModel.isAnswerCorrect("Incorrect answer");
         assertFalse(resultWrong, "The answer should be incorrect");
         assertEquals("Wrong!", quizFlashcardSetViewModel.instructionTextProperty().get(), "Instruction text should indicate a wrong answer");

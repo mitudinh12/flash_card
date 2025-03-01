@@ -72,19 +72,15 @@ public class QuizDao {
         }
     }
 
-//    public Quiz findByUserIdAndSetIdAndStartTime(String userId, int setId, LocalDateTime startTime) {
-//        try {
-//            LocalDateTime truncatedStartTime = startTime.truncatedTo(ChronoUnit.SECONDS);
-//            Quiz quiz = entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId AND q.startTime = :startTime", Quiz.class)
-//                    .setParameter("userId", userId)
-//                    .setParameter("setId", setId)
-//                    .setParameter("startTime", truncatedStartTime)
-//                    .getSingleResult();
-//            return quiz;
-//
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
+    public List<Quiz> findByUserIdAndSetId(String userId, int setId) {
+        try {
+            return entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
+                    .setParameter("userId", userId)
+                    .setParameter("setId", setId)
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
