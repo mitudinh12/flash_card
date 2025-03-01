@@ -147,6 +147,10 @@ public class QuizFlashcardSetViewModel {
         return quizId;
     }
 
+    public List<Flashcard> getFlashcards() {
+        return flashcards;
+    }
+
     //Bind properties
 
     public IntegerProperty currentIndexProperty() {
