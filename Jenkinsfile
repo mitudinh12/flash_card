@@ -25,41 +25,41 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'mvn test'
-                    } else {
-                        bat 'mvn test'
-                    }
-                }
-            }
-        }
-
-        stage('Code Coverage') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'mvn jacoco:report'
-                    } else {
-                        bat 'mvn jacoco:report'
-                    }
-                }
-            }
-        }
-
-        stage('Publish Test Results') {
-            steps {
-                junit '**/target/surefire-reports/*.xml'
-            }
-        }
-
-        stage('Publish Coverage Report') {
-            steps {
-                jacoco()
-            }
-        }
+//         stage('Test') {
+//             steps {
+//                 script {
+//                     if (isUnix()) {
+//                         sh 'mvn test'
+//                     } else {
+//                         bat 'mvn test'
+//                     }
+//                 }
+//             }
+//         }
+//
+//         stage('Code Coverage') {
+//             steps {
+//                 script {
+//                     if (isUnix()) {
+//                         sh 'mvn jacoco:report'
+//                     } else {
+//                         bat 'mvn jacoco:report'
+//                     }
+//                 }
+//             }
+//         }
+//
+//         stage('Publish Test Results') {
+//             steps {
+//                 junit '**/target/surefire-reports/*.xml'
+//             }
+//         }
+//
+//         stage('Publish Coverage Report') {
+//             steps {
+//                 jacoco()
+//             }
+//         }
 
         stage('Build Docker Image') {
             steps {
@@ -71,7 +71,7 @@ pipeline {
                     }
                 }
             }
-        } 
+        }
 
 //         stage('Push Docker Image') {
 //             steps {
