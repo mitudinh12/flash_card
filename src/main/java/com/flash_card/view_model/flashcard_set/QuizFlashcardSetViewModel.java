@@ -80,10 +80,12 @@ public class QuizFlashcardSetViewModel {
 
     public void addCorrectTimes() {
         currentQuiz.setCorrectTimes(currentQuiz.getCorrectTimes() + 1);
+        quizDao.update(currentQuiz);
     }
 
     public void addWrongTimes() {
         currentQuiz.setWrongTimes(currentQuiz.getWrongTimes() + 1);
+        quizDao.update(currentQuiz);
     }
 
     //check correct answer
@@ -145,6 +147,10 @@ public class QuizFlashcardSetViewModel {
 
     public int getQuizId() {
         return quizId;
+    }
+
+    public List<Flashcard> getFlashcards() {
+        return flashcards;
     }
 
     //Bind properties

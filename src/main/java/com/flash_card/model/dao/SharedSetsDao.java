@@ -20,74 +20,60 @@ public class SharedSetsDao {
         return instance;
     }
 
-    public void persist(SharedSet sharedSet) {
+    public boolean persist(SharedSet sharedSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(sharedSet);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in persisting a SharedSet: " + e.getMessage());
             e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            return false;
         }
     }
 
     public SharedSet findById(int id) {
-        SharedSet sharedSet = null;
-        try {
-            sharedSet = entityManager.find(SharedSet.class, id);
-        } catch (Exception e) {
-            System.err.println("An unexpected error occured while getting a shared set:" + e.getMessage());
-            e.printStackTrace();
-        }
-        return sharedSet;
+        return entityManager.find(SharedSet.class, id);
     }
 
-    public void delete(SharedSet sharedSet) {
+    public boolean delete(SharedSet sharedSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(sharedSet);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in deleting a SharedSet: " + e.getMessage());
             e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            return false;
         }
     }
 
     public List<SharedSet> findByUserId(String userId) {
-        List<SharedSet> sharedSets = null;
-        try {
-            sharedSets = entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.user.userId = :userId", SharedSet.class)
+        return entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.user.userId = :userId", SharedSet.class)
                     .setParameter("userId", userId)
                     .getResultList();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occured while getting shared sets by user id:" + e.getMessage());
-            e.printStackTrace();
-        }
-        return sharedSets;
     }
 
 
     public SharedSet findBySetIdAndUserId(int fsId, String userId) {
-        SharedSet sharedSet = null;
         try {
-            List<SharedSet> results = entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.flashcardSet.setId = :fsId and s.user.userId = :userId", SharedSet.class)
+            return entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.flashcardSet.setId = :fsId and s.user.userId = :userId", SharedSet.class)
                     .setParameter("fsId", fsId)
                     .setParameter("userId", userId)
-                    .getResultList();
-            if (!results.isEmpty()) {
-                sharedSet = results.getFirst();
-            }
+                    .getSingleResult();
         } catch (Exception e) {
-            System.err.println("An unexpected error occured while getting a shared set:" + e.getMessage());
-            e.printStackTrace();
+                System.err.println("Error in finding a SharedSet: " + e.getMessage());
+                e.printStackTrace();
+                return null;
         }
-        return sharedSet;
     }
 
 }

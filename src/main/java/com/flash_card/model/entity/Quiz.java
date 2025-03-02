@@ -13,11 +13,11 @@ public class Quiz {
     @Column(name = "quiz_id")
     private int quizId;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "set_id", referencedColumnName = "set_id")
     private FlashcardSet flashcardSet;
 
