@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'thaonhi6991/flash_card'
         DOCKER_TAG = 'latest'
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKERHUB_CREDENTIAL_ID = 'dockerhub-credentials'
     }
 
     stages {
@@ -90,11 +90,23 @@ pipeline {
 //             }
 //         }
 
+//         stage('Push Docker Image to Docker Hub') {
+//             steps {
+//                 script {
+//                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+//                         docker.image(DOCKER_IMAGE).push(DOCKER_TAG)
+//                     }
+//                 }
+//             }
+//         }
+
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        docker.image(DOCKER_IMAGE).push(DOCKER_TAG)
+                    withCredentials([string(credentialsId: DOCKERHUB_CREDENTIAL_ID, variable: 'DOCKERHUB_CREDENTIAL')]) {
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIAL) {
+                            docker.image(DOCKER_IMAGE).push(DOCKER_TAG)
+                        }
                     }
                 }
             }
