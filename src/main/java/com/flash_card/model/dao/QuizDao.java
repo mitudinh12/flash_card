@@ -73,14 +73,10 @@ public class QuizDao {
     }
 
     public List<Quiz> findByUserIdAndSetId(String userId, int setId) {
-        try {
-            return entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
-                    .setParameter("userId", userId)
-                    .setParameter("setId", setId)
-                    .getResultList();
-        } catch (Exception e) {
-            return null;
-        }
+        return entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
+                .setParameter("userId", userId)
+                .setParameter("setId", setId)
+                .getResultList();
     }
 
 }
