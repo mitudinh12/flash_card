@@ -8,20 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Verify Docker in Jenkins') {
-                    steps {
-                        script {
-                            if (isUnix()) {
-                                sh 'docker --version'
-                                sh 'docker run hello-world'
-                            } else {
-                                bat 'docker --version'
-                                bat 'docker run hello-world'
-                            }
-                        }
-                    }
-                }
-
         stage('Checkout') {
             steps {
                 git branch: 'jenkins', url: 'https://github.com/nhidinh91/flash_card.git'
@@ -108,7 +94,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIAL_ID) {
-                        docker.image(DOCKER_IMAGE).push(DOCKER_TAG)
+                        docker.image(env.DOCKER_IMAGE).push(env.DOCKER_TAG)
                     }
                 }
             }
