@@ -9,6 +9,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -72,5 +74,19 @@ class QuizDaoTest {
     void testDelete() {
         assertTrue(quizDao.delete(testQuiz), "Should return true when quiz is deleted");
         assertFalse(quizDao.delete(null), "Should return false when exception is thrown");
+    }
+
+    @Test
+    @Order(5)
+    void testFindByUserIdAndSetId() {
+        List<Quiz> quizzes = quizDao.findByUserIdAndSetId(testQuiz.getUser().getUserId(), testQuiz.getFlashcardSet().getSetId());
+        assertNotNull(quizzes, "Should return a list, even if empty");
+        assertFalse(quizzes.isEmpty(), "Should contain at least one quiz");
+        assertEquals(1, quizzes.size(), "Should contain exactly one quiz");
+        assertEquals(testQuiz.getQuizId(), quizzes.get(0).getQuizId(), "Returned quiz ID should match the persisted quiz");
+
+        List<Quiz> emptyQuizzes = quizDao.findByUserIdAndSetId("nonexistent", 999);
+        assertNotNull(emptyQuizzes, "Should return a list, even if empty");
+        assertTrue(emptyQuizzes.isEmpty(), "Should return an empty list when no quizzes match");
     }
 }
