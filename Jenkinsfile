@@ -8,6 +8,20 @@ pipeline {
     }
 
     stages {
+        stage('Verify Docker in Jenkins') {
+                    steps {
+                        script {
+                            if (isUnix()) {
+                                sh 'docker --version'
+                                sh 'docker run hello-world'
+                            } else {
+                                bat 'docker --version'
+                                bat 'docker run hello-world'
+                            }
+                        }
+                    }
+                }
+
         stage('Checkout') {
             steps {
                 git branch: 'jenkins', url: 'https://github.com/nhidinh91/flash_card.git'
