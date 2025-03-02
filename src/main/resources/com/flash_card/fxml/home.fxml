@@ -27,14 +27,14 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Home" />
                     </children>
                 </HBox>
-            <HBox fx:id="class" alignment="CENTER" layoutX="47.0" layoutY="199.0" onMouseClicked="#handleMenuClick" spacing="20.0">
+            <HBox fx:id="student" alignment="CENTER" layoutX="47.0" layoutY="199.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                <children>
                   <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/I-class-white.png" />
                      </image>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Class" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="For Student" />
                </children>
             </HBox>
                 <HBox fx:id="teacher" alignment="CENTER" layoutX="44.0" layoutY="266.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -44,7 +44,7 @@
                                 <Image url="@../assets/icons/I-teacher-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Teacher Mode" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="For Teacher" />
                     </children>
                 </HBox>
                 <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="47.0" layoutY="322.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -83,7 +83,7 @@
                                         <Rectangle2D />
                                     </viewport>
                                 </ImageView>
-                                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" />
+                                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button"/>
                             </children>
                         </StackPane>
                         <StackPane prefHeight="100.0" prefWidth="55.0">
@@ -93,7 +93,7 @@
                                         <Image url="@../assets/icons/arrow-point-to-right.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" />
+                                <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button"/>
                             </children>
                         </StackPane>
                     </children>

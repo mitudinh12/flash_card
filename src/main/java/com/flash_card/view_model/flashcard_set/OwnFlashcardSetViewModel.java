@@ -31,10 +31,10 @@ public class OwnFlashcardSetViewModel extends SetViewModel {
 
 
     // update entity when properties change
-    public void updateEntity() {
-        flashcardSet.setSetName(setName.get());
-        flashcardSet.setSetTopic(setTopic.get());
-    }
+//    public void updateEntity() {
+//        flashcardSet.setSetName(setName.get());
+//        flashcardSet.setSetTopic(setTopic.get());
+//    }
 
     public FlashcardSet getSet() {return flashcardSet;}
 

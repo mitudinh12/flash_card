@@ -53,6 +53,9 @@ public class UserDaoTest extends TestSetupAbstract {
 
         User updatedUser = userDao.findById(userId);
         assertEquals("UpdatedAlice", updatedUser.getFirstName(), "First name should be updated");
+
+        User invalidUser = null;
+        assertFalse(userDao.update(invalidUser), "Updating null user should return false");
     }
 
     @Test

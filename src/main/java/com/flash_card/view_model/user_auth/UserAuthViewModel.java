@@ -3,6 +3,7 @@ package com.flash_card.view_model.user_auth;
 import com.flash_card.model.dao.UserDao;
 import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.User;
+import jakarta.persistence.EntityManager;
 import javafx.concurrent.Task;
 import com.flash_card.view_model.user_auth.LocalServer;
 import com.flash_card.view_model.user_auth.OAuthFlow;
@@ -12,15 +13,17 @@ import com.flash_card.view_model.user_auth.TokenExchange;
 import java.util.Map;
 
 public class UserAuthViewModel {
-    private final UserDao userDao = UserDao.getInstance(MariaDbJpaConnection.getInstance());
+    private static UserDao userDao;
     private OAuthFlow oauthFlow = new OAuthFlow();
     private LocalServer localServer = new LocalServer();
     private static UserAuthViewModel userAuthViewModel = null;
     private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
-    public static UserAuthViewModel getInstance() {
+
+    public static UserAuthViewModel getInstance(EntityManager entityManager) {
         if (userAuthViewModel == null) {
             userAuthViewModel = new UserAuthViewModel();
+            UserAuthViewModel.userDao = UserDao.getInstance(entityManager);
         }
         return userAuthViewModel;
     }

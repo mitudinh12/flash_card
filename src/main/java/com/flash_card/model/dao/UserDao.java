@@ -2,7 +2,6 @@ package com.flash_card.model.dao;
 
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -36,17 +35,19 @@ public class UserDao {
         }
     }
 
-    public void update(User user) {
+    public boolean update(User user) {
         try {
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             System.err.println("Error in updating User: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
 
     }

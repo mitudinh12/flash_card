@@ -15,6 +15,8 @@ module com.flash_card {
     requires com.google.api.client.auth;
     requires org.slf4j;
     requires org.checkerframework.checker.qual;
+    requires org.json;
+    requires java.net.http;
 
     opens com.flash_card to javafx.fxml;
     opens com.flash_card.model.datasource;
@@ -23,10 +25,12 @@ module com.flash_card {
     opens com.flash_card.model.dao;
     opens com.flash_card.view_model.user to javafx.fxml;
     opens com.flash_card.view_model.user_auth to javafx.fxml;
+    exports com.flash_card.view.teacherMode to javafx.fxml;
     opens com.flash_card.view.auth;
     opens com.flash_card.view.homepage;
-
-
+    opens com.flash_card.view_model.teacher_mode;
+    opens com.flash_card.view.teacherMode to javafx.fxml;
+    opens com.flash_card.view.studentMode to javafx.fxml;
 
     exports com.flash_card.view_model.user;
     exports com.flash_card;
@@ -37,6 +41,8 @@ module com.flash_card {
     exports com.flash_card.view.flashcardSet;
     exports com.flash_card.view.flashcard;
     exports com.flash_card.model.entity;
+    exports com.flash_card.view_model.teacher_mode;
+
     opens com.flash_card.view.flashcard to javafx.fxml;
     opens com.flash_card.framework;
     opens com.flash_card.view.flashcardSet;
