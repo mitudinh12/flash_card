@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'thaonhi6991/flash_card'
         DOCKER_TAG = 'latest'
+        DOCKERHUB_CREDENTIAL_ID = credentials('dockerhub-credentials')
     }
 
     stages {
@@ -76,7 +77,7 @@ pipeline {
 //         stage('Push Docker Image') {
 //             steps {
 //                 script {
-//                     withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKERHUB_CREDENTIAL')]) {
+//                     withCredentials([string(credentialsId: env.DOCKERHUB_CREDENTIAL_ID, variable: 'DOCKERHUB_CREDENTIAL')]) {
 //                         if (isUnix()) {
 //                             sh "echo $DOCKERHUB_CREDENTIAL | docker login -u thaonhi6991 --password-stdin"
 //                             sh "docker push $DOCKER_IMAGE:$DOCKER_TAG"
@@ -89,6 +90,15 @@ pipeline {
 //             }
 //         }
 
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIAL_ID) {
+                        docker.image(DOCKER_IMAGE).push(DOCKER_TAG)
+                    }
+                }
+            }
+        }
     }
 
     post {
