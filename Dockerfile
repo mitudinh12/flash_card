@@ -7,18 +7,6 @@ RUN mvn clean package -DskipTests
 # Second Stage: Run the JAR using OpenJDK
 FROM openjdk:21
 WORKDIR /app
+
 COPY --from=build /app/target/flash_card-1.0.jar app.jar
 CMD ["java", "-jar", "app.jar"]
-
-
-#FROM maven:latest
-#
-#WORKDIR /app
-#
-#COPY pom.xml /app
-#
-#COPY . /app/
-#
-#RUN mvn package
-#
-#CMD ["java", "-jar", "target/flash_card-1.0.jar"]
