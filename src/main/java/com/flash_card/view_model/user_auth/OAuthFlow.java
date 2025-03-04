@@ -15,12 +15,16 @@ public class OAuthFlow {
             + "&scope=openid%20email%20profile";
 
     public void startOAuth() throws IOException, URISyntaxException {
-        // Open the default browser to start the authentication flow
-        if (Desktop.isDesktopSupported()) {
+        if (isBrowserSupported()) {
             Desktop.getDesktop().browse(new URI(AUTH_URL));
         } else {
-            System.out.println("Please open the following URL in your browser:");
+            System.out.println("Opening a browser is not supported on this platform.");
+            System.out.println("Please open the following URL manually:");
             System.out.println(AUTH_URL);
         }
+    }
+
+    private boolean isBrowserSupported() {
+        return Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE);
     }
 }
