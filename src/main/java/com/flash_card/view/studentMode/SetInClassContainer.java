@@ -2,6 +2,9 @@ package com.flash_card.view.studentMode;
 
 import com.flash_card.framework.SetViewModel;
 import com.flash_card.view.flashcardSet.FlashcardSetContainer;
+import com.flash_card.view_model.entity.EntityManagerViewModel;
+import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,9 +17,14 @@ import java.util.Objects;
 
 public class SetInClassContainer extends FlashcardSetContainer {
     private SetViewModel viewModel;
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private StudyFlashcardSetViewModel studyViewModel = new StudyFlashcardSetViewModel(entityManager);
+    private int setId;
     public SetInClassContainer(SetViewModel viewModel) {
         super(viewModel, null);
         this.viewModel = viewModel;
+        this.setId = viewModel.getSet().getSetId();
+        studyViewModel.setSetId(setId);
     }
 
     @Override
@@ -29,8 +37,8 @@ public class SetInClassContainer extends FlashcardSetContainer {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        int flashcardsStudied = 10;
-        int totalFlashcards = 60;
+        int flashcardsStudied = studyViewModel.getStudiedFlashcards();
+        int totalFlashcards = studyViewModel.getTotalFlashcards();
         double quizPercentage = 50;
 
         Label flashcardsLabel = new Label(String.format("Flashcards studied: %d/%d", flashcardsStudied, totalFlashcards));

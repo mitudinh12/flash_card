@@ -123,6 +123,10 @@ public class StudyFlashcardSetViewModel {
 
     /* HELPER METHODS */
 
+    public void setSetId(int setId) {
+        this.setId = setId;
+    }
+
     public Flashcard getCurrentFlashcard() {
         return flashcards.get(currentIndex.get());
     }
