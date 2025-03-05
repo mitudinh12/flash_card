@@ -39,7 +39,7 @@ public class SetInClassContainer extends FlashcardSetContainer {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        int flashcardsStudied = progressViewModel.getStudiedFlashcards(setId);
+        int flashcardsStudied = progressViewModel.getStudiedFlashcards(userId, setId);
         int totalFlashcards = progressViewModel.getTotalFlashcards(setId);
         double quizPercentage = progressViewModel.calculateHighestQuizPercentage(userId, setId);
 

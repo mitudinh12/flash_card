@@ -1,7 +1,9 @@
 package com.flash_card.view.teacherMode;
 
+import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;
-import com.flash_card.view_model.teacher_mode.StudentViewModel;
+import com.flash_card.view_model.flashcard_set.ProgressViewModel;
+import jakarta.persistence.EntityManager;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
@@ -23,11 +25,15 @@ public class SetContainer extends HBox {
     private AssignedFlashcardSetViewModel viewModel;
     private Label nameLabel;
     private ClassDetailController controller;
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private final ProgressViewModel progressViewModel = new ProgressViewModel(entityManager);
+    private int setId;
 
 
     public SetContainer(AssignedFlashcardSetViewModel viewModel, ClassDetailController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
+        this.setId = viewModel.getSet().getSetId();
         initializeUI();
     }
 
@@ -74,7 +80,7 @@ public class SetContainer extends HBox {
     }
 
     private void showAllStudentsProgressPopup() {
-       /* Stage progressStage = new Stage();
+        Stage progressStage = new Stage();
         progressStage.initModality(Modality.APPLICATION_MODAL);
         progressStage.setTitle("Students' Progress");
 
@@ -91,7 +97,7 @@ public class SetContainer extends HBox {
 
         tableView.getColumns().addAll(nameColumn, flashcardsColumn, quizPercentageColumn);
 
-        List<Map<String, Object>> studentProgressList = getStudentProgressList();
+        List<Map<String, Object>> studentProgressList = progressViewModel.getStudentProgressList(controller.getClassId(), setId);
         tableView.getItems().addAll(studentProgressList);
 
         VBox layout = new VBox(tableView);
@@ -103,21 +109,7 @@ public class SetContainer extends HBox {
             scene.getStylesheets().add(css);
         }
         progressStage.setScene(scene);
-        progressStage.showAndWait();*/
+        progressStage.showAndWait();
     }
 
-    /*private List<Map<String, Object>> getStudentProgressList() {
-        List<Map<String, Object>> studentProgressList = new ArrayList<>();
-        for (StudentViewModel student : classDetailViewModel.getStudents(classId)) {
-            Map<String, Object> studentProgress = new HashMap<>();
-            studentProgress.put("studentName", student.getName());
-            int studiedFlashcards = progressViewModel.getStudiedFlashcards(student.getUserId(), classId);
-            int totalFlashcards = progressViewModel.getTotalFlashcards(classId);
-            studentProgress.put("flashcardsProgress", studiedFlashcards + "/" + totalFlashcards);
-            double highestQuizPercentage = progressViewModel.calculateHighestQuizPercentage(student.getUserId(), classId);
-            studentProgress.put("highestQuizPercentage", highestQuizPercentage);
-            studentProgressList.add(studentProgress);
-        }
-        return studentProgressList;
-    }*/
 }

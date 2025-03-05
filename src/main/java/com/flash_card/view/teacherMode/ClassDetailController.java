@@ -311,4 +311,8 @@ public class ClassDetailController extends ViewController {
         goToPage("/com/flash_card/fxml/teacher-mode.fxml", listStudentsUI.getScene());
     }
 
+    public int getClassId() {
+        return classId;
+    }
+
 }
