@@ -96,7 +96,7 @@ public class FlashcardSetContainer extends HBox {
         //track progress
         MenuItem trackProgress = new MenuItem("Track Progress");
         trackProgress.setOnAction(event -> {
-            //method to track progress differ for student and teacher
+            showTrackProgressPopup();
         });
 
         // conditional render
@@ -181,4 +181,6 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
+    protected void showTrackProgressPopup() {
+    }
 }
