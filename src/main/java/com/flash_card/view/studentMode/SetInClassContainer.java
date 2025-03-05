@@ -3,7 +3,8 @@ package com.flash_card.view.studentMode;
 import com.flash_card.framework.SetViewModel;
 import com.flash_card.view.flashcardSet.FlashcardSetContainer;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
-import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
+import com.flash_card.view_model.flashcard_set.ProgressViewModel;
+import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,13 +19,14 @@ import java.util.Objects;
 public class SetInClassContainer extends FlashcardSetContainer {
     private SetViewModel viewModel;
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private StudyFlashcardSetViewModel studyViewModel = new StudyFlashcardSetViewModel(entityManager);
+    private ProgressViewModel progressViewModel = new ProgressViewModel(entityManager);
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private final String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
     private int setId;
     public SetInClassContainer(SetViewModel viewModel) {
         super(viewModel, null);
         this.viewModel = viewModel;
         this.setId = viewModel.getSet().getSetId();
-        studyViewModel.setSetId(setId);
     }
 
     @Override
@@ -37,12 +39,12 @@ public class SetInClassContainer extends FlashcardSetContainer {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        int flashcardsStudied = studyViewModel.getStudiedFlashcards();
-        int totalFlashcards = studyViewModel.getTotalFlashcards();
-        double quizPercentage = 50;
+        int flashcardsStudied = progressViewModel.getStudiedFlashcards(setId);
+        int totalFlashcards = progressViewModel.getTotalFlashcards(setId);
+        double quizPercentage = progressViewModel.calculateHighestQuizPercentage(userId, setId);
 
         Label flashcardsLabel = new Label(String.format("Flashcards studied: %d/%d", flashcardsStudied, totalFlashcards));
-        Label quizPercentageLabel = new Label(String.format("Quiz percentage: %.2f%%", quizPercentage));
+        Label quizPercentageLabel = new Label(String.format("Quiz highest correct percentage: %.2f%%", quizPercentage));
         flashcardsLabel.getStyleClass().add("assign-label");
         quizPercentageLabel.getStyleClass().add("assign-label");
 
