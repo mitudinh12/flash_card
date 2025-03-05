@@ -93,13 +93,18 @@ public class FlashcardSetContainer extends HBox {
         share.setOnAction(event -> {
             controller.handleShare(viewModel.getSet().getSetId());
         });
+        //track progress
+        MenuItem trackProgress = new MenuItem("Track Progress");
+        trackProgress.setOnAction(event -> {
+            //method to track progress differ for student and teacher
+        });
 
         // conditional render
         if (viewModel.getType().equals("own")) {                        // action for own flashcard
             menu.getItems().addAll(study, quiz, edit, delete, share);
         } else if (viewModel.getType().equals("assigned")) {       // action for assigned flashcard
             studentMode = true;
-            menu.getItems().addAll(study, quiz);
+            menu.getItems().addAll(study, quiz, trackProgress);
         }
         else {                                                        // action for shared flashcard
             menu.getItems().addAll(study, quiz, delete);
