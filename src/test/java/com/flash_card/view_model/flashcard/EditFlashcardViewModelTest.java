@@ -25,7 +25,7 @@ public class EditFlashcardViewModelTest {
     private final FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     private final UserDao userDao = UserDao.getInstance(entityManager);
-    private final User testUser = new User("12345678910", "John", "Doe", "testMail@example.com", "sample-id-token");
+    private final User testUser = new User("25752572", "John", "Doe", "id43432145@example.com", "sample-id-token");
     private final FlashcardSet testFlashcardSet = new FlashcardSet("Test Set", "Test Description", "Test Topic", testUser);
     private final Flashcard testFlashcard = new Flashcard("Test term", "Test definition", testFlashcardSet, testUser);
 

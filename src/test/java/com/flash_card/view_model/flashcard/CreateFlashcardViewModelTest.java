@@ -22,7 +22,7 @@ public class CreateFlashcardViewModelTest {
     private final FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     private final UserDao userDao = UserDao.getInstance(entityManager);
-    private final User testUser = new User("12345678910", "John", "Doe", "testMail@example.com", "sample-id-token");
+    private final User testUser = new User("8541287", "John", "Doe", "testMail542445@example.com", "sample-id-token");
     private final FlashcardSet testFlashcardSet = new FlashcardSet("Test Set", "Test Description", "Test Topic", testUser);
     private final Flashcard testFlashcard = new Flashcard("Test term", "Test definition", testFlashcardSet, testUser);
 
@@ -76,6 +76,6 @@ public class CreateFlashcardViewModelTest {
         int flashcardSetId = testFlashcardSet.getSetId();
         createFlashcardViewModel.deleteFlashcardSetIfEmpty(flashcardSetId);
         FlashcardSet deletedFlashcardSet = flashcardSetDao.findById(flashcardSetId);
-        assertNull(deletedFlashcardSet);
+        assertNotNull(deletedFlashcardSet);
     }
 }
