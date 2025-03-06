@@ -68,4 +68,16 @@ public class CardDifficultLevelDao {
         }
         return level;
     }
+
+    public CardDifficultLevel findCardDifficultLevelByCardIdAndStudyId(int cardId, int studyId) {
+        CardDifficultLevel level = null;
+        List<CardDifficultLevel> results = em.createQuery("SELECT cdl FROM CardDifficultLevel cdl WHERE cdl.flashcard.cardId = :cardId AND cdl.study.studyId = :studyId", CardDifficultLevel.class)
+                .setParameter("cardId", cardId)
+                .setParameter("studyId", studyId)
+                .getResultList();
+        if (!results.isEmpty()){
+            level = results.getFirst();
+        }
+        return level;
+    }
 }

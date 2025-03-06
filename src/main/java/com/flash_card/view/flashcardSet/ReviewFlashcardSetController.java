@@ -16,8 +16,7 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class ReviewFlashcardSetController extends ViewController {
-    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
+    private StudyFlashcardSetViewModel viewModel;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
     @FXML
@@ -32,11 +31,12 @@ public class ReviewFlashcardSetController extends ViewController {
     private int setId;
     private String setName;
 
-    public void setFlashcardSet(int setId, String setName) {
+    public void setFlashcardSet(int setId, String setName, StudyFlashcardSetViewModel viewModel) {
         this.setId = setId;
         this.setName = setName;
         setNameLabel.setText(setName);
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
+        this.viewModel = viewModel;
 
         //load flashcards and update study details
         viewModel.loadFlashcards(setId, setName);
