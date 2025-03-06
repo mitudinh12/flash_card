@@ -2,7 +2,6 @@ package com.flash_card.model.entity;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
-import com.flash_card.framework.DifficultyLevel;
 
 @Entity
 @Table(name = "flashcards")
@@ -18,10 +17,6 @@ public class Flashcard {
     @Column(name = "definition")
     private String definition;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "difficult_level")
-    private DifficultyLevel difficultLevel;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "set_id", referencedColumnName = "set_id")
     private FlashcardSet flashcardSet;
@@ -31,11 +26,10 @@ public class Flashcard {
     private User flashcardCreator;
 
 
-    public Flashcard(String term, String definition, DifficultyLevel difficultLevel, FlashcardSet flashcardSet, User flashcardCreator) {
+    public Flashcard(String term, String definition, FlashcardSet flashcardSet, User flashcardCreator) {
         super();
         this.term = term;
         this.definition = definition;
-        this.difficultLevel = difficultLevel;
         this.flashcardSet = flashcardSet;
         this.flashcardCreator = flashcardCreator;
     }
@@ -54,10 +48,6 @@ public class Flashcard {
         return definition;
     }
 
-    public DifficultyLevel getDifficultLevel() {
-        return difficultLevel;
-    }
-
     public FlashcardSet getFlashcardSet() {
         return flashcardSet;
     }
@@ -72,10 +62,6 @@ public class Flashcard {
 
     public void setDefinition(String definition) {
         this.definition = definition;
-    }
-
-    public void setDifficultLevel(DifficultyLevel difficultLevel) {
-        this.difficultLevel = difficultLevel;
     }
 
     public void setFlashcardSet(FlashcardSet flashcardSet) {

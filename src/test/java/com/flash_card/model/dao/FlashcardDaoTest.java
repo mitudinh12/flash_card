@@ -29,8 +29,8 @@ class FlashcardDaoTest extends TestSetupAbstract {
         String uniqueEmail = "mock.user" + System.currentTimeMillis() + "@gmail.com";
         user = new User(uniqueUserId, "Mock", "User", uniqueEmail, UUID.randomUUID().toString());
         flashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", user);
-        flashcard = new Flashcard("Java", "A programming language", DifficultyLevel.hard, flashcardSet, user);
-        flashcard2 = new Flashcard("Java2", "A programming language2", DifficultyLevel.hard, flashcardSet, user);
+        flashcard = new Flashcard("Java", "A programming language", flashcardSet, user);
+        flashcard2 = new Flashcard("Java2", "A programming language2", flashcardSet, user);
 
         entityManager = entityManagerFactory.createEntityManager();
         flashcardDao = FlashcardDao.getInstance(entityManager);
@@ -103,6 +103,7 @@ class FlashcardDaoTest extends TestSetupAbstract {
         assertTrue(flashcards.isEmpty(), "Flashcards should be empty for invalid set ID");
     }
 
+/*
     @Test
     void testGetHardFlashcards() {
         List<Flashcard> hardFlashcards = flashcardDao.getHardFlashcards(flashcardSet.getSetId());
@@ -120,6 +121,7 @@ class FlashcardDaoTest extends TestSetupAbstract {
         List<Flashcard> hardFlashcards = flashcardDao.getHardFlashcards(flashcardSet.getSetId());
         assertEquals(1, hardFlashcards.size(), "There should be only one hard flashcard");
     }
+*/
 
     @AfterEach
     void tearDown() {

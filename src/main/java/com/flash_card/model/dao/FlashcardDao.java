@@ -1,5 +1,6 @@
 package com.flash_card.model.dao;
 
+import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.Flashcard;
 import jakarta.persistence.EntityManager;
@@ -83,9 +84,14 @@ public class FlashcardDao {
 
     }
 
-    public List<Flashcard> getHardFlashcards(int setId) {
-        return entityManager.createQuery("SELECT f FROM Flashcard f WHERE f.flashcardSet.setId = :setId AND f.difficultLevel = 'hard'", Flashcard.class)
-                    .setParameter("setId", setId)
-                    .getResultList();
+    public List<Flashcard> getHardFlashcards(int setId, int studyId) {
+        return entityManager.createQuery(
+                        "SELECT f FROM Flashcard f JOIN CardDifficultLevel cdl ON f.cardId = cdl.flashcard.cardId " +
+                                "WHERE f.flashcardSet.setId = :setId AND cdl.study.studyId = :studyId AND cdl.difficultLevel = :difficultyLevel",
+                        Flashcard.class)
+                .setParameter("setId", setId)
+                .setParameter("studyId", studyId)
+                .setParameter("difficultyLevel", DifficultyLevel.hard)
+                .getResultList();
     }
 }
