@@ -17,25 +17,28 @@ import java.util.UUID;
 class FlashcardDaoTest {
     protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
     protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
-    private Flashcard flashcard;
-    private Flashcard flashcard2;
-    private User user;
-    private FlashcardSet flashcardSet;
+    String uniqueUserId = UUID.randomUUID().toString();
+    String uniqueEmail = "mock.user" + System.currentTimeMillis() + "@gmail.com";
+    User user = new User(uniqueUserId, "Mock", "User", uniqueEmail, UUID.randomUUID().toString());
+    FlashcardSet flashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", user);
+    Flashcard flashcard = new Flashcard("Java", "A programming language", flashcardSet, user);
+    Flashcard flashcard2 = new Flashcard("Java2", "A programming language2", flashcardSet, user);
     private final UserDao userDao = UserDao.getInstance(entityManager);
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     private final FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
 
     @BeforeEach
     void setUp() {
-        String uniqueUserId = UUID.randomUUID().toString();
-        String uniqueEmail = "mock.user" + System.currentTimeMillis() + "@gmail.com";
-        user = new User(uniqueUserId, "Mock", "User", uniqueEmail, UUID.randomUUID().toString());
-        flashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", user);
-        flashcard = new Flashcard("Java", "A programming language", flashcardSet, user);
-        flashcard2 = new Flashcard("Java2", "A programming language2", flashcardSet, user);
         userDao.persist(user);
         flashcardSetDao.persist(flashcardSet);
         flashcardDao.persist(flashcard);
+    }
+
+    @AfterEach
+    void tearDown() {
+        flashcardDao.delete(flashcard);
+        flashcardSetDao.delete(flashcardSet);
+        userDao.delete(user);
     }
 
     @Test
