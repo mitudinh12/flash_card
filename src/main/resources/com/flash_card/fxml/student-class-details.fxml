@@ -83,11 +83,6 @@
                 <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="816.0">
                     <children>
                         <Label fx:id="className" prefHeight="37.0" prefWidth="219.0" styleClass="page-title" text="Class Name" />
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="195.0" styleClass="blueClassButton" text="Track your progress" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="400.0" />
-                     </HBox.margin>
-                  </Button>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="107.0">

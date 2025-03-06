@@ -80,11 +80,6 @@
                      <padding>
                         <Insets right="150.0" />
                      </padding></Label>
-                        <Button fx:id="trackProgressButton" mnemonicParsing="false" onAction="#gotoTrackProgress" styleClass="blueClassButton" text="Track progress" textFill="WHITE">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Button>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="107.0">
