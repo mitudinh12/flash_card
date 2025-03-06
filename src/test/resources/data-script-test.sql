@@ -35,7 +35,6 @@ CREATE TABLE flashcards (
   card_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for flashcards',
   term VARCHAR(255) NOT NULL COMMENT 'Term or word being defined',
   definition TEXT NOT NULL COMMENT 'Definition of the term',
-  difficult_level ENUM('easy', 'hard') COMMENT 'Difficulty level of the card',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   creator_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (card_id),
