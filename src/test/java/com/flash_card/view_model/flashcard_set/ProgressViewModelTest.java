@@ -1,6 +1,5 @@
 package com.flash_card.view_model.flashcard_set;
 
-import com.flash_card.framework.DifficultyLevel;
 import com.flash_card.model.dao.*;
 import com.flash_card.model.entity.*;
 import jakarta.persistence.EntityManager;
@@ -32,7 +31,7 @@ class ProgressViewModelTest {
     private final User testTeacher = new User("id-random123", "Jo", "Hands", "randommail2@gmail.com", "123456");
     private final Classroom testClassroom = new Classroom("Math", "Mathematics", testTeacher);
     private final FlashcardSet testFlashcardSet = new FlashcardSet("Math", "Mathematics", "Math", testTeacher);
-    private final Flashcard testFlashcard = new Flashcard("Term", "Definition", DifficultyLevel.hard, testFlashcardSet, testTeacher);
+    private final Flashcard testFlashcard = new Flashcard("Term", "Definition", testFlashcardSet, testTeacher);
     private final ClassMember classMember = new ClassMember(testStudent, testClassroom);
     @BeforeEach
     void setUp() {
