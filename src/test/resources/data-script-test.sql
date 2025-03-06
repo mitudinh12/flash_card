@@ -1,11 +1,11 @@
 -- Drop the database if it already exists
-DROP DATABASE IF EXISTS flash_card;
+DROP DATABASE IF EXISTS flash_card_test;
 
 -- Create the database
-CREATE DATABASE flash_card;
+CREATE DATABASE flash_card_test;
 
 -- Use the database
-USE flash_card;
+USE flash_card_test;
 
 -- Create the users table
 CREATE TABLE users (
@@ -35,6 +35,7 @@ CREATE TABLE flashcards (
   card_id INT NOT NULL AUTO_INCREMENT COMMENT 'Primary key for flashcards',
   term VARCHAR(255) NOT NULL COMMENT 'Term or word being defined',
   definition TEXT NOT NULL COMMENT 'Definition of the term',
+  difficult_level ENUM('easy', 'hard') COMMENT 'Difficulty level of the card',
   set_id INT NOT NULL COMMENT 'Foreign key referencing flashcard_sets(set_id)',
   creator_id VARCHAR(255) NOT NULL COMMENT 'Foreign key referencing users(user_id)',
   PRIMARY KEY (card_id),
@@ -130,14 +131,14 @@ CREATE TABLE shared_sets (
 ) ENGINE=InnoDB COMMENT='Tracks shared flashcard sets between users';
 
 
--- Drop the user account appuser, if it exists
-DROP USER IF EXISTS 'appuser'@'localhost';
+-- Drop the user account appuser_test, if it exists
+DROP USER IF EXISTS 'appuser_test'@'localhost';
 
 -- Create the user account appuser
-CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'app_password';
+CREATE USER 'appuser_test'@'localhost' IDENTIFIED BY 'app_password';
 
 -- Grant privileges to appuser
-GRANT SELECT, INSERT, UPDATE, DELETE, DROP, ALTER, CREATE ON flash_card.* TO 'appuser'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE, DROP, ALTER, CREATE ON flash_card_test.* TO 'appuser_test'@'localhost';
 
 -- Flush privileges
 FLUSH PRIVILEGES;
