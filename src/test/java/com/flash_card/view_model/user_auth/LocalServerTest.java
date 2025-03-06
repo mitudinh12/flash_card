@@ -3,7 +3,6 @@ package com.flash_card.view_model.user_auth;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.flash_card.model.entity.TestSetupAbstract;
 
 class LocalServerTest {
 

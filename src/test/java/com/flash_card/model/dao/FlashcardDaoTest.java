@@ -4,24 +4,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.model.entity.TestSetupAbstract;
 import com.flash_card.model.entity.User;
-import com.flash_card.framework.DifficultyLevel;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.UUID;
 
-class FlashcardDaoTest extends TestSetupAbstract {
-    private EntityManager entityManager;
-    private FlashcardDao flashcardDao;
+class FlashcardDaoTest {
+    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
+    protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
     private Flashcard flashcard;
     private Flashcard flashcard2;
     private User user;
     private FlashcardSet flashcardSet;
+    private final UserDao userDao = UserDao.getInstance(entityManager);
+    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    private final FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
 
     @BeforeEach
     void setUp() {
@@ -31,15 +33,9 @@ class FlashcardDaoTest extends TestSetupAbstract {
         flashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", user);
         flashcard = new Flashcard("Java", "A programming language", flashcardSet, user);
         flashcard2 = new Flashcard("Java2", "A programming language2", flashcardSet, user);
-
-        entityManager = entityManagerFactory.createEntityManager();
-        flashcardDao = FlashcardDao.getInstance(entityManager);
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(user);
-        entityManager.persist(flashcardSet);
-        entityManager.persist(flashcard);
-        entityManager.getTransaction().commit();
+        userDao.persist(user);
+        flashcardSetDao.persist(flashcardSet);
+        flashcardDao.persist(flashcard);
     }
 
     @Test
@@ -101,32 +97,5 @@ class FlashcardDaoTest extends TestSetupAbstract {
     void testFindBySetIdInvalidSetId() {
         List<Flashcard> flashcards = flashcardDao.findBySetId(-1);
         assertTrue(flashcards.isEmpty(), "Flashcards should be empty for invalid set ID");
-    }
-
-/*
-    @Test
-    void testGetHardFlashcards() {
-        List<Flashcard> hardFlashcards = flashcardDao.getHardFlashcards(flashcardSet.getSetId());
-        assertFalse(hardFlashcards.isEmpty(), "There should be hard flashcards in the set");
-        assertEquals(DifficultyLevel.hard, hardFlashcards.get(0).getDifficultLevel(), "Returned flashcards should have difficulty level 'hard'");
-    }
-
-    @Test
-    void testGetHardFlashcardsNoResults() {
-        Flashcard easyFlashcard = new Flashcard("Python", "Another language", DifficultyLevel.easy, flashcardSet, user);
-        entityManager.getTransaction().begin();
-        entityManager.persist(easyFlashcard);
-        entityManager.getTransaction().commit();
-
-        List<Flashcard> hardFlashcards = flashcardDao.getHardFlashcards(flashcardSet.getSetId());
-        assertEquals(1, hardFlashcards.size(), "There should be only one hard flashcard");
-    }
-*/
-
-    @AfterEach
-    void tearDown() {
-        if (entityManager.isOpen()) {
-            entityManager.close();
-        }
     }
 }

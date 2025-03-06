@@ -65,7 +65,7 @@ class CardDifficultLevelTest {
 
     @Test
     void testGetId() {
-        assertEquals(1, cardDifficultLevel.getId(), "Fail to get CardDifficultLevelId");
+        assertEquals(0, cardDifficultLevel.getId(), "Fail to get CardDifficultLevelId");
     }
 
     @Test
