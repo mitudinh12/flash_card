@@ -21,17 +21,19 @@ public class UserDao {
         return userDao;
     }
 
-    public void persist(User user) {
+    public boolean persist(User user) {
         try {
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             System.err.println("Error in persisting User: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -63,17 +65,19 @@ public class UserDao {
         return users.isEmpty() ? null : users.get(0);
     }
 
-    public void delete(User user) {
+    public boolean delete(User user) {
        try {
               em.getTransaction().begin();
               em.remove(user);
               em.getTransaction().commit();
+              return true;
          } catch (Exception e) {
               if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
               }
               System.err.println("Error in deleting User: " + e.getMessage());
               e.printStackTrace();
+                return false;
        }
     }
 }
