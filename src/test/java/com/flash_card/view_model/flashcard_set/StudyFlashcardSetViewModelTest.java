@@ -200,4 +200,24 @@ class StudyFlashcardSetViewModelTest {
         DifficultyLevel difficultyLevel = studyFlashcardSetViewModel.getCurrentFlashcardDifficultLevel();
         assertNotNull(difficultyLevel);
     }
+
+    @Test
+    @Order(16)
+    void testStartStudyCreatesNewStudyAndSetsDefaultDifficultyLevel() {
+        // Ensure no existing study
+        Study existingStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
+        if (existingStudy != null) {
+            studyDao.delete(existingStudy);
+        }
+
+        studyFlashcardSetViewModel.startStudy(testUser.getUserId(), testFlashcardSet.getSetId());
+        Study newStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
+        assertNotNull(newStudy);
+        List<Flashcard> flashcards = flashcardDao.findBySetId(testFlashcardSet.getSetId());
+        for (Flashcard flashcard : flashcards) {
+            CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), newStudy.getStudyId());
+            assertNotNull(cardDifficultLevel);
+            assertEquals(DifficultyLevel.hard, cardDifficultLevel.getDifficultLevel());
+        }
+    }
 }
