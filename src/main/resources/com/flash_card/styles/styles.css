@@ -303,11 +303,11 @@ listClassesUI {
     -fx-border-radius: 8;
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 10px;
-    -fx-padding: 10px;
+    -fx-padding: 5px;
 }
 
 .term-label {
-    -fx-font-size: 15;
+    -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-min-width: 350px;
     -fx-min-height: 35px;
@@ -315,7 +315,7 @@ listClassesUI {
 }
 
 .definition-label {
-    -fx-font-size: 12;
+    -fx-font-size: 13;
     -fx-min-width: 200px;
     -fx-min-height: 35px;
     -fx-padding: 0 20px 0 0;

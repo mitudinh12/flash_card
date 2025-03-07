@@ -80,9 +80,6 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="816.0">
                <children>
@@ -93,7 +90,7 @@
                                       <Image url="@../assets/icons/left-arrow.png" />
                                   </image>
                               </ImageView>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button"/>
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button" />
                           </children>
                       </StackPane>
                       <StackPane prefHeight="100.0" prefWidth="55.0">
@@ -103,7 +100,7 @@
                                       <Image url="@../assets/icons/arrow-point-to-right.png" />
                                   </image>
                               </ImageView>
-                              <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button"/>
+                              <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button" />
                           </children>
                       </StackPane>
                </children>
@@ -111,13 +108,13 @@
                   <Insets />
                </VBox.margin>
                <padding>
-                  <Insets bottom="5.0" left="50.0" />
+                  <Insets left="50.0" />
                </padding>
             </HBox>
                 <VBox fx:id="flashcardsContainer" prefHeight="501.0" prefWidth="816.0" spacing="10.0" />
             </children>
             <padding>
-                <Insets left="100.0" right="100.0" top="60.0" />
+                <Insets left="100.0" right="100.0" top="40.0" />
             </padding>
         </VBox>
     </children>
