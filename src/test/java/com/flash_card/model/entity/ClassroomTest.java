@@ -45,8 +45,7 @@ public class ClassroomTest {
     @Test
     @Order(1)
     void testEmptyConstructor() {
-        Classroom emptyClassroom = new Classroom(); // Using the no-arg constructor
-
+        Classroom emptyClassroom = new Classroom();
         assertNotNull(emptyClassroom, "Classroom object should not be null");
     }
 

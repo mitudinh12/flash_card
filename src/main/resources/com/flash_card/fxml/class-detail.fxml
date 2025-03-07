@@ -48,7 +48,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="For Teacher" />
                     </children>
                 </HBox>
-                <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="47.0" layoutY="322.0" onMouseClicked="#handleMenuClick" spacing="20.0">
+                <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="44.0" layoutY="335.0" onMouseClicked="#handleMenuClick" spacing="20.0">
                     <children>
                         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -80,11 +80,6 @@
                      <padding>
                         <Insets right="150.0" />
                      </padding></Label>
-                        <Button fx:id="trackProgressButton" mnemonicParsing="false" onAction="#gotoTrackProgress" styleClass="blueClassButton" text="Track progress" textFill="WHITE">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Button>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="107.0">
@@ -106,8 +101,11 @@
                         </ImageView>
                      </children>
                      <HBox.margin>
-                        <Insets right="450.0" />
+                        <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets right="500.0" />
+                     </padding>
                   </StackPane>
                         <StackPane prefHeight="100.0" prefWidth="53.0">
                             <children>
@@ -159,8 +157,11 @@
                         </ImageView>
                      </children>
                      <HBox.margin>
-                        <Insets right="510.0" />
+                        <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets right="560.0" />
+                     </padding>
                   </StackPane>
                   <StackPane prefHeight="100.0" prefWidth="53.0">
                      <children>

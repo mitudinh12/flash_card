@@ -16,7 +16,7 @@
 }
 
 .create-flashcard-background {
-    -fx-background-image: url("../assets/backgrounds/BG-create.png");
+    -fx-background-image: url("../assets/backgrounds/BG-create3.png");
 }
 
 .super-flash-title {
@@ -303,11 +303,11 @@ listClassesUI {
     -fx-border-radius: 8;
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 10px;
-    -fx-padding: 10px;
+    -fx-padding: 5px;
 }
 
 .term-label {
-    -fx-font-size: 15;
+    -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-min-width: 350px;
     -fx-min-height: 35px;
@@ -315,7 +315,7 @@ listClassesUI {
 }
 
 .definition-label {
-    -fx-font-size: 12;
+    -fx-font-size: 13;
     -fx-min-width: 200px;
     -fx-min-height: 35px;
     -fx-padding: 0 20px 0 0;
@@ -363,7 +363,7 @@ listClassesUI {
 }
 
 .blueClassButton {
-    -fx-font-size: 16;
+    -fx-font-size: 22;
     -fx-font-weight: bold;
     -fx-background-color: #205BFD;
     -fx-background-radius: 8;
@@ -424,7 +424,20 @@ listClassesUI {
     -fx-min-width: 400px;
 }
 
+#name-label2 {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-min-width: 250px;
+    -fx-min-height: 25px;
+    -fx-padding: 0 80px 0 10px;
+}
 
+#topic-label2 {
+    -fx-font-size: 13;
+    -fx-min-width: 100px;
+    -fx-min-height: 25px;
+    -fx-padding: 0 80px 0 10px;
+}
 
 /* STUDY FLASHCARD PAGE */
 .hard-button {

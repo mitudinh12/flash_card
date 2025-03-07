@@ -2,26 +2,39 @@ package com.flash_card.model.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.flash_card.model.entity.TestSetupAbstract;
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class UserDaoTest extends TestSetupAbstract {
+public class UserDaoTest {
     private final String userId = "300";
     private final String firstName = "Alice";
     private final String lastName = "Wonderland";
     private final String email = "alice@example.com";
     private final String idToken = "alice-token";
+    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
+    private static EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private UserDao userDao = UserDao.getInstance(entityManager);
+    private User testUser;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
-        User testUser = new User(userId, firstName, lastName, email, idToken);
-        userDao.persist(testUser);
+        User user = new User(userId, firstName, lastName, email, idToken);
+        userDao.persist(user);
+        testUser = userDao.findById(userId);
+    }
+
+    @AfterEach
+    void tearDown() {
+        User user = userDao.findById(userId);
+        if (user != null) {
+            userDao.delete(user);
+        }
     }
 
     @Test
@@ -60,9 +73,9 @@ public class UserDaoTest extends TestSetupAbstract {
 
     @Test
     void testFindById() {
-        User foundUser = userDao.findById(testUser1.getUserId());
+        User foundUser = userDao.findById(testUser.getUserId());
         assertNotNull(foundUser, "User should be found");
-        assertEquals(testUser1.getFirstName(), foundUser.getFirstName(), "First name should match");
+        assertEquals(testUser.getFirstName(), foundUser.getFirstName(), "First name should match");
     }
 
     @Test

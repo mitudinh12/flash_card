@@ -1,17 +1,19 @@
 package com.flash_card.view_model.user_auth;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.flash_card.model.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.flash_card.model.entity.TestSetupAbstract;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-class AuthSessionViewModelTest extends TestSetupAbstract{
+class AuthSessionViewModelTest {
     AuthSessionViewModel authSessionViewModel;
     Map<String, String> testUser1Info = new HashMap<>();
+    User testUser1 = new User("authid", "auth", "session", "auth@gmail,com", "authtoken");
 
     @BeforeEach
     public void setUp() {

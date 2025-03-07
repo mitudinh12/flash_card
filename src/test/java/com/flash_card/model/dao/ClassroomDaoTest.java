@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClassroomDaoTest {
     private Classroom testClassroom;
     private User testTeacher;
-    User teacher = new User("789", "Jo", "Hands", "jo@gmail.com", "123456");
+    User teacher = new User("classroomdao", "Jo", "Hands", "classroomdao@gmail.com", "123456");
     private final String className = "Java 101";
     private final String description = "abc123";
     Classroom classroom = new Classroom(className, description, teacher);
@@ -28,7 +28,7 @@ class ClassroomDaoTest {
     @BeforeEach
     void setUp() {
         userDao.persist(teacher);
-        testTeacher = userDao.findById("789");
+        testTeacher = userDao.findById("classroomdao");
     }
 
     @AfterEach

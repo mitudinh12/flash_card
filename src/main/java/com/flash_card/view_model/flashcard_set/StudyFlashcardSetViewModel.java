@@ -9,6 +9,8 @@ import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.Study;
 import com.flash_card.model.entity.User;
+import com.flash_card.model.dao.CardDifficultLevelDao;
+import com.flash_card.model.entity.CardDifficultLevel;
 import jakarta.persistence.EntityManager;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -26,6 +28,7 @@ public class StudyFlashcardSetViewModel {
     private final UserDao userDao;
     private final FlashcardDao flashcardDao;
     private final FlashcardSetDao flashcardSetDao;
+    private final CardDifficultLevelDao cardDifficultLevelDao;
     private List<Flashcard> flashcards;
     private int setId;
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
@@ -39,6 +42,7 @@ public class StudyFlashcardSetViewModel {
         studyDao = StudyDao.getInstance(entityManager);
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         userDao = UserDao.getInstance(entityManager);
+        cardDifficultLevelDao = CardDifficultLevelDao.getInstance(entityManager);
     }
 
 
@@ -47,7 +51,7 @@ public class StudyFlashcardSetViewModel {
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
         this.setName.set(setName);
-        flashcards = flashcardDao.getHardFlashcards(setId);
+        flashcards = flashcardDao.getHardFlashcards(setId, currentStudy.getStudyId());
         this.total.set(String.valueOf(flashcards.size()));
     }
 
@@ -60,6 +64,13 @@ public class StudyFlashcardSetViewModel {
         if (currentStudy == null) {
             currentStudy = new Study(user, flashcardSet, LocalDateTime.now(), null, 0);
             studyDao.persist(currentStudy);
+
+            //match all flashcards of this set with this study to have a default difficulty level hard
+            List<Flashcard> flashcards = flashcardDao.findBySetId(setId);
+            for (Flashcard flashcard : flashcards) {
+                CardDifficultLevel cardDifficultLevel = new CardDifficultLevel(flashcard, currentStudy, DifficultyLevel.hard);
+                cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
+            }
         } else {
             currentStudy.setStartTime(LocalDateTime.now()); //else update the start time
             currentStudy.setEndTime(null);
@@ -70,27 +81,28 @@ public class StudyFlashcardSetViewModel {
     public void endStudy() {
         if (currentStudy != null) {
             currentStudy.setEndTime(LocalDateTime.now());
-            //count the number of "easy" flashcards
-            long easyFlashcardsCount = flashcardDao.findBySetId(setId).stream()
-                    .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
-                    .count();
             //then update the number of studied cards to study table
-            currentStudy.setNumberStudiedWords((int) easyFlashcardsCount);
+            currentStudy.setNumberStudiedWords(getStudiedFlashcards());
             studyDao.update(currentStudy);
         }
     }
 
     public void updateFlashcardLevel(DifficultyLevel difficulty) {
         Flashcard currentFlashcard = getCurrentFlashcard();
-        currentFlashcard.setDifficultLevel(difficulty);
-        flashcardDao.update(currentFlashcard);
+        CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), currentStudy.getStudyId());
+        cardDifficultLevel.setDifficultLevel(difficulty);
+        cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
     }
 
     public void resetAllFlashcardLevel() {
-        flashcardDao.findBySetId(setId).forEach(flashcard -> {
-            flashcard.setDifficultLevel(DifficultyLevel.hard);
-            flashcardDao.update(flashcard);
-        });
+        List<Flashcard> flashcards = flashcardDao.findBySetId(setId);
+        for (Flashcard flashcard : flashcards) {
+            CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), currentStudy.getStudyId());
+            if (cardDifficultLevel != null) {
+                cardDifficultLevel.setDifficultLevel(DifficultyLevel.hard);
+                cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
+            }
+        }
     }
 
     public void updateStudyDetails(String userId, int setId) {
@@ -117,7 +129,10 @@ public class StudyFlashcardSetViewModel {
 
     public int getStudiedFlashcards() {
         return (int) flashcardDao.findBySetId(setId).stream()
-                .filter(flashcard -> flashcard.getDifficultLevel() == DifficultyLevel.easy)
+                .filter(flashcard -> {
+                    CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), currentStudy.getStudyId());
+                    return cardDifficultLevel != null && cardDifficultLevel.getDifficultLevel() == DifficultyLevel.easy;
+                })
                 .count();
     }
 
@@ -166,5 +181,19 @@ public class StudyFlashcardSetViewModel {
 
     public List<Flashcard> getFlashcards() {
         return flashcards;
+    }
+
+    public Study getCurrentStudy() {
+        return currentStudy;
+    }
+
+    public void setCurrentStudy(Study study) {
+        this.currentStudy = study;
+    }
+
+    public DifficultyLevel getCurrentFlashcardDifficultLevel() {
+        Flashcard currentFlashcard = getCurrentFlashcard();
+        CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), currentStudy.getStudyId());
+        return cardDifficultLevel != null ? cardDifficultLevel.getDifficultLevel() : DifficultyLevel.hard;
     }
 }

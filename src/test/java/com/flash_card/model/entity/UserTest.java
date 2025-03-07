@@ -1,5 +1,6 @@
 package com.flash_card.model.entity;
 
+import com.flash_card.model.dao.UserDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,29 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserTest extends TestSetupAbstract {
-    private User testUser;
+public class UserTest {
     private String userId = "123";
     private String firstName = "John";
     private String lastName = "Doe";
     private String email = "john.doe@example.com";
     private String idToken = "sample-id-token";
-
-
-    @BeforeAll
-    void setUpEntityManager() {
-        userDao.persist(new User(userId, firstName, lastName, email, idToken));
-        this.testUser = userDao.findById(userId);
-        assertNotNull(testUser, "User should be found in the database");
-        assertEquals("John", testUser.getFirstName());
-        assertEquals("Doe", testUser.getLastName());
-        assertEquals("john.doe@example.com", testUser.getEmail());
-    }
-
-    @Test
-    void testConnection() {
-        assertNotNull(entityManager, "EntityManager should not be null");
-    }
+    private User testUser = new User(userId, firstName, lastName, email, idToken);
 
     @Test
     void testEmptyConstructor() {

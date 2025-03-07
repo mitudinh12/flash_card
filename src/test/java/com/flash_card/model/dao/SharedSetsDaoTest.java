@@ -26,7 +26,7 @@ class SharedSetsDaoTest {
     @BeforeEach
     void setUp() {
         testUser = new User(UUID.randomUUID().toString(), "Mock3", "User3", "mock.user" + System.currentTimeMillis() + "@gmail.com", "227b9c4e-5d12-4a8f-bf6e-9c3d2a6b8e5f");
-        userDao.persist(testUser);
+        assertTrue(userDao.persist(testUser), "Should return true when user is persisted");
         assertNotNull(userDao.findById(testUser.getUserId()), "User should be found in the database");
 
         testFlashcardSet = new FlashcardSet("Java Basics", "A set for Java beginners", "Programming", testUser);

@@ -3,32 +3,42 @@ package com.flash_card.view_model.flashcard_set;
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.UserDao;
+import com.flash_card.model.entity.Flashcard;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.User;
-import com.flash_card.view_model.user_auth.AuthSessionViewModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import com.flash_card.model.entity.TestSetupAbstract;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
-import java.util.Map;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CreateFlashcardSetViewModelTest extends TestSetupAbstract {
-    private CreateFlashcardSetViewModel createFlashcardSetViewModel;
-    private FlashcardSetDao flashcardSetDao;
-    private UserDao userDao;
+public class CreateFlashcardSetViewModelTest {
+
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
+    private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private CreateFlashcardSetViewModel createFlashcardSetViewModel = new CreateFlashcardSetViewModel( entityManager);;
+    private final FlashcardDao flashcardDao = FlashcardDao.getInstance(entityManager);
+    private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    private final UserDao userDao = UserDao.getInstance(entityManager);
+    private final User testUser = new User("g5d5dgd", "John", "Doe", "testMaildfsd@example.com", "sample-id-token");
+    private final FlashcardSet testFlashcardSet = new FlashcardSet("Test Set", "Test Description", "Test Topic", testUser);
+    private final Flashcard testFlashcard = new Flashcard("Test term", "Test definition", testFlashcardSet, testUser);
 
     @BeforeEach
-    public void setUp() {
-        flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
-        userDao = UserDao.getInstance(entityManager);
-        userDao.persist(testUser1); // Save test user
-        createFlashcardSetViewModel = new CreateFlashcardSetViewModel(entityManager);
+    void setUp() {
+        userDao.persist(testUser);
+        flashcardSetDao.persist(testFlashcardSet);
+        flashcardDao.persist(testFlashcard);
+    }
+
+    @AfterEach
+    void tearDown() {
+        flashcardDao.delete(testFlashcard);
+        flashcardSetDao.delete(testFlashcardSet);
+        userDao.delete(testUser);
     }
 
     @Test
@@ -41,7 +51,7 @@ public class CreateFlashcardSetViewModelTest extends TestSetupAbstract {
         String name = "Test Set";
         String description = "Test Description";
         String topic = "Test Topic";
-        String userId = testUser1.getUserId();
+        String userId = testUser.getUserId();
         System.out.println("userId: " + userId);
 
         int setId = createFlashcardSetViewModel.addSet(name, description, topic, userId);
