@@ -183,6 +183,14 @@ public class StudyFlashcardSetViewModel {
         return flashcards;
     }
 
+    public Study getCurrentStudy() {
+        return currentStudy;
+    }
+
+    public void setCurrentStudy(Study study) {
+        this.currentStudy = study;
+    }
+
     public DifficultyLevel getCurrentFlashcardDifficultLevel() {
         Flashcard currentFlashcard = getCurrentFlashcard();
         CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), currentStudy.getStudyId());
