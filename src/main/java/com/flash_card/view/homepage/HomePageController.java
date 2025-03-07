@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import javafx.scene.image.ImageView;
 
 
@@ -138,15 +140,27 @@ public class HomePageController extends ViewController {
     public void handleShare(int setId ) {
         Stage newStage = new Stage();
         newStage.setTitle("FLASHCARDS SHARING");
-        HBox hBox = new HBox();
-        hBox.setPadding(new Insets(10, 10, 10, 10));
+        VBox layout = new VBox();
+        layout.getStyleClass().add("layout-check-boxes");
+        layout.alignmentProperty().set(javafx.geometry.Pos.CENTER);
+        layout.setPadding(new Insets(20));
+        layout.setSpacing(10);
 
         Label emailLabel = new Label("Enter email: ");
-        TextField emailField = new TextField();
-        Button shareButton = new Button("Share");
+        emailLabel.getStyleClass().add("assign-label");
 
-        hBox.getChildren().addAll(emailLabel, emailField, shareButton);
-        Scene scene = new Scene(hBox);
+        TextField emailField = new TextField();
+        emailField.setId("email-field");
+
+        Button shareButton = new Button("Share");
+        shareButton.getStyleClass().add("confirm-assign-button");
+
+        layout.getChildren().addAll(emailLabel, emailField, shareButton);
+        Scene scene = new Scene(layout);
+        String css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+        if (!css.isEmpty()) {
+            scene.getStylesheets().add(css);
+        }
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.show();
