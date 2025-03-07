@@ -52,22 +52,6 @@ public class CardDifficultLevelDao {
         }
     }
 
-    public List<CardDifficultLevel> findAllCardDifficultLevelByStudyId(int studyId) {
-        return em.createQuery("SELECT cdl FROM CardDifficultLevel cdl WHERE cdl.study.studyId = :studyId", CardDifficultLevel.class)
-                .setParameter("studyId", studyId)
-                .getResultList();
-    }
-
-    public CardDifficultLevel findCardDifficultLevelByCardId(int cardId) {
-        CardDifficultLevel level = null;
-        List<CardDifficultLevel> results = em.createQuery("SELECT cdl FROM CardDifficultLevel cdl WHERE cdl.flashcard.cardId = :cardId", CardDifficultLevel.class)
-                .setParameter("cardId", cardId)
-                .getResultList();
-        if (!results.isEmpty()){
-            level = results.getFirst();
-        }
-        return level;
-    }
 
     public CardDifficultLevel findCardDifficultLevelByCardIdAndStudyId(int cardId, int studyId) {
         CardDifficultLevel level = null;
