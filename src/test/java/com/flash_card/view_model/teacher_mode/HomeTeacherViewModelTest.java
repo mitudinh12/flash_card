@@ -19,7 +19,7 @@ class HomeTeacherViewModelTest {
     private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
     private static EntityManager entityManager = entityManagerFactory.createEntityManager();
     private User testTeacher = new User("789", "Jo", "Hands", "jo@gmail.com", "123456");
-    User testStudent = new User("987", "Anna", "Smith", "anna@gmail.com", "654321");
+    private User testStudent = new User("987", "Anna", "Smith", "anna@gmail.com", "654321");
     private FlashcardSet testFlashcardSet = new FlashcardSet("Java Basics", "Java 101", "Programing",testTeacher);
     private UserDao userDao = UserDao.getInstance(entityManager);
     private ClassroomDao classroomDao = ClassroomDao.getInstance(entityManager);
