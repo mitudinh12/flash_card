@@ -40,7 +40,7 @@ public class HomePageController extends ViewController {
     private List<SharedFlashcardSetViewModel> sharedFlashcardList;
     private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
-    private final int pageSize = 6;
+    private final int pageSize = 8;
     private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
     private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
 
