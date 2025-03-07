@@ -101,8 +101,11 @@
                         </ImageView>
                      </children>
                      <HBox.margin>
-                        <Insets right="450.0" />
+                        <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets right="500.0" />
+                     </padding>
                   </StackPane>
                         <StackPane prefHeight="100.0" prefWidth="53.0">
                             <children>
@@ -154,8 +157,11 @@
                         </ImageView>
                      </children>
                      <HBox.margin>
-                        <Insets right="510.0" />
+                        <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets right="560.0" />
+                     </padding>
                   </StackPane>
                   <StackPane prefHeight="100.0" prefWidth="53.0">
                      <children>
