@@ -12,7 +12,7 @@ For detailed instructions on how to use the application, refer to the [**User Ma
 
 The following diagram describes the development environment of the Flashcard system, including the essential tools and components:
 
-<p align="center">![Diagram](/src/main/resources/documents/dev-env.png)</p>
+![Diagram](/src/main/resources/documents/dev-env.png)
 
 
 ### Nodes
