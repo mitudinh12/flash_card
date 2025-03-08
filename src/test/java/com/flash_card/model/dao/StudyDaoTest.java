@@ -20,20 +20,25 @@ class StudyDaoTest {
     private StudyDao studyDao = StudyDao.getInstance(entityManager);
     private UserDao userDao = UserDao.getInstance(entityManager);
     private FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
+    private Study study;
+    private boolean result;
 
     @BeforeEach
     void setUp() {
+        Study study1 = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
         userDao.persist(testUser);
         flashcardSetDao.persist(testFlashcardSet);
+        result= studyDao.persist(study1);
+        study = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
     }
 
     @AfterEach
     void tearDown() {
-        Study foundStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
-        if (foundStudy == null) {
+
+        if (study == null) {
             return;
         }
-        studyDao.delete(foundStudy);
+        studyDao.delete(study);
         flashcardSetDao.delete(testFlashcardSet);
         userDao.delete(testUser);
     }
@@ -41,16 +46,13 @@ class StudyDaoTest {
     @Test
     @Order(1)
     void testPersistStudy() {
-        Study study = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
-        assertTrue(studyDao.persist(study), "Should return true when study is persisted");
+        assertTrue(result, "Should return true when study is persisted");
         assertFalse(studyDao.persist(null), "Should return false when exception is thrown");
     }
 
     @Test
     @Order(2)
     void testDeleteStudy() {
-        Study study = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
-        studyDao.persist(study);
         assertTrue(studyDao.delete(study), "Should return true when study is deleted");
         assertFalse(studyDao.delete(null), "Should return false when exception is thrown");
     }
@@ -58,8 +60,6 @@ class StudyDaoTest {
     @Test
     @Order(3)
     void testUpdateStudy() {
-        Study study = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
-        studyDao.persist(study);
         study.setNumberStudiedWords(30);
         assertTrue(studyDao.update(study), "Should return true when study is updated");
         assertFalse(studyDao.update(null), "Should return false when exception is thrown");
@@ -68,8 +68,6 @@ class StudyDaoTest {
     @Test
     @Order(4)
     void testFindById() {
-        Study study = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
-        studyDao.persist(study);
         Study foundStudy = studyDao.findById(study.getStudyId());
         assertNotNull(foundStudy, "Persisted study should be found");
     }
@@ -77,8 +75,6 @@ class StudyDaoTest {
     @Test
     @Order(5)
     void testFindByUserIdAndSetId() {
-        Study study = new Study(testUser, testFlashcardSet, LocalDateTime.now(), LocalDateTime.now().plusHours(1), 20);
-        studyDao.persist(study);
         Study foundStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
         assertNotNull(foundStudy, "Persisted study should be found by user ID and set ID");
     }

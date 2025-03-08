@@ -34,7 +34,7 @@ public class CreateFlashcardViewModel {
     }
 
     public void saveFlashcard(String term, String definition, int flashcardSetId) {
-        Flashcard flashcard = new Flashcard(term, definition, DifficultyLevel.hard, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
+        Flashcard flashcard = new Flashcard(term, definition, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
         flashcardDao.persist(flashcard);
 
         //increase number of flashcards in the set by 1

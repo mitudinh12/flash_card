@@ -1,47 +1,42 @@
 package com.flash_card.view_model.flashcard_set;
 
-import com.flash_card.model.entity.TestSetupAbstract;
+import com.flash_card.model.entity.FlashcardSet;
+import com.flash_card.model.entity.User;
 import javafx.beans.property.SimpleStringProperty;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnFlashcardSetViewModelTest extends TestSetupAbstract {
+class OwnFlashcardSetViewModelTest {
+    private User testCreator1 = new User("ownedVm", "own", "vm", "own@gmail.com", "ownvntoken");
+    private FlashcardSet setOwned = new FlashcardSet("Java Basics", "Java 101", "Programing",testCreator1);
+    private OwnFlashcardSetViewModel ownedFlashcardSetViewModel = new OwnFlashcardSetViewModel(setOwned);
 
     @Test
     void getType() {
-        assertEquals("own", ownFlashcardSetViewModel.getType());
+        assertEquals("own", ownedFlashcardSetViewModel.getType());
     }
 
     @Test
     void testSetNameProperty() {
-        SimpleStringProperty setName = new SimpleStringProperty(testFlashcardSet1.getSetName());
-        assertTrue(setName.getName().equals(ownFlashcardSetViewModel.setNameProperty().getName()));
+        SimpleStringProperty setName = new SimpleStringProperty(setOwned.getSetName());
+        assertEquals(setName.getName(), ownedFlashcardSetViewModel.setNameProperty().getName());
     }
 
     @Test
     void testSetTopicProperty() {
-        SimpleStringProperty setTopic = new SimpleStringProperty(testFlashcardSet1.getSetTopic());
-        assertTrue(setTopic.getName().equals(ownFlashcardSetViewModel.setTopicProperty().getName()));
+        SimpleStringProperty setTopic = new SimpleStringProperty(setOwned.getSetTopic());
+        assertEquals(setTopic.getName(), ownedFlashcardSetViewModel.setTopicProperty().getName());
     }
 
     @Test
     void testSetNumberFlashcard() {
-        SimpleStringProperty numberFlashcard = new SimpleStringProperty(String.valueOf(testFlashcardSet1.getNumberFlashcards()));
-        assertTrue(numberFlashcard.getName().equals(ownFlashcardSetViewModel.setNumberFlashcard().getName()));
+        SimpleStringProperty numberFlashcard = new SimpleStringProperty(String.valueOf(setOwned.getNumberFlashcards()));
+        assertEquals(numberFlashcard.getName(), ownedFlashcardSetViewModel.setNumberFlashcard().getName());
     }
-
-//    @Test
-//    void testUpdateEntity() {
-//        ownFlashcardSetViewModel.updateEntity();
-//        assertEquals(testFlashcardSet1.getSetName(), ownFlashcardSetViewModel.getSet().getSetName());
-//        assertEquals(testFlashcardSet1.getSetTopic(), ownFlashcardSetViewModel.getSet().getSetTopic());
-//    }
 
     @Test
     void testGetSet() {
-        assertEquals(testFlashcardSet1, ownFlashcardSetViewModel.getSet());
+        assertEquals(setOwned, ownedFlashcardSetViewModel.getSet());
     }
 }

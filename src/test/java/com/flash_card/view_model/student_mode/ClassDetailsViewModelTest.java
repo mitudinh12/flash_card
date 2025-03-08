@@ -4,10 +4,10 @@ import com.flash_card.framework.SetViewModel;
 import com.flash_card.model.dao.AssignedSetDao;
 import com.flash_card.model.dao.ClassroomDao;
 import com.flash_card.model.dao.FlashcardSetDao;
+import com.flash_card.model.dao.UserDao;
 import com.flash_card.model.entity.AssignedSet;
 import com.flash_card.model.entity.Classroom;
 import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.model.entity.TestSetupAbstract;
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -21,13 +21,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ClassDetailsViewModelTest extends TestSetupAbstract {
+class ClassDetailsViewModelTest {
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FlashcardMariaDbUnitTest");
     private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     private AssignedSetDao assignedSetDao = AssignedSetDao.getInstance(entityManager);
     private ClassroomDao classroomDao = ClassroomDao.getInstance(entityManager);
     private FlashcardSetDao flashcardSetDao  = FlashcardSetDao.getInstance(entityManager);
+    private UserDao userDao = UserDao.getInstance(entityManager);
 
     private User testTeacher = new User("987", "Jo987", "Hands", "jo987@gmail.com", "123456");
     private Classroom testClassroom = new Classroom("Math 987", "Mathematics", testTeacher);

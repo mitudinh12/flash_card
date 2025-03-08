@@ -1,13 +1,7 @@
 package com.flash_card.view_model.flashcard_set;
 
-import com.flash_card.model.dao.FlashcardDao;
-import com.flash_card.model.dao.FlashcardSetDao;
-import com.flash_card.model.dao.StudyDao;
-import com.flash_card.model.dao.UserDao;
-import com.flash_card.model.entity.Flashcard;
-import com.flash_card.model.entity.FlashcardSet;
-import com.flash_card.model.entity.Study;
-import com.flash_card.model.entity.User;
+import com.flash_card.model.dao.*;
+import com.flash_card.model.entity.*;
 import com.flash_card.framework.DifficultyLevel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -27,15 +21,24 @@ class StudyFlashcardSetViewModelTest {
     private final FlashcardSetDao flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     private final StudyDao studyDao = StudyDao.getInstance(entityManager);
     private final UserDao userDao = UserDao.getInstance(entityManager);
-    private final User testUser = new User("12345678910", "John", "Doe", "testMail@example.com", "sample-id-token");
+    private final CardDifficultLevelDao cardDifficultLevelDao = CardDifficultLevelDao.getInstance(entityManager);
+    private final User testUser = new User("87524526877785", "John", "Doe", "testMail45678@example.com", "sample-id-token");
     private final FlashcardSet testFlashcardSet = new FlashcardSet("Test Set", "Test Description", "Test Topic", testUser);
-    private final Flashcard testFlashcard = new Flashcard("Test term", "Test definition", DifficultyLevel.hard, testFlashcardSet, testUser);
+    private final Flashcard testFlashcard = new Flashcard("Test term", "Test definition", testFlashcardSet, testUser);
+    private final FlashcardSet testFlashcardSet2 = new FlashcardSet("Test Set2", "Test Description", "Test Topic", testUser);
+    private final Flashcard testFlashcard2 = new Flashcard("Test term2", "Test definition2", testFlashcardSet2, testUser);
+    private final Study testStudy = new Study(testUser, testFlashcardSet, LocalDateTime.now(), null, 0);
+    private final CardDifficultLevel testCardDifficultLevel = new CardDifficultLevel(testFlashcard2, testStudy, DifficultyLevel.hard);
 
     @BeforeEach
     void setUp() {
         userDao.persist(testUser);
         flashcardSetDao.persist(testFlashcardSet);
         flashcardDao.persist(testFlashcard);
+        flashcardSetDao.persist(testFlashcardSet2);
+        flashcardDao.persist(testFlashcard2);
+        studyDao.persist(testStudy);
+        cardDifficultLevelDao.persistCardDifficultLevel(testCardDifficultLevel);
     }
 
     @AfterEach
@@ -44,6 +47,9 @@ class StudyFlashcardSetViewModelTest {
         if (study != null) {
             studyDao.delete(study);
         }
+        cardDifficultLevelDao.deleteCardDifficultLevel(testCardDifficultLevel);
+        flashcardDao.delete(testFlashcard2);
+        flashcardSetDao.delete(testFlashcardSet2);
         flashcardDao.delete(testFlashcard);
         flashcardSetDao.delete(testFlashcardSet);
         userDao.delete(testUser);
@@ -52,7 +58,8 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(1)
     void testLoadFlashcards() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         List<Flashcard> flashcards = studyFlashcardSetViewModel.getFlashcards();
         assertNotNull(flashcards);
         assertFalse(flashcards.isEmpty());
@@ -84,19 +91,25 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(4)
     void testUpdateFlashcardLevel() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.updateFlashcardLevel(DifficultyLevel.easy);
-        Flashcard flashcard = studyFlashcardSetViewModel.getCurrentFlashcard();
-        assertEquals(DifficultyLevel.easy, flashcard.getDifficultLevel());
+        Flashcard currentFlashcard = studyFlashcardSetViewModel.getCurrentFlashcard();
+        CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), studyFlashcardSetViewModel.getCurrentStudy().getStudyId());
+        assertEquals(DifficultyLevel.easy, cardDifficultLevel.getDifficultLevel());
     }
 
     @Test
     @Order(5)
     void testResetAllFlashcardLevel() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.resetAllFlashcardLevel();
         List<Flashcard> flashcards = studyFlashcardSetViewModel.getFlashcards();
-        flashcards.forEach(flashcard -> assertEquals(DifficultyLevel.hard, flashcard.getDifficultLevel()));
+        for (Flashcard flashcard : flashcards) {
+            CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), studyFlashcardSetViewModel.getCurrentStudy().getStudyId());
+            assertEquals(DifficultyLevel.hard, cardDifficultLevel.getDifficultLevel());
+        }
     }
 
     @Test
@@ -119,7 +132,8 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(8)
     void testGetStudiedFlashcards() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.updateFlashcardLevel(DifficultyLevel.easy);
         int studiedFlashcards = studyFlashcardSetViewModel.getStudiedFlashcards();
         assertEquals(1, studiedFlashcards);
@@ -128,16 +142,18 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(9)
     void testGetCurrentFlashcard() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         Flashcard currentFlashcard = studyFlashcardSetViewModel.getCurrentFlashcard();
         assertNotNull(currentFlashcard);
-        assertEquals(testFlashcard.getTerm(), currentFlashcard.getTerm());
+        assertEquals(testFlashcard2.getTerm(), currentFlashcard.getTerm());
     }
 
     @Test
     @Order(10)
     void testNextFlashcard() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.nextFlashcard();
         assertEquals(0, studyFlashcardSetViewModel.currentIndexProperty().get());
     }
@@ -145,7 +161,8 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(11)
     void testPreviousFlashcard() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.previousFlashcard();
         assertEquals(0, studyFlashcardSetViewModel.currentIndexProperty().get());
     }
@@ -153,7 +170,8 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(12)
     void testShuffleFlashcards() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         studyFlashcardSetViewModel.shuffleFlashcards();
         assertEquals(0, studyFlashcardSetViewModel.currentIndexProperty().get());
     }
@@ -161,14 +179,45 @@ class StudyFlashcardSetViewModelTest {
     @Test
     @Order(13)
     void testSetNameProperty() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
-        assertEquals(testFlashcardSet.getSetName(), studyFlashcardSetViewModel.setNameProperty().get());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
+        assertEquals(testFlashcardSet2.getSetName(), studyFlashcardSetViewModel.setNameProperty().get());
     }
 
     @Test
     @Order(14)
     void testTotalProperty() {
-        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet.getSetId(), testFlashcardSet.getSetName());
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
         assertEquals(String.valueOf(1), studyFlashcardSetViewModel.totalProperty().get());
+    }
+
+    @Test
+    @Order(15)
+    void testGetCurrentFlashcardDifficultLevel() {
+        studyFlashcardSetViewModel.setCurrentStudy(testStudy);
+        studyFlashcardSetViewModel.loadFlashcards(testFlashcardSet2.getSetId(), testFlashcardSet2.getSetName());
+        DifficultyLevel difficultyLevel = studyFlashcardSetViewModel.getCurrentFlashcardDifficultLevel();
+        assertNotNull(difficultyLevel);
+    }
+
+    @Test
+    @Order(16)
+    void testStartStudyCreatesNewStudyAndSetsDefaultDifficultyLevel() {
+        // Ensure no existing study
+        Study existingStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
+        if (existingStudy != null) {
+            studyDao.delete(existingStudy);
+        }
+
+        studyFlashcardSetViewModel.startStudy(testUser.getUserId(), testFlashcardSet.getSetId());
+        Study newStudy = studyDao.findByUserIdAndSetId(testUser.getUserId(), testFlashcardSet.getSetId());
+        assertNotNull(newStudy);
+        List<Flashcard> flashcards = flashcardDao.findBySetId(testFlashcardSet.getSetId());
+        for (Flashcard flashcard : flashcards) {
+            CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), newStudy.getStudyId());
+            assertNotNull(cardDifficultLevel);
+            assertEquals(DifficultyLevel.hard, cardDifficultLevel.getDifficultLevel());
+        }
     }
 }

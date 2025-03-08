@@ -45,8 +45,8 @@ public class StudyFlashcardSetController extends ViewController {
 
     public void setFlashcardSet(int setId, String setName) {
         this.setId = setId;
-        viewModel.loadFlashcards(setId, setName);
         viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
+        viewModel.loadFlashcards(setId, setName);
         showFlashcard();
     }
 
@@ -83,7 +83,7 @@ public class StudyFlashcardSetController extends ViewController {
         nextIcon.setVisible(true);
         easyButton.getStyleClass().remove("highlighted-button");
         hardButton.getStyleClass().remove("highlighted-button");
-        DifficultyLevel difficultyLevel = viewModel.getCurrentFlashcard().getDifficultLevel();
+        DifficultyLevel difficultyLevel = viewModel.getCurrentFlashcardDifficultLevel();
         if (difficultyLevel == DifficultyLevel.easy) {
             highlightButton(easyButton);
         } else if (difficultyLevel == DifficultyLevel.hard) {
@@ -106,7 +106,7 @@ public class StudyFlashcardSetController extends ViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
             Parent root = loader.load();
             ReviewFlashcardSetController reviewController = loader.getController();
-            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get());
+            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get(), viewModel);
             Scene scene = easyButton.getScene();
             scene.setRoot(root);
         } catch (IOException e) {

@@ -1,13 +1,16 @@
 package com.flash_card.view_model.flashcard_set;
 
-import com.flash_card.model.entity.TestSetupAbstract;
+import com.flash_card.model.entity.FlashcardSet;
+import com.flash_card.model.entity.User;
 import javafx.beans.property.SimpleStringProperty;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SharedFlashcardSetViewModelTest extends TestSetupAbstract {
-
+class SharedFlashcardSetViewModelTest {
+    private User testCreator = new User("sharedVm", "share", "vm", "share@gmail.com", "sharevntoken");
+    private FlashcardSet setShared = new FlashcardSet("Java Basics", "Java 101", "Programing",testCreator);
+    private SharedFlashcardSetViewModel sharedFlashcardSetViewModel = new SharedFlashcardSetViewModel(setShared);
     @Test
     void getType() {
         assertEquals("shared", sharedFlashcardSetViewModel.getType());
@@ -15,32 +18,32 @@ class SharedFlashcardSetViewModelTest extends TestSetupAbstract {
 
     @Test
     void testSetNameProperty() {
-        SimpleStringProperty setName = new SimpleStringProperty(testFlashcardSet2.getSetName());
-        assertTrue(setName.getName().equals(sharedFlashcardSetViewModel.setNameProperty().getName()));
+        SimpleStringProperty setName = new SimpleStringProperty(setShared.getSetName());
+        assertEquals(setName.getName(), sharedFlashcardSetViewModel.setNameProperty().getName());
     }
 
     @Test
     void testSetTopicProperty() {
-        SimpleStringProperty setTopic = new SimpleStringProperty(testFlashcardSet2.getSetTopic());
-        assertTrue(setTopic.getName().equals(sharedFlashcardSetViewModel.setTopicProperty().getName()));
+        SimpleStringProperty setTopic = new SimpleStringProperty(setShared.getSetTopic());
+        assertEquals(setTopic.getName(), sharedFlashcardSetViewModel.setTopicProperty().getName());
     }
 
     @Test
     void testSetNumberFlashcard() {
-        SimpleStringProperty numberFlashcard = new SimpleStringProperty(String.valueOf(testFlashcardSet2.getNumberFlashcards()));
-        assertTrue(numberFlashcard.getName().equals(sharedFlashcardSetViewModel.setNumberFlashcard().getName()));
+        SimpleStringProperty numberFlashcard = new SimpleStringProperty(String.valueOf(setShared.getNumberFlashcards()));
+        assertEquals(numberFlashcard.getName(), sharedFlashcardSetViewModel.setNumberFlashcard().getName());
     }
 
     @Test
     void testUpdateEntity() {
         sharedFlashcardSetViewModel.updateEntity();
-        assertEquals(testFlashcardSet2.getSetName(), sharedFlashcardSetViewModel.getSet().getSetName());
-        assertEquals(testFlashcardSet2.getSetTopic(), sharedFlashcardSetViewModel.getSet().getSetTopic());
+        assertEquals(setShared.getSetName(), sharedFlashcardSetViewModel.getSet().getSetName());
+        assertEquals(setShared.getSetTopic(), sharedFlashcardSetViewModel.getSet().getSetTopic());
     }
 
     @Test
     void testGetSet() {
-        assertEquals(testFlashcardSet2, sharedFlashcardSetViewModel.getSet());
+        assertEquals(setShared, sharedFlashcardSetViewModel.getSet());
     }
 
 }

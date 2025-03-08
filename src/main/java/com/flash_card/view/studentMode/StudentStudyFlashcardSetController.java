@@ -16,7 +16,7 @@ public class StudentStudyFlashcardSetController extends StudyFlashcardSetControl
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-review-flashcard.fxml"));
             Parent root = loader.load();
             ReviewFlashcardSetController reviewController = loader.getController();
-            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get());
+            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get(), viewModel);
             Scene scene = shuffleIcon.getScene();
             scene.setRoot(root);
         } catch (IOException e) {
