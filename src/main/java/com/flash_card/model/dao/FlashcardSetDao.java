@@ -8,7 +8,7 @@ public class FlashcardSetDao {
     private static FlashcardSetDao instance;
     private EntityManager entityManager;
 
-    private FlashcardSetDao(EntityManager entityManager) {
+    FlashcardSetDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -19,66 +19,58 @@ public class FlashcardSetDao {
         return instance;
     }
 
-    public void persist(FlashcardSet flashcardSet) {
+    public boolean persist(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcardSet);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
             System.err.println("Error in persisting FlashcardSet: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 
     public FlashcardSet findById(int id) {
-        FlashcardSet flashcardSet = null;
-        try {
-            flashcardSet = entityManager.find(FlashcardSet.class, id);
-        } catch (Exception e) {
-            System.err.println("An unexpected error occured while getting a flashcard set:" + e.getMessage());
-            e.printStackTrace();
-        }
-        return flashcardSet;
+        return entityManager.find(FlashcardSet.class, id);
     }
 
-    public void update(FlashcardSet flashcardSet) {
+    public boolean update(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcardSet);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in updating FlashcardSet: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void delete(FlashcardSet flashcardSet) {
+    public boolean delete(FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcardSet);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in deleting FlashcardSet: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 
 
     public List<FlashcardSet> findByUserId(String userId) {
-        List<FlashcardSet> flashcardSets = null;
-        try {
-            flashcardSets = entityManager.createQuery("SELECT fs FROM FlashcardSet fs WHERE fs.flashcardCreator.userId = :userId", FlashcardSet.class)
-                    .setParameter("userId", userId)
-                    .getResultList();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting flashcards by user ID: " + e.getMessage());
-            e.printStackTrace();
-        }
+        return entityManager.createQuery("SELECT fs FROM FlashcardSet fs WHERE fs.flashcardCreator.userId = :userId", FlashcardSet.class)
+                .setParameter("userId", userId)
+                .getResultList();
 
-        return flashcardSets;
     }
 
 

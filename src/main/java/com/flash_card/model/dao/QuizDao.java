@@ -19,60 +19,64 @@ public class QuizDao {
         return instance;
     }
 
-    public void persist(Quiz quiz) {
+    public boolean persist(Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(quiz);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in persisting Quiz: " + e.getMessage());
             e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            return false;
         }
     }
 
     public Quiz findById(int id) {
-        Quiz quiz = null;
-        try {
-            quiz = entityManager.find(Quiz.class, id);
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred while getting a quiz: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+        Quiz quiz = entityManager.find(Quiz.class, id);
         return quiz;
     }
 
-    public void update(Quiz quiz) {
+    public boolean update(Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(quiz);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in updating a quiz: " + e.getMessage());
             e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e;
+            return false;
         }
     }
 
-    public void delete(Quiz quiz) {
+    public boolean delete(Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(quiz);
             entityManager.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             System.err.println("Error in deleting a quiz: " + e.getMessage());
             e.printStackTrace();
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e;
+            return false;
         }
+    }
+
+    public List<Quiz> findByUserIdAndSetId(String userId, int setId) {
+        return entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
+                .setParameter("userId", userId)
+                .setParameter("setId", setId)
+                .getResultList();
     }
 
 }
