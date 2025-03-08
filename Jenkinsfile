@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'jenkins', url: 'https://github.com/nhidinh91/flash_card.git'
+                git branch: 'master', url: 'https://github.com/nhidinh91/flash_card.git'
             }
         }
 
