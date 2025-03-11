@@ -3,6 +3,8 @@ package com.flash_card.model.datasource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utility class for managing the JPA connection to a MariaDB database.
@@ -27,8 +29,20 @@ public class MariaDbJpaConnection {
             if (emf == null) {
                 // Determine the persistence unit name based on the environment
                 String persistenceUnitName = System.getProperty("persistenceUnitName", "FlashcardMariaDbUnit");
-                // Create the EntityManagerFactory using the persistence unit name
-                emf = Persistence.createEntityManagerFactory(persistenceUnitName);
+
+                // Check if we are running tests
+                boolean isTest = persistenceUnitName.toLowerCase().contains("test");
+                Map<String, String> properties = new HashMap<>();
+                if (!isTest) {
+                    // Fetch database host from environment variable (defaults to localhost)
+                    String dbHost = System.getenv("DB_HOST");
+                    if (dbHost == null || dbHost.isEmpty()) {
+                        dbHost = "localhost";
+                    }
+                    String jdbcUrl = "jdbc:mariadb://" + dbHost + ":3306/flash_card";
+                    properties.put("jakarta.persistence.jdbc.url", jdbcUrl);
+                }
+                emf = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
             }
             // Create the EntityManager from the EntityManagerFactory
             em = emf.createEntityManager();
