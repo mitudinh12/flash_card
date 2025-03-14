@@ -27,4 +27,4 @@ COPY --from=build /app/target/flash_card-1.0.jar app.jar
 
 # Run the application with the database URL as an argument
 #CMD ["java", "-jar", "app.jar"]
-CMD ["java", "-DDB_URL=${DB_URL}", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
