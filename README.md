@@ -1,4 +1,4 @@
-# Flashcard Application
+# SuperFlash Application
 
 ## Overview
 
@@ -10,7 +10,7 @@ For detailed instructions on how to use the application, refer to the [**User Ma
 
 ## Development Setup
 
-The following diagram describes the development environment of the Flashcard system, including the essential tools and components:
+The following diagram describes the development environment of the flashcard system, including the essential tools and components:
 
 ![Diagram](/documents/dev-env.png)
 
@@ -35,4 +35,4 @@ pom.xml: The Maven Project Object Model (POM) file. Maven is a build automation 
 
 persistence.xml: Configures the Java Persistence API (JPA) settings. It specifies the JPA provider (Hibernate) and contains database connection settings and other persistence-related configurations.
 
-### This setup ensures a streamlined and efficient development workflow for contributors to the Flashcard Application.
+### This setup ensures a streamlined and efficient development workflow for contributors to the SuperFlash Application.
