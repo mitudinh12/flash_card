@@ -1,6 +1,5 @@
 package com.flash_card.framework;
 import com.flash_card.localization.Localization;
-import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +21,68 @@ public abstract class ViewController {
 
     @FXML
     protected Label userName;
+    @FXML
+    protected ComboBox<String> languageComboBox;
+
+    @FXML
+    protected void handleLanguageChange() {
+        String selectedLanguage = languageComboBox.getValue();
+        switchLocale(selectedLanguage);
+    }
+
+    protected void switchLocale(String language) {
+        String langCode;
+        switch (language) {
+            case "Suomi":
+                langCode = "fi";
+                break;
+            case "ภาษาไทย":
+                langCode = "th";
+                break;
+            case "한국인":
+                langCode = "ko";
+                break;
+            case "Tiếng Việt":
+                langCode = "vi";
+                break;
+            default:
+                langCode = "en";
+                break;
+        }
+        localization.setLocaleByLanguage(langCode);
+        reloadCurrentView();
+    }
+
+    protected void reloadCurrentView() {
+        Scene scene = languageComboBox.getScene();
+        Parent root = scene.getRoot();
+        String fxmlFile = (String) root.getUserData();
+
+        if (fxmlFile == null) {
+            System.err.println("No FXML file path set in UserData.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            root = loader.load();
+            root.setUserData(fxmlFile); // Set the UserData property
+            scene.setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void setReloadFxml(String fxmlFilePath) {
+        languageComboBox.setValue(localization.getMessage("language")); //display chosen or default language in combobox
+        languageComboBox.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                Parent root = languageComboBox.getScene().getRoot();
+                root.setUserData(fxmlFilePath);
+            }
+        });
+    }
 
     @FXML
     protected void handleMenuClick(MouseEvent event) {

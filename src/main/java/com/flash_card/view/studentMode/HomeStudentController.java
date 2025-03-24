@@ -28,6 +28,7 @@ public class HomeStudentController extends ViewController {
 
     @FXML
     private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/student-class.fxml");
         setUserName();
         viewModel.loadClasses();
         classInfoList = viewModel.getClassInfo(); //list of classes info: each class map with classId, className, teacherName, numberSet, numberStudent
