@@ -11,6 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <HBox prefHeight="832.0" prefWidth="1280.0" styleClass="teacher-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.teacherMode.EditClassController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -56,6 +60,31 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Set" />
                     </children>
                 </HBox>
+                <VBox layoutX="66.0" layoutY="693.0" spacing="5.0">
+                    <children>
+                        <HBox alignment="CENTER" spacing="5.0">
+                            <children>
+                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/icons/language.png" />
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="menu-text-white" text="Language" textFill="WHITE" />
+                            </children>
+                        </HBox>
+                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="English" />
+                                    <String fx:value="Suomi" />
+                                    <String fx:value="ภาษาไทย" />
+                                    <String fx:value="한국인" />
+                                    <String fx:value="Tiếng Việt" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </children>
+                </VBox>
             </children>
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
