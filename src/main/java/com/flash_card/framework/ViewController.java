@@ -74,8 +74,8 @@ public abstract class ViewController {
         }
     }
 
-    protected void setUserDataProperty(ComboBox<String> languageComboBox, String fxmlFilePath) {
-        languageComboBox.setValue(localization.getMessage("language"));
+    protected void setReloadFxml(String fxmlFilePath) {
+        languageComboBox.setValue(localization.getMessage("language")); //display chosen or default language in combobox
         languageComboBox.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 Parent root = languageComboBox.getScene().getRoot();

@@ -69,7 +69,7 @@ public class HomePageController extends ViewController {
 
     @FXML
     private void initialize() {
-        setUserDataProperty(languageComboBox, "/com/flash_card/fxml/home.fxml");
+        setReloadFxml("/com/flash_card/fxml/home.fxml");
         setUserName();
         homepageViewModel.loadFlashcards(authSessionViewModel.getVerifiedUserInfo().get("userId"));
         flashcardList = homepageViewModel.getFlashcardList();
