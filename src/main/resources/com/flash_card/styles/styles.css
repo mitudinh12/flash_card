@@ -538,3 +538,23 @@ listClassesUI {
 .teacher-name {
     -fx-font-weight: bold;
 }
+
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #01c729;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #01c729;
+    -fx-text-fill: #ffffff;
+}
