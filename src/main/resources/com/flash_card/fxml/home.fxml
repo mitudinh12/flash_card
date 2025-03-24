@@ -72,7 +72,7 @@
                               <Label styleClass="menu-text-white" text="Language" textFill="WHITE" />
                      </children>
                   </HBox>
-                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box">
+                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="English" />
