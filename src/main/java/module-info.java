@@ -46,5 +46,7 @@ module com.flash_card {
     opens com.flash_card.view.flashcard to javafx.fxml;
     opens com.flash_card.framework;
     opens com.flash_card.view.flashcardSet;
+    exports com.flash_card.localization;
+    opens com.flash_card.localization;
 
 }
