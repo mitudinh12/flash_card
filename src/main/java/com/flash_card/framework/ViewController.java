@@ -1,4 +1,5 @@
 package com.flash_card.framework;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 public abstract class ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private final Localization localization = Localization.getInstance();
 
     @FXML
     protected Label userName;
@@ -111,7 +113,7 @@ public abstract class ViewController {
 
     public void setUserName() {
         String userFirstName = authSessionViewModel.getVerifiedUserInfo().get("firstName");
-        userName.setText("Hi, " + userFirstName);
+        userName.setText(localization.getMessage("Hi") + ", " + userFirstName);
     }
 
 
@@ -127,5 +129,4 @@ public abstract class ViewController {
             e.printStackTrace();
         }
     }
-
 }
