@@ -88,57 +88,58 @@
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1025.0">
             <children>
-            <HBox prefHeight="2.0" prefWidth="816.0">
-                <Button fx:id="backToHomepage" onAction="#displayHomepage" styleClass="back-home" text="Back to Home" />
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="40.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <children>
-                  <Label fx:id="setName" prefHeight="51.0" prefWidth="665.0" styleClass="page-title" text="Flashcard Set Name">
-                     <HBox.margin>
+                <HBox prefHeight="2.0" prefWidth="816.0">
+                    <Button fx:id="backToHomepage" onAction="#displayHomepage" styleClass="back-home" text="%flashcard.backToHome" />
+                    <VBox.margin>
                         <Insets />
-                     </HBox.margin></Label>
-                  <Button id="add-flashcard-button" mnemonicParsing="false" onAction="#handleAddCard" prefHeight="42.0" prefWidth="200.0" text="Add flashcard" textFill="WHITE" />
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="816.0">
-               <children>
-                      <StackPane prefHeight="100.0" prefWidth="53.0">
-                          <children>
-                              <ImageView fx:id="backIcon">
-                                  <image>
-                                      <Image url="@../assets/icons/left-arrow.png" />
-                                  </image>
-                              </ImageView>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button" />
-                          </children>
-                      </StackPane>
-                      <StackPane prefHeight="100.0" prefWidth="55.0">
-                          <children>
-                              <ImageView fx:id="nextIcon">
-                                  <image>
-                                      <Image url="@../assets/icons/arrow-point-to-right.png" />
-                                  </image>
-                              </ImageView>
-                              <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button" />
-                          </children>
-                      </StackPane>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </HBox>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="40.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label fx:id="setName" prefHeight="51.0" prefWidth="665.0" styleClass="page-title" text="FlashcardSet Name">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Label>
+                        <Button id="add-flashcard-button" mnemonicParsing="false" onAction="#handleAddCard" prefHeight="42.0" prefWidth="200.0" text="%flashcard.addTitle" textFill="WHITE" />
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="816.0">
+                    <children>
+                        <StackPane prefHeight="100.0" prefWidth="53.0">
+                            <children>
+                                <ImageView fx:id="backIcon">
+                                    <image>
+                                        <Image url="@../assets/icons/left-arrow.png" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="35.0" styleClass="back-button" />
+                            </children>
+                        </StackPane>
+                        <StackPane prefHeight="100.0" prefWidth="55.0">
+                            <children>
+                                <ImageView fx:id="nextIcon">
+                                    <image>
+                                        <Image url="@../assets/icons/arrow-point-to-right.png" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="nextButton" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="35.0" styleClass="next-button" />
+                            </children>
+                        </StackPane>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </HBox>
                 <VBox fx:id="flashcardsContainer" prefHeight="501.0" prefWidth="816.0" spacing="10.0" />
             </children>
             <padding>

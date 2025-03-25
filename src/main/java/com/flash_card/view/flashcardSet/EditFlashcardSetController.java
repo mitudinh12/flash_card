@@ -52,6 +52,7 @@ public class EditFlashcardSetController extends ViewController {
     public void goToEditManyCardsPage(int setId, Scene currentScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditManyCardsController controller = loader.getController();
             controller.setFlashcardSetId(setId);
