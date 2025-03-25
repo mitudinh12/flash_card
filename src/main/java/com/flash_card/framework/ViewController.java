@@ -65,6 +65,7 @@ public abstract class ViewController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            loader.setResources(localization.getBundle());
             root = loader.load();
             root.setUserData(fxmlFile); // Set the UserData property
             scene.setRoot(root);
@@ -124,6 +125,7 @@ public abstract class ViewController {
         if (!fxmlFile.isEmpty()) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+                fxmlLoader.setResources(localization.getBundle());
                 Parent root = fxmlLoader.load();
                 Scene scene = parentNode.getScene();
                 scene.setRoot(root);
@@ -138,6 +140,7 @@ public abstract class ViewController {
     protected void displayLoginPage(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -165,6 +168,7 @@ public abstract class ViewController {
     protected void goToPage(String fxmlFile, Scene scene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             scene.setRoot(root);
         } catch (IOException e) {
@@ -182,6 +186,7 @@ public abstract class ViewController {
     protected void displayHomepage(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

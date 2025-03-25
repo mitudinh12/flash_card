@@ -1,6 +1,7 @@
 package com.flash_card.view.auth;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.homepage.HomePageController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.user_auth.*;
@@ -21,6 +22,7 @@ public class LoginViewController extends ViewController {
     EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     UserAuthViewModel userAuthViewModel = UserAuthViewModel.getInstance(entityManager);
     AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    Localization localization = Localization.getInstance();
 
     @FXML
     private Button loginButton;
@@ -57,7 +59,7 @@ public class LoginViewController extends ViewController {
                 for (int i = seconds; i > 0; i--) {
                     final int remaining = i;
                     javafx.application.Platform.runLater(() ->
-                            countdownLabel.setText("Please wait " + remaining + " seconds to try again...")
+                            countdownLabel.setText(String.format(localization.getMessage("tryAgainWait"), remaining))
                     );
 
                     try {
@@ -66,7 +68,7 @@ public class LoginViewController extends ViewController {
                         e.printStackTrace();
                     }
                 }
-                javafx.application.Platform.runLater(() -> countdownLabel.setText("You can try again now."));
+                javafx.application.Platform.runLater(() -> countdownLabel.setText(localization.getMessage("tryAgainNow")));
                 return null;
             }
         };
@@ -82,9 +84,9 @@ public class LoginViewController extends ViewController {
 
     private void showLoginCancelledMessage() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Login Cancelled");
+        alert.setTitle(localization.getMessage("loginCancelled"));
         alert.setHeaderText(null);
-        alert.setContentText("The login process was not completed. Please try again.");
+        alert.setContentText(localization.getMessage("loginCancelledMessage"));
         alert.showAndWait();
     }
 
