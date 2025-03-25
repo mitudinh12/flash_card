@@ -25,6 +25,11 @@ public class AddFlashcardController extends ViewController {
     private TextField definitionField;
 
     @FXML
+    private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/add-flashcard.fxml");
+    }
+
+    @FXML
     public void handleSave() {
         if (termField.getText().isEmpty() || definitionField.getText().isEmpty()) {
             showAlert("Warning", "Please fill in both term and definition fields");
