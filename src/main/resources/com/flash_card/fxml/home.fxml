@@ -27,7 +27,7 @@
                                 <Image url="@../assets/icons/I-home-black.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="Home" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="%home" />
                     </children>
                 </HBox>
                 <HBox fx:id="student" alignment="CENTER" layoutX="47.0" layoutY="199.0" onMouseClicked="#handleMenuClick" spacing="20.0">

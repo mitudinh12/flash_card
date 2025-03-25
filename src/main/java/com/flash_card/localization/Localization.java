@@ -25,6 +25,10 @@ public class Localization {
         this.messages = ResourceBundle.getBundle("messages", locale);
     }
 
+    public ResourceBundle getBundle() {
+        return messages;
+    }
+
     public String getMessage(String key) {
         return messages.getString(key);
     };

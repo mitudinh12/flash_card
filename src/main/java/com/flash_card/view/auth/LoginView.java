@@ -1,5 +1,6 @@
 package com.flash_card.view.auth;
 
+import com.flash_card.localization.Localization;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +13,13 @@ import java.io.IOException;
 
 public class LoginView extends Application {
     private static Stage stage;
+    private Localization localization = Localization.getInstance();
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
+            fxmlLoader.setResources(localization.getBundle());
             Parent root = fxmlLoader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
