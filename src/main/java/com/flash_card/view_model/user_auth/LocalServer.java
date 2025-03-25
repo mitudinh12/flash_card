@@ -1,5 +1,6 @@
 package com.flash_card.view_model.user_auth;
 
+import com.flash_card.localization.Localization;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ public class LocalServer {
     private HttpServer server;
     private String authorizationCode;
     private boolean isRunning = false;
+    private final Localization localization = Localization.getInstance();
 
     public void start() throws IOException {
         server = HttpServer.create(new InetSocketAddress(3000), 0);
@@ -18,7 +20,7 @@ public class LocalServer {
             String query = exchange.getRequestURI().getQuery();
             if (query != null && query.contains("code=")) {
                 authorizationCode = query.split("code=")[1].split("&")[0];
-                String response = "You can now close this browser window.";
+                String response = localization.getMessage("auth.response");
                 exchange.sendResponseHeaders(200, response.length());
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
