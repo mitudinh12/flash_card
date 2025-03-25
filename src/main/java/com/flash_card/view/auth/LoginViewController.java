@@ -86,7 +86,7 @@ public class LoginViewController extends ViewController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(localization.getMessage("loginCancelled"));
         alert.setHeaderText(null);
-        alert.setContentText(localization.getMessage("loginCancelledMessage"));
+        alert.setContentText(localization.getMessage("loginFail"));
         alert.showAndWait();
     }
 
