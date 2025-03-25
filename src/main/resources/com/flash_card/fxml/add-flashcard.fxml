@@ -88,7 +88,7 @@
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Add Flashcard" wrappingWidth="305.95947265625" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%flashcard.addTitle" wrappingWidth="305.95947265625" />
                 <TextField fx:id="termField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Term" styleClass="term" />
                 <TextField fx:id="definitionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Definition" styleClass="definition" />
                   <HBox alignment="CENTER" spacing="10.0">

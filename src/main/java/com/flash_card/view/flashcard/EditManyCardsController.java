@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.EditFlashcardViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -27,6 +28,7 @@ public class EditManyCardsController extends ViewController {
     private EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
     private int currentPage = 0;
     private final int pageSize = 8;
+    private final Localization localization = Localization.getInstance();
 
     @FXML
     public Label setName;
@@ -143,6 +145,7 @@ public class EditManyCardsController extends ViewController {
     private void goToAddFlashcardPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/add-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             AddFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
@@ -156,6 +159,7 @@ public class EditManyCardsController extends ViewController {
     private void goToEditFlashcardPage(int flashcardId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId);
