@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public abstract class ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private final Localization localization = Localization.getInstance();
+    protected final Localization localization = Localization.getInstance();
 
     @FXML
     protected Label userName;

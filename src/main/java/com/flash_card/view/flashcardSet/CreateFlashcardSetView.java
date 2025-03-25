@@ -50,6 +50,7 @@ public class CreateFlashcardSetView extends ViewController {
             if (flashcardSetId != -1) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+                    loader.setResources(localization.getBundle());
                     Parent homeRoot = loader.load();
                     CreateFlashcardController controller = loader.getController(); //load the controller of CreateFlashcard
                     controller.setFlashcardSetId(flashcardSetId); //pass setId to the controller

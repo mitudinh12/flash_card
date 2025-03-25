@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+
 <HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.flashcard.CreateFlashcardController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -86,26 +86,26 @@
                 </VBox>
             </children>
         </AnchorPane>
-          <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
-              <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Create Flashcard" wrappingWidth="305.95947265625" />
-                  <TextField fx:id="termField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Term" styleClass="term" />
-                  <TextField fx:id="definitionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Definition" styleClass="definition" />
-            <VBox alignment="CENTER" spacing="10.0">
-               <children>
-                          <Button fx:id="createBtn" mnemonicParsing="false" onMouseClicked="#handleCreateFlashcard" styleClass="create-button" text="Create new card" textFill="WHITE" />
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSave" styleClass="save-button" text="SAVE" />
-                                <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="CANCEL" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-              </children>
-         <padding>
-            <Insets left="100.0" right="100.0" top="100.0" />
-         </padding>
-          </VBox>
+        <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%flashcard.createTitle" wrappingWidth="305.95947265625" />
+                <TextField fx:id="termField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="%flashcard.enterTerm" styleClass="term" />
+                <TextField fx:id="definitionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="%flashcard.enterDef" styleClass="definition" />
+                <VBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button fx:id="createBtn" mnemonicParsing="false" onMouseClicked="#handleCreateFlashcard" styleClass="create-button" text="%flashcard.createButton" textFill="WHITE" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSave" styleClass="save-button" text="%flashcard.saveButton" />
+                                <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="%flashcard.cancelButton" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="100.0" right="100.0" top="100.0" />
+            </padding>
+        </VBox>
     </children>
 </HBox>
