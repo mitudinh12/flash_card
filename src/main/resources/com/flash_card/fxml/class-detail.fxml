@@ -95,7 +95,7 @@
                         <Insets bottom="20.0" />
                     </padding>
                <children>
-                  <Button mnemonicParsing="false" onAction="#goBackToTeacherHome" styleClass="back-home" text="Back to Teacher Mode">
+                  <Button mnemonicParsing="false" onAction="#goBackToTeacherHome" styleClass="back-home" text="%detail.back">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -104,7 +104,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
                     <children>
-                        <Label fx:id="className" minWidth="650.0" styleClass="page-title" text="Teacher Mode">
+                        <Label fx:id="className" minWidth="650.0" styleClass="page-title" text="%detail.title">
                      <padding>
                         <Insets right="150.0" />
                      </padding></Label>
