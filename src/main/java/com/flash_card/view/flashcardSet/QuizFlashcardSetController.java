@@ -41,7 +41,7 @@ public class QuizFlashcardSetController extends ViewController {
         setAnswerButtonActions();
     }
 
-    private void bindProperties() {
+    protected void bindProperties() {
         setName.textProperty().bind(viewModel.setNameProperty());
         total.textProperty().bind(viewModel.totalProperty());
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
@@ -54,7 +54,7 @@ public class QuizFlashcardSetController extends ViewController {
         answerButton4.textProperty().bind(viewModel.answer4Property());
     }
 
-    private void setAnswerButtonActions() {
+    protected void setAnswerButtonActions() {
         answerButton1.setOnAction(event -> handleAnswer(answerButton1));
         answerButton2.setOnAction(event -> handleAnswer(answerButton2));
         answerButton3.setOnAction(event -> handleAnswer(answerButton3));

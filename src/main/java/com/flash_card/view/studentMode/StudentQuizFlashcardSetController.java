@@ -13,9 +13,17 @@ import java.io.IOException;
 public class StudentQuizFlashcardSetController extends QuizFlashcardSetController {
 
     @Override
+    public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/student-quiz-flashcard.fxml");
+        bindProperties();
+        setAnswerButtonActions();
+    }
+
+    @Override
     protected void goToResultPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-quiz-result.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             QuizResultController resultController = loader.getController();
             resultController.setResultView(quizId);

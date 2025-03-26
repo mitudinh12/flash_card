@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.SetViewModel;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.homepage.HomePageController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ public class FlashcardSetContainer extends HBox {
     private Label nameLabel;
     private EditFlashcardSetController editSetController = new EditFlashcardSetController();
     private boolean studentMode = false;
+    private final Localization localization = Localization.getInstance();
 
     public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
         this.viewModel = viewModel;
@@ -141,6 +143,7 @@ public class FlashcardSetContainer extends HBox {
             } else {
                 loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
             }
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
 
             //pass the FlashcardSet data to the StudyFlashcardSetController
@@ -169,6 +172,7 @@ public class FlashcardSetContainer extends HBox {
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
                 }
+                loader.setResources(localization.getBundle());
                 Parent root = loader.load();
                 QuizFlashcardSetController quizSetController = loader.getController();
                 quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
