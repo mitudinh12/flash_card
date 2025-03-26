@@ -100,12 +100,12 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="816.0">
                     <children>
-                        <Label styleClass="page-title" text="For Student" />
+                        <Label styleClass="page-title" text="%forStudent" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="107.0">
                     <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="list-title" text="Your classes" wrappingWidth="713.45849609375" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="list-title" text="%student.yourClasses" wrappingWidth="713.45849609375" />
                         <StackPane prefHeight="100.0" prefWidth="53.0">
                             <children>
                                 <ImageView fx:id="backIcon">
