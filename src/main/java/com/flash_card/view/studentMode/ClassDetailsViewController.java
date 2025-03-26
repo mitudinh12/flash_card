@@ -4,7 +4,6 @@ import com.flash_card.framework.SetViewModel;
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.student_mode.ClassDetailsViewModel;
-import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +17,10 @@ import java.util.List;
 
 public class ClassDetailsViewController extends ViewController {
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private ClassDetailsViewModel viewModel = new ClassDetailsViewModel(entityManager);
     private int classId;
+    private String classNameStr;
+    private String teacherNameStr;
 
     private int currentPage = 0;
     private final int pageSize = 8;
@@ -35,12 +35,18 @@ public class ClassDetailsViewController extends ViewController {
     @FXML
     private ImageView backIcon, nextIcon;
 
-    public void loadClass(int classId, String className, String teacherName) {
+    @FXML
+    private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/student-class-details.fxml");
         setUserName();
-        this.classId = classId;
-        setClassDetails(className, teacherName);
-        loadFlashcardSets();
-        updateNavigationControls();
+        classId = StudentClassSession.getInstance().getClassId();
+        classNameStr = StudentClassSession.getInstance().getClassName();
+        teacherNameStr = StudentClassSession.getInstance().getTeacherName();
+        if (classId != 0) {
+            setClassDetails(classNameStr, teacherNameStr);
+            loadFlashcardSets();
+            updateNavigationControls();
+        }
     }
 
     private void setClassDetails(String className, String teacherName) {

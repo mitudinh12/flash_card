@@ -64,11 +64,12 @@ public class StudentClassContainer extends HBox {
 
     public void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
         try {
+            StudentClassSession.getInstance().setClassId(classId);
+            StudentClassSession.getInstance().setClassName(className);
+            StudentClassSession.getInstance().setTeacherName(teacherName);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-class-details.fxml"));
             loader.setResources(localization.getBundle());
             Parent root = loader.load();
-            ClassDetailsViewController controller = loader.getController();
-            controller.loadClass(classId, className, teacherName);
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
