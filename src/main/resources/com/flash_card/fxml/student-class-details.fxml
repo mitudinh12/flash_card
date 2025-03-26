@@ -101,7 +101,7 @@
                   <Insets bottom="20.0" />
                </padding>
                <children>
-                  <Button mnemonicParsing="false" onAction="#goBackToStudentHome" styleClass="back-home" text="Back to Student Mode">
+                  <Button mnemonicParsing="false" onAction="#goBackToStudentHome" styleClass="back-home" text="%student.backToStudentMode">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -115,7 +115,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="107.0">
                     <children>
-                  <Text fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="teacher" text="Teacher: " />
+                  <Text fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="teacher" text="%student.teacher" />
                   <Text fx:id="teacherName" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="teacher-name" text="teacher-name" wrappingWidth="713.45849609375" />
                         <StackPane prefHeight="100.0" prefWidth="53.0">
                             <children>
