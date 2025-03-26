@@ -37,7 +37,7 @@
                                 <Image url="@../assets/icons/I-class-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%student" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%forStudent" />
                     </children>
                 </HBox>
                 <HBox fx:id="teacher" alignment="CENTER" layoutX="44.0" layoutY="266.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -47,7 +47,7 @@
                                 <Image url="@../assets/icons/I-teacher-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%teacher" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%forTeacher" />
                     </children>
                 </HBox>
                 <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="44.0" layoutY="335.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -72,7 +72,7 @@
                               <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                      </children>
                   </HBox>
-                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
+                        <ComboBox fx:id="languageComboBox" promptText="%language.select" styleClass="combo-box" onAction="#handleLanguageChange">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="English" />

@@ -10,6 +10,8 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -61,6 +64,7 @@ public class ClassDetailController extends ViewController {
     private ImageView nextButtonSet;
 
     public void initializeUI() {
+        setReloadFxml("/com/flash_card/fxml/class-detail.fxml");
         classDetailViewModel.loadStudents(classId);
         studentList = classDetailViewModel.getStudentList();
         classDetailViewModel.loadSets(classId);
@@ -83,6 +87,24 @@ public class ClassDetailController extends ViewController {
         });
 
         updatePage();
+    }
+
+    @Override
+    protected void reloadCurrentView() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/class-detail.fxml"));
+        loader.setResources(localization.getBundle());
+        try {
+            Parent root = loader.load();
+            ClassDetailController controller = loader.getController();
+            controller.setClassId(classId);
+            controller.setClassName(className.getText());
+            controller.initializeUI();
+            Scene scene = languageComboBox.getScene();
+            scene.setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setClassName(String name) {
@@ -183,13 +205,13 @@ public class ClassDetailController extends ViewController {
     private void handleAssignSet() {
         Stage addSetStage = new Stage();
         addSetStage.initModality(Modality.APPLICATION_MODAL);
-        addSetStage.setTitle("Assign Flashcard Set");
+        addSetStage.setTitle(localization.getMessage("teacher.titleAssignSet"));
 
         VBox layout = new VBox();
         layout.getStyleClass().add("layout-check-boxes");
         layout.setPadding(new Insets(20));
 
-        Label label = new Label("Select the flashcard sets you want to assign");
+        Label label = new Label(localization.getMessage("teacher.labelAssignSet"));
         label.getStyleClass().add("assign-label");
         layout.getChildren().add(label);
 
@@ -207,7 +229,7 @@ public class ClassDetailController extends ViewController {
             checkboxes.getChildren().add(checkBox);
         }
 
-        Button assignButton = new Button("Assign");
+        Button assignButton = new Button(localization.getMessage("teacher.assignButton"));
         assignButton.getStyleClass().add("confirm-assign-button");
         assignButton.setOnAction(e -> {
             List<Integer> selectedSets = new ArrayList<>();
@@ -220,7 +242,7 @@ public class ClassDetailController extends ViewController {
             addSetStage.close();
              int result = classDetailViewModel.assignSets(selectedSets, classId);
             if (result == -1) {
-                showAlert("Error", "Error in assigning flashcard sets");
+                showAlert(localization.getMessage("home.error"), localization.getMessage("teacher.errorAssign.message"));
             } else {
                 updatePage();
             }
@@ -240,20 +262,20 @@ public class ClassDetailController extends ViewController {
     @FXML
     private void handleAddStudent() {
         Stage newStage = new Stage();
-        newStage.setTitle("ADD NEW STUDENT");
+        newStage.setTitle(localization.getMessage("teacher.titleAddStudent"));
         VBox layout = new VBox();
         layout.getStyleClass().add("layout-check-boxes");
         layout.alignmentProperty().set(javafx.geometry.Pos.CENTER);
         layout.setPadding(new Insets(20));
         layout.setSpacing(10);
 
-        Label emailLabel = new Label("Enter student email");
+        Label emailLabel = new Label(localization.getMessage("teacher.labelAddStudent"));
         emailLabel.getStyleClass().add("assign-label");
 
         TextField emailField = new TextField();
         emailField.setId("email-field");
 
-        Button shareButton = new Button("Add Student");
+        Button shareButton = new Button(localization.getMessage("teacher.addButton"));
         shareButton.getStyleClass().add("confirm-assign-button");
 
         layout.getChildren().addAll(emailLabel, emailField, shareButton);
@@ -268,15 +290,15 @@ public class ClassDetailController extends ViewController {
 
         shareButton.setOnAction(event -> {
             if (!teacherViewModel.isUserValid(emailField.getText())) {
-                showAlert("Invalid email", "The email you entered is not valid. Please try again.");
+                showAlert(localization.getMessage("teacher.errorAdd1"), localization.getMessage("teacher.errorAdd1.message"));
                 return;
             } else if (teacherViewModel.isStudentAdded(classId, emailField.getText())) {
-                showAlert("Invalid sharing","This student is already added to this class");
+                showAlert(localization.getMessage("teacher.errorAdd2"),localization.getMessage("teacher.errorAdd2.message"));
             }
             else {
                 int result = teacherViewModel.addStudent(classId, emailField.getText());
                 if (result != 1) {
-                    showAlert("Error", "Error in adding student to class");
+                    showAlert(localization.getMessage("teacher.error"), localization.getMessage("teacher.errorAdd.message"));
                 } else {
                     classDetailViewModel.loadStudents(classId);
                     updatePage();
@@ -294,7 +316,7 @@ public class ClassDetailController extends ViewController {
     public void deleteAssignedSet(AssignedFlashcardSetViewModel viewModel) {
         int result = classDetailViewModel.deleteSet(classId, viewModel);
         if (result == 0) {
-            showAlert("Error", "Error in deleting flashcard set");
+            showAlert(localization.getMessage("teacher.error"), localization.getMessage("teacher.errorDelete.message"));
         }  else {
             updatePage();
         }
@@ -303,7 +325,7 @@ public class ClassDetailController extends ViewController {
     public void deleteStudent(StudentViewModel viewModel) {
         String result = classDetailViewModel.deleteStudent(classId, viewModel);
         if (result != null) {
-            showAlert("Error", result);
+            showAlert(localization.getMessage("teacher.error"), result);
         }
     }
 

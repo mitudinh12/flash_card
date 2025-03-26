@@ -1,5 +1,6 @@
 package com.flash_card.view_model.teacher_mode;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.model.entity.FlashcardSet;
 import com.flash_card.model.entity.User;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;
@@ -13,6 +14,7 @@ public class ClassDetailViewModel {
     private final ObservableList<StudentViewModel> studentList = FXCollections.observableArrayList();
     private final ObservableList<AssignedFlashcardSetViewModel> setList = FXCollections.observableArrayList();
     private TeacherViewModel teacherViewModel;
+    private final Localization localization = Localization.getInstance();
 
     public ClassDetailViewModel(String teacherId, EntityManager em) {
         this.teacherViewModel = new TeacherViewModel(teacherId, em);
@@ -62,7 +64,7 @@ public class ClassDetailViewModel {
             studentList.remove(viewModel);
             return null;
         } else {
-            return "Error in deleting student";
+            return localization.getMessage("teacher.errorDeleteStudent.message");
         }
     }
 

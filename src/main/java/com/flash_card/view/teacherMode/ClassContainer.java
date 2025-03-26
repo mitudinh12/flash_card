@@ -1,5 +1,6 @@
 package com.flash_card.view.teacherMode;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.teacher_mode.ClassRoomViewModel;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ public class ClassContainer extends HBox {
     private HomeTeacherController controller;
     private ClassRoomViewModel viewModel;
     private Label classNameLabel;
+    private final Localization localization = Localization.getInstance();
 
     public ClassContainer(ClassRoomViewModel viewModel, HomeTeacherController controller) {
         this.controller = controller;
@@ -33,8 +35,8 @@ public class ClassContainer extends HBox {
         Label numberStudent = new Label();
         numberStudent.setId("number-student-label");
         numberStudent.textProperty().bind(viewModel.getNumberStudents());
-        Label studentLabel1 = new Label("  student");
-        Label studentLabel2 = new Label("  students");
+        Label studentLabel1 = new Label(" " + localization.getMessage("student"));
+        Label studentLabel2 = new Label("  " + localization.getMessage("students"));
         int numStudent = Integer.parseInt(viewModel.getNumberStudents().getValue());
         if (numStudent > 1) {
             numberStudentContainer.getChildren().addAll(numberStudent, studentLabel2);
@@ -46,8 +48,8 @@ public class ClassContainer extends HBox {
         Label numberFlashcard = new Label();
         numberFlashcard.setId("number-flashcard-label");
         numberFlashcard.textProperty().bind(viewModel.getNumberSets());
-        Label setLabel1 = new Label("  set");
-        Label setLabel2 = new Label("  sets");
+        Label setLabel1 = new Label("  " + localization.getMessage("set"));
+        Label setLabel2 = new Label("  " + localization.getMessage("sets"));
         int numSet = Integer.parseInt(viewModel.getNumberSets().getValue());
         if (numSet > 0) {
             numberFlashcardContainer.getChildren().addAll(numberFlashcard, setLabel2);
@@ -55,11 +57,11 @@ public class ClassContainer extends HBox {
             numberFlashcardContainer.getChildren().addAll(numberFlashcard, setLabel1);
         }
 
-        Button editButton = new Button("Edit");
+        Button editButton = new Button(localization.getMessage("edit"));
         editButton.setId("edit-button");
         editButton.setOnAction(event -> gotoEditClassPage());
 
-        Button deleteButton = new Button("Delete");
+        Button deleteButton = new Button(localization.getMessage("delete"));
         deleteButton.setId("delete-button");
         deleteButton.setOnAction(event -> controller.deleteClass(viewModel));
 
