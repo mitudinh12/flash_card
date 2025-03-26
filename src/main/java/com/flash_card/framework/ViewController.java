@@ -75,7 +75,7 @@ public abstract class ViewController {
         }
     }
 
-    protected void setReloadFxml(String fxmlFilePath) {
+    public void setReloadFxml(String fxmlFilePath) {
         languageComboBox.setValue(localization.getMessage("language")); //display chosen or default language in combobox
         languageComboBox.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -169,9 +169,9 @@ public abstract class ViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             loader.setResources(localization.getBundle());
-            setReloadFxml(fxmlFile);
             Parent root = loader.load();
             scene.setRoot(root);
+            setReloadFxml(fxmlFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

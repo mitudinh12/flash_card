@@ -75,11 +75,13 @@ public class ClassContainer extends HBox {
     public void gotoEditClassPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-class.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditClassController controller = loader.getController();
             controller.setClassRoom(viewModel.getClassId() , viewModel.getClassName().getValue(), viewModel.getClassDescription());
             Scene scene = classNameLabel.getScene();
             scene.setRoot(root);
+            controller.setReloadFxml ("/com/flash_card/fxml/class-detail.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

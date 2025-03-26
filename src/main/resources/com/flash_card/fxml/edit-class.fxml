@@ -27,7 +27,7 @@
                                 <Image url="@../assets/icons/I-home-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Home" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%home" />
                     </children>
                 </HBox>
                 <HBox fx:id="student" alignment="CENTER" layoutX="47.0" layoutY="199.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -37,7 +37,7 @@
                                 <Image url="@../assets/icons/I-class-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="For Student" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%forStudent" />
                     </children>
                 </HBox>
                 <HBox fx:id="teacher" alignment="CENTER" layoutX="44.0" layoutY="266.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -47,7 +47,7 @@
                                 <Image url="@../assets/icons/I-teacher-black.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="For Teacher" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-black" text="%forTeacher" />
                     </children>
                 </HBox>
                 <HBox fx:id="createFlashcardSet" alignment="CENTER" layoutX="44.0" layoutY="335.0" onMouseClicked="#handleMenuClick" spacing="20.0">
@@ -57,7 +57,7 @@
                                 <Image url="@../assets/icons/I-create-card-white.png" />
                             </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="Create Set" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="menu-text-white" text="%createSet" />
                     </children>
                 </HBox>
                 <VBox layoutX="66.0" layoutY="693.0" spacing="5.0">
@@ -69,10 +69,10 @@
                                         <Image url="@../assets/icons/language.png" />
                                     </image>
                                 </ImageView>
-                                <Label styleClass="menu-text-white" text="Language" textFill="WHITE" />
+                                <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                             </children>
                         </HBox>
-                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
+                        <ComboBox fx:id="languageComboBox" promptText="%language.select" styleClass="combo-box" onAction="#handleLanguageChange">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="English" />
@@ -89,14 +89,14 @@
         </AnchorPane>
         <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
             <children>
-                <Button mnemonicParsing="false" text="Go Back" styleClass="back-home" onAction="#handleBack" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Create Class" wrappingWidth="305.95947265625" />
-                <TextField fx:id="classNameField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="Enter Class Name" styleClass="term" />
-                <TextField fx:id="classDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="Enter Class Description" styleClass="definition" />
+                <Button mnemonicParsing="false" text="%detail.back" styleClass="back-home" onAction="#handleBack" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%teacher.createClass" wrappingWidth="305.95947265625" />
+                <TextField fx:id="classNameField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="%create.className" styleClass="term" />
+                <TextField fx:id="classDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="%create.classDescription" styleClass="definition" />
                 <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
                     <children>
-                        <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSaveClass" styleClass="create-class-button" text="Save" textFill="WHITE" />
-                        <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-class-button" text="Cancel" textFill="#464545">
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSaveClass" styleClass="create-class-button" text="%update.save" textFill="WHITE" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-class-button" text="%create.cancel" textFill="#464545">
                             <font>
                                 <Font size="11.0" />
                             </font>
