@@ -169,6 +169,7 @@ public abstract class ViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             loader.setResources(localization.getBundle());
+            setReloadFxml(fxmlFile);
             Parent root = loader.load();
             scene.setRoot(root);
         } catch (IOException e) {

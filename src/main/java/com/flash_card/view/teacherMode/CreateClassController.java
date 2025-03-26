@@ -23,16 +23,15 @@ public class CreateClassController extends ViewController {
     @FXML
     public void handleCreateClass() {
         if (classNameField.getText().isEmpty() || classDescriptionField.getText().isEmpty()) {
-            showAlert("Warning", "Please fill in both class name and description fields");
+            showAlert(localization.getMessage("teacher.warning"), localization.getMessage("teacher.warningMessage"));
             return;
         }
         int result = viewModel.addClass(classNameField.getText(), classDescriptionField.getText());
         if (result != -1) {
-            showAlert("Success", "Class created successfully");
-            System.out.println("Class created. Create new one");
+            showAlert(localization.getMessage("teacher.success"), localization.getMessage("teacher.successMessage"));
             clearFields();
         } else {
-            showAlert("Error", "Error in creating new class");
+            showAlert(localization.getMessage("teacher.error"), localization.getMessage("teacher.errorCreateClass"));
         }
     }
 
