@@ -18,9 +18,12 @@ public class LoginView extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
+            String fxmlPath = "/com/flash_card/fxml/login.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             fxmlLoader.setResources(localization.getBundle());
             Parent root = fxmlLoader.load();
+            LoginViewController controller = fxmlLoader.getController();
+            controller.setReloadFxml(fxmlPath);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException e) {

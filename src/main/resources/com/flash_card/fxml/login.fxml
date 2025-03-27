@@ -9,6 +9,10 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
    <children>
       <ImageView fitHeight="827.0" fitWidth="1322.0">
@@ -16,18 +20,46 @@
             <Image url="@../assets/backgrounds/BG-landing3.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" prefHeight="791.0" prefWidth="1276.0">
-         <children>
-            <Button fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginWithGoogle" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="%loginButton" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-            </Button>
-            <Label fx:id="countdownLabel" visible="false" />
-         </children>
-         <padding>
-            <Insets top="130.0" />
-         </padding>
+      <VBox>
+         <VBox layoutX="66.0" layoutY="693.0" spacing="5.0">
+            <children>
+               <HBox alignment="CENTER" spacing="5.0">
+                  <children>
+                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../assets/icons/language.png" />
+                        </image>
+                     </ImageView>
+                     <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
+                  </children>
+               </HBox>
+               <ComboBox fx:id="languageComboBox" promptText="%language.select" styleClass="combo-box" onAction="#handleLanguageChange">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="English" />
+                        <String fx:value="Suomi" />
+                        <String fx:value="ภาษาไทย" />
+                        <String fx:value="한국인" />
+                        <String fx:value="Tiếng Việt" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" prefHeight="791.0" prefWidth="1276.0">
+            <children>
+               <Button fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginWithGoogle" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="%loginButton" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="19.0" />
+                  </font>
+               </Button>
+               <Label fx:id="countdownLabel" visible="false" />
+            </children>
+            <padding>
+               <Insets top="130.0" />
+            </padding>
+         </VBox>
       </VBox>
+
    </children>
 </StackPane>

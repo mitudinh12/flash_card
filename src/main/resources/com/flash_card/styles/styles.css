@@ -358,12 +358,12 @@ listClassesUI {
 /* Teacher mode*/
 
 .list-title {
-    -fx-font-size: 25;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
 .blueClassButton {
-    -fx-font-size: 22;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-background-color: #205BFD;
     -fx-background-radius: 8;
@@ -371,7 +371,7 @@ listClassesUI {
 }
 
 .create-class-button {
-    -fx-font-size: 16;
+    -fx-font-size: 15;
     -fx-font-color: #FFFFFF;
     -fx-font-weight: bold;
     -fx-min-width: 80;
@@ -380,7 +380,7 @@ listClassesUI {
 }
 
 .cancel-class-button {
-    -fx-font-size: 16;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-background-color: #FFFFFF;
     -fx-border-color: #5F5F5F;

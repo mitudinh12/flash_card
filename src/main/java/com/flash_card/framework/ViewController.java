@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public abstract class ViewController {
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private final Localization localization = Localization.getInstance();
+    protected final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    protected final Localization localization = Localization.getInstance();
 
     @FXML
     protected Label userName;
@@ -75,7 +75,7 @@ public abstract class ViewController {
         }
     }
 
-    protected void setReloadFxml(String fxmlFilePath) {
+    public void setReloadFxml(String fxmlFilePath) {
         languageComboBox.setValue(localization.getMessage("language")); //display chosen or default language in combobox
         languageComboBox.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -171,6 +171,7 @@ public abstract class ViewController {
             loader.setResources(localization.getBundle());
             Parent root = loader.load();
             scene.setRoot(root);
+            setReloadFxml(fxmlFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

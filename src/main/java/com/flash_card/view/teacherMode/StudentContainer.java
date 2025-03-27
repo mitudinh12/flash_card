@@ -1,5 +1,6 @@
 package com.flash_card.view.teacherMode;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.teacher_mode.StudentViewModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ public class StudentContainer extends HBox {
     private StudentViewModel viewModel;
     private ClassDetailController controller;
     private Label studentLabel;
+    private final Localization localization = Localization.getInstance();
 
     public StudentContainer(StudentViewModel viewModel, ClassDetailController controller) {
         this.controller = controller;
@@ -27,7 +29,7 @@ public class StudentContainer extends HBox {
         email.setId("student-email-label");
         email.textProperty().bind(viewModel.getStudentEmail());
 
-        Button deleteButton = new Button("Remove");
+        Button deleteButton = new Button(localization.getMessage("teacher.buttonRemove"));
         deleteButton.setId("remove-button");
         deleteButton.setOnAction(event -> controller.deleteStudent(viewModel));
 
