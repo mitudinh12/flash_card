@@ -1,5 +1,6 @@
 package com.flash_card.view_model.flashcard_set;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.model.dao.QuizDao;
 import com.flash_card.model.entity.Quiz;
 import jakarta.persistence.EntityManager;
@@ -14,6 +15,7 @@ public class QuizResultViewModel {
     private int quizId;
     private Quiz quiz;
     private StringProperty quizTime = new SimpleStringProperty();
+    private Localization localization = Localization.getInstance();
 
     public QuizResultViewModel(EntityManager entityManager, int quizId) {
         quizDao = QuizDao.getInstance(entityManager);
@@ -43,8 +45,7 @@ public class QuizResultViewModel {
         long seconds = duration.getSeconds();
         long minutes = seconds / 60;
         seconds = seconds % 60;
-        System.out.println("Quiz time: " + minutes + "m " + seconds + "s");
-        quizTime.set("Quiz time: " + minutes + "m " + seconds + "s");
+        quizTime.set(localization.getMessage("flashcardSet.quizTime") + minutes + localization.getMessage("flashcardSet.minuteAnnotation") + seconds + localization.getMessage("flashcardSet.secondAnnotation"));
     }
 
     public StringProperty quizTimeProperty() {

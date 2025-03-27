@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -25,6 +26,7 @@ public class QuizFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final QuizFlashcardSetViewModel viewModel = new QuizFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private Localization localization = Localization.getInstance();
     private int setId;
     protected int quizId;
 
@@ -39,6 +41,7 @@ public class QuizFlashcardSetController extends ViewController {
     public void initialize() {
         bindProperties();
         setAnswerButtonActions();
+        setReloadFxml("/com/flash_card/fxml/quiz-flashcard.fxml");
     }
 
     private void bindProperties() {
@@ -117,6 +120,7 @@ public class QuizFlashcardSetController extends ViewController {
     protected void goToResultPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-result.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             QuizResultController resultController = loader.getController();
             resultController.setResultView(quizId);

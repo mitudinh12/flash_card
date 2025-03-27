@@ -68,7 +68,7 @@
                                         <Image url="@../assets/icons/language.png" />
                                     </image>
                                 </ImageView>
-                                <Label styleClass="menu-text-white" text="Language" textFill="WHITE" />
+                                <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                             </children>
                         </HBox>
                         <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
