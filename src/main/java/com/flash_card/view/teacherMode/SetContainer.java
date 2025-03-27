@@ -1,5 +1,6 @@
 package com.flash_card.view.teacherMode;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.AssignedFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.ProgressViewModel;
@@ -25,7 +26,7 @@ public class SetContainer extends HBox {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final ProgressViewModel progressViewModel = new ProgressViewModel(entityManager);
     private int setId;
-
+    private final Localization localization = Localization.getInstance();
 
     public SetContainer(AssignedFlashcardSetViewModel viewModel, ClassDetailController controller) {
         this.viewModel = viewModel;
@@ -35,7 +36,6 @@ public class SetContainer extends HBox {
     }
 
     private void initializeUI() {
-
         nameLabel = new Label();
         nameLabel.setId("name-label2");
         nameLabel.textProperty().bind(viewModel.setNameProperty());
@@ -46,8 +46,8 @@ public class SetContainer extends HBox {
 
         HBox numberFlashcardContainer = new HBox();
         Label numberFlashcard = new Label();
-        Label term1 = new Label(" term");
-        Label term2 = new Label(" terms");
+        Label term1 = new Label(" " + localization.getMessage("term"));
+        Label term2 = new Label(" " + localization.getMessage("terms"));
         numberFlashcardContainer.setId("number-flashcard");
         numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
         int numFlashcard = Integer.parseInt(viewModel.setNumberFlashcard().getValue());
@@ -58,8 +58,8 @@ public class SetContainer extends HBox {
         }
         numberFlashcardContainer.alignmentProperty().setValue(Pos.CENTER);
 
-        Button actionButton = new Button("Remove");
-        Button progressButton = new Button("Track Progress");
+        Button actionButton = new Button(localization.getMessage("teacher.buttonRemove"));
+        Button progressButton = new Button(localization.getMessage("teacher.buttonProgress"));
         progressButton.setId("action-button");
         actionButton.setId("action-button");
         actionButton.setOnAction(event -> {
@@ -79,17 +79,17 @@ public class SetContainer extends HBox {
     private void showAllStudentsProgressPopup() {
         Stage progressStage = new Stage();
         progressStage.initModality(Modality.APPLICATION_MODAL);
-        progressStage.setTitle("Students' Progress");
+        progressStage.setTitle(localization.getMessage("teacher.progress"));
 
         TableView<Map<String, Object>> tableView = new TableView<>();
 
-        TableColumn<Map<String, Object>, String> nameColumn = new TableColumn<>("Student Name");
+        TableColumn<Map<String, Object>, String> nameColumn = new TableColumn<>(localization.getMessage("teacher.studentName"));
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty((String) data.getValue().get("studentName")));
 
-        TableColumn<Map<String, Object>, String> flashcardsColumn = new TableColumn<>("Studied/Total Flashcards");
+        TableColumn<Map<String, Object>, String> flashcardsColumn = new TableColumn<>(localization.getMessage("teacher.columnStudy"));
         flashcardsColumn.setCellValueFactory(data -> new SimpleStringProperty((String) data.getValue().get("flashcardsProgress")));
 
-        TableColumn<Map<String, Object>, Double> quizPercentageColumn = new TableColumn<>("Highest Quiz Percentage");
+        TableColumn<Map<String, Object>, Double> quizPercentageColumn = new TableColumn<>(localization.getMessage("teacher.columnQuiz"));
         quizPercentageColumn.setCellValueFactory(data -> new SimpleDoubleProperty((Double) data.getValue().get("highestQuizPercentage")).asObject());
 
         tableView.getColumns().addAll(nameColumn, flashcardsColumn, quizPercentageColumn);
