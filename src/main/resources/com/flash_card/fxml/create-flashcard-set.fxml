@@ -98,7 +98,7 @@
                 <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0" spacing="10.0">
                     <children>
                         <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-button" text="%flashcardSet.createButton" textFill="WHITE" />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" text="%flashcardSet.cancelButton" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" text="%cancelButton" />
                     </children>
                 </HBox>
             </children>
