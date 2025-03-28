@@ -118,7 +118,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
                <children>
-                  <Text fx:id="instructionText1" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Term" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                  <Text fx:id="instructionText1" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%termTitle" textAlignment="CENTER" wrappingWidth="404.55029296875" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
