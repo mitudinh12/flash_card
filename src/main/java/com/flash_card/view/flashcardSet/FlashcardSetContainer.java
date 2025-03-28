@@ -40,8 +40,8 @@ public class FlashcardSetContainer extends HBox {
 
         HBox numberFlashcardContainer = new HBox();
         Label numberFlashcard = new Label();
-        Label term1 = new Label(localization.getMessage("term"));
-        Label term2 = new Label(localization.getMessage("terms"));
+        Label term1 = new Label(" " + localization.getMessage("term"));
+        Label term2 = new Label(" " + localization.getMessage("terms"));
         numberFlashcardContainer.setId("number-flashcard");
         numberFlashcard.textProperty().bind(viewModel.setNumberFlashcard());
         int numFlashcard = Integer.parseInt(viewModel.setNumberFlashcard().getValue());

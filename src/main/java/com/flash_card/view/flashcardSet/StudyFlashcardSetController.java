@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.flashcard.FlashcardView;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
@@ -27,6 +28,7 @@ public class StudyFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     protected final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private Localization localization = Localization.getInstance();
     protected int setId;
 
     @FXML private Label index, total, setName;
@@ -38,6 +40,7 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/study-flashcard.fxml");
         setName.textProperty().bind(viewModel.setNameProperty());
         total.textProperty().bind(viewModel.totalProperty());
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
@@ -55,7 +58,7 @@ public class StudyFlashcardSetController extends ViewController {
         boolean flashcardsEmpty = viewModel.getFlashcards().isEmpty();
         setFlashcardControlsVisibility(!flashcardsEmpty); //hide controls if no flashcards
         if (flashcardsEmpty) {
-            Label messageLabel = new Label("You have studied all flashcards, press reset to study again.");
+            Label messageLabel = new Label(localization.getMessage("flashcardSet.reStudy"));
             messageLabel.getStyleClass().add("message-label");
             flashcardContainer.setAlignment(Pos.TOP_CENTER);
             flashcardContainer.getChildren().add(messageLabel);
@@ -104,6 +107,7 @@ public class StudyFlashcardSetController extends ViewController {
     protected void goToReviewPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             ReviewFlashcardSetController reviewController = loader.getController();
             reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get(), viewModel);

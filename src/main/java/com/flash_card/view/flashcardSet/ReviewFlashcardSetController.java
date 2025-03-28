@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class ReviewFlashcardSetController extends ViewController {
     private StudyFlashcardSetViewModel viewModel;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private Localization localization = Localization.getInstance();
 
     @FXML
     public Label setNameLabel;
@@ -30,6 +32,10 @@ public class ReviewFlashcardSetController extends ViewController {
 
     private int setId;
     private String setName;
+
+    public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/review-flashcard.fxml");
+    }
 
     public void setFlashcardSet(int setId, String setName, StudyFlashcardSetViewModel viewModel) {
         this.setId = setId;
@@ -48,8 +54,8 @@ public class ReviewFlashcardSetController extends ViewController {
         int totalCards = viewModel.getTotalFlashcards();
         int studiedCards = viewModel.getStudiedFlashcards();
         int leftCards = totalCards - studiedCards;
-        PieChart.Data studiedData = new PieChart.Data("Studied (" + studiedCards + ")", studiedCards);
-        PieChart.Data leftData = new PieChart.Data("Left (" + leftCards + ")", leftCards);
+        PieChart.Data studiedData = new PieChart.Data(localization.getMessage("flashcardSet.studied") +" (" + studiedCards + ")", studiedCards);
+        PieChart.Data leftData = new PieChart.Data(localization.getMessage("flashcardSet.left")+" (" + leftCards + ")", leftCards);
         pieChart.getData().clear();
         pieChart.getData().addAll(studiedData, leftData);
     }
@@ -58,6 +64,7 @@ public class ReviewFlashcardSetController extends ViewController {
     public void handleReview(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
 
             //pass data back to studyFlashcardController
@@ -73,10 +80,11 @@ public class ReviewFlashcardSetController extends ViewController {
     @FXML
     public void handleQuiz(ActionEvent actionEvent) {
         if (viewModel.getTotalFlashcards() < 4) {
-            showAlert("Error","You need at least 4 flashcards to start a quiz");
+            showAlert(localization.getMessage("flashcardSet.errorTitle"),localization.getMessage("flashcardSet.errorQuizSet"));
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
+                loader.setResources(localization.getBundle());
                 Parent root = loader.load();
                 QuizFlashcardSetController quizSetController = loader.getController();
                 quizSetController.setFlashcardSet(setId, setName);
