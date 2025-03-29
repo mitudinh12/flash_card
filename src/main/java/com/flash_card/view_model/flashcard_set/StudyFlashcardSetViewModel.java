@@ -117,10 +117,10 @@ public class StudyFlashcardSetViewModel {
             long seconds = duration.getSeconds();
             long minutes = seconds / 60;
             seconds = seconds % 60;
-            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + minutes + " minutes " + seconds + " seconds");
-            studiedNum.set(localization.getMessage("flashcardSet.flashcardStudied") + study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
+            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + minutes + " " + localization.getMessage("flashcardSet.minuteAnnotation") + seconds + " " + localization.getMessage("flashcardSet.secondAnnotation"));
+            studiedNum.set(localization.getMessage("flashcardSet.flashcardStudied") + " " + study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
         } else {
-            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + "0 " + "seconds");
+            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + "0 " + localization.getMessage("flashcardSet.secondAnnotation"));
             studiedNum.set(localization.getMessage("flashcardSet.flashcardStudied") + "0/" + flashcardDao.findBySetId(setId).size());
         }
     }
