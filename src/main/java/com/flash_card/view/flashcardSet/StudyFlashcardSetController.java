@@ -29,7 +29,8 @@ public class StudyFlashcardSetController extends ViewController {
     protected final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private Localization localization = Localization.getInstance();
-    protected int setId;
+    protected static int setId;
+    protected static String name;
 
     @FXML private Label index, total, setName;
     @FXML private StackPane backIcon, nextIcon;
@@ -44,10 +45,14 @@ public class StudyFlashcardSetController extends ViewController {
         setName.textProperty().bind(viewModel.setNameProperty());
         total.textProperty().bind(viewModel.totalProperty());
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
+        viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
+        viewModel.loadFlashcards(setId, name);
+        showFlashcard();
     }
 
     public void setFlashcardSet(int setId, String setName) {
-        this.setId = setId;
+        StudyFlashcardSetController.setId = setId;
+        StudyFlashcardSetController.name = setName;
         viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
         viewModel.loadFlashcards(setId, setName);
         showFlashcard();
