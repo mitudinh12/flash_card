@@ -96,8 +96,8 @@
                         <Button fx:id="createBtn" mnemonicParsing="false" onMouseClicked="#handleCreateFlashcard" styleClass="create-button" text="%flashcard.createButton" textFill="WHITE" />
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>
-                                <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSave" styleClass="save-button" text="%flashcard.saveButton" />
-                                <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="%flashcard.cancelButton" />
+                                <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSave" styleClass="save-button" text="%save" />
+                                <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="cancel-button" text="%cancelButton" />
                             </children>
                         </HBox>
                     </children>

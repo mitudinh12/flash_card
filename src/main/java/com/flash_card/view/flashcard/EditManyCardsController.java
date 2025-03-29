@@ -76,7 +76,7 @@ public class EditManyCardsController extends ViewController {
 
             Button editButton = new Button(localization.getMessage("flashcard.edit"));
             editButton.getStyleClass().add("edit-action-button");
-            Button deleteButton = new Button(localization.getMessage("flashcard.delete"));
+            Button deleteButton = new Button(localization.getMessage("delete"));
             deleteButton.getStyleClass().add("delete-action-button");
 
             editButton.setOnAction(event -> handleEditFlashcard(flashcardId));

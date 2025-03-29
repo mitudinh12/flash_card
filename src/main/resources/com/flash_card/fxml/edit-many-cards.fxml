@@ -89,7 +89,7 @@
         <VBox prefHeight="832.0" prefWidth="1025.0">
             <children>
                 <HBox prefHeight="2.0" prefWidth="816.0">
-                    <Button fx:id="backToHomepage" onAction="#displayHomepage" styleClass="back-home" text="%flashcard.backToHome" />
+                    <Button fx:id="backToHomepage" onAction="#displayHomepage" styleClass="back-home" text="%backToHome" />
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
