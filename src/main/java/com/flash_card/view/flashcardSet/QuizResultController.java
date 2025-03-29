@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class QuizResultController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private Localization localization = Localization.getInstance();
+    private QuizSession quizSession = QuizSession.getInstance();
 
     @FXML
     public Label setNameLabel;
@@ -28,17 +28,15 @@ public class QuizResultController extends ViewController {
     @FXML
     public PieChart pieChart;
 
-    private int setId;
     private String setName;
 
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/quiz-result.fxml");
+        setResultView(quizSession.getQuizId());
     }
 
     public void setResultView(int quizId) {
         QuizResultViewModel quizResultViewModel = new QuizResultViewModel(entityManager, quizId);
-
-        this.setId = quizResultViewModel.getFlashcardSetId();
         this.setName = quizResultViewModel.getSetName();
         int correctCount = quizResultViewModel.getTotalCorrect();
         int wrongCount = quizResultViewModel.getTotalWrong();
@@ -53,25 +51,15 @@ public class QuizResultController extends ViewController {
 
     @FXML
     public void handleStudy(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
-            loader.setResources(localization.getBundle());
-            Parent root = loader.load();
-
-            //pass data back to studyFlashcardController
-            StudyFlashcardSetController studySetController = loader.getController();
-            studySetController.setFlashcardSet(setId, setName);
-            Scene scene = setNameLabel.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StudySession session = StudySession.getInstance();
+        session.setSetId(quizSession.getSetId());
+        session.setSetName(quizSession.getSetName());
+        goToPage("/com/flash_card/fxml/study-flashcard.fxml", setNameLabel.getScene());
     }
 
     @FXML
     public void goToHome(ActionEvent actionEvent) {
+        quizSession.clear();
         goToPage("/com/flash_card/fxml/home.fxml", setNameLabel.getScene());
     }
-
-
 }

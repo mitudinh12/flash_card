@@ -27,11 +27,10 @@ import java.io.IOException;
 public class StudyFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     protected final StudyFlashcardSetViewModel viewModel = new StudyFlashcardSetViewModel(entityManager);
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private Localization localization = Localization.getInstance();
-    protected int setId;
+    protected final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    protected StudySession session = StudySession.getInstance();
 
-    @FXML private Label index, total, setName;
+    @FXML protected Label index, total, setName;
     @FXML private StackPane backIcon, nextIcon;
     @FXML private VBox flashcardContainer;
     @FXML private Button easyButton, hardButton;
@@ -44,16 +43,12 @@ public class StudyFlashcardSetController extends ViewController {
         setName.textProperty().bind(viewModel.setNameProperty());
         total.textProperty().bind(viewModel.totalProperty());
         index.textProperty().bind(viewModel.currentIndexProperty().add(1).asString());
-    }
-
-    public void setFlashcardSet(int setId, String setName) {
-        this.setId = setId;
-        viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
-        viewModel.loadFlashcards(setId, setName);
+        viewModel.startStudy(authSessionViewModel.getVerifiedUserInfo().get("userId"), session.getSetId());
+        viewModel.loadFlashcards(session.getSetId(), session.getSetName());
         showFlashcard();
     }
 
-    private void showFlashcard() {
+    protected void showFlashcard() {
         flashcardContainer.getChildren().clear();
         boolean flashcardsEmpty = viewModel.getFlashcards().isEmpty();
         setFlashcardControlsVisibility(!flashcardsEmpty); //hide controls if no flashcards
@@ -100,23 +95,11 @@ public class StudyFlashcardSetController extends ViewController {
 
     @FXML
     public void handleClose(MouseEvent mouseEvent) {
-        viewModel.endStudy(); //end the study when press close and go to review page
+        viewModel.endStudy();//end the study when press close and go to review page
+        session.setViewModel(viewModel);
         goToReviewPage();
     }
 
-    protected void goToReviewPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/review-flashcard.fxml"));
-            loader.setResources(localization.getBundle());
-            Parent root = loader.load();
-            ReviewFlashcardSetController reviewController = loader.getController();
-            reviewController.setFlashcardSet(setId, viewModel.setNameProperty().get(), viewModel);
-            Scene scene = easyButton.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void handleNext(MouseEvent mouseEvent) {
@@ -125,6 +108,7 @@ public class StudyFlashcardSetController extends ViewController {
             showFlashcard();
         } else {
             viewModel.endStudy(); //end the study when after the last card
+            session.setViewModel(viewModel);
             goToReviewPage();
         }
     }
@@ -151,7 +135,7 @@ public class StudyFlashcardSetController extends ViewController {
     public void handleReset(MouseEvent mouseEvent) {
         viewModel.resetAllFlashcardLevel();
         viewModel.currentIndexProperty().set(0);
-        viewModel.loadFlashcards(setId, viewModel.setNameProperty().get());
+        viewModel.loadFlashcards(session.getSetId(), viewModel.setNameProperty().get());
         showFlashcard();
     }
 
@@ -159,5 +143,9 @@ public class StudyFlashcardSetController extends ViewController {
     public void handleShuffle(MouseEvent mouseEvent) {
         viewModel.shuffleFlashcards(); //shuffle cards and reset the index to show the first card
         showFlashcard(); //refresh the display to show the shuffled flashcards
+    }
+
+    protected void goToReviewPage() {
+        goToPage("/com/flash_card/fxml/review-flashcard.fxml", easyButton.getScene());
     }
 }

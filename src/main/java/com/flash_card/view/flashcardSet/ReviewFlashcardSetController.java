@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ReviewFlashcardSetController extends ViewController {
     private StudyFlashcardSetViewModel viewModel;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private Localization localization = Localization.getInstance();
+    protected StudySession session = StudySession.getInstance();
 
     @FXML
     public Label setNameLabel;
@@ -30,19 +30,16 @@ public class ReviewFlashcardSetController extends ViewController {
     @FXML
     public PieChart pieChart;
 
-    private int setId;
-    private String setName;
-
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/review-flashcard.fxml");
+        setFlashcardSet(session.getSetId(), session.getSetName());
     }
 
-    public void setFlashcardSet(int setId, String setName, StudyFlashcardSetViewModel viewModel) {
-        this.setId = setId;
-        this.setName = setName;
+    public void setFlashcardSet(int setId, String setName) {
+
         setNameLabel.setText(setName);
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
-        this.viewModel = viewModel;
+        this.viewModel = session.getViewModel();
 
         //load flashcards and update study details
         viewModel.loadFlashcards(setId, setName);
@@ -62,19 +59,7 @@ public class ReviewFlashcardSetController extends ViewController {
 
     @FXML
     public void handleReview(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
-            loader.setResources(localization.getBundle());
-            Parent root = loader.load();
-
-            //pass data back to studyFlashcardController
-            StudyFlashcardSetController studySetController = loader.getController();
-            studySetController.setFlashcardSet(setId, setName);
-            Scene scene = setNameLabel.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        goToPage("/com/flash_card/fxml/study-flashcard.fxml", setNameLabel.getScene());
     }
 
     @FXML
@@ -87,7 +72,7 @@ public class ReviewFlashcardSetController extends ViewController {
                 loader.setResources(localization.getBundle());
                 Parent root = loader.load();
                 QuizFlashcardSetController quizSetController = loader.getController();
-                quizSetController.setFlashcardSet(setId, setName);
+                quizSetController.setFlashcardSet(session.getSetId(), session.getSetName());
 
                 Scene scene = setNameLabel.getScene();
                 scene.setRoot(root);
@@ -100,6 +85,7 @@ public class ReviewFlashcardSetController extends ViewController {
 
     @FXML
     public void goToHome(ActionEvent actionEvent) {
+        session.clear();
         goToPage("/com/flash_card/fxml/home.fxml", setNameLabel.getScene());
     }
 }

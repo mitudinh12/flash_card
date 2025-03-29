@@ -145,11 +145,11 @@ public class FlashcardSetContainer extends HBox {
                 loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
             }
             loader.setResources(localization.getBundle());
-            Parent root = loader.load();
 
-            //pass the FlashcardSet data to the StudyFlashcardSetController
-            StudyFlashcardSetController studySetController = loader.getController();
-            studySetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+            StudySession session = StudySession.getInstance();
+            session.setSetId(viewModel.getSet().getSetId());
+            session.setSetName(viewModel.getSet().getSetName());
+            Parent root = loader.load();
 
             Scene scene = nameLabel.getScene();
             scene.setRoot(root);
@@ -174,9 +174,12 @@ public class FlashcardSetContainer extends HBox {
                     loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
                 }
                 loader.setResources(localization.getBundle());
+
+                QuizSession quizSession = QuizSession.getInstance();
+                quizSession.setSetId(viewModel.getSet().getSetId());
+                quizSession.setSetName(viewModel.getSet().getSetName());
+
                 Parent root = loader.load();
-                QuizFlashcardSetController quizSetController = loader.getController();
-                quizSetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
 
                 Scene scene = nameLabel.getScene();
                 scene.setRoot(root);
