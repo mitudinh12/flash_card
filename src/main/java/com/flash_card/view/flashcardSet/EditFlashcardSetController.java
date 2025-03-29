@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.flashcard.EditManyCardsController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.EditFlashcardSetViewModel;
@@ -18,6 +19,7 @@ public class EditFlashcardSetController extends ViewController {
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private int setId;
     private EditFlashcardSetViewModel viewModel = new EditFlashcardSetViewModel(entityManager);
+    private Localization localization = Localization.getInstance();
 
     @FXML
     private TextField setNameField;
@@ -37,7 +39,7 @@ public class EditFlashcardSetController extends ViewController {
         String setDescription = setDescriptionField.getText();
         String setTopic = setTopicField.getText();
         if (setName.isEmpty() || setDescription.isEmpty() || setTopic.isEmpty()) {
-            showAlert("Warning", "Please fill in all fields");
+            showAlert(localization.getMessage("flashcardSet.warningTitle"), localization.getMessage("flashcardSet.warningMessage"));
             return;
         }
         viewModel.saveFlashcardSet(setId, setName, setDescription, setTopic);//pass edited set info to view model

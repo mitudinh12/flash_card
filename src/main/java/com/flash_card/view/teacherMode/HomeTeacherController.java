@@ -49,6 +49,7 @@ public class HomeTeacherController extends ViewController {
     @FXML
     private void initialize() {
         setUserName();
+        setReloadFxml("/com/flash_card/fxml/teacher-mode.fxml");
         homeTeacherViewModel.loadClassrooms();
         classList = homeTeacherViewModel.getClassroomList();
 
@@ -120,6 +121,7 @@ public class HomeTeacherController extends ViewController {
 
     public void gotoClassDetailPage(int classId, String className) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/class-detail.fxml"));
+        loader.setResources(localization.getBundle());
         try {
             Parent root = loader.load();
             ClassDetailController controller = loader.getController();

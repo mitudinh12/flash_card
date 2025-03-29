@@ -1,5 +1,6 @@
 package com.flash_card.view_model.flashcard_set;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.QuizDao;
@@ -43,6 +44,8 @@ public class QuizFlashcardSetViewModel {
     private StringProperty answer2 = new SimpleStringProperty();
     private StringProperty answer3 = new SimpleStringProperty();
     private StringProperty answer4 = new SimpleStringProperty();
+
+    private Localization localization = Localization.getInstance();
 
     public QuizFlashcardSetViewModel(EntityManager entityManager) {
         userDao = UserDao.getInstance(entityManager);
@@ -93,17 +96,17 @@ public class QuizFlashcardSetViewModel {
         correctAnswer = answer.equals(getCurrentFlashcard().getDefinition());
         if (correctAnswer) {
             addCorrectTimes();
-            instructionText.set("Correct!");
+            instructionText.set(localization.getMessage("flashcardSet.correct") + "!");
         } else {
             addWrongTimes();
-            instructionText.set("Wrong!");
+            instructionText.set(localization.getMessage("flashcardSet.wrong") + "!");
         }
         return correctAnswer;
     }
     //Load the term, definition, and fake answers of the current flashcard(index)
     public void loadQuestion() {
         currentTerm.set(getCurrentFlashcard().getTerm());
-        instructionText.set("Choose the correct definition");
+        instructionText.set(localization.getMessage("flashcardSet.quizInstruction"));
 
         List<String> answers = new ArrayList<>();
         answers.add(getCurrentFlashcard().getDefinition());

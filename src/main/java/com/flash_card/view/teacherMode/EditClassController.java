@@ -2,11 +2,18 @@ package com.flash_card.view.teacherMode;
 
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
+import com.flash_card.view_model.teacher_mode.ClassRoomViewModel;
 import com.flash_card.view_model.teacher_mode.TeacherViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class EditClassController extends ViewController {
 
@@ -33,12 +40,12 @@ public class EditClassController extends ViewController {
         String className = classNameField.getText();
         String classDescription = classDescriptionField.getText();
         if (className.isEmpty() || classDescription.isEmpty()) {
-            showAlert("Warning", "Please fill in all fields");
+            showAlert(localization.getMessage("teacher.warning"), localization.getMessage("teacher.warningMessage"));
             return;
         }
         int result = viewModel.editClass(classId, className, classDescription);
         if (result != 1) {
-            showAlert("Error", "Error in updating class");
+            showAlert(localization.getMessage("teacher.error"), localization.getMessage("update.errorMessage"));
         } else {
             goToPage("/com/flash_card/fxml/teacher-mode.fxml", classNameField.getScene());
         }
@@ -54,3 +61,4 @@ public class EditClassController extends ViewController {
         goToPage("/com/flash_card/fxml/teacher-mode.fxml", classNameField.getScene());
     }
 }
+

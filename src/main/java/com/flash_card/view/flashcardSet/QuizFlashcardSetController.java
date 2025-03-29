@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -25,7 +26,8 @@ public class QuizFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final QuizFlashcardSetViewModel viewModel = new QuizFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private int setId;
+    private QuizSession quizSession = QuizSession.getInstance();
+
     protected int quizId;
 
     @FXML
@@ -37,8 +39,11 @@ public class QuizFlashcardSetController extends ViewController {
 
     @FXML
     public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/quiz-flashcard.fxml");
         bindProperties();
         setAnswerButtonActions();
+        setFlashcardSet(quizSession.getSetId(), quizSession.getSetName());
+
     }
 
     protected void bindProperties() {
@@ -62,7 +67,6 @@ public class QuizFlashcardSetController extends ViewController {
     }
 
     public void setFlashcardSet(int setId, String setName) {
-        this.setId = setId;
         viewModel.loadFlashcards(setId, setName);
         viewModel.startQuiz(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
         this.quizId = viewModel.getQuizId();
@@ -115,16 +119,8 @@ public class QuizFlashcardSetController extends ViewController {
     }
 
     protected void goToResultPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-result.fxml"));
-            Parent root = loader.load();
-            QuizResultController resultController = loader.getController();
-            resultController.setResultView(quizId);
-            Scene scene = setName.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        quizSession.setQuizId(quizId);
+        goToPage("/com/flash_card/fxml/quiz-result.fxml", setName.getScene());
     }
 }
 

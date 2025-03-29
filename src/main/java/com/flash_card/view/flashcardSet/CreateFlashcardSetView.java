@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.model.dao.UserDao;
 import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.User;
@@ -25,6 +26,7 @@ public class CreateFlashcardSetView extends ViewController {
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private CreateFlashcardSetViewModel viewModel = new CreateFlashcardSetViewModel(entityManager);
     private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
+    private Localization localization = Localization.getInstance();
     private String userId;
 
     // FXML UI components
@@ -36,6 +38,7 @@ public class CreateFlashcardSetView extends ViewController {
 
     @FXML
     private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/create-flashcard-set.fxml");
         createSetButton.setOnAction(event -> handleCreateSet());
         cancelButton.setOnAction(event -> handleCancel());
     }
@@ -62,7 +65,7 @@ public class CreateFlashcardSetView extends ViewController {
             }
         }
         else {
-            showAlert("Warning", "Please fill in all fields");
+            showAlert(localization.getMessage("flashcardSet.warningTitle"), localization.getMessage("flashcardSet.warningMessage"));
         }
     }
 
@@ -70,6 +73,7 @@ public class CreateFlashcardSetView extends ViewController {
     private void handleCancel() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
+            loader.setResources(localization.getBundle());
             Parent homeRoot = loader.load();
             Scene scene = new Scene(homeRoot);
             stage.setScene(scene);

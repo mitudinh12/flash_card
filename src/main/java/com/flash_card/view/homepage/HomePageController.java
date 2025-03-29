@@ -1,5 +1,6 @@
 package com.flash_card.view.homepage;
 
+import com.flash_card.localization.Localization;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.SharedSetsDao;
 import com.flash_card.view.flashcardSet.FlashcardSetContainer;
@@ -37,14 +38,15 @@ import javafx.scene.image.ImageView;
 public class HomePageController extends ViewController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+    private final Localization localization = Localization.getInstance();
     private List<OwnFlashcardSetViewModel> ownFlashcardList;
     private List<SharedFlashcardSetViewModel> sharedFlashcardList;
     private List<SetViewModel> flashcardList = new ArrayList<>();
     private int currentPage = 0;
     private final int pageSize = 8;
-    private HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
-    private SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
+    private final HomepageViewModel homepageViewModel = new HomepageViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
+    private final SharedSetViewModel sharedSetViewModel = new SharedSetViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
 
     @FXML
     protected Label userName;
@@ -140,25 +142,33 @@ public class HomePageController extends ViewController {
 
     public void handleShare(int setId ) {
         Stage newStage = new Stage();
-        newStage.setTitle("FLASHCARDS SHARING");
+        newStage.setTitle(localization.getMessage("home.TitleShare"));
         VBox layout = new VBox();
         layout.getStyleClass().add("layout-check-boxes");
         layout.alignmentProperty().set(javafx.geometry.Pos.CENTER);
         layout.setPadding(new Insets(20));
         layout.setSpacing(10);
 
-        Label emailLabel = new Label("Enter email: ");
+        Label emailLabel = new Label(localization.getMessage("home.shareLabel"));
         emailLabel.getStyleClass().add("assign-label");
 
         TextField emailField = new TextField();
         emailField.setId("email-field");
 
-        Button shareButton = new Button("Share");
+        Button shareButton = new Button(localization.getMessage("home.shareButton"));
         shareButton.getStyleClass().add("confirm-assign-button");
 
         layout.getChildren().addAll(emailLabel, emailField, shareButton);
         Scene scene = new Scene(layout);
-        String css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+        String css = "";
+        try {
+            css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+            if (!css.isEmpty()) {
+                scene.getStylesheets().add(css);
+            }
+        } catch (NullPointerException e) {
+            log.error("Error loading CSS file: {}", e.getMessage());
+        }
         if (!css.isEmpty()) {
             scene.getStylesheets().add(css);
         }
@@ -168,14 +178,14 @@ public class HomePageController extends ViewController {
 
         shareButton.setOnAction(event -> {
             if (!sharedSetViewModel.isUserValid(emailField.getText())) {
-                showAlert("Invalid email", "The email you entered is not valid. Please try again.");
+                showAlert(localization.getMessage("home.invalid.email"), localization.getMessage("home.invalid.email.message"));
                 return;
             } else if (sharedSetViewModel.isUserAndSetShared(emailField.getText(), setId)) {
-                showAlert("Invalid sharing","This Flashcard set is already shared with this user");
+                showAlert(localization.getMessage("home.invalid.sharing"),localization.getMessage("home.invalid.sharing.message"));
             }
             else {
                 sharedSetViewModel.saveSharedFlashcardSet(emailField.getText(), setId);
-                showAlert("Success", "The flashcard set has been shared successfully!");
+                showAlert(localization.getMessage("home.share.success"), localization.getMessage("home.share.success.message"));
             }
             newStage.close();
         });
