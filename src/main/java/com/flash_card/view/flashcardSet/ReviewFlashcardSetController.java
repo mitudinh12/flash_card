@@ -19,7 +19,6 @@ import java.io.IOException;
 public class ReviewFlashcardSetController extends ViewController {
     private StudyFlashcardSetViewModel viewModel;
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private Localization localization = Localization.getInstance();
     protected StudySession session = StudySession.getInstance();
 
     @FXML
