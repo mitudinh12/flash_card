@@ -30,6 +30,7 @@ public class ReviewFlashcardSetController extends ViewController {
     @FXML
     public PieChart pieChart;
 
+    @FXML
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/review-flashcard.fxml");
         setFlashcardSet(session.getSetId(), session.getSetName());
