@@ -26,7 +26,7 @@ public class QuizFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final QuizFlashcardSetViewModel viewModel = new QuizFlashcardSetViewModel(entityManager);
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private QuizSession quizSession = QuizSession.getInstance();
+    protected QuizSession quizSession = QuizSession.getInstance();
 
     protected int quizId;
 
@@ -43,7 +43,6 @@ public class QuizFlashcardSetController extends ViewController {
         bindProperties();
         setAnswerButtonActions();
         setFlashcardSet(quizSession.getSetId(), quizSession.getSetName());
-
     }
 
     protected void bindProperties() {

@@ -90,69 +90,69 @@
                 <Insets left="100.0" right="100.0" top="40.0" />
             </padding>
             <children>
-            <HBox alignment="TOP_RIGHT" prefWidth="816.0">
-               <children>
-                  <ImageView fitHeight="25.0" fitWidth="29.0" onMouseClicked="#handleClose" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
-               <children>
-                      <Label fx:id="setName" styleClass="page-title" text="FlashcardSet Name">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="setName1" styleClass="page-title" text="(Quiz Mode)" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" styleClass="index">
-               <children>
-                  <Label fx:id="index" text="index" textFill="#656565" />
-                  <Text fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                  <Label fx:id="total" text="total" textFill="#656565" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
-               <children>
-                  <Text fx:id="instructionText1" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%student.term" textAlignment="CENTER" wrappingWidth="404.55029296875" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
-               <children>
-                  <Text fx:id="term" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="term-word" text="Termmmmmm" textAlignment="CENTER" wrappingWidth="404.55029296875" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
-               <children>
-                  <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%student.chooseCorrectDefinition" textAlignment="CENTER" wrappingWidth="404.55029296875" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </HBox>
+                <HBox alignment="TOP_RIGHT" prefWidth="816.0">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="29.0" onMouseClicked="#handleClose" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/icons/icon.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="setName" styleClass="page-title" text="FlashcardSet Name">
+                            <HBox.margin>
+                                <Insets right="5.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Label fx:id="setName1" styleClass="page-title" text="%flashcardSet.quizMode" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" styleClass="index">
+                    <children>
+                        <Label fx:id="index" text="index" textFill="#656565" />
+                        <Text fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                        <Label fx:id="total" text="total" textFill="#656565" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
+                    <children>
+                        <Text fx:id="instructionText1" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%termTitle" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
+                    <children>
+                        <Text fx:id="term" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="term-word" text="Termmmmmm" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="44.0" prefWidth="816.0">
+                    <children>
+                        <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%flashcardSet.quizInstruction" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </HBox>
                 <VBox fx:id="flashcardContainer" prefHeight="509.0" prefWidth="816.0">
-               <children>
-                  <Button fx:id="answerButton1" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton2" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton3" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton4" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true" />
-               </children></VBox>
+                    <children>
+                        <Button fx:id="answerButton1" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="answerButton2" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="answerButton3" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="answerButton4" mnemonicParsing="false" prefWidth="816.0" styleClass="answer-buttons" wrapText="true" />
+                    </children></VBox>
             </children>
         </VBox>
     </children>
