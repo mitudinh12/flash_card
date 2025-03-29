@@ -92,53 +92,53 @@
                 <Insets left="100.0" right="100.0" top="40.0" />
             </padding>
             <children>
-            <HBox alignment="TOP_RIGHT">
-               <children>
-                  <ImageView fitHeight="25.0" fitWidth="29.0" onMouseClicked="#handleClose" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <padding>
-                  <Insets bottom="45.0" />
-               </padding>
-            </HBox>
+                <HBox alignment="TOP_RIGHT">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="29.0" onMouseClicked="#handleClose" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/icons/icon.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                    <padding>
+                        <Insets bottom="45.0" />
+                    </padding>
+                </HBox>
                 <Label fx:id="setName" styleClass="page-title" text="Your Flashcards" />
-            <HBox alignment="CENTER" styleClass="index">
-               <children>
-                  <Label fx:id="index" text="index" textFill="#656565" />
-                  <Text fx:id="middleText" fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                  <Label fx:id="total" text="total" textFill="#656565" />
-               </children>
-            </HBox>
-            <StackPane>
-               <children>
-                  <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                     <children>
-                        <ImageView fx:id="shuffleIcon" fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleShuffle" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/Shuffle.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleReset" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/refresh.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="Click card to flip" textAlignment="CENTER" wrappingWidth="404.55029296875" />
-               </children>
-            </StackPane>
+                <HBox alignment="CENTER" styleClass="index">
+                    <children>
+                        <Label fx:id="index" text="index" textFill="#656565" />
+                        <Text fx:id="middleText" fill="#656565" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                        <Label fx:id="total" text="total" textFill="#656565" />
+                    </children>
+                </HBox>
+                <StackPane>
+                    <children>
+                        <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                            <children>
+                                <ImageView fx:id="shuffleIcon" fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleShuffle" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image  url="@../assets/icons/Shuffle.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="39.0" fitWidth="61.0" onMouseClicked="#handleReset" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/icons/refresh.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                        <Text fx:id="instructionText" fill="#047201" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="instruction" text="%flip" textAlignment="CENTER" wrappingWidth="404.55029296875" />
+                    </children>
+                </StackPane>
                 <VBox fx:id="flashcardContainer" prefHeight="450.0" prefWidth="816.0">
                 </VBox>
-            <HBox alignment="CENTER" spacing="20.0">
-               <children>
-                  <Button fx:id="easyButton" mnemonicParsing="false" onAction="#handleEasy" styleClass="edit-button" text="EASY" textFill="WHITE" />
-                  <Button fx:id="hardButton" mnemonicParsing="false" onAction="#handleHard" styleClass="hard-button" text="HARD" textFill="WHITE" />
-               </children>
-            </HBox>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="easyButton" mnemonicParsing="false" onAction="#handleEasy" styleClass="edit-button" text="%easy" textFill="WHITE" />
+                        <Button fx:id="hardButton" mnemonicParsing="false" onAction="#handleHard" styleClass="hard-button" text="%hard" textFill="WHITE" />
+                    </children>
+                </HBox>
                 <HBox alignment="CENTER" prefHeight="41.0" prefWidth="107.0" spacing="20.0">
                     <children>
                         <StackPane fx:id="backIcon" onMouseClicked="#handleBack" prefHeight="100.0" prefWidth="53.0">
@@ -163,9 +163,9 @@
                             </children>
                         </StackPane>
                     </children>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
                 </HBox>
             </children>
         </VBox>
