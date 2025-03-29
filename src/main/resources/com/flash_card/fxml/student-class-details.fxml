@@ -93,7 +93,7 @@
                 <HBox alignment="TOP_RIGHT" prefWidth="816.0" spacing="15.0">
                     <children>
                         <Label fx:id="userName" styleClass="menu-text-black" text="Username" />
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="Logout" textFill="WHITE" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #01C729; -fx-background-radius: 15;" text="%logout" textFill="WHITE" />
                     </children>
                 </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="200.0">
