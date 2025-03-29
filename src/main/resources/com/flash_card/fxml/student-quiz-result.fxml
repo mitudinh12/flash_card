@@ -113,7 +113,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" fx:id="homeButton" onAction="#goToStudentHome" styleClass="cancel-button" text="BACK TO STUDENT HOME" />
+                  <Button mnemonicParsing="false" fx:id="homeButton" onAction="#goToStudentHome" styleClass="cancel-button" text="%student.backToStudentMode" />
                </children>
             </HBox>
             </children>
