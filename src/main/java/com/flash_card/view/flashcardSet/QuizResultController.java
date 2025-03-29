@@ -53,25 +53,11 @@ public class QuizResultController extends ViewController {
 
     @FXML
     public void handleStudy(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
-            loader.setResources(localization.getBundle());
-            Parent root = loader.load();
-
-            //pass data back to studyFlashcardController
-            StudyFlashcardSetController studySetController = loader.getController();
-            studySetController.setFlashcardSet(setId, setName);
-            Scene scene = setNameLabel.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        goToPage("/com/flash_card/fxml/study-flashcard.fxml", setNameLabel.getScene());
     }
 
     @FXML
     public void goToHome(ActionEvent actionEvent) {
         goToPage("/com/flash_card/fxml/home.fxml", setNameLabel.getScene());
     }
-
-
 }

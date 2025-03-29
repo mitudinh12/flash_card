@@ -145,11 +145,11 @@ public class FlashcardSetContainer extends HBox {
                 loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/study-flashcard.fxml"));
             }
             loader.setResources(localization.getBundle());
-            Parent root = loader.load();
 
-            //pass the FlashcardSet data to the StudyFlashcardSetController
-            StudyFlashcardSetController studySetController = loader.getController();
-            studySetController.setFlashcardSet(viewModel.getSet().getSetId(), viewModel.getSet().getSetName());
+            StudySession session = StudySession.getInstance();
+            session.setSetId(viewModel.getSet().getSetId());
+            session.setSetName(viewModel.getSet().getSetName());
+            Parent root = loader.load();
 
             Scene scene = nameLabel.getScene();
             scene.setRoot(root);
