@@ -1,6 +1,7 @@
 package com.flash_card.view_model.flashcard_set;
 
 import com.flash_card.framework.DifficultyLevel;
+import com.flash_card.localization.Localization;
 import com.flash_card.model.dao.FlashcardDao;
 import com.flash_card.model.dao.FlashcardSetDao;
 import com.flash_card.model.dao.StudyDao;
@@ -36,6 +37,7 @@ public class StudyFlashcardSetViewModel {
     private final StringProperty total = new SimpleStringProperty();
     private final StringProperty studyTime = new SimpleStringProperty();
     private final StringProperty studiedNum = new SimpleStringProperty();
+    private Localization localization = Localization.getInstance();
 
     public StudyFlashcardSetViewModel(EntityManager entityManager) {
         flashcardDao = FlashcardDao.getInstance(entityManager);
@@ -115,11 +117,11 @@ public class StudyFlashcardSetViewModel {
             long seconds = duration.getSeconds();
             long minutes = seconds / 60;
             seconds = seconds % 60;
-            studyTime.set("Study duration: " + minutes + " minutes " + seconds + " seconds");
-            studiedNum.set("Flashcard studied: " + study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
+            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + minutes + " " + localization.getMessage("flashcardSet.minuteAnnotation") + seconds + " " + localization.getMessage("flashcardSet.secondAnnotation"));
+            studiedNum.set(localization.getMessage("flashcardSet.flashcardStudied") + " " + study.getNumberStudiedWords() + "/" + flashcardDao.findBySetId(setId).size());
         } else {
-            studyTime.set("Study duration: 0 seconds");
-            studiedNum.set("Flashcard studied: 0/" + flashcardDao.findBySetId(setId).size());
+            studyTime.set(localization.getMessage("flashcardSet.studyDuration") + "0 " + localization.getMessage("flashcardSet.secondAnnotation"));
+            studiedNum.set(localization.getMessage("flashcardSet.flashcardStudied") + "0/" + flashcardDao.findBySetId(setId).size());
         }
     }
 
