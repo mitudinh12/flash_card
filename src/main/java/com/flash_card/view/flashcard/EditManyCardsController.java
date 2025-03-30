@@ -1,9 +1,9 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.EditFlashcardViewModel;
-import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class EditManyCardsController extends ViewController {
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private int flashcardSetId;
+    private static int flashcardSetId;
     private EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
     private int currentPage = 0;
     private final int pageSize = 8;
@@ -43,10 +43,13 @@ public class EditManyCardsController extends ViewController {
     //INITIALIZE PAGE
     @FXML
     private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/edit-many-cards.fxml");
+        loadFlashcardSetName();
+        loadFlashcards();
     }
 
     public void setFlashcardSetId(int setId) {
-        this.flashcardSetId = setId; //retrieve the setId from the previous page
+        EditManyCardsController.flashcardSetId = setId; //retrieve the setId from the previous page
         loadFlashcardSetName();
         loadFlashcards();
     }
@@ -71,9 +74,9 @@ public class EditManyCardsController extends ViewController {
             flashcardBox.getStyleClass().add("hbox-flashcard");
             flashcardBox.setAlignment(Pos.CENTER_LEFT);
 
-            Button editButton = new Button("Edit");
+            Button editButton = new Button(localization.getMessage("flashcard.edit"));
             editButton.getStyleClass().add("edit-action-button");
-            Button deleteButton = new Button("Delete");
+            Button deleteButton = new Button(localization.getMessage("delete"));
             deleteButton.getStyleClass().add("delete-action-button");
 
             editButton.setOnAction(event -> handleEditFlashcard(flashcardId));
@@ -133,7 +136,7 @@ public class EditManyCardsController extends ViewController {
     @FXML
     private void handleDeleteFlashcard(int flashcardId) {
         if (viewModel.isLastFlashcard(flashcardSetId)) {
-            showAlert("Warning", "The last card cannot be deleted. You need to delete the whole set.");
+            showAlert(localization.getMessage("flashcard.warning"),localization.getMessage("flashcard.lastCardDeleteWarning"));
         } else {
             viewModel.deleteFlashcard(flashcardId, flashcardSetId); //delete the flashcard and decrease the number of flashcards in the set
         }
@@ -143,6 +146,7 @@ public class EditManyCardsController extends ViewController {
     private void goToAddFlashcardPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/add-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             AddFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
@@ -156,6 +160,7 @@ public class EditManyCardsController extends ViewController {
     private void goToEditFlashcardPage(int flashcardId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId);

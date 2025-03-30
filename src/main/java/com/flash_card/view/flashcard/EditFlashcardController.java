@@ -15,8 +15,8 @@ import java.io.IOException;
 public class EditFlashcardController extends ViewController {
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final EditFlashcardViewModel viewModel = new EditFlashcardViewModel(entityManager);
-    private int flashcardSetId;
-    private int cardId = 0;
+    private static int flashcardSetId;
+    private static int cardId = 0;
 
     @FXML
     private TextField termField;
@@ -25,6 +25,7 @@ public class EditFlashcardController extends ViewController {
 
     @FXML
     public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/edit-flashcard.fxml");
         if (cardId != 0) {
             termField.setText(viewModel.term(cardId));
             definitionField.setText(viewModel.definition(cardId));
@@ -49,6 +50,7 @@ public class EditFlashcardController extends ViewController {
     private void goToEditManyCardsPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditManyCardsController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId);
@@ -60,11 +62,11 @@ public class EditFlashcardController extends ViewController {
     }
 
     public void setFlashcardSetId(int flashcardSetId) {
-        this.flashcardSetId = flashcardSetId;
+        EditFlashcardController.flashcardSetId = flashcardSetId;
     }
 
     public void setFlashcardId(int cardId) {
-        this.cardId = cardId;
+        EditFlashcardController.cardId = cardId;
         if (termField != null && definitionField != null) {
             termField.setText(viewModel.term(cardId));
             definitionField.setText(viewModel.definition(cardId));

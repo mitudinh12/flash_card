@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class QuizResultController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private QuizSession quizSession = QuizSession.getInstance();
+    protected QuizSession quizSession = QuizSession.getInstance();
 
     @FXML
     public Label setNameLabel;
@@ -30,6 +30,7 @@ public class QuizResultController extends ViewController {
 
     private String setName;
 
+    @FXML
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/quiz-result.fxml");
         setResultView(quizSession.getQuizId());

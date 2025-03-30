@@ -1,6 +1,7 @@
 package com.flash_card.view.flashcard;
 
 import com.flash_card.framework.ViewController;
+import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.CreateFlashcardViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
@@ -17,12 +18,17 @@ public class AddFlashcardController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"), entityManager);
-    private int flashcardSetId;
+    private static int flashcardSetId;
 
     @FXML
     private TextField termField;
     @FXML
     private TextField definitionField;
+
+    @FXML
+    private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/add-flashcard.fxml");
+    }
 
     @FXML
     public void handleSave() {
@@ -42,6 +48,7 @@ public class AddFlashcardController extends ViewController {
     private void goToEditManyCardsPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             EditManyCardsController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId);
@@ -53,6 +60,6 @@ public class AddFlashcardController extends ViewController {
     }
 
     public void setFlashcardSetId(int flashcardSetId) {
-        this.flashcardSetId = flashcardSetId;
+        AddFlashcardController.flashcardSetId = flashcardSetId;
     }
 }

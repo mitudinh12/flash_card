@@ -334,7 +334,7 @@ listClassesUI {
 .delete-action-button {
     -fx-font-size: 13;
     -fx-font-weight: bold;
-    -fx-font-color: white;
+    -fx-text-fill: white;
     -fx-background-color: #FF0000;
     -fx-background-radius: 8;
     -fx-padding: 3px 25px 3px 25px;

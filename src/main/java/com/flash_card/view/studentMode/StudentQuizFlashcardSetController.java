@@ -13,16 +13,16 @@ import java.io.IOException;
 public class StudentQuizFlashcardSetController extends QuizFlashcardSetController {
 
     @Override
+    public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/student-quiz-flashcard.fxml");
+        bindProperties();
+        setAnswerButtonActions();
+        setFlashcardSet(quizSession.getSetId(), quizSession.getSetName());
+    }
+
+    @Override
     protected void goToResultPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-quiz-result.fxml"));
-            Parent root = loader.load();
-            QuizResultController resultController = loader.getController();
-            resultController.setResultView(quizId);
-            Scene scene = setName.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        quizSession.setQuizId(quizId);
+        goToPage("/com/flash_card/fxml/student-quiz-result.fxml", setName.getScene());
     }
 }

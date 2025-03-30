@@ -17,12 +17,17 @@ public class CreateFlashcardController extends ViewController {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private final CreateFlashcardViewModel viewModel = new CreateFlashcardViewModel(authSessionViewModel.getVerifiedUserInfo().get("userId"),entityManager);
-    private int flashcardSetId;
+    private static int flashcardSetId;
 
     @FXML
     private TextField termField;
     @FXML
     private TextField definitionField;
+
+    @FXML
+    private void initialize() {
+        setReloadFxml("/com/flash_card/fxml/create-flashcard.fxml");
+    }
 
     @FXML
     public void handleCreateFlashcard() {
@@ -58,6 +63,7 @@ public class CreateFlashcardController extends ViewController {
     private void goToCreateFlashcardPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
+            loader.setResources(localization.getBundle());
             Parent root = loader.load();
             CreateFlashcardController controller = loader.getController();
             controller.setFlashcardSetId(flashcardSetId); // pass the flashcardSetId to the next flashcard
@@ -69,10 +75,10 @@ public class CreateFlashcardController extends ViewController {
     }
 
     public void setFlashcardSetId(int flashcardSetId) {
-        this.flashcardSetId = flashcardSetId;
+        CreateFlashcardController.flashcardSetId = flashcardSetId;
     }
 
     private void clearFlashcardSetId() {
-        this.flashcardSetId = 0; //clear the flashcardSetId when clicked save or cancel
+        CreateFlashcardController.flashcardSetId = 0; //clear the flashcardSetId when clicked save or cancel
     }
 }

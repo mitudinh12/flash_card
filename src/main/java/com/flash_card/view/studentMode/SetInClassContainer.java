@@ -1,6 +1,7 @@
 package com.flash_card.view.studentMode;
 
 import com.flash_card.framework.SetViewModel;
+import com.flash_card.localization.Localization;
 import com.flash_card.view.flashcardSet.FlashcardSetContainer;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.ProgressViewModel;
@@ -23,6 +24,8 @@ public class SetInClassContainer extends FlashcardSetContainer {
     private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     private final String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
     private int setId;
+    private final Localization localization = Localization.getInstance();
+
     public SetInClassContainer(SetViewModel viewModel) {
         super(viewModel, null);
         this.viewModel = viewModel;
@@ -33,7 +36,7 @@ public class SetInClassContainer extends FlashcardSetContainer {
     public void showTrackProgressPopup() {
         Stage progressStage = new Stage();
         progressStage.initModality(Modality.APPLICATION_MODAL);
-        progressStage.setTitle("Your Progress");
+        progressStage.setTitle(localization.getMessage("student.yourProgress"));
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20));
@@ -43,8 +46,8 @@ public class SetInClassContainer extends FlashcardSetContainer {
         int totalFlashcards = progressViewModel.getTotalFlashcards(setId);
         double quizPercentage = progressViewModel.calculateHighestQuizPercentage(userId, setId);
 
-        Label flashcardsLabel = new Label(String.format("Flashcards studied: %d/%d", flashcardsStudied, totalFlashcards));
-        Label quizPercentageLabel = new Label(String.format("Quiz highest correct percentage: %.2f%%", quizPercentage));
+        Label flashcardsLabel = new Label(String.format(localization.getMessage("student.flashcardsStudied"), flashcardsStudied, totalFlashcards));
+        Label quizPercentageLabel = new Label(String.format(localization.getMessage("student.quizHighestCorrectPercentage"), quizPercentage));
         flashcardsLabel.getStyleClass().add("assign-label");
         quizPercentageLabel.getStyleClass().add("assign-label");
 
