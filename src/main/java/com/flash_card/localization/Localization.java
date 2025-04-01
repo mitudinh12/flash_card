@@ -1,5 +1,8 @@
 package com.flash_card.localization;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -27,6 +30,12 @@ public class Localization {
 
     public ResourceBundle getBundle() {
         return messages;
+    }
+
+    public DecimalFormat getNumberFormat() {
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(locale);
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00", symbols);
+        return decimalFormat;
     }
 
     public String getMessage(String key) {
