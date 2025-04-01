@@ -97,7 +97,7 @@ public class SetContainer extends HBox {
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText(""); // Empty cell
+                    setText("");
                 } else {
                     setText(localization.getNumberFormat().format(item)); // Localized format
                 }
