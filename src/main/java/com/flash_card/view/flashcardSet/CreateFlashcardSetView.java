@@ -31,7 +31,7 @@ public class CreateFlashcardSetView extends ViewController {
 
     // FXML UI components
     @FXML
-    private TextField setNameField, setDescriptionField, setTopicField;
+    private TextField setNameField, setLanguageField, setDescriptionField, setTopicField;
     @FXML
     private Button createSetButton, cancelButton;
 
@@ -45,11 +45,12 @@ public class CreateFlashcardSetView extends ViewController {
     @FXML
     private void handleCreateSet() {
         String name = setNameField.getText();
+        String language = setLanguageField.getText();
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
         userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
-            int flashcardSetId = viewModel.addSet(name, description, topic, userId);
+            int flashcardSetId = viewModel.addSet(name, language, description, topic, userId);
             if (flashcardSetId != -1) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));

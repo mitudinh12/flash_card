@@ -59,6 +59,13 @@ class ClassSetViewModelTest {
     }
 
     @Test
+    void testSetLanguageProperty() {
+        testFlashcardSet.setSetLanguage("english");
+        SimpleStringProperty setLanguage = new SimpleStringProperty(testFlashcardSet.getSetLanguage());
+        assertEquals(setLanguage.getName(), assignedFlashcardSetViewModel.setLanguageProperty().getName());
+    }
+
+    @Test
     void testSetNumberFlashcard() {
         SimpleStringProperty numberFlashcard = new SimpleStringProperty(String.valueOf(testFlashcardSet.getNumberFlashcards()));
         assertTrue(numberFlashcard.getName().equals(assignedFlashcardSetViewModel.setNumberFlashcard().getName()));

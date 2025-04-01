@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public abstract class SetViewModel {
     public abstract StringProperty setNameProperty();
+    public abstract StringProperty setLanguageProperty();
     public abstract StringProperty setTopicProperty();
     public abstract StringProperty setNumberFlashcard();
     public abstract String getType();

@@ -34,6 +34,10 @@ public class FlashcardSetContainer extends HBox {
         nameLabel.setId("name-label");
         nameLabel.textProperty().bind(viewModel.setNameProperty());
 
+        Label languageLabel = new Label();
+        languageLabel.setId("language-label");
+        languageLabel.textProperty().bind(viewModel.setLanguageProperty());
+
         Label topicLabel = new Label();
         topicLabel.setId("topic-label");
         topicLabel.textProperty().bind(viewModel.setTopicProperty());
@@ -58,7 +62,7 @@ public class FlashcardSetContainer extends HBox {
         actionButton.setOnAction(event -> showContextMenu(actionButton));
 
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
-        this.getChildren().addAll(nameLabel, topicLabel, numberFlashcardContainer, actionButton);
+        this.getChildren().addAll(nameLabel, languageLabel, topicLabel, numberFlashcardContainer, actionButton);
         this.setId("flashcard-set-container");
         if (this.viewModel.getType().equals("own")){
             this.setOnMouseClicked(event -> {

@@ -24,6 +24,13 @@ class OwnFlashcardSetViewModelTest {
     }
 
     @Test
+    void testSetLanguageProperty() {
+        setOwned.setSetLanguage("english");
+        SimpleStringProperty setLanguage = new SimpleStringProperty(setOwned.getSetLanguage());
+        assertEquals(setLanguage.getName(), ownedFlashcardSetViewModel.setLanguageProperty().getName());
+    }
+
+    @Test
     void testSetTopicProperty() {
         SimpleStringProperty setTopic = new SimpleStringProperty(setOwned.getSetTopic());
         assertEquals(setTopic.getName(), ownedFlashcardSetViewModel.setTopicProperty().getName());

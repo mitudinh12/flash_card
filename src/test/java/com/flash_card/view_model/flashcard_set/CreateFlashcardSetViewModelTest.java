@@ -49,12 +49,13 @@ public class CreateFlashcardSetViewModelTest {
     @Test
     public void testAddSet() {
         String name = "Test Set";
+        String language = "thai";
         String description = "Test Description";
         String topic = "Test Topic";
         String userId = testUser.getUserId();
         System.out.println("userId: " + userId);
 
-        int setId = createFlashcardSetViewModel.addSet(name, description, topic, userId);
+        int setId = createFlashcardSetViewModel.addSet(name, language, description, topic, userId);
 
         FlashcardSet retrievedSet = flashcardSetDao.findById(setId);
         assertNotNull(retrievedSet);

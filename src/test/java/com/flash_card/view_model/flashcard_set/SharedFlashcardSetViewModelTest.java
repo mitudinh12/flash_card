@@ -23,6 +23,13 @@ class SharedFlashcardSetViewModelTest {
     }
 
     @Test
+    void testSetLanguageProperty() {
+        setShared.setSetLanguage("english");
+        SimpleStringProperty setLanguage = new SimpleStringProperty(setShared.getSetLanguage());
+        assertEquals(setLanguage.getName(), sharedFlashcardSetViewModel.setLanguageProperty().getName());
+    }
+
+    @Test
     void testSetTopicProperty() {
         SimpleStringProperty setTopic = new SimpleStringProperty(setShared.getSetTopic());
         assertEquals(setTopic.getName(), sharedFlashcardSetViewModel.setTopicProperty().getName());

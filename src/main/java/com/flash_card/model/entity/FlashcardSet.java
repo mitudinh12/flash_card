@@ -16,6 +16,9 @@ public class FlashcardSet {
     @Column(name = "set_name")
     private String setName;
 
+    @Column(name = "set_language")
+    private String setLanguage;
+
     @Column(name = "set_description")
     private String setDescription;
 
@@ -51,6 +54,10 @@ public class FlashcardSet {
         return setName;
     }
 
+    public String getSetLanguage() {
+        return setLanguage;
+    }
+
     public String getSetDescription() {
         return setDescription;
     }
@@ -69,6 +76,10 @@ public class FlashcardSet {
 
     public void setSetName(String setName) {
         this.setName = setName;
+    }
+
+    public void setSetLanguage(String setLanguage) {
+        this.setLanguage = setLanguage;
     }
 
     public void setSetDescription(String setDescription) {

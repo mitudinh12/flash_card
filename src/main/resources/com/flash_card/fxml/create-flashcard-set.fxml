@@ -90,6 +90,7 @@
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%flashcardSet.pageTitle" />
                 <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="%flashcardSet.setName" styleClass="set-name" />
+                <TextField fx:id="setLanguageField" alignment="TOP_LEFT" prefHeight="49.49" prefWidth="768.0" promptText="%flashcardSet.setLanguage" styleClass="set-language" />
                 <TextField fx:id="setDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="%flashcardSet.setDescription" styleClass="set-description" />
                 <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="697.0" promptText="%flashcardSet.setTopic" styleClass="set-topic">
                     <VBox.margin>
