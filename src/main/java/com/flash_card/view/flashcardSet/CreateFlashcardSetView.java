@@ -15,9 +15,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.flash_card.view_model.flashcard_set.CreateFlashcardSetViewModel;
+import com.flash_card.framework.Language;
 
 import java.io.IOException;
 
@@ -31,25 +33,30 @@ public class CreateFlashcardSetView extends ViewController {
 
     // FXML UI components
     @FXML
-    private TextField setNameField, setLanguageField, setDescriptionField, setTopicField;
+    private TextField setNameField, setDescriptionField, setTopicField;
     @FXML
     private Button createSetButton, cancelButton;
-
+    @FXML
+    public ComboBox<String> languageDropdown;
 
     @FXML
     private void initialize() {
         setReloadFxml("/com/flash_card/fxml/create-flashcard-set.fxml");
         createSetButton.setOnAction(event -> handleCreateSet());
         cancelButton.setOnAction(event -> handleCancel());
+
+        languageDropdown.getItems().addAll("English", "Suomi", "ภาษาไทย", "한국인", "Tiếng Việt");
+        languageDropdown.setValue(localization.getMessage("language"));
     }
     @FXML
     private void handleCreateSet() {
         String name = setNameField.getText();
-        String language = setLanguageField.getText();
+        String languageDisplayName = languageDropdown.getValue();
         String description = setDescriptionField.getText();
         String topic = setTopicField.getText();
         userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         if (!name.isEmpty() || !description.isEmpty() || !topic.isEmpty()) {
+            String language = Language.fromDisplayName(languageDisplayName).name();
             int flashcardSetId = viewModel.addSet(name, language, description, topic, userId);
             if (flashcardSetId != -1) {
                 try {
@@ -82,7 +89,4 @@ public class CreateFlashcardSetView extends ViewController {
             e.printStackTrace();
         }
     }
-
-
-
 }
