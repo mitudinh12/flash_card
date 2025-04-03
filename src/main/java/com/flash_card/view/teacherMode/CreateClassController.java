@@ -21,6 +21,11 @@ public class CreateClassController extends ViewController {
     private TextField classDescriptionField;
 
     @FXML
+    public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/create-class.fxml");
+    }
+
+    @FXML
     public void handleCreateClass() {
         if (classNameField.getText().isEmpty() || classDescriptionField.getText().isEmpty()) {
             showAlert(localization.getMessage("teacher.warning"), localization.getMessage("teacher.warningMessage"));

@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 public class SetInClassContainer extends FlashcardSetContainer {
@@ -45,9 +46,13 @@ public class SetInClassContainer extends FlashcardSetContainer {
         int flashcardsStudied = progressViewModel.getStudiedFlashcards(userId, setId);
         int totalFlashcards = progressViewModel.getTotalFlashcards(setId);
         double quizPercentage = progressViewModel.calculateHighestQuizPercentage(userId, setId);
+        String formatedQuizPercentage = localization.getNumberFormat().format(quizPercentage);
+        String messageTemplate = localization.getMessage("student.quizHighestCorrectPercentage");
+        String localizedQuizMessage = MessageFormat.format(messageTemplate, formatedQuizPercentage);
 
         Label flashcardsLabel = new Label(String.format(localization.getMessage("student.flashcardsStudied"), flashcardsStudied, totalFlashcards));
-        Label quizPercentageLabel = new Label(String.format(localization.getMessage("student.quizHighestCorrectPercentage"), quizPercentage));
+        Label quizPercentageLabel = new Label(localizedQuizMessage);
+        System.out.println("Quiz percentage: " + localizedQuizMessage);
         flashcardsLabel.getStyleClass().add("assign-label");
         quizPercentageLabel.getStyleClass().add("assign-label");
 

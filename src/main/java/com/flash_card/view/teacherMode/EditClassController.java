@@ -29,6 +29,11 @@ public class EditClassController extends ViewController {
     @FXML
     private TextField classDescriptionField;
 
+    @FXML
+    public void initialize() {
+        setReloadFxml("/com/flash_card/fxml/edit-class.fxml");
+    }
+
     public void setClassRoom(int classId, String className, String classDescription) {
         this.classId = classId;
         classNameField.setText(className);
