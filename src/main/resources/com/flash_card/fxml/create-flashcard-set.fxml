@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,10 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import java.lang.String?>
 <HBox prefHeight="832.0" prefWidth="1280.0" styleClass="create-flashcard-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.flashcardSet.CreateFlashcardSetView">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -71,7 +71,7 @@
                                 <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                             </children>
                         </HBox>
-                        <ComboBox fx:id="languageComboBox" promptText="Select language" styleClass="combo-box" onAction="#handleLanguageChange">
+                        <ComboBox fx:id="languageComboBox" onAction="#handleLanguageChange" promptText="Select language" styleClass="combo-box">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="English" />
@@ -90,12 +90,17 @@
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%flashcardSet.pageTitle" />
                 <TextField fx:id="setNameField" alignment="TOP_LEFT" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="%flashcardSet.setName" styleClass="set-name" />
-                <TextField fx:id="setLanguageField" alignment="TOP_LEFT" prefHeight="49.49" prefWidth="768.0" promptText="%flashcardSet.setLanguage" styleClass="set-language" />
                 <TextField fx:id="setDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="%flashcardSet.setDescription" styleClass="set-description" />
-                <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="697.0" promptText="%flashcardSet.setTopic" styleClass="set-topic">
+                <TextField fx:id="setTopicField" alignment="TOP_LEFT" prefHeight="48.0" prefWidth="816.0" promptText="%flashcardSet.setTopic" styleClass="set-topic">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin></TextField>
+            <HBox spacing="20.0">
+               <children>
+                  <Label styleClass="menu-text-black" text="%flashcardSet.setLanguage" />
+                  <ComboBox fx:id="languageDropdown" prefWidth="150.0" />
+               </children>
+            </HBox>
                 <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="768.0" spacing="10.0">
                     <children>
                         <Button fx:id="createSetButton" mnemonicParsing="false" styleClass="create-button" text="%flashcardSet.createButton" textFill="WHITE" />
