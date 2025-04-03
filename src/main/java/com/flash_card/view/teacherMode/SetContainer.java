@@ -92,6 +92,18 @@ public class SetContainer extends HBox {
         TableColumn<Map<String, Object>, Double> quizPercentageColumn = new TableColumn<>(localization.getMessage("teacher.columnQuiz"));
         quizPercentageColumn.setCellValueFactory(data -> new SimpleDoubleProperty((Double) data.getValue().get("highestQuizPercentage")).asObject());
 
+        quizPercentageColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText("");
+                } else {
+                    setText(localization.getNumberFormat().format(item)); // Localized format
+                }
+            }
+        });
+
         tableView.getColumns().addAll(nameColumn, flashcardsColumn, quizPercentageColumn);
 
         List<Map<String, Object>> studentProgressList = progressViewModel.getStudentProgressList(controller.getClassId(), setId);
