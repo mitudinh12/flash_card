@@ -556,6 +556,15 @@ listClassesUI {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
+#languageComboBoxLogin {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #01c729;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
 
 .combo-box .list-cell {
     -fx-background-color: #ffffff;

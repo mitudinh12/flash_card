@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flash_card.view.auth.LoginViewController">
    <children>
       <ImageView fitHeight="827.0" fitWidth="1322.0">
@@ -33,7 +33,7 @@
                      <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                   </children>
                </HBox>
-               <ComboBox fx:id="languageComboBox" promptText="%language.select" styleClass="combo-box" onAction="#handleLanguageChange">
+               <ComboBox fx:id="languageComboBox" onAction="#handleLanguageChange" promptText="%language.select" styleClass="combo-box">
                   <items>
                      <FXCollections fx:factory="observableArrayList">
                         <String fx:value="English" />
@@ -43,6 +43,9 @@
                         <String fx:value="Tiếng Việt" />
                      </FXCollections>
                   </items>
+                  <VBox.margin>
+                     <Insets left="20.0" />
+                  </VBox.margin>
                </ComboBox>
             </children>
          </VBox>

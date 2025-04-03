@@ -89,12 +89,6 @@ public class LoginViewController extends ViewController {
         alert.showAndWait();
     }
 
-    @FXML
-    protected void handleLanguageChange() {
-        String selectedLanguage = languageComboBox.getValue();
-        switchLocale(selectedLanguage);
-    }
-
     protected void switchLocale(String language) {
         String langCode;
         switch (language) {
