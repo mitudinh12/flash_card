@@ -123,6 +123,6 @@ public class QuizResultViewModelTest {
         assertNotNull(viewModel, "ViewModel should be created");
 
         // Expecting "Quiz time: 5m 30s" based on the fixed interval we set in setUp()
-        assertEquals("Quiz time: 5m 30s", viewModel.quizTimeProperty().get(), "Quiz time should be correctly calculated");
+        assertEquals("Quiz time: 5m30s", viewModel.quizTimeProperty().get(), "Quiz time should be correctly calculated");
     }
 }

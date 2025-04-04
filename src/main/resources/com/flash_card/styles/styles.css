@@ -20,20 +20,20 @@
 }
 
 .super-flash-title {
-    -fx-font-size: 44;
+    -fx-font-size: 40;
     -fx-font-family: "Quicksand";
     -fx-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
 .menu-text-white {
-    -fx-font-size: 20;
+    -fx-font-size: 18;
     -fx-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
 .menu-text-black {
-    -fx-font-size: 20;
+    -fx-font-size: 18;
     -fx-fill: #000000;
     -fx-font-weight: bold;
 }
@@ -59,6 +59,7 @@
 
 /* CREATE FLASHCARD SET PAGE */
 .set-name,
+.set-language,
 .set-description,
 .set-topic,
 .set-topic-dropdown {
@@ -136,23 +137,30 @@
 #name-label {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-min-width: 300px;
+    -fx-min-width: 280px;
     -fx-min-height: 25px;
-    -fx-padding: 0 80px 0 10px;
+    -fx-padding: 0 10px 0 10px;
+}
+
+#language-label {
+    -fx-font-size: 13;
+    -fx-min-width: 100px;
+    -fx-min-height: 25px;
+    -fx-padding: 0 10px 0 10px;
 }
 
 #topic-label {
     -fx-font-size: 13;
-    -fx-min-width: 250px;
+    -fx-min-width: 200px;
     -fx-min-height: 25px;
-    -fx-padding: 0 80px 0 10px;
+    -fx-padding: 0 10px 0 10px;
 }
 
 #number-flashcard {
     -fx-font-size: 13;
     -fx-min-width: 90px;
     -fx-min-height: 25px;
-    -fx-padding: 0 30px 0 0;
+    -fx-padding: 0 10px 0 0;
 }
 
 #action-button {
@@ -540,6 +548,15 @@ listClassesUI {
 }
 
 .combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #01c729;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+#languageComboBoxLogin {
     -fx-background-color: #ffffff;
     -fx-border-color: #01c729;
     -fx-border-radius: 5;

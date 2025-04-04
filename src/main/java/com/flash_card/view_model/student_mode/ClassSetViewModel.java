@@ -10,6 +10,7 @@ public class ClassSetViewModel extends SetViewModel {
     private final FlashcardSet flashcardSet;
 
     private final StringProperty setName;
+    private final StringProperty setLanguage;
     private final StringProperty setTopic;
     private final StringProperty numberFLashcard;
     private final String type = "assigned";
@@ -19,12 +20,14 @@ public class ClassSetViewModel extends SetViewModel {
 
         // binding to entity fields
         this.setName = new SimpleStringProperty(flashcardSet.getSetName());
+        this.setLanguage = new SimpleStringProperty(flashcardSet.getSetLanguage());
         this.setTopic = new SimpleStringProperty(flashcardSet.getSetTopic());
         this.numberFLashcard = new SimpleStringProperty(String.valueOf(flashcardSet.getNumberFlashcards()));
     }
 
     // return properties for UI binding
     public StringProperty setNameProperty() { return setName; }
+    public StringProperty setLanguageProperty() { return setLanguage; }
     public StringProperty setTopicProperty() { return setTopic; }
     public StringProperty setNumberFlashcard() { return numberFLashcard;}
     public String getType() {return this.type;}

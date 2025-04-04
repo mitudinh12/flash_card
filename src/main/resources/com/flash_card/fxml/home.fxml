@@ -72,7 +72,7 @@
                               <Label styleClass="menu-text-white" text="%language.label" textFill="WHITE" />
                      </children>
                   </HBox>
-                        <ComboBox fx:id="languageComboBox" promptText="%language.select" styleClass="combo-box" onAction="#handleLanguageChange">
+                        <ComboBox fx:id="languageComboBox" onAction="#handleLanguageChange" promptText="%language.select" styleClass="combo-box">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="English" />
@@ -131,7 +131,7 @@
 
             </children>
             <padding>
-                <Insets left="100.0" right="100.0" top="40.0" />
+                <Insets left="50.0" right="50.0" top="40.0" />
             </padding>
         </VBox>
     </children>

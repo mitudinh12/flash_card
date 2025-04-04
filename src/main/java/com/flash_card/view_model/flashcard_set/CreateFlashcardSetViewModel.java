@@ -17,10 +17,11 @@ public class CreateFlashcardSetViewModel {
         userDao = UserDao.getInstance(em);
     }
 
-    public int addSet(String name, String description, String topic, String userId) {
+    public int addSet(String name, String setLanguage, String description, String topic, String userId) {
         User user = userDao.findById(userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, user);
+            flashcardSet.setSetLanguage(setLanguage);
             flashcardSetDao.persist(flashcardSet);
             return flashcardSet.getSetId(); //return the ID of created flashcardSet
         } catch (Exception e) {
