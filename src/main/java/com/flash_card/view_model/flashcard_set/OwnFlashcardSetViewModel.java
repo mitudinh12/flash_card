@@ -19,7 +19,7 @@ public class OwnFlashcardSetViewModel extends SetViewModel {
     public OwnFlashcardSetViewModel(FlashcardSet flashcardSet) {
         this.flashcardSet = flashcardSet;
         this.setName = new SimpleStringProperty(flashcardSet.getSetName());
-        this.setLanguage = new SimpleStringProperty(localization.getMessage(flashcardSet.getSetLanguage()));
+        this.setLanguage = new SimpleStringProperty(localization.getMessage(flashcardSet.getSetLanguage().toLowerCase()));
         this.setTopic = new SimpleStringProperty(flashcardSet.getSetTopic());
         this.numberFlashcard = new SimpleStringProperty(String.valueOf(flashcardSet.getNumberFlashcards()));
     }
