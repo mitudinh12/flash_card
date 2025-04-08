@@ -1,33 +1,23 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
-import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.flashcard_set.QuizResultViewModel;
-import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 
-import javafx.event.ActionEvent;
-import java.io.IOException;
-
 public class QuizResultController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    protected QuizSession quizSession = QuizSession.getInstance();
-
     @FXML
     public Label setNameLabel;
     @FXML
     public Label quizTimeLabel;
     @FXML
     public PieChart pieChart;
-
+    protected QuizSession quizSession = QuizSession.getInstance();
     private String setName;
 
     @FXML

@@ -6,16 +6,16 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class UserDao {
-    private EntityManager em = null;
+public final class UserDao {
     private static UserDao userDao = null;
+    private EntityManager em = null;
 
     private UserDao(EntityManager entityManager) {
         em = entityManager;
     }
 
     public static UserDao getInstance(EntityManager em) {
-        if (userDao== null) {
+        if (userDao == null) {
             userDao = new UserDao(em);
         }
         return userDao;
@@ -66,18 +66,18 @@ public class UserDao {
     }
 
     public boolean delete(User user) {
-       try {
-              em.getTransaction().begin();
-              em.remove(user);
-              em.getTransaction().commit();
-              return true;
-         } catch (Exception e) {
-              if (em.getTransaction().isActive()) {
+        try {
+            em.getTransaction().begin();
+            em.remove(user);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
-              }
-              System.err.println("Error in deleting User: " + e.getMessage());
-              e.printStackTrace();
-                return false;
-       }
+            }
+            System.err.println("Error in deleting User: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

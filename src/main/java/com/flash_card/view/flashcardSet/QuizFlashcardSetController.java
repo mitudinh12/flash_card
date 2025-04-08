@@ -1,26 +1,17 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.localization.Localization;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.QuizFlashcardSetViewModel;
 import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.IOException;
 
 public class QuizFlashcardSetController extends ViewController {
     private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
