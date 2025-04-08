@@ -3,6 +3,7 @@ package com.flash_card.model.datasource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,14 +11,25 @@ import java.util.Map;
  * Utility class for managing the JPA connection to a MariaDB database.
  * This class provides a singleton instance of {@link EntityManager} for database interactions.
  */
-public class MariaDbJpaConnection {
-
-    // Singleton instance of the EntityManagerFactory
+public final class MariaDbJpaConnection {
+    /**
+     * Singleton instance of the {@link EntityManagerFactory}.
+     * Used to create {@link EntityManager} instances.
+     */
     private static EntityManagerFactory emf = null;
 
-    // Singleton instance of the EntityManager
+    /**
+     * Singleton instance of the {@link EntityManager}.
+     * Used for database interactions.
+     */
     private static EntityManager em = null;
-
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     * This class should not be instantiated directly.
+     */
+    private MariaDbJpaConnection() {
+        throw new UnsupportedOperationException("Utility class");
+    }
     /**
      * Provides a singleton instance of {@link EntityManager}.
      * Initializes the {@link EntityManagerFactory} and {@link EntityManager} if not already created.
