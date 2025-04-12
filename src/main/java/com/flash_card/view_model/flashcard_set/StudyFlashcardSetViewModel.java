@@ -23,22 +23,59 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * ViewModel for managing the study process of a flashcard set.
+ * Handles logic for starting, ending, and progressing through a study session.
+ */
 public class StudyFlashcardSetViewModel {
-    private final StudyDao studyDao;
-    private Study currentStudy;
-    private final UserDao userDao;
-    private final FlashcardDao flashcardDao;
-    private final FlashcardSetDao flashcardSetDao;
-    private final CardDifficultLevelDao cardDifficultLevelDao;
-    private List<Flashcard> flashcards;
-    private int setId;
-    private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
-    private final StringProperty setName = new SimpleStringProperty();
-    private final StringProperty total = new SimpleStringProperty();
-    private final StringProperty studyTime = new SimpleStringProperty();
-    private final StringProperty studiedNum = new SimpleStringProperty();
-    private Localization localization = Localization.getInstance();
 
+    /** DAO for managing study-related database operations. */
+    private final StudyDao studyDao;
+
+    /** The current study session. */
+    private Study currentStudy;
+
+    /** DAO for managing user-related database operations. */
+    private final UserDao userDao;
+
+    /** DAO for managing flashcard-related database operations. */
+    private final FlashcardDao flashcardDao;
+
+    /** DAO for managing flashcard set-related database operations. */
+    private final FlashcardSetDao flashcardSetDao;
+
+    /** DAO for managing card difficulty level-related database operations. */
+    private final CardDifficultLevelDao cardDifficultLevelDao;
+
+    /** List of flashcards in the current flashcard set. */
+    private List<Flashcard> flashcards;
+
+    /** The ID of the flashcard set being studied. */
+    private int setId;
+
+    /** Property for the current index of the flashcard in the study session. */
+    private final IntegerProperty currentIndex = new SimpleIntegerProperty(0);
+
+    /** Property for the name of the flashcard set. */
+    private final StringProperty setName = new SimpleStringProperty();
+
+    /** Property for the total number of flashcards in the set. */
+    private final StringProperty total = new SimpleStringProperty();
+
+    /** Property for the study time. */
+    private final StringProperty studyTime = new SimpleStringProperty();
+
+    /** Property for the number of studied flashcards. */
+    private final StringProperty studiedNum = new SimpleStringProperty();
+
+    /** Localization instance for retrieving localized messages. */
+    private final Localization localization = Localization.getInstance();
+
+    /**
+     * Constructs a StudyFlashcardSetViewModel with the specified EntityManager.
+     *
+     * @param entityManager the EntityManager for database operations
+     */
     public StudyFlashcardSetViewModel(EntityManager entityManager) {
         flashcardDao = FlashcardDao.getInstance(entityManager);
         studyDao = StudyDao.getInstance(entityManager);
@@ -49,14 +86,35 @@ public class StudyFlashcardSetViewModel {
 
 
     /* DB INTERACTION METHODS */
-
+    /**
+     * Loads the flashcards for the specified flashcard set and ensures all cards have a difficulty level.
+     *
+     * @param setId   the ID of the flashcard set
+     * @param setName the name of the flashcard set
+     */
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
         this.setName.set(setName);
+        List<Flashcard> allFlashcards = flashcardDao.findBySetId(setId);
+        //Make sure all flashcards of the current study have difficulty level
+        for (Flashcard flashcard : allFlashcards) {
+            CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), currentStudy.getStudyId());
+            if (cardDifficultLevel == null) {
+                //Add difficulty level hard for new card added to the set
+                cardDifficultLevel = new CardDifficultLevel(flashcard, currentStudy, DifficultyLevel.hard);
+                cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
+            }
+        }
         flashcards = flashcardDao.getHardFlashcards(setId, currentStudy.getStudyId());
         this.total.set(String.valueOf(flashcards.size()));
     }
 
+    /**
+     * Starts a new study session or resumes an existing one for the specified user and flashcard set.
+     *
+     * @param userId the ID of the user
+     * @param setId  the ID of the flashcard set
+     */
     public void startStudy(String userId, int setId) {
         User user = userDao.findById(userId);
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
@@ -68,8 +126,8 @@ public class StudyFlashcardSetViewModel {
             studyDao.persist(currentStudy);
 
             //match all flashcards of this set with this study to have a default difficulty level hard
-            List<Flashcard> flashcards = flashcardDao.findBySetId(setId);
-            for (Flashcard flashcard : flashcards) {
+            List<Flashcard> allFlashcards = flashcardDao.findBySetId(setId); // Renamed local variable
+            for (Flashcard flashcard : allFlashcards) {
                 CardDifficultLevel cardDifficultLevel = new CardDifficultLevel(flashcard, currentStudy, DifficultyLevel.hard);
                 cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
             }
@@ -80,6 +138,9 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
+    /**
+     * Ends the current study session and updates the number of studied flashcards.
+     */
     public void endStudy() {
         if (currentStudy != null) {
             currentStudy.setEndTime(LocalDateTime.now());
@@ -89,6 +150,11 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
+    /**
+     * Updates the difficulty level of the current flashcard.
+     *
+     * @param difficulty the new difficulty level
+     */
     public void updateFlashcardLevel(DifficultyLevel difficulty) {
         Flashcard currentFlashcard = getCurrentFlashcard();
         CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), currentStudy.getStudyId());
@@ -96,9 +162,12 @@ public class StudyFlashcardSetViewModel {
         cardDifficultLevelDao.persistCardDifficultLevel(cardDifficultLevel);
     }
 
+    /**
+     * Resets the difficulty level of all flashcards in the set to "hard".
+     */
     public void resetAllFlashcardLevel() {
-        List<Flashcard> flashcards = flashcardDao.findBySetId(setId);
-        for (Flashcard flashcard : flashcards) {
+        List<Flashcard> allFlashcards = flashcardDao.findBySetId(setId);
+        for (Flashcard flashcard : allFlashcards) {
             CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(flashcard.getCardId(), currentStudy.getStudyId());
             if (cardDifficultLevel != null) {
                 cardDifficultLevel.setDifficultLevel(DifficultyLevel.hard);
@@ -107,6 +176,12 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
+    /**
+     * Updates the study details, including study time and the number of studied flashcards.
+     *
+     * @param userId the ID of the user
+     * @param setId  the ID of the flashcard set
+     */
     public void updateStudyDetails(String userId, int setId) {
         Study study = studyDao.findByUserIdAndSetId(userId, setId);
         LocalDateTime startTime = study.getStartTime();
@@ -125,10 +200,20 @@ public class StudyFlashcardSetViewModel {
         }
     }
 
+    /**
+     * Gets the total number of flashcards in the set.
+     *
+     * @return the total number of flashcards
+     */
     public int getTotalFlashcards() {
         return flashcardDao.findBySetId(setId).size();
     }
 
+    /**
+     * Gets the number of studied flashcards in the set.
+     *
+     * @return the number of studied flashcards
+     */
     public int getStudiedFlashcards() {
         return (int) flashcardDao.findBySetId(setId).stream()
                 .filter(flashcard -> {
@@ -140,59 +225,118 @@ public class StudyFlashcardSetViewModel {
 
     /* HELPER METHODS */
 
+    /**
+     * Gets the current flashcard in the study session.
+     *
+     * @return the current flashcard
+     */
     public Flashcard getCurrentFlashcard() {
         return flashcards.get(currentIndex.get());
     }
 
+    /**
+     * Moves to the next flashcard in the study session.
+     */
     public void nextFlashcard() {
         if (currentIndex.get() < flashcards.size() - 1) {
             currentIndex.set(currentIndex.get() + 1);
         }
     }
 
+    /**
+     * Moves to the previous flashcard in the study session.
+     */
     public void previousFlashcard() {
         if (currentIndex.get() > 0) {
             currentIndex.set(currentIndex.get() - 1);
         }
     }
 
+    /**
+     * Shuffles the flashcards in the set and resets the current index.
+     */
     public void shuffleFlashcards() {
         Collections.shuffle(flashcards);
         currentIndex.set(0); //reset the index to show the first card
     }
 
+    /**
+     * Gets the property for the current index of the flashcard in the study session.
+     *
+     * @return the current index property
+     */
     public IntegerProperty currentIndexProperty() {
         return currentIndex;
     }
 
+    /**
+     * Gets the property for the name of the flashcard set.
+     *
+     * @return the name property of the flashcard set
+     */
     public StringProperty setNameProperty() {
         return setName;
     }
 
+    /**
+     * Gets the property for the total number of flashcards in the set.
+     *
+     * @return the total property of the flashcard set
+     */
     public StringProperty totalProperty() {
         return total;
     }
 
+    /**
+     * Gets the property for the study time.
+     *
+     * @return the study time property
+     */
     public StringProperty studyTimeProperty() {
         return studyTime;
     }
 
+    /**
+     * Gets the property for the number of studied flashcards.
+     *
+     * @return the studied number property
+     */
     public StringProperty studiedNumProperty() {
         return studiedNum;
     }
 
+    /**
+     * Gets the current study session.
+     *
+     * @return the current study session
+     */
     public List<Flashcard> getFlashcards() {
         return flashcards;
     }
 
+    /**
+     * Gets the current study session.
+     *
+     * @return the current study session
+     */
     public Study getCurrentStudy() {
         return currentStudy;
     }
 
+    /**
+     * Sets the current study session.
+     *
+     * @param study the current study session
+     */
     public void setCurrentStudy(Study study) {
         this.currentStudy = study;
     }
 
+    /**
+     * Gets the current flashcard's difficulty level.
+     *
+     * @return the current flashcard's difficulty level
+     */
     public DifficultyLevel getCurrentFlashcardDifficultLevel() {
         Flashcard currentFlashcard = getCurrentFlashcard();
         CardDifficultLevel cardDifficultLevel = cardDifficultLevelDao.findCardDifficultLevelByCardIdAndStudyId(currentFlashcard.getCardId(), currentStudy.getStudyId());
