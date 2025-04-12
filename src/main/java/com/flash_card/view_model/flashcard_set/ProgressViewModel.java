@@ -13,12 +13,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * ViewModel for tracking and managing progress related to flashcard sets.
+ * Provides methods to retrieve progress data for users, quizzes, and flashcards.
+ */
 public class ProgressViewModel {
+
+    /**
+            * DAO for managing quiz-related database operations.
+     */
     private final QuizDao quizDao;
+
+    /**
+     * DAO for managing flashcard-related database operations.
+     */
     private final FlashcardDao flashcardDao;
+
+    /**
+     * DAO for managing class member-related database operations.
+     */
     private final ClassMemberDao classMemberDao;
+
+    /**
+     * DAO for managing study-related database operations.
+     */
     private final StudyDao studyDao;
 
+    /**
+     * Constructor for ProgressViewModel.
+     * Initializes the DAO instances using the provided EntityManager.
+     *
+     * @param entityManager The EntityManager to be used for database operations.
+     */
     public ProgressViewModel(EntityManager entityManager) {
         quizDao = QuizDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
@@ -26,19 +52,46 @@ public class ProgressViewModel {
         studyDao = StudyDao.getInstance(entityManager);
     }
 
+    /**
+     * Retrieves the total number of flashcards in a given set.
+     *
+     * @param setId The ID of the flashcard set.
+     * @return The total number of flashcards in the specified set.
+     */
     public int getTotalFlashcards(int setId) {
         return flashcardDao.findBySetId(setId).size();
     }
 
+    /**
+     * Retrieves the number of flashcards studied by a user in a given set.
+     *
+     * @param userId The ID of the user.
+     * @param setId  The ID of the flashcard set.
+     * @return The number of flashcards studied by the user in the specified set.
+     */
     public int getStudiedFlashcards(String userId, int setId) {
         Study study = studyDao.findByUserIdAndSetId(userId, setId);
         return study != null ? study.getNumberStudiedWords() : 0;
     }
 
+    /**
+     * Retrieves a list of all quizzes taken by a user in a given set.
+     *
+     * @param userId The ID of the user.
+     * @param setId  The ID of the flashcard set.
+     * @return A list of quizzes taken by the user in the specified set.
+     */
     public List<Quiz> getAllQuizzesForUserAndSet(String userId, int setId) {
         return quizDao.findByUserIdAndSetId(userId, setId);
     }
 
+    /**
+     * Calculates the highest quiz percentage for a user in a given set.
+     *
+     * @param userId The ID of the user.
+     * @param setId  The ID of the flashcard set.
+     * @return The highest quiz percentage achieved by the user in the specified set.
+     */
     public double calculateHighestQuizPercentage(String userId, int setId) {
         List<Quiz> quizzes = getAllQuizzesForUserAndSet(userId, setId);
         double highestPercentage = 0;
@@ -56,6 +109,13 @@ public class ProgressViewModel {
         return highestPercentage;
     }
 
+    /**
+     * Retrieves a list of student progress in a given class and set.
+     *
+     * @param classId The ID of the class.
+     * @param setId   The ID of the flashcard set.
+     * @return A list of maps containing student progress data.
+     */
     public List<Map<String, Object>> getStudentProgressList(int classId, int setId) {
         List<Map<String, Object>> studentProgressList = new ArrayList<>();
         List<User> students = classMemberDao.findAllStudentByClassId(classId);
