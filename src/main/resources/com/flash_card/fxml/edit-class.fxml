@@ -90,7 +90,7 @@
         <VBox prefHeight="832.0" prefWidth="1021.0" spacing="40.0">
             <children>
                 <Button mnemonicParsing="false" text="%detail.back" styleClass="back-home" onAction="#handleBack" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%teacher.createClass" wrappingWidth="305.95947265625" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="%teacher.editClass" wrappingWidth="305.95947265625" />
                 <TextField fx:id="classNameField" maxHeight="-Infinity" prefHeight="49.49" prefWidth="768.0" promptText="%create.className" styleClass="term" />
                 <TextField fx:id="classDescriptionField" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="768.0" promptText="%create.classDescription" styleClass="definition" />
                 <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
