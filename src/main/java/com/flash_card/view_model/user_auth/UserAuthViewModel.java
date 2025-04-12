@@ -1,26 +1,60 @@
 package com.flash_card.view_model.user_auth;
 
 import com.flash_card.model.dao.UserDao;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.concurrent.Task;
-import com.flash_card.view_model.user_auth.LocalServer;
-import com.flash_card.view_model.user_auth.OAuthFlow;
-import com.flash_card.view_model.user_auth.TokenDecoder;
-import com.flash_card.view_model.user_auth.TokenExchange;
-
 import java.util.Map;
 
+/**
+ * ViewModel responsible for managing user authentication logic,
+ * specifically handling Google OpenID Connect login flow and managing authenticated session state.
+ */
 public class UserAuthViewModel {
+
+    /**
+     * Data Access Object for User entity operations.
+     */
     private static UserDao userDao;
-    private OAuthFlow oauthFlow = new OAuthFlow();
-    private LocalServer localServer = new LocalServer();
+
+    /**
+     * Handles the OAuth2 authorization flow with Google.
+     */
+    private final OAuthFlow oauthFlow = new OAuthFlow();
+
+    /**
+     * Local server to capture the authorization code returned from Google's OAuth flow.
+     */
+    private final LocalServer localServer = new LocalServer();
+
+    /**
+     * Singleton instance of this ViewModel.
+     */
     private static UserAuthViewModel userAuthViewModel = null;
-    private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
+    /**
+     * Reference to the session ViewModel for managing login session state.
+     */
+    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
 
-    public static UserAuthViewModel getInstance(EntityManager entityManager) {
+    /**
+     * The maximum amount of time (in milliseconds) to wait for
+     * the authentication process to complete before timing out.
+     */
+    private static final int AUTH_TIMEOUT_MS = 15000;
+    /**
+     * The interval (in milliseconds) between polling attempts while waiting
+     * for the authorization code from the local server.
+     */
+    private static final int POLLING_INTERVAL_MS = 500;
+
+    /**
+     * Returns a singleton instance of the {@code UserAuthViewModel}, initializing the DAO if necessary.
+     *
+     * @param entityManager the {@code EntityManager} used to initialize the {@code UserDao}
+     * @return a singleton instance of {@code UserAuthViewModel}
+     */
+    public static UserAuthViewModel getInstance(final EntityManager entityManager) {
         if (userAuthViewModel == null) {
             userAuthViewModel = new UserAuthViewModel();
             UserAuthViewModel.userDao = UserDao.getInstance(entityManager);
@@ -28,7 +62,14 @@ public class UserAuthViewModel {
         return userAuthViewModel;
     }
 
-    public void openIdConnectWithGoogle(Runnable onSuccess, Runnable onFailure) {
+    /**
+     * Initiates the OpenID Connect login flow with Google. On success, user information is persisted or updated.
+     * in the database and session state is updated. On failure, the failure callback is executed.
+     *
+     * @param onSuccess a {@code Runnable} to be executed on successful authentication
+     * @param onFailure a {@code Runnable} to be executed if authentication fails or times out
+     */
+    public void openIdConnectWithGoogle(final Runnable onSuccess, final Runnable onFailure) {
         Task<Void> authTask = new Task<>() {
             @Override
             protected Void call() {
@@ -37,7 +78,7 @@ public class UserAuthViewModel {
                     oauthFlow.startOAuth();
 
                     long startTime = System.currentTimeMillis();
-                    long timeout = 15000;
+                    long timeout = AUTH_TIMEOUT_MS;
 
                     while (localServer.getAuthorizationCode() == null) {
                         if (System.currentTimeMillis() - startTime > timeout) {
@@ -47,7 +88,7 @@ public class UserAuthViewModel {
                             }
                             return null;
                         }
-                        Thread.sleep(500);
+                        Thread.sleep(POLLING_INTERVAL_MS);
                     }
 
                     String authorizationCode = localServer.getAuthorizationCode();
@@ -84,7 +125,12 @@ public class UserAuthViewModel {
         new Thread(authTask).start();
     }
 
-    public void persistOrUpdateUser(Map<String, String> userInfo) {
+    /**
+     * Persists a new user or updates an existing user in the database based on the provided user information.
+     *
+     * @param userInfo a {@code Map} containing user data such as userId, firstName, lastName, email, and idToken
+     */
+    public void persistOrUpdateUser(final Map<String, String> userInfo) {
         String userId = userInfo.get("userId");
         String firstName = userInfo.get("firstName");
         String lastname = userInfo.get("lastName");
