@@ -157,7 +157,7 @@ public class QuizFlashcardSetViewModel {
     public void loadFlashcards(int setId, String setName) {
         this.setId = setId;
         this.setName.set(setName);
-        flashcards = flashcardDao.findBySetId(setId);
+        this.flashcards = flashcardDao.findBySetId(setId);
         this.total.set(String.valueOf(flashcards.size()));
     }
 
@@ -172,7 +172,6 @@ public class QuizFlashcardSetViewModel {
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
         currentQuiz = new Quiz(user, flashcardSet, LocalDateTime.now(), null, 0, 0);
         quizDao.persist(currentQuiz);
-
     }
 
     /**
@@ -266,9 +265,9 @@ public class QuizFlashcardSetViewModel {
     }
 
     /**
-     * Checks if the current flashcard is the first one in the set.
+     * Gets the current flashcard being quizzed.
      *
-     * @return true if it is the first flashcard, false otherwise
+     * @return the current flashcard
      */
     public Flashcard getCurrentFlashcard() {
         return flashcards.get(currentIndex.get());

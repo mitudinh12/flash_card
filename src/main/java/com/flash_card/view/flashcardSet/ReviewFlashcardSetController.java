@@ -114,10 +114,10 @@ public class ReviewFlashcardSetController extends ViewController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
                 loader.setResources(localization.getBundle());
+                QuizSession quizSession = QuizSession.getInstance();
+                quizSession.setSetId(session.getSetId());
+                quizSession.setSetName(session.getSetName());
                 Parent root = loader.load();
-                QuizFlashcardSetController quizSetController = loader.getController();
-                quizSetController.setFlashcardSet(session.getSetId(), session.getSetName());
-
                 Scene scene = setNameLabel.getScene();
                 scene.setRoot(root);
             } catch (IOException e) {
