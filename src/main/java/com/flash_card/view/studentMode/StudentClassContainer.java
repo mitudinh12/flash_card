@@ -11,9 +11,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 import java.io.IOException;
-
+/**
+ * A container for displaying class information in the student mode.
+ * Includes class name, teacher name, number of flashcard sets, and number of students.
+ */
 public class StudentClassContainer extends HBox {
+    /**
+     * Localization instance for retrieving localized messages.
+     */
     private final Localization localization = Localization.getInstance();
+    /**
+     * Constructs a new `StudentClassContainer` with the specified class details.
+     *
+     * @param classId      the ID of the class
+     * @param className    the name of the class
+     * @param teacherName  the name of the teacher
+     * @param numberSet    the number of flashcard sets in the class
+     * @param numberStudent the number of students in the class
+     */
     public StudentClassContainer(int classId, String className, String teacherName, int numberSet, int numberStudent) {
         Label classNameLabel = new Label();
         classNameLabel.setId("class-name-label");
@@ -57,17 +72,26 @@ public class StudentClassContainer extends HBox {
         viewButton.setOnAction(event -> goToClassDetail(classId, className, teacherName, classNameLabel.getScene()));
 
         HBox.setHgrow(classNameLabel, Priority.ALWAYS);
-        this.getChildren().addAll(classNameLabel, teacherNameContainer, numberFlashcardContainer, numberStudentContainer, viewButton);
+        this.getChildren().addAll(
+                classNameLabel, teacherNameContainer, numberFlashcardContainer, numberStudentContainer, viewButton);
         this.setId("class-container");
         this.setAlignment(Pos.CENTER_LEFT);
     }
-
+    /**
+     * Navigates to the class details page for the specified class.
+     *
+     * @param classId     the ID of the class
+     * @param className   the name of the class
+     * @param teacherName the name of the teacher
+     * @param scene       the current scene
+     */
     public void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
         try {
             StudentClassSession.getInstance().setClassId(classId);
             StudentClassSession.getInstance().setClassName(className);
             StudentClassSession.getInstance().setTeacherName(teacherName);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/student-class-details.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/com/flash_card/fxml/student-class-details.fxml"));
             loader.setResources(localization.getBundle());
             Parent root = loader.load();
             scene.setRoot(root);
