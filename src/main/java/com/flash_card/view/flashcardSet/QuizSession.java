@@ -1,15 +1,42 @@
 package com.flash_card.view.flashcardSet;
 
-import com.flash_card.view_model.flashcard_set.QuizResultViewModel;
-
+/**
+ * Singleton class representing the session for a quiz.
+ * Stores information about the current quiz, including the set ID, set name, and quiz ID.
+ */
 public class QuizSession {
+
+    /**
+     * Singleton instance of the QuizSession.
+     */
     private static QuizSession instance;
+
+    /**
+     * ID of the flashcard set being used in the quiz.
+     */
     private int setId;
+
+    /**
+     * Name of the flashcard set being used in the quiz.
+     */
     private String setName;
+
+    /**
+     * ID of the current quiz session.
+     */
     private int quizId;
 
-    private QuizSession() {}
+    /**
+     * Private constructor to enforce the singleton pattern.
+     */
+    private QuizSession() { }
 
+    /**
+     * Returns the singleton instance of the QuizSession.
+     * If the instance does not exist, it is created.
+     *
+     * @return the singleton instance of QuizSession
+     */
     public static QuizSession getInstance() {
         if (instance == null) {
             instance = new QuizSession();
@@ -17,30 +44,63 @@ public class QuizSession {
         return instance;
     }
 
+    /**
+     * Gets the ID of the flashcard set.
+     *
+     * @return the flashcard set ID
+     */
     public int getSetId() {
         return setId;
     }
 
+    /**
+     * Sets the ID of the flashcard set.
+     *
+     * @param setId the flashcard set ID to set
+     */
     public void setSetId(int setId) {
         this.setId = setId;
     }
 
+    /**
+     * Gets the name of the flashcard set.
+     *
+     * @return the flashcard set name
+     */
     public String getSetName() {
         return setName;
     }
 
+    /**
+     * Sets the name of the flashcard set.
+     *
+     * @param setName the flashcard set name to set
+     */
     public void setSetName(String setName) {
         this.setName = setName;
     }
 
+    /**
+     * Gets the ID of the current quiz session.
+     *
+     * @return the quiz ID
+     */
     public int getQuizId() {
         return quizId;
     }
 
+    /**
+     * Sets the ID of the current quiz session.
+     *
+     * @param quizId the quiz ID to set
+     */
     public void setQuizId(int quizId) {
         this.quizId = quizId;
     }
 
+    /**
+     * Clears the session data by resetting the set ID, set name, and quiz ID.
+     */
     public void clear() {
         setId = 0;
         setName = null;

@@ -1,7 +1,6 @@
 package com.flash_card.view.flashcardSet;
 
 import com.flash_card.framework.ViewController;
-import com.flash_card.localization.Localization;
 import com.flash_card.view.flashcard.EditManyCardsController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard_set.EditFlashcardSetViewModel;
@@ -15,24 +14,47 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+/**
+ * Controller class for editing an existing flashcard set.
+ */
 public class EditFlashcardSetController extends ViewController {
-    private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
-    private int setId;
-    private EditFlashcardSetViewModel viewModel = new EditFlashcardSetViewModel(entityManager);
-    private Localization localization = Localization.getInstance();
 
+    /** The entity manager for database operations. */
+    private final EntityManager entityManager = EntityManagerViewModel.getEntityManager();
+
+    /** The view model for editing flashcard sets. */
+    private final EditFlashcardSetViewModel viewModel = new EditFlashcardSetViewModel(entityManager);
+
+    /** The ID of the flashcard set being edited. */
+    private int setId;
+
+    /** The text field for entering the name of the flashcard set. */
     @FXML
     private TextField setNameField;
+
+    /** The text field for entering the description of the flashcard set. */
     @FXML
     private TextField setDescriptionField;
+
+    /** The text field for entering the topic of the flashcard set. */
     @FXML
     private TextField setTopicField;
 
+    /**
+     * Handles the action to edit the flashcards in the set.
+     *
+     * @param actionEvent the event triggered by the user
+     */
     @FXML
     public void handleEditCards(ActionEvent actionEvent) {
         goToEditManyCardsPage(setId, setNameField.getScene());
     }
 
+    /**
+     * Handles the action to save the edited flashcard set.
+     *
+     * @param actionEvent the event triggered by the user
+     */
     @FXML
     public void handleSaveSet(ActionEvent actionEvent) {
         String setName = setNameField.getText();
@@ -46,11 +68,22 @@ public class EditFlashcardSetController extends ViewController {
         goToPage("/com/flash_card/fxml/home.fxml", setNameField.getScene());
     }
 
+    /**
+     * Handles the action to cancel the editing process and return to the home page.
+     *
+     * @param actionEvent the event triggered by the user
+     */
     @FXML
     public void handleCancel(ActionEvent actionEvent) {
         goToPage("/com/flash_card/fxml/home.fxml", setNameField.getScene());
     }
 
+    /**
+     * Navigates to the page for editing multiple flashcards in the set.
+     *
+     * @param setId the ID of the flashcard set
+     * @param currentScene the current scene
+     */
     public void goToEditManyCardsPage(int setId, Scene currentScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-many-cards.fxml"));
@@ -58,14 +91,20 @@ public class EditFlashcardSetController extends ViewController {
             Parent root = loader.load();
             EditManyCardsController controller = loader.getController();
             controller.setFlashcardSetId(setId);
-            Scene scene = currentScene;
-            scene.setRoot(root);
+            currentScene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //set the fields with the current set info
+    /**
+     * Sets the fields with the current flashcard set information.
+     *
+     * @param setId the ID of the flashcard set
+     * @param setName the name of the flashcard set
+     * @param setDescription the description of the flashcard set
+     * @param setTopic the topic of the flashcard set
+     */
     public void setFlashcardSet(int setId, String setName, String setDescription, String setTopic) {
         this.setId = setId;
         setNameField.setText(setName);
