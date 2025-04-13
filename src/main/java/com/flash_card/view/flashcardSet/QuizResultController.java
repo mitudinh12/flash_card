@@ -81,6 +81,7 @@ public class QuizResultController extends ViewController {
         StudySession session = StudySession.getInstance();
         session.setSetId(quizSession.getSetId());
         session.setSetName(quizSession.getSetName());
+        quizSession.clear();
         goToPage("/com/flash_card/fxml/study-flashcard.fxml", setNameLabel.getScene());
     }
 
