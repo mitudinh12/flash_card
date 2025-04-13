@@ -78,7 +78,10 @@ public class FlashcardSet {
      * @param setTopicParam         the topic of the flashcard set
      * @param flashcardCreatorParam the creator of the flashcard set
      */
-    public FlashcardSet(String setNameParam, String setDescriptionParam, String setTopicParam, final User flashcardCreatorParam) {
+    public FlashcardSet(final String setNameParam,
+                        final String setDescriptionParam,
+                        final String setTopicParam,
+                        final User flashcardCreatorParam) {
         super();
         this.setName = setNameParam;
         this.setDescription = setDescriptionParam;
@@ -112,7 +115,7 @@ public class FlashcardSet {
      *
      * @param setNameParam the name to set
      */
-    public void setSetName(String setNameParam) {
+    public void setSetName(final String setNameParam) {
         this.setName = setNameParam;
     }
     /**
@@ -128,7 +131,7 @@ public class FlashcardSet {
      *
      * @param setLanguageParam the language to set
      */
-    public void setSetLanguage(String setLanguageParam) {
+    public void setSetLanguage(final String setLanguageParam) {
         this.setLanguage = setLanguageParam;
     }
     /**
@@ -144,7 +147,7 @@ public class FlashcardSet {
      *
      * @param setDescriptionParam the description to set
      */
-    public void setSetDescription(String setDescriptionParam) {
+    public void setSetDescription(final String setDescriptionParam) {
         this.setDescription = setDescriptionParam;
     }
     /**
@@ -160,7 +163,7 @@ public class FlashcardSet {
      *
      * @param setTopicParam the topic to set
      */
-    public void setSetTopic(String setTopicParam) {
+    public void setSetTopic(final String setTopicParam) {
         this.setTopic = setTopicParam;
     }
     /**

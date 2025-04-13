@@ -58,7 +58,10 @@ public class Flashcard {
      * @param flashcardSetParam  the flashcard set associated with this flashcard
      * @param flashcardCreatorParam the creator of the flashcard
      */
-    public Flashcard(String termParam, String definitionParam, final FlashcardSet flashcardSetParam, final User flashcardCreatorParam) {
+    public Flashcard(final String termParam,
+                     final String definitionParam,
+                     final FlashcardSet flashcardSetParam,
+                     final User flashcardCreatorParam) {
         super();
         this.term = termParam;
         this.definition = definitionParam;
@@ -91,7 +94,7 @@ public class Flashcard {
      *
      * @param termParam the term to set
      */
-    public void setTerm(String termParam) {
+    public void setTerm(final String termParam) {
         this.term = termParam;
     }
     /**
@@ -107,7 +110,7 @@ public class Flashcard {
      *
      * @param definitionParam the definition to set
      */
-    public void setDefinition(String definitionParam) {
+    public void setDefinition(final String definitionParam) {
         this.definition = definitionParam;
     }
     /**
@@ -123,7 +126,7 @@ public class Flashcard {
      *
      * @param flashcardSetParam the flashcard set to set
      */
-    public void setFlashcardSet(FlashcardSet flashcardSetParam) {
+    public void setFlashcardSet(final FlashcardSet flashcardSetParam) {
         this.flashcardSet = flashcardSetParam;
     }
     /**
@@ -139,7 +142,7 @@ public class Flashcard {
      *
      * @param flashcardCreatorParam the creator to set
      */
-    public void setFlashcardCreator(User flashcardCreatorParam) {
+    public void setFlashcardCreator(final User flashcardCreatorParam) {
         this.flashcardCreator = flashcardCreatorParam;
     }
 }

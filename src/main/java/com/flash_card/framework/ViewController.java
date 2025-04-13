@@ -52,7 +52,7 @@ public abstract class ViewController {
      *
      * @param language the selected language
      */
-    protected void switchLocale(String language) {
+    protected void switchLocale(final String language) {
         String langCode;
         switch (language) {
             case "Suomi":
@@ -103,7 +103,7 @@ public abstract class ViewController {
      *
      * @param fxmlFilePath the path to the FXML file
      */
-    public void setReloadFxml(String fxmlFilePath) {
+    public void setReloadFxml(final String fxmlFilePath) {
         languageComboBox.setValue(localization.getMessage("language")); //display chosen or default language in combobox
         languageComboBox.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -118,7 +118,7 @@ public abstract class ViewController {
      * @param event the mouse event triggered by clicking a menu item
      */
     @FXML
-    protected void handleMenuClick(MouseEvent event) {
+    protected void handleMenuClick(final MouseEvent event) {
         Node clickedNode = (Node) event.getTarget();
         Node parentNode = clickedNode;
 
@@ -174,7 +174,7 @@ public abstract class ViewController {
      * @param event the action event triggered by the logout button
      */
     // method to display login page
-    protected void displayLoginPage(ActionEvent event) {
+    protected void displayLoginPage(final ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/login.fxml"));
             loader.setResources(localization.getBundle());
@@ -194,7 +194,7 @@ public abstract class ViewController {
      */
     // method to handleLogout button
     @FXML
-    protected void handleLogout(ActionEvent event) {
+    protected void handleLogout(final ActionEvent event) {
         authSessionViewModel.logout();
         displayLoginPage(event);
     }
@@ -204,7 +204,7 @@ public abstract class ViewController {
      * @param title   the title of the alert
      * @param message the message to display in the alert
      */
-    protected void showAlert(String title, String message) {
+    protected void showAlert(final String title, final String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -217,7 +217,7 @@ public abstract class ViewController {
      * @param fxmlFile the path to the FXML file
      * @param scene    the current scene
      */
-    protected void goToPage(String fxmlFile, Scene scene) {
+    protected void goToPage(final String fxmlFile, final Scene scene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             loader.setResources(localization.getBundle());
@@ -242,7 +242,7 @@ public abstract class ViewController {
      * @param event the action event triggered by the homepage button
      */
     @FXML
-    protected void displayHomepage(ActionEvent event) {
+    protected void displayHomepage(final ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/home.fxml"));
             loader.setResources(localization.getBundle());

@@ -43,7 +43,7 @@ public class ClassMember {
      * @param studentParam   the student associated with this membership
      * @param classroomParam the classroom associated with this membership
      */
-    public ClassMember(User studentParam, Classroom classroomParam) {
+    public ClassMember(final User studentParam, final Classroom classroomParam) {
         super();
         this.student = studentParam;
         this.classroom = classroomParam;

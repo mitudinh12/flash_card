@@ -41,7 +41,7 @@ public final class Localization {
      *
      * @param langChoice the language code (e.g., "en", "fi", "ko")
      */
-    public void setLocaleByLanguage(String langChoice) {
+    public void setLocaleByLanguage(final String langChoice) {
         this.locale = LocaleFactory.getLocaleByLanguage(langChoice);
         this.messages = ResourceBundle.getBundle("messages", locale);
     }
@@ -69,7 +69,7 @@ public final class Localization {
      * @param key the key for the desired message
      * @return the localized message
      */
-    public String getMessage(String key) {
+    public String getMessage(final String key) {
         return messages.getString(key);
     }
 

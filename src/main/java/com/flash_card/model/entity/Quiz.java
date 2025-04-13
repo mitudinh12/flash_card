@@ -17,6 +17,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "quizzes")
 public class Quiz {
+    /**
+     * The unique identifier for the quiz.
+     * Maps to the "quiz_id" column in the database.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id")
@@ -74,7 +78,12 @@ public class Quiz {
      * @param correctTimesParam  the number of correct answers
      * @param wrongTimesParam    the number of wrong answers
      */
-    public Quiz(User userParam, FlashcardSet flashcardSetParam, LocalDateTime startTimeParam, LocalDateTime endTimeParam, int correctTimesParam, int wrongTimesParam) {
+    public Quiz(final User userParam,
+                final FlashcardSet flashcardSetParam,
+                final LocalDateTime startTimeParam,
+                final LocalDateTime endTimeParam,
+                final int correctTimesParam,
+                final int wrongTimesParam) {
         this.user = userParam;
         this.flashcardSet = flashcardSetParam;
         this.startTime = startTimeParam;
@@ -104,7 +113,7 @@ public class Quiz {
      *
      * @param userParam the user to set
      */
-    public void setUser(User userParam) {
+    public void setUser(final User userParam) {
         this.user = userParam;
     }
     /**
@@ -121,7 +130,7 @@ public class Quiz {
      *
      * @param flashcardSetParam the flashcard set to set
      */
-    public void setFlashcardSet(FlashcardSet flashcardSetParam) {
+    public void setFlashcardSet(final FlashcardSet flashcardSetParam) {
         this.flashcardSet = flashcardSetParam;
     }
     /**
@@ -137,7 +146,7 @@ public class Quiz {
      *
      * @param startTimeParam the start time to set
      */
-    public void setStartTime(LocalDateTime startTimeParam) {
+    public void setStartTime(final LocalDateTime startTimeParam) {
         this.startTime = startTimeParam;
     }
     /**
@@ -153,7 +162,7 @@ public class Quiz {
      *
      * @param endTimeParam the end time to set
      */
-    public void setEndTime(LocalDateTime endTimeParam) {
+    public void setEndTime(final LocalDateTime endTimeParam) {
         this.endTime = endTimeParam;
     }
     /**
@@ -169,7 +178,7 @@ public class Quiz {
      *
      * @param correctTimesParam the number of correct answers to set
      */
-    public void setCorrectTimes(int correctTimesParam) {
+    public void setCorrectTimes(final int correctTimesParam) {
         this.correctTimes = correctTimesParam;
     }
     /**
@@ -185,7 +194,7 @@ public class Quiz {
      *
      * @param wrongTimesParam the number of wrong answers to set
      */
-    public void setWrongTimes(int wrongTimesParam) {
+    public void setWrongTimes(final int wrongTimesParam) {
         this.wrongTimes = wrongTimesParam;
     }
 

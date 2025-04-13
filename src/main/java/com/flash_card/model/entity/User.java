@@ -51,7 +51,11 @@ public final class User {
      * @param emailParam     the email address of the user
      * @param idTokenParam   the ID token of the user
      */
-    public User(final String userIdParam, final String firstNameParam, final String lastNameParam, final String emailParam, String idTokenParam) {
+    public User(final String userIdParam,
+                final String firstNameParam,
+                final String lastNameParam,
+                final String emailParam,
+                final String idTokenParam) {
         super();
         this.userId = userIdParam;
         this.firstName = firstNameParam;

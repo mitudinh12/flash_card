@@ -13,23 +13,56 @@ import javafx.scene.layout.Priority;
 
 import java.io.IOException;
 
+/**
+ * A UI component representing a single classroom in teacher mode.
+ * <p>
+ * Displays the classroom name, number of students, number of flashcard sets,
+ * and provides edit and delete buttons.
+ * Clicking on the component navigates to the class detail view.
+ */
 public class ClassContainer extends HBox {
+
+    /**
+     * Controller that manages navigation and class operations.
+     */
     private HomeTeacherController controller;
+
+    /**
+     * ViewModel representing the classroom's data.
+     */
     private ClassRoomViewModel viewModel;
+
+    /**
+     * Label displaying the classroom name.
+     */
     private Label classNameLabel;
+
+    /**
+     * Localization instance for translating UI text.
+     */
     private final Localization localization = Localization.getInstance();
 
-    public ClassContainer(ClassRoomViewModel viewModel, HomeTeacherController controller) {
-        this.controller = controller;
-        this.viewModel = viewModel;
+    /**
+     * Constructs a new {@code ClassContainer} for the specified classroom and controller.
+     *
+     * @param currentViewModel  the ViewModel representing the classroom
+     * @param currentController the controller managing the view
+     */
+    public ClassContainer(final ClassRoomViewModel currentViewModel, final HomeTeacherController currentController) {
+        this.controller = currentController;
+        this.viewModel = currentViewModel;
         initializeUI();
     }
 
+    /**
+     * Initializes the UI components for the classroom container.
+     */
     private void initializeUI() {
         classNameLabel = new Label();
         classNameLabel.setId("class-name-label");
         classNameLabel.textProperty().bind(viewModel.getClassName());
 
+        // Student count container
         HBox numberStudentContainer = new HBox();
         numberStudentContainer.setId("number-student-container");
         Label numberStudent = new Label();
@@ -43,6 +76,8 @@ public class ClassContainer extends HBox {
         } else {
             numberStudentContainer.getChildren().addAll(numberStudent, studentLabel1);
         }
+
+        // Flashcard set count container
         HBox numberFlashcardContainer = new HBox();
         numberFlashcardContainer.setId("number-set-container");
         Label numberFlashcard = new Label();
@@ -57,31 +92,51 @@ public class ClassContainer extends HBox {
             numberFlashcardContainer.getChildren().addAll(numberFlashcard, setLabel1);
         }
 
+        // Edit button
         Button editButton = new Button(localization.getMessage("edit"));
         editButton.setId("edit-button");
         editButton.setOnAction(event -> gotoEditClassPage());
 
+        // Delete button
         Button deleteButton = new Button(localization.getMessage("delete"));
         deleteButton.setId("delete-button");
         deleteButton.setOnAction(event -> controller.deleteClass(viewModel));
 
         HBox.setHgrow(classNameLabel, Priority.ALWAYS);
-        this.getChildren().addAll(classNameLabel, numberStudentContainer, numberFlashcardContainer, editButton, deleteButton);
+        this.getChildren().addAll(
+                classNameLabel,
+                numberStudentContainer,
+                numberFlashcardContainer,
+                editButton,
+                deleteButton
+        );
         this.setId("class-container");
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setOnMouseClicked(event -> controller.gotoClassDetailPage(viewModel.getClassId(), viewModel.getClassName().getValue()));
+
+        // Navigate to class detail page on click
+        this.setOnMouseClicked(event ->
+                controller.gotoClassDetailPage(viewModel.getClassId(), viewModel.getClassName().getValue())
+        );
     }
 
+    /**
+     * Navigates to the edit class page for the current class.
+     * Loads the edit FXML and sets the classroom values in the controller.
+     */
     public void gotoEditClassPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-class.fxml"));
             loader.setResources(localization.getBundle());
             Parent root = loader.load();
-            EditClassController controller = loader.getController();
-            controller.setClassRoom(viewModel.getClassId() , viewModel.getClassName().getValue(), viewModel.getClassDescription());
+            EditClassController controllerEdit = loader.getController();
+            controllerEdit.setClassRoom(
+                    viewModel.getClassId(),
+                    viewModel.getClassName().getValue(),
+                    viewModel.getClassDescription()
+            );
             Scene scene = classNameLabel.getScene();
             scene.setRoot(root);
-            controller.setReloadFxml ("/com/flash_card/fxml/class-detail.fxml");
+            controllerEdit.setReloadFxml("/com/flash_card/fxml/class-detail.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
