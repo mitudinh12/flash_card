@@ -19,7 +19,9 @@ public class EditClassController extends ViewController {
 
     private EntityManager entityManager = EntityManagerViewModel.getEntityManager();
     private AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
-    private int classId;
+    private static int classId;
+    private static String className;
+    private static String classDescription;
     private String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
     private TeacherViewModel viewModel = new TeacherViewModel(userId, entityManager);
 
@@ -32,10 +34,14 @@ public class EditClassController extends ViewController {
     @FXML
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/edit-class.fxml");
+        classNameField.setText(className);
+        classDescriptionField.setText(classDescription);
     }
 
-    public void setClassRoom(int classId, String className, String classDescription) {
-        this.classId = classId;
+    public void setClassRoom(int currentClassId, String currentClassName, String currentClassDescription) {
+        classId = currentClassId;
+        className = currentClassName;
+        classDescription = currentClassDescription;
         classNameField.setText(className);
         classDescriptionField.setText(classDescription);
     }
