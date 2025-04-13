@@ -60,7 +60,9 @@ public class CardDifficultLevel {
      * @param studyParam          the study session associated with this difficulty level
      * @param difficultLevelParam the difficulty level of the flashcard
      */
-    public CardDifficultLevel(Flashcard flashcardParam, Study studyParam, DifficultyLevel difficultLevelParam) {
+    public CardDifficultLevel(final Flashcard flashcardParam,
+                              final Study studyParam,
+                              final DifficultyLevel difficultLevelParam) {
         super();
         this.flashcard = flashcardParam;
         this.study = studyParam;
@@ -103,7 +105,7 @@ public class CardDifficultLevel {
      *
      * @param difficultLevelParam the difficulty level to set
      */
-    public void setDifficultLevel(DifficultyLevel difficultLevelParam) {
+    public void setDifficultLevel(final  DifficultyLevel difficultLevelParam) {
         this.difficultLevel = difficultLevelParam;
     }
 

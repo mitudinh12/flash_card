@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
  * Provides methods for persisting, deleting, updating, and querying studies
  * in the database.
  */
-public class StudyDao {
+public final class StudyDao {
     /**
      * Singleton instance of the {@link StudyDao}.
      */
@@ -47,7 +47,7 @@ public class StudyDao {
      * @param study the {@link Study} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persist(Study study) {
+    public boolean persist(final Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(study);
@@ -68,7 +68,7 @@ public class StudyDao {
      * @param id the ID of the study
      * @return the {@link Study} entity if found, or null if not found
      */
-    public Study findById(int id) {
+    public Study findById(final int id) {
         Study study = entityManager.find(Study.class, id);
         return study;
     }
@@ -78,7 +78,7 @@ public class StudyDao {
      * @param study the {@link Study} entity to update
      * @return true if the operation is successful, false otherwise
      */
-    public boolean update(Study study) {
+    public boolean update(final Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(study);
@@ -99,7 +99,7 @@ public class StudyDao {
      * @param study the {@link Study} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean delete(Study study) {
+    public boolean delete(final Study study) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(study);
@@ -121,7 +121,7 @@ public class StudyDao {
      * @param setId  the ID of the flashcard set
      * @return the {@link Study} entity if found, or null if not found
      */
-    public Study findByUserIdAndSetId(String userId, int setId) {
+    public Study findByUserIdAndSetId(final String userId, final int setId) {
         try {
             return entityManager.createQuery(
                             "SELECT s FROM Study s "

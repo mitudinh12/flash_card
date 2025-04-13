@@ -9,7 +9,7 @@ import java.util.List;
  * Provides methods for persisting, deleting, updating, and querying shared
  * sets in the database.
  */
-public class SharedSetsDao {
+public final class SharedSetsDao {
     /**
      * Singleton instance of the {@link SharedSetsDao}.
      */
@@ -49,7 +49,7 @@ public class SharedSetsDao {
      * @param sharedSet the {@link SharedSet} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persist(SharedSet sharedSet) {
+    public boolean persist(final SharedSet sharedSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(sharedSet);
@@ -70,7 +70,7 @@ public class SharedSetsDao {
      * @param id the ID of the shared set
      * @return the {@link SharedSet} entity if found, or null if not found
      */
-    public SharedSet findById(int id) {
+    public SharedSet findById(final int id) {
         return entityManager.find(SharedSet.class, id);
     }
     /**
@@ -79,7 +79,7 @@ public class SharedSetsDao {
      * @param sharedSet the {@link SharedSet} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean delete(SharedSet sharedSet) {
+    public boolean delete(final SharedSet sharedSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(sharedSet);
@@ -100,7 +100,7 @@ public class SharedSetsDao {
      * @param userId the ID of the user
      * @return a list of {@link SharedSet} entities associated with the user
      */
-    public List<SharedSet> findByUserId(String userId) {
+    public List<SharedSet> findByUserId(final String userId) {
         return entityManager.createQuery("SELECT s FROM SharedSet s WHERE s.user.userId = :userId", SharedSet.class)
                 .setParameter("userId", userId)
                 .getResultList();
@@ -113,7 +113,7 @@ public class SharedSetsDao {
      * @param userId the ID of the user
      * @return the {@link SharedSet} entity if found, or null if not found
      */
-    public SharedSet findBySetIdAndUserId(int flashcardSetId, String userId) {
+    public SharedSet findBySetIdAndUserId(final int flashcardSetId, final String userId) {
         try {
             return entityManager.createQuery(
                             "SELECT s FROM SharedSet s "

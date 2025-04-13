@@ -49,7 +49,7 @@ public class FlashcardSetDao {
      * @param flashcardSet the {@link FlashcardSet} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persist(FlashcardSet flashcardSet) {
+    public boolean persist(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcardSet);
@@ -70,7 +70,7 @@ public class FlashcardSetDao {
      * @param id the ID of the flashcard set
      * @return the {@link FlashcardSet} entity if found, or null if not found
      */
-    public FlashcardSet findById(int id) {
+    public FlashcardSet findById(final int id) {
         return entityManager.find(FlashcardSet.class, id);
     }
     /**
@@ -79,7 +79,7 @@ public class FlashcardSetDao {
      * @param flashcardSet the {@link FlashcardSet} entity to update
      * @return true if the operation is successful, false otherwise
      */
-    public boolean update(FlashcardSet flashcardSet) {
+    public boolean update(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcardSet);
@@ -97,7 +97,7 @@ public class FlashcardSetDao {
      * @param flashcardSet the {@link FlashcardSet} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean delete(FlashcardSet flashcardSet) {
+    public boolean delete(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcardSet);
@@ -116,7 +116,7 @@ public class FlashcardSetDao {
      * @param userId the ID of the user
      * @return a list of {@link FlashcardSet} entities associated with the user
      */
-    public List<FlashcardSet> findByUserId(String userId) {
+    public List<FlashcardSet> findByUserId(final String userId) {
         return entityManager.createQuery(
                         "SELECT fs FROM FlashcardSet fs "
                          + "WHERE fs.flashcardCreator.userId = :userId",

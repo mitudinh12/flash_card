@@ -49,7 +49,7 @@ public class Classroom {
      * @param descriptionParam   the description of the classroom
      * @param teacherParam       the teacher associated with the classroom
      */
-    public Classroom(String classroomNameParam, String descriptionParam, User teacherParam) {
+    public Classroom(final String classroomNameParam, final String descriptionParam, final User teacherParam) {
         this.classroomName = classroomNameParam;
         this.description = descriptionParam;
         this.teacher = teacherParam;
@@ -80,7 +80,7 @@ public class Classroom {
      *
      * @param classroomNameParam the name to set
      */
-    public void setClassroomName(String classroomNameParam) {
+    public void setClassroomName(final String classroomNameParam) {
         this.classroomName = classroomNameParam;
     }
     /**
@@ -96,7 +96,7 @@ public class Classroom {
      *
      * @param descriptionParam the description to set
      */
-    public void setDescription(String descriptionParam) {
+    public void setDescription(final String descriptionParam) {
         this.description = descriptionParam;
     }
     /**

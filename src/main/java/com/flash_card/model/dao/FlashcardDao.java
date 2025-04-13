@@ -10,7 +10,7 @@ import java.util.List;
  * Provides methods for persisting, deleting, updating, and querying flashcards
  * in the database.
  */
-public class FlashcardDao {
+public final class FlashcardDao {
     /**
      * Singleton instance of the {@link FlashcardDao}.
      */
@@ -50,7 +50,7 @@ public class FlashcardDao {
      * @param flashcard the {@link Flashcard} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persist(Flashcard flashcard) {
+    public boolean persist(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcard);
@@ -81,7 +81,7 @@ public class FlashcardDao {
      * @param flashcard the {@link Flashcard} entity to update
      * @return true if the operation is successful, false otherwise
      */
-    public boolean update(Flashcard flashcard) {
+    public boolean update(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcard);
@@ -102,7 +102,7 @@ public class FlashcardDao {
      * @param flashcard the {@link Flashcard} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean delete(Flashcard flashcard) {
+    public boolean delete(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcard);
@@ -124,7 +124,7 @@ public class FlashcardDao {
      * @param setId the ID of the flashcard set
      * @return a list of {@link Flashcard} entities associated with the set
      */
-    public List<Flashcard> findBySetId(int setId) {
+    public List<Flashcard> findBySetId(final int setId) {
         return entityManager.createQuery(
                         "SELECT f FROM Flashcard f "
                          + "WHERE f.flashcardSet.setId = :setId",
@@ -142,7 +142,7 @@ public class FlashcardDao {
      * @param studyId    the ID of the study
      * @return a list of hard {@link Flashcard} entities
      */
-    public List<Flashcard> getHardFlashcards(int setId, int studyId) {
+    public List<Flashcard> getHardFlashcards(final int setId, final int studyId) {
         return entityManager.createQuery(
                         "SELECT f FROM Flashcard f "
                          + "JOIN CardDifficultLevel cdl "

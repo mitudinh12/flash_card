@@ -71,7 +71,11 @@ public class Study {
      * @param endTimeParam           the end time of the study session
      * @param numberStudiedWordsParam the number of words studied during the session
      */
-    public Study(User userParam, FlashcardSet flashcardSetParam, LocalDateTime startTimeParam, LocalDateTime endTimeParam, int numberStudiedWordsParam) {
+    public Study(final User userParam,
+                 final FlashcardSet flashcardSetParam,
+                 final LocalDateTime startTimeParam,
+                 final LocalDateTime endTimeParam,
+                 final int numberStudiedWordsParam) {
         this.user = userParam;
         this.flashcardSet = flashcardSetParam;
         this.startTime = startTimeParam;
@@ -99,7 +103,7 @@ public class Study {
      *
      * @param userParam the user to set
      */
-    public void setUser(User userParam) {
+    public void setUser(final User userParam) {
         this.user = userParam;
     }
     /**
@@ -115,7 +119,7 @@ public class Study {
      *
      * @param flashcardSetParam the flashcard set to set
      */
-    public void setFlashcardSet(FlashcardSet flashcardSetParam) {
+    public void setFlashcardSet(final FlashcardSet flashcardSetParam) {
         this.flashcardSet = flashcardSetParam;
     }
     /**
@@ -132,7 +136,7 @@ public class Study {
      *
      * @param startTimeParam the start time to set
      */
-    public void setStartTime(LocalDateTime startTimeParam) {
+    public void setStartTime(final LocalDateTime startTimeParam) {
         this.startTime = startTimeParam;
     }
     /**
@@ -148,7 +152,7 @@ public class Study {
      *
      * @param endTimeParam the end time to set
      */
-    public void setEndTime(LocalDateTime endTimeParam) {
+    public void setEndTime(final LocalDateTime endTimeParam) {
         this.endTime = endTimeParam;
     }
     /**
@@ -164,7 +168,7 @@ public class Study {
      *
      * @param numberStudiedWordsParam the number of studied words to set
      */
-    public void setNumberStudiedWords(int numberStudiedWordsParam) {
+    public void setNumberStudiedWords(final int numberStudiedWordsParam) {
         this.numberStudiedWords = numberStudiedWordsParam;
     }
 }

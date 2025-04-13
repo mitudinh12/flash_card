@@ -9,7 +9,7 @@ import java.util.List;
  * Data Access Object (DAO) class for managing {@link AssignedSet} entities.
  * Provides methods for persisting, deleting, and querying assigned sets in the database.
  */
-public class AssignedSetDao {
+public final class AssignedSetDao {
     /**
      * Singleton instance of the {@link AssignedSetDao}.
      */
@@ -45,7 +45,7 @@ public class AssignedSetDao {
      * @param assignedSet the {@link AssignedSet} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persistAssignedSet(AssignedSet assignedSet) {
+    public boolean persistAssignedSet(final AssignedSet assignedSet) {
         try {
             em.getTransaction().begin();
             em.persist(assignedSet);
@@ -66,7 +66,7 @@ public class AssignedSetDao {
      * @param assignedSet the {@link AssignedSet} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean deleteAssignedSet(AssignedSet assignedSet) {
+    public boolean deleteAssignedSet(final AssignedSet assignedSet) {
         try {
             em.getTransaction().begin();
             em.remove(assignedSet);
@@ -87,7 +87,7 @@ public class AssignedSetDao {
      * @param classId the ID of the classroom
      * @return a list of {@link FlashcardSet} entities associated with the classroom
      */
-    public List<FlashcardSet> findAllSetsByClassId(int classId) {
+    public List<FlashcardSet> findAllSetsByClassId(final int classId) {
         return em.createQuery(
                         "SELECT fs FROM FlashcardSet fs "
                          + "JOIN AssignedSet aset ON fs.setId = aset.flashcardSet.setId "
@@ -104,7 +104,7 @@ public class AssignedSetDao {
      * @param classId the ID of the classroom
      * @return the {@link AssignedSet} entity if found, or null if not found
      */
-    public AssignedSet findBySetIdAndClassId(int setId, int classId) {
+    public AssignedSet findBySetIdAndClassId(final int setId, final int classId) {
         List<AssignedSet> results = em.createQuery(
                 "SELECT aset FROM AssignedSet aset "
                  + "WHERE aset.flashcardSet.setId = :setId "

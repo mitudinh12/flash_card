@@ -43,7 +43,7 @@ public class SharedSet {
      * @param userParam         the user associated with the shared set
      * @param flashcardSetParam the flashcard set being shared
      */
-    public SharedSet(final User userParam, FlashcardSet flashcardSetParam) {
+    public SharedSet(final User userParam, final FlashcardSet flashcardSetParam) {
         this.user = userParam;
         this.flashcardSet = flashcardSetParam;
     }

@@ -9,7 +9,7 @@ import java.util.List;
  * Provides methods for persisting, deleting, updating, and querying quizzes
  * in the database.
  */
-public class QuizDao {
+public final class QuizDao {
     /**
      * Singleton instance of the {@link QuizDao}.
      */
@@ -49,7 +49,7 @@ public class QuizDao {
      * @param quiz the {@link Quiz} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persist(Quiz quiz) {
+    public boolean persist(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(quiz);
@@ -70,7 +70,7 @@ public class QuizDao {
      * @param id the ID of the quiz
      * @return the {@link Quiz} entity if found, or null if not found
      */
-    public Quiz findById(int id) {
+    public Quiz findById(final int id) {
         Quiz quiz = entityManager.find(Quiz.class, id);
         return quiz;
     }
@@ -80,7 +80,7 @@ public class QuizDao {
      * @param quiz the {@link Quiz} entity to update
      * @return true if the operation is successful, false otherwise
      */
-    public boolean update(Quiz quiz) {
+    public boolean update(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(quiz);
@@ -101,7 +101,7 @@ public class QuizDao {
      * @param quiz the {@link Quiz} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean delete(Quiz quiz) {
+    public boolean delete(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(quiz);
@@ -124,7 +124,7 @@ public class QuizDao {
      * @param setId  the ID of the flashcard set
      * @return a list of {@link Quiz} entities associated with the user and set
      */
-    public List<Quiz> findByUserIdAndSetId(String userId, int setId) {
+    public List<Quiz> findByUserIdAndSetId(final String userId, final int setId) {
         return entityManager.createQuery(
                         "SELECT q FROM Quiz q "
                          + "WHERE q.user.userId = :userId "

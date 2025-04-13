@@ -8,7 +8,7 @@ import java.util.List;
  * Data Access Object (DAO) class for managing {@link CardDifficultLevel} entities.
  * Provides methods for persisting, deleting, and querying card difficulty levels in the database.
  */
-public class CardDifficultLevelDao {
+public final class CardDifficultLevelDao {
     /**
      * Singleton instance of the {@link CardDifficultLevelDao}.
      */
@@ -44,7 +44,7 @@ public class CardDifficultLevelDao {
      * @param cardDifficultLevel the {@link CardDifficultLevel} entity to persist
      * @return true if the operation is successful, false otherwise
      */
-    public boolean persistCardDifficultLevel(CardDifficultLevel cardDifficultLevel) {
+    public boolean persistCardDifficultLevel(final CardDifficultLevel cardDifficultLevel) {
         try {
             em.getTransaction().begin();
             em.persist(cardDifficultLevel);
@@ -65,7 +65,7 @@ public class CardDifficultLevelDao {
      * @param cardDifficultLevel the {@link CardDifficultLevel} entity to delete
      * @return true if the operation is successful, false otherwise
      */
-    public boolean deleteCardDifficultLevel(CardDifficultLevel cardDifficultLevel) {
+    public boolean deleteCardDifficultLevel(final CardDifficultLevel cardDifficultLevel) {
         try {
             em.getTransaction().begin();
             em.remove(cardDifficultLevel);
@@ -88,7 +88,7 @@ public class CardDifficultLevelDao {
      * @param studyId the ID of the study
      * @return the {@link CardDifficultLevel} entity if found, or null if not found
      */
-    public CardDifficultLevel findCardDifficultLevelByCardIdAndStudyId(int cardId, int studyId) {
+    public CardDifficultLevel findCardDifficultLevelByCardIdAndStudyId(final int cardId, final int studyId) {
         CardDifficultLevel level = null;
         List<CardDifficultLevel> results = em.createQuery(
                     "SELECT cdl FROM CardDifficultLevel cdl "
