@@ -72,7 +72,8 @@ public class SetContainer extends HBox {
      * @param currentViewModel  the view model representing the assigned flashcard set.
      * @param currentController the controller handling class detail logic.
      */
-    public SetContainer(final AssignedFlashcardSetViewModel currentViewModel, final ClassDetailController currentController) {
+    public SetContainer(final AssignedFlashcardSetViewModel currentViewModel,
+                        final ClassDetailController currentController) {
         this.viewModel = currentViewModel;
         this.controller = currentController;
         this.setId = viewModel.getSet().getSetId();
@@ -131,13 +132,17 @@ public class SetContainer extends HBox {
 
         TableView<Map<String, Object>> tableView = new TableView<>();
 
-        TableColumn<Map<String, Object>, String> nameColumn = new TableColumn<>(localization.getMessage("teacher.studentName"));
+        TableColumn<Map<String, Object>, String> nameColumn =
+                new TableColumn<>(localization.getMessage("teacher.studentName"));
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty((String) data.getValue().get("studentName")));
 
-        TableColumn<Map<String, Object>, String> flashcardsColumn = new TableColumn<>(localization.getMessage("teacher.columnStudy"));
-        flashcardsColumn.setCellValueFactory(data -> new SimpleStringProperty((String) data.getValue().get("flashcardsProgress")));
+        TableColumn<Map<String, Object>, String> flashcardsColumn =
+                new TableColumn<>(localization.getMessage("teacher.columnStudy"));
+        flashcardsColumn.setCellValueFactory(data ->
+                new SimpleStringProperty((String) data.getValue().get("flashcardsProgress")));
 
-        TableColumn<Map<String, Object>, Double> quizPercentageColumn = new TableColumn<>(localization.getMessage("teacher.columnQuiz"));
+        TableColumn<Map<String, Object>, Double> quizPercentageColumn =
+                new TableColumn<>(localization.getMessage("teacher.columnQuiz"));
         quizPercentageColumn.setCellValueFactory(data ->
                 new SimpleDoubleProperty((Double) data.getValue().get("highestQuizPercentage")).asObject());
 
@@ -155,7 +160,8 @@ public class SetContainer extends HBox {
 
         tableView.getColumns().addAll(nameColumn, flashcardsColumn, quizPercentageColumn);
 
-        List<Map<String, Object>> studentProgressList = progressViewModel.getStudentProgressList(controller.getClassId(), setId);
+        List<Map<String, Object>> studentProgressList =
+                progressViewModel.getStudentProgressList(controller.getClassId(), setId);
         tableView.getItems().addAll(studentProgressList);
 
         ScrollPane scrollPane = new ScrollPane(tableView);
@@ -166,7 +172,8 @@ public class SetContainer extends HBox {
         layout.setPadding(new Insets(POPUP_PADDING));
 
         Scene scene = new Scene(layout, POPUP_WIDTH, POPUP_HEIGHT);
-        String css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+        String css = Objects.requireNonNull(getClass()
+                .getResource("/com/flash_card/styles/styles.css").toExternalForm());
         if (!css.isEmpty()) {
             scene.getStylesheets().add(css);
         }

@@ -84,7 +84,9 @@ public class EditClassController extends ViewController {
      * @param currentClassName        the class name
      * @param currentClassDescription the class description
      */
-    public void setClassRoom(final int currentClassId, final String currentClassName, final String currentClassDescription) {
+    public void setClassRoom(final int currentClassId,
+                             final String currentClassName,
+                             final String currentClassDescription) {
         classId = currentClassId;
         className = currentClassName;
         classDescription = currentClassDescription;

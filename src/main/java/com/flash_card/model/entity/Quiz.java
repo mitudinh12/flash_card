@@ -17,6 +17,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "quizzes")
 public class Quiz {
+    /**
+     * The unique identifier for the quiz.
+     * Maps to the "quiz_id" column in the database.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id")

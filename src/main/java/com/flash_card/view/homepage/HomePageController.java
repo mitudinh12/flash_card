@@ -44,7 +44,7 @@ public class HomePageController extends ViewController {
     /**
      * Logger instance for logging errors and information.
      */
-    private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomePageController.class);
 
     /**
      * ViewModel for accessing authenticated user session data.
@@ -277,7 +277,7 @@ public class HomePageController extends ViewController {
                 scene.getStylesheets().add(css);
             }
         } catch (NullPointerException e) {
-            log.error("Error loading CSS file: {}", e.getMessage());
+            LOGGER.error("Error loading CSS file: {}", e.getMessage());
         }
         if (!css.isEmpty()) {
             scene.getStylesheets().add(css);
@@ -289,13 +289,16 @@ public class HomePageController extends ViewController {
 
         shareButton.setOnAction(event -> {
             if (!sharedSetViewModel.isUserValid(emailField.getText())) {
-                showAlert(localization.getMessage("home.invalid.email"), localization.getMessage("home.invalid.email.message"));
+                showAlert(localization.getMessage("home.invalid.email"),
+                        localization.getMessage("home.invalid.email.message"));
                 return;
             } else if (sharedSetViewModel.isUserAndSetShared(emailField.getText(), setId)) {
-                showAlert(localization.getMessage("home.invalid.sharing"), localization.getMessage("home.invalid.sharing.message"));
+                showAlert(localization.getMessage("home.invalid.sharing"),
+                        localization.getMessage("home.invalid.sharing.message"));
             } else {
                 sharedSetViewModel.saveSharedFlashcardSet(emailField.getText(), setId);
-                showAlert(localization.getMessage("home.share.success"), localization.getMessage("home.share.success.message"));
+                showAlert(localization.getMessage("home.share.success"),
+                        localization.getMessage("home.share.success.message"));
             }
             newStage.close();
         });

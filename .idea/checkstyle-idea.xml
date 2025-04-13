@@ -20,6 +20,16 @@
             </map>
           </option>
         </ConfigurationLocation>
+        <ConfigurationLocation id="5befa388-ba07-4822-ba10-58ab70b40fd3" type="LOCAL_FILE" scope="All" description="ModifiedGoogleCheck">
+          $PROJECT_DIR$/.idea/ModifiedGoogle_checks.xml
+          <option name="properties">
+            <map>
+              <entry key="org.checkstyle.google.severity" value="warning" />
+              <entry key="org.checkstyle.google.suppressionfilter.config" value="checkstyle-suppressions.xml" />
+              <entry key="org.checkstyle.google.suppressionxpathfilter.config" value="checkstyle-xpath-suppressions.xml" />
+            </map>
+          </option>
+        </ConfigurationLocation>
       </list>
     </option>
   </component>

@@ -87,13 +87,19 @@ public class ClassDetailController extends ViewController {
      */
     private static final int PAGE_SIZE = 4;
 
-    /** Padding value for layout containers. */
+    /**
+     * Padding value for layout containers.
+     */
     private static final int PADDING = 20;
 
-    /** Padding for checkbox layout. */
+    /**
+     * Padding for checkbox layout.
+     */
     private static final int CHECKBOX_PADDING = 15;
 
-    /** Vertical spacing between form elements. */
+    /**
+     * Vertical spacing between form elements.
+     */
     private static final int VERTICAL_SPACING = 10;
 
     /**
@@ -327,7 +333,9 @@ public class ClassDetailController extends ViewController {
         List<Pair<Integer, CheckBox>> checkBoxes = new ArrayList<>();
 
         for (FlashcardSet set : teacherViewModel.getAllUnassignedSetsByClassIdAndTeacherId(classId)) {
-            String content = set.getSetName() + " - " + set.getSetTopic() + " - " + set.getNumberFlashcards() + " flashcards";
+            String content = set.getSetName()
+                    + " - " + set.getSetTopic() + " - "
+                    + set.getNumberFlashcards() + " flashcards";
             CheckBox checkBox = new CheckBox(content);
             checkBoxes.add(new Pair<>(set.getSetId(), checkBox));
             checkBox.getStyleClass().add("check-box");
@@ -347,7 +355,8 @@ public class ClassDetailController extends ViewController {
             addSetStage.close();
             int result = classDetailViewModel.assignSets(selectedSets, classId);
             if (result == -1) {
-                showAlert(localization.getMessage("home.error"), localization.getMessage("teacher.errorAssign.message"));
+                showAlert(localization.getMessage("home.error"),
+                        localization.getMessage("teacher.errorAssign.message"));
             } else {
                 updatePage();
             }
@@ -356,7 +365,8 @@ public class ClassDetailController extends ViewController {
         layout.getChildren().add(assignButton);
 
         Scene scene = new Scene(layout);
-        String css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+        String css = Objects.requireNonNull(getClass()
+                .getResource("/com/flash_card/styles/styles.css").toExternalForm());
         if (!css.isEmpty()) {
             scene.getStylesheets().add(css);
         }
@@ -388,7 +398,9 @@ public class ClassDetailController extends ViewController {
 
         layout.getChildren().addAll(emailLabel, emailField, shareButton);
         Scene scene = new Scene(layout);
-        String css = Objects.requireNonNull(getClass().getResource("/com/flash_card/styles/styles.css").toExternalForm());
+        String css = Objects.requireNonNull(getClass()
+                .getResource("/com/flash_card/styles/styles.css")
+                .toExternalForm());
         if (!css.isEmpty()) {
             scene.getStylesheets().add(css);
         }
@@ -398,14 +410,17 @@ public class ClassDetailController extends ViewController {
 
         shareButton.setOnAction(event -> {
             if (!teacherViewModel.isUserValid(emailField.getText())) {
-                showAlert(localization.getMessage("teacher.errorAdd1"), localization.getMessage("teacher.errorAdd1.message"));
+                showAlert(localization.getMessage("teacher.errorAdd1"),
+                        localization.getMessage("teacher.errorAdd1.message"));
                 return;
             } else if (teacherViewModel.isStudentAdded(classId, emailField.getText())) {
-                showAlert(localization.getMessage("teacher.errorAdd2"), localization.getMessage("teacher.errorAdd2.message"));
+                showAlert(localization.getMessage("teacher.errorAdd2"),
+                        localization.getMessage("teacher.errorAdd2.message"));
             } else {
                 int result = teacherViewModel.addStudent(classId, emailField.getText());
                 if (result != 1) {
-                    showAlert(localization.getMessage("teacher.error"), localization.getMessage("teacher.errorAdd.message"));
+                    showAlert(localization.getMessage("teacher.error"),
+                            localization.getMessage("teacher.errorAdd.message"));
                 } else {
                     classDetailViewModel.loadStudents(classId);
                     updatePage();
@@ -433,7 +448,8 @@ public class ClassDetailController extends ViewController {
     public void deleteAssignedSet(final AssignedFlashcardSetViewModel viewModel) {
         int result = classDetailViewModel.deleteSet(classId, viewModel);
         if (result == 0) {
-            showAlert(localization.getMessage("teacher.error"), localization.getMessage("teacher.errorDelete.message"));
+            showAlert(localization.getMessage("teacher.error"),
+                    localization.getMessage("teacher.errorDelete.message"));
         } else {
             updatePage();
         }
