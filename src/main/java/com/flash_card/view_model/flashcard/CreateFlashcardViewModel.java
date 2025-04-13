@@ -65,7 +65,7 @@ public class CreateFlashcardViewModel {
      * @param definition      the definition of the flashcard
      * @param flashcardSetId  the ID of the flashcard set
      */
-    public void saveFlashcard(String term, String definition, final int flashcardSetId) {
+    public void saveFlashcard(final String term, final String definition, final int flashcardSetId) {
         Flashcard flashcard = new Flashcard(term, definition, getCurrentFlashcardSet(flashcardSetId), getCurrentUser());
         flashcardDao.persist(flashcard);
 

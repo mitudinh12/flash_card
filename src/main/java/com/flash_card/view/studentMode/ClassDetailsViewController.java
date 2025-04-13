@@ -99,7 +99,7 @@ public class ClassDetailsViewController extends ViewController {
      * @param classNameParam   the name of the class
      * @param teacherNameParam the name of the teacher
      */
-    private void setClassDetails(String classNameParam, String teacherNameParam) {
+    private void setClassDetails(final String classNameParam, final String teacherNameParam) {
         this.className.setText(classNameParam);
         this.teacherName.setText(teacherNameParam);
     }
@@ -143,7 +143,7 @@ public class ClassDetailsViewController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goNext(ActionEvent event) {
+    private void goNext(final ActionEvent event) {
         if ((currentPage + 1) * pageSize < flashcardList.size()) {
             currentPage++;
             updatePage();
@@ -155,7 +155,7 @@ public class ClassDetailsViewController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goBack(ActionEvent event) {
+    private void goBack(final ActionEvent event) {
         if (currentPage > 0) {
             currentPage--;
             updatePage();
@@ -167,7 +167,7 @@ public class ClassDetailsViewController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goBackToStudentHome(ActionEvent event) {
+    private void goBackToStudentHome(final ActionEvent event) {
         goToPage("/com/flash_card/fxml/student-class.fxml", className.getScene());
     }
 }

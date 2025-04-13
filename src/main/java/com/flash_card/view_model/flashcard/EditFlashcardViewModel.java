@@ -96,7 +96,7 @@ public class EditFlashcardViewModel {
      * @param term        the new term for the flashcard
      * @param definition  the new definition for the flashcard
      */
-    public void updateFlashcard(int flashcardId, String term, String definition) {
+    public void updateFlashcard(final int flashcardId, final String term, final String definition) {
         Flashcard flashcard = getFlashcardById(flashcardId);
         if (flashcard != null) {
             flashcard.setTerm(term);

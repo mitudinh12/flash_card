@@ -96,7 +96,7 @@ public class EditFlashcardController extends ViewController {
      *
      * @param flashcardSetIdParam the ID of the flashcard set
      */
-    public void setFlashcardSetId(int flashcardSetIdParam) {
+    public void setFlashcardSetId(final int flashcardSetIdParam) {
         EditFlashcardController.flashcardSetId = flashcardSetIdParam;
     }
     /**
@@ -105,7 +105,7 @@ public class EditFlashcardController extends ViewController {
      *
      * @param cardIdParam the ID of the flashcard
      */
-    public void setFlashcardId(int cardIdParam) {
+    public void setFlashcardId(final int cardIdParam) {
         EditFlashcardController.cardId = cardIdParam;
         if (termField != null && definitionField != null) {
             termField.setText(viewModel.term(cardId));

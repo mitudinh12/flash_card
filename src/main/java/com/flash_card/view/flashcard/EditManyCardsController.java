@@ -106,7 +106,7 @@ public class EditManyCardsController extends ViewController {
      *
      * @param setId the ID of the flashcard set
      */
-    public void setFlashcardSetId(int setId) {
+    public void setFlashcardSetId(final int setId) {
         EditManyCardsController.flashcardSetId = setId; //retrieve the setId from the previous page
         loadFlashcardSetName();
         loadFlashcards();
@@ -167,7 +167,7 @@ public class EditManyCardsController extends ViewController {
      *
      * @param totalFlashcards the total number of flashcards in the set
      */
-    private void updateNavigationIcons(int totalFlashcards) {
+    private void updateNavigationIcons(final int totalFlashcards) {
         backIcon.setVisible(currentPage > 0);
         nextIcon.setVisible((currentPage + 1) * pageSize < totalFlashcards);
     }
@@ -177,7 +177,7 @@ public class EditManyCardsController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goNext(ActionEvent event) {
+    private void goNext(final ActionEvent event) {
         if ((currentPage + 1) * pageSize < viewModel.getFlashcardIdsBySetId(flashcardSetId).size()) {
             currentPage++;
             loadFlashcards();
@@ -189,7 +189,7 @@ public class EditManyCardsController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goBack(ActionEvent event) {
+    private void goBack(final ActionEvent event) {
         if (currentPage > 0) {
             currentPage--;
             loadFlashcards();
@@ -208,7 +208,7 @@ public class EditManyCardsController extends ViewController {
      * @param flashcardId the ID of the flashcard to edit
      */
     @FXML
-    private void handleEditFlashcard(int flashcardId) {
+    private void handleEditFlashcard(final int flashcardId) {
         goToEditFlashcardPage(flashcardId);
     }
 
@@ -218,7 +218,7 @@ public class EditManyCardsController extends ViewController {
      * @param flashcardId the ID of the flashcard to delete
      */
     @FXML
-    private void handleDeleteFlashcard(int flashcardId) {
+    private void handleDeleteFlashcard(final int flashcardId) {
         if (viewModel.isLastFlashcard(flashcardSetId)) {
             showAlert(localization.getMessage("flashcard.warning"), localization.getMessage(
                     "flashcard.lastCardDeleteWarning"));
@@ -250,7 +250,7 @@ public class EditManyCardsController extends ViewController {
      *
      * @param flashcardId the ID of the flashcard to edit
      */
-    private void goToEditFlashcardPage(int flashcardId) {
+    private void goToEditFlashcardPage(final int flashcardId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
                     "/com/flash_card/fxml/edit-flashcard.fxml"));

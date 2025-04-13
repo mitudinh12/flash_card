@@ -3,7 +3,7 @@ package com.flash_card.view.studentMode;
  * Singleton class to manage the session details of a student class.
  * Stores the class ID, class name, and teacher name for the current session.
  */
-public class StudentClassSession {
+public final class StudentClassSession {
     /**
      * The single instance of the `StudentClassSession` class.
      */
@@ -51,7 +51,7 @@ public class StudentClassSession {
      *
      * @param classIdParam the class ID to set
      */
-    public void setClassId(int classIdParam) {
+    public void setClassId(final int classIdParam) {
         this.classId = classIdParam;
     }
     /**
@@ -67,7 +67,7 @@ public class StudentClassSession {
      *
      * @param classNameParam the class name to set
      */
-    public void setClassName(String classNameParam) {
+    public void setClassName(final String classNameParam) {
         this.className = classNameParam;
     }
     /**
@@ -83,7 +83,7 @@ public class StudentClassSession {
      *
      * @param teacherNameParam the teacher name to set
      */
-    public void setTeacherName(String teacherNameParam) {
+    public void setTeacherName(final String teacherNameParam) {
         this.teacherName = teacherNameParam;
     }
 }

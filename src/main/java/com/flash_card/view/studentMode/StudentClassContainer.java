@@ -29,7 +29,8 @@ public class StudentClassContainer extends HBox {
      * @param numberSet    the number of flashcard sets in the class
      * @param numberStudent the number of students in the class
      */
-    public StudentClassContainer(int classId, String className, String teacherName, int numberSet, int numberStudent) {
+    public StudentClassContainer(final int classId, final String className, final String teacherName,
+                                 final  int numberSet, final int numberStudent) {
         Label classNameLabel = new Label();
         classNameLabel.setId("class-name-label");
         classNameLabel.setText(className);
@@ -85,7 +86,8 @@ public class StudentClassContainer extends HBox {
      * @param teacherName the name of the teacher
      * @param scene       the current scene
      */
-    public void goToClassDetail(int classId, String className, String teacherName, Scene scene) {
+    public void goToClassDetail(final int classId, final  String className, final String teacherName,
+                                final Scene scene) {
         try {
             StudentClassSession.getInstance().setClassId(classId);
             StudentClassSession.getInstance().setClassName(className);

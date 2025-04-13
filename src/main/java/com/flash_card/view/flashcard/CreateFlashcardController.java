@@ -113,7 +113,7 @@ public class CreateFlashcardController extends ViewController {
      *
      * @param flashcardSetIdParam the ID of the flashcard set
      */
-    public void setFlashcardSetId(int flashcardSetIdParam) {
+    public void setFlashcardSetId(final int flashcardSetIdParam) {
         CreateFlashcardController.flashcardSetId = flashcardSetIdParam;
     }
     /**

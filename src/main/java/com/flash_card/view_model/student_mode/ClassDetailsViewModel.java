@@ -56,7 +56,7 @@ public class ClassDetailsViewModel {
      *
      * @param classIdParam the ID of the class to load
      */
-    public void loadClass(int classIdParam) {
+    public void loadClass(final int classIdParam) {
         this.classId = classIdParam;
     }
     /**

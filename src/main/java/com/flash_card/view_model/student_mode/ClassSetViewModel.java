@@ -39,7 +39,7 @@ public class ClassSetViewModel extends SetViewModel {
      *
      * @param flashcardSetParam the {@link FlashcardSet} entity to bind
      */
-    public ClassSetViewModel(FlashcardSet flashcardSetParam) {
+    public ClassSetViewModel(final FlashcardSet flashcardSetParam) {
         this.flashcardSet = flashcardSetParam;
 
         // binding to entity fields

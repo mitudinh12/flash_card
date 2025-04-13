@@ -67,7 +67,8 @@ public class HomeStudentController extends ViewController {
         setReloadFxml("/com/flash_card/fxml/student-class.fxml");
         setUserName();
         viewModel.loadClasses();
-        classInfoList = viewModel.getClassInfo(); //list of classes info: each class map with classId, className, teacherName, numberSet, numberStudent
+        //list of classes info: each class map with classId, className, teacherName, numberSet, numberStudent
+        classInfoList = viewModel.getClassInfo();
         displayClassInfo();
         updateIconsVisibility();
     }
@@ -85,8 +86,10 @@ public class HomeStudentController extends ViewController {
             String teacherName = (String) classInfo.get("teacherName");
             int numberSet = (int) classInfo.get("numberSet");
             int numberStudent = (int) classInfo.get("numberStudent");
-            StudentClassContainer classContainer = new StudentClassContainer(classId, className, teacherName, numberSet, numberStudent);
-            classContainer.setOnMouseClicked(event -> classContainer.goToClassDetail(classId, className, teacherName, classList.getScene()));
+            StudentClassContainer classContainer = new StudentClassContainer(
+                    classId, className, teacherName, numberSet, numberStudent);
+            classContainer.setOnMouseClicked(event -> classContainer.goToClassDetail(
+                    classId, className, teacherName, classList.getScene()));
             classList.getChildren().add(classContainer);
         }
     }
@@ -103,7 +106,7 @@ public class HomeStudentController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goNext(ActionEvent event) {
+    private void goNext(final ActionEvent event) {
         if ((currentPage + 1) * pageSize < classInfoList.size()) {
             currentPage++;
             displayClassInfo();
@@ -116,7 +119,7 @@ public class HomeStudentController extends ViewController {
      * @param event the action event triggered by the user
      */
     @FXML
-    private void goBack(ActionEvent event) {
+    private void goBack(final ActionEvent event) {
         if (currentPage > 0) {
             currentPage--;
             displayClassInfo();

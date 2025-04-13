@@ -66,7 +66,7 @@ public class FlashcardView extends StackPane {
      * @param term       the term to display on the flashcard
      * @param definition the definition to display on the flashcard
      */
-    public FlashcardView(String term, String definition) {
+    public FlashcardView(final String term, final String definition) {
         termText = new Text(term);
         termText.setFill(Color.WHITE);
         termText.setFont(Font.font(FONT_SIZE));
@@ -83,7 +83,11 @@ public class FlashcardView extends StackPane {
 
         showingTerm = true;
 
-        setStyle("-fx-background-color: #00AAFF; -fx-pref-height: 400px; -fx-background-radius: 10; -fx-alignment: center;");
+        setStyle(
+                "-fx-background-color: #00AAFF;"
+                      +  "-fx-pref-height: 400px;"
+                      +  " -fx-background-radius: 10;"
+                      +  " -fx-alignment: center;");
         getChildren().add(termText);
 
         setOnMouseClicked(event -> flip());
@@ -101,10 +105,18 @@ public class FlashcardView extends StackPane {
             getChildren().clear();
             if (showingTerm) {
                 getChildren().add(definitionText);
-                setStyle("-fx-background-color: white; -fx-pref-height: 400px; -fx-background-radius: 10; -fx-alignment: center;");
+                setStyle(
+                        "-fx-background-color: white;"
+                              +  " -fx-pref-height: 400px;"
+                              +  " -fx-background-radius: 10;"
+                              +  " -fx-alignment: center;");
             } else {
                 getChildren().add(termText);
-                setStyle("-fx-background-color: #00AAFF; -fx-pref-height: 400px; -fx-background-radius: 10; -fx-alignment: center;");
+                setStyle(
+                        "-fx-background-color: #00AAFF;"
+                               + " -fx-pref-height: 400px;"
+                               + " -fx-background-radius: 10;"
+                               + " -fx-alignment: center;");
             }
             showingTerm = !showingTerm;
 

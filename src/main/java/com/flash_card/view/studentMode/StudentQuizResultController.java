@@ -23,7 +23,7 @@ public class StudentQuizResultController extends QuizResultController {
      * @param event the action event triggered by the button click
      */
     @FXML
-    public void goToStudentHome(ActionEvent event) {
+    public void goToStudentHome(final ActionEvent event) {
         goToPage("/com/flash_card/fxml/student-class.fxml", setNameLabel.getScene());
     }
 }

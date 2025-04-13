@@ -60,7 +60,8 @@ public class HomeStudentViewModel {
             Map<String, Object> classInfo = new HashMap<>();
             classInfo.put("classId", classroom.getClassroomId());
             classInfo.put("className", classroom.getClassroomName());
-            classInfo.put("teacherName", classroom.getTeacher().getFirstName() + " " + classroom.getTeacher().getLastName());
+            classInfo.put("teacherName", classroom.getTeacher().getFirstName() + " "
+                    + classroom.getTeacher().getLastName());
             classInfo.put("numberSet", assignedSetDao.findAllSetsByClassId(classroom.getClassroomId()).size());
             classInfo.put("numberStudent", classMemberDao.findAllStudentByClassId(classroom.getClassroomId()).size());
             classInfoList.add(classInfo);
