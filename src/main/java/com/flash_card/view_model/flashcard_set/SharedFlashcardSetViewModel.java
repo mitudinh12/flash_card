@@ -49,14 +49,19 @@ public class SharedFlashcardSetViewModel extends SetViewModel {
     /**
      * Constructs a SharedFlashcardSetViewModel for the given flashcard set.
      *
-     * @param flashcardSet the flashcard set to be managed by this ViewModel
+     * @param flashcardSetParam the flashcard set to be managed by this ViewModel
      */
-    public SharedFlashcardSetViewModel(FlashcardSet flashcardSet) {
-        this.flashcardSet = flashcardSet;
+    public SharedFlashcardSetViewModel(final FlashcardSet flashcardSetParam) {
+        this.flashcardSet = flashcardSetParam;
 
         // binding to entity fields
         this.setName = new SimpleStringProperty(flashcardSet.getSetName());
-        this.setLanguage = new SimpleStringProperty(getLocalizedMessageOrDefault(flashcardSet.getSetLanguage(), flashcardSet.getSetLanguage()));
+        this.setLanguage = new SimpleStringProperty(
+                getLocalizedMessageOrDefault(
+                        flashcardSet.getSetLanguage(),
+                        flashcardSet.getSetLanguage()
+                )
+        );
         this.setTopic = new SimpleStringProperty(flashcardSet.getSetTopic());
         this.numberFlashcard = new SimpleStringProperty(String.valueOf(flashcardSet.getNumberFlashcards()));
     }
@@ -131,7 +136,7 @@ public class SharedFlashcardSetViewModel extends SetViewModel {
      * @param defaultValue the default value to return if localization fails
      * @return the localized message or the default value
      */
-    private String getLocalizedMessageOrDefault(String key, String defaultValue) {
+    private String getLocalizedMessageOrDefault(final String key, final String defaultValue) {
         try {
             return localization.getMessage(key);
         } catch (Exception e) {

@@ -4,7 +4,7 @@ package com.flash_card.view.flashcardSet;
  * Singleton class representing the session for a quiz.
  * Stores information about the current quiz, including the set ID, set name, and quiz ID.
  */
-public class QuizSession {
+public final class QuizSession {
 
     /**
      * Singleton instance of the QuizSession.
@@ -56,10 +56,10 @@ public class QuizSession {
     /**
      * Sets the ID of the flashcard set.
      *
-     * @param setId the flashcard set ID to set
+     * @param setIdParam the flashcard set ID to set
      */
-    public void setSetId(int setId) {
-        this.setId = setId;
+    public void setSetId(final int setIdParam) {
+        this.setId = setIdParam;
     }
 
     /**
@@ -74,10 +74,10 @@ public class QuizSession {
     /**
      * Sets the name of the flashcard set.
      *
-     * @param setName the flashcard set name to set
+     * @param setNameParam the flashcard set name to set
      */
-    public void setSetName(String setName) {
-        this.setName = setName;
+    public void setSetName(final String setNameParam) {
+        this.setName = setNameParam;
     }
 
     /**
@@ -92,10 +92,10 @@ public class QuizSession {
     /**
      * Sets the ID of the current quiz session.
      *
-     * @param quizId the quiz ID to set
+     * @param quizIdParam the quiz ID to set
      */
-    public void setQuizId(int quizId) {
-        this.quizId = quizId;
+    public void setQuizId(final int quizIdParam) {
+        this.quizId = quizIdParam;
     }
 
     /**

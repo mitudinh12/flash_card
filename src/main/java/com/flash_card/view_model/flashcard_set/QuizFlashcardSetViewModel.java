@@ -137,11 +137,15 @@ public class QuizFlashcardSetViewModel {
     private final Localization localization = Localization.getInstance();
 
     /**
+     * The number of wrong answers allowed before the quiz ends.
+     */
+    private static final int NUMBER_OF_WRONG_ANSWERS = 3;
+    /**
      * Constructs a QuizFlashcardSetViewModel with the specified EntityManager.
      *
      * @param entityManager the EntityManager for database operations
      */
-    public QuizFlashcardSetViewModel(EntityManager entityManager) {
+    public QuizFlashcardSetViewModel(final EntityManager entityManager) {
         userDao = UserDao.getInstance(entityManager);
         quizDao = QuizDao.getInstance(entityManager);
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
@@ -151,12 +155,12 @@ public class QuizFlashcardSetViewModel {
     /**
      * Loads the flashcards for the specified set ID and name.
      *
-     * @param setId   the ID of the flashcard set
-     * @param setName the name of the flashcard set
+     * @param setIdParam   the ID of the flashcard set
+     * @param setNameParam the name of the flashcard set
      */
-    public void loadFlashcards(int setId, String setName) {
-        this.setId = setId;
-        this.setName.set(setName);
+    public void loadFlashcards(final int setIdParam, final String setNameParam) {
+        this.setId = setIdParam;
+        this.setName.set(setNameParam);
         this.flashcards = flashcardDao.findBySetId(setId);
         this.total.set(String.valueOf(flashcards.size()));
     }
@@ -165,11 +169,11 @@ public class QuizFlashcardSetViewModel {
      * Starts a quiz for the specified user and flashcard set.
      *
      * @param userId the ID of the user taking the quiz
-     * @param setId  the ID of the flashcard set
+     * @param setIdParam  the ID of the flashcard set
      */
-    public void startQuiz(String userId, int setId) {
+    public void startQuiz(final String userId, final int setIdParam) {
         User user = userDao.findById(userId);
-        FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
+        FlashcardSet flashcardSet = flashcardSetDao.findById(setIdParam);
         currentQuiz = new Quiz(user, flashcardSet, LocalDateTime.now(), null, 0, 0);
         quizDao.persist(currentQuiz);
     }
@@ -214,7 +218,7 @@ public class QuizFlashcardSetViewModel {
      * @param answer the answer to check
      * @return true if the answer is correct, false otherwise
      */
-    public boolean isAnswerCorrect(String answer) {
+    public boolean isAnswerCorrect(final String answer) {
         correctAnswer = answer.equals(getCurrentFlashcard().getDefinition());
         if (correctAnswer) {
             addCorrectTimes();
@@ -243,7 +247,7 @@ public class QuizFlashcardSetViewModel {
         Collections.shuffle(newFlashcards);
 
         newFlashcards.stream()
-                .limit(3)
+                .limit(NUMBER_OF_WRONG_ANSWERS)
                 .map(Flashcard::getDefinition)
                 .forEach(answers::add);
 
@@ -252,7 +256,7 @@ public class QuizFlashcardSetViewModel {
         answer1.set(answers.get(0));
         answer2.set(answers.get(1));
         answer3.set(answers.get(2));
-        answer4.set(answers.get(3));
+        answer4.set(answers.get(NUMBER_OF_WRONG_ANSWERS));
     }
 
     /**
