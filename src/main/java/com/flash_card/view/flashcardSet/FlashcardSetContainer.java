@@ -7,7 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -35,15 +39,18 @@ public class FlashcardSetContainer extends HBox {
     /** The localization instance for retrieving localized messages. */
     private final Localization localization = Localization.getInstance();
 
+    /** The minimum number of flashcards required for a quiz. */
+    private static final int MIN_FLASHCARDS_FOR_QUIZ = 4;
+
     /**
      * Constructs a new FlashcardSetContainer.
      *
-     * @param viewModel  the view model for the flashcard set
-     * @param controller the controller for the home page
+     * @param viewModelParam  the view model for the flashcard set
+     * @param controllerParam the controller for the home page
      */
-    public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
-        this.viewModel = viewModel;
-        this.controller = controller;
+    public FlashcardSetContainer(final SetViewModel viewModelParam, final HomePageController controllerParam) {
+        this.viewModel = viewModelParam;
+        this.controller = controllerParam;
         initializeUI();
     }
 
@@ -87,7 +94,12 @@ public class FlashcardSetContainer extends HBox {
         this.getChildren().addAll(nameLabel, languageLabel, topicLabel, numberFlashcardContainer, actionButton);
         this.setId("flashcard-set-container");
         if (this.viewModel.getType().equals("own")) {
-            this.setOnMouseClicked(event -> editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene()));
+            this.setOnMouseClicked(event ->
+                    editSetController.goToEditManyCardsPage(
+                            viewModel.getSet().getSetId(),
+                            nameLabel.getScene()
+                    )
+            );
         }
         this.setAlignment(Pos.CENTER_LEFT);
     }
@@ -97,7 +109,7 @@ public class FlashcardSetContainer extends HBox {
      *
      * @param button the button that triggers the context menu
      */
-    protected void showContextMenu(Button button) {
+    protected void showContextMenu(final Button button) {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem(localization.getMessage("flashcardSet.studyAction"));
@@ -142,8 +154,8 @@ public class FlashcardSetContainer extends HBox {
             Parent root = loader.load();
 
             //pass the FlashcardSet data to the EditFlashcardSetController
-            EditFlashcardSetController editSetController = loader.getController();
-            editSetController.setFlashcardSet(
+            EditFlashcardSetController localEditSetController = loader.getController();
+            localEditSetController.setFlashcardSet(
                     viewModel.getSet().getSetId(), viewModel.getSet().getSetName(),
                     viewModel.getSet().getSetDescription(),
                     viewModel.getSet().getSetTopic());
@@ -160,7 +172,7 @@ public class FlashcardSetContainer extends HBox {
      *
      * @param isStudentMode whether the user is in student mode
      */
-    public void gotoStudyFlashcardSet(boolean isStudentMode) {
+    public void gotoStudyFlashcardSet(final boolean isStudentMode) {
         try {
             FXMLLoader loader;
             if (isStudentMode) {
@@ -187,8 +199,8 @@ public class FlashcardSetContainer extends HBox {
      *
      * @param isStudentMode whether the user is in student mode
      */
-    public void goToQuizFlashcardSet(boolean isStudentMode) {
-        if (viewModel.getSet().getNumberFlashcards() < 4) {
+    public void goToQuizFlashcardSet(final boolean isStudentMode) {
+        if (viewModel.getSet().getNumberFlashcards() < MIN_FLASHCARDS_FOR_QUIZ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(localization.getMessage("flashcardSet.errorTitle"));
             alert.setHeaderText(null);
