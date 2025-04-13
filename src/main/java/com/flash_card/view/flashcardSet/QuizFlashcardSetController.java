@@ -37,6 +37,11 @@ public class QuizFlashcardSetController extends ViewController {
      */
     protected int quizId;
 
+    /**
+     * Duration for the pause between flashcard transitions.
+     */
+    private static final double PAUSE_DURATION_SECONDS = 0.5;
+
 
     /**
      * Label for displaying the current flashcard index.
@@ -133,10 +138,10 @@ public class QuizFlashcardSetController extends ViewController {
      * Loads the flashcard set and starts the quiz.
      *
      * @param setId   the ID of the flashcard set
-     * @param setName the name of the flashcard set
+     * @param setNameParam the name of the flashcard set
      */
-    public void setFlashcardSet(int setId, String setName) {
-        viewModel.loadFlashcards(setId, setName);
+    public void setFlashcardSet(final int setId, final String setNameParam) {
+        viewModel.loadFlashcards(setId, setNameParam);
         viewModel.startQuiz(authSessionViewModel.getVerifiedUserInfo().get("userId"), setId);
         this.quizId = viewModel.getQuizId();
         showFlashcard();
@@ -147,7 +152,7 @@ public class QuizFlashcardSetController extends ViewController {
      *
      * @param event the mouse event
      */
-    public void handleClose(MouseEvent event) {
+    public void handleClose(final MouseEvent event) {
         viewModel.stopQuiz();
         goToPage("/com/flash_card/fxml/home.fxml", setName.getScene());
     }
@@ -164,12 +169,12 @@ public class QuizFlashcardSetController extends ViewController {
      *
      * @param button the button representing the selected answer
      */
-    public void handleAnswer(Button button) {
+    public void handleAnswer(final Button button) {
         boolean isCorrect = viewModel.isAnswerCorrect(button.getText());
         button.getStyleClass().add(isCorrect ? "correct-answer" : "wrong-answer");
         disableButtons(true, button);
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(PAUSE_DURATION_SECONDS));
         pause.setOnFinished(event -> {
             resetButtonStyles();
             disableButtons(false, button);
@@ -191,7 +196,7 @@ public class QuizFlashcardSetController extends ViewController {
      * @param disable      whether to disable the buttons
      * @param chosenButton the button that remains enabled
      */
-    private void disableButtons(boolean disable, Button chosenButton) {
+    private void disableButtons(final boolean disable, final Button chosenButton) {
         answerButton1.setDisable(disable);
         answerButton2.setDisable(disable);
         answerButton3.setDisable(disable);

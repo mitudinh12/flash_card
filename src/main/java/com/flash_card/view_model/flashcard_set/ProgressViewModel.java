@@ -40,12 +40,17 @@ public class ProgressViewModel {
     private final StudyDao studyDao;
 
     /**
+     * Constant for the percentage multiplier.
+     */
+    private static final int PERCENTAGE_MULTIPLIER = 100;
+
+    /**
      * Constructor for ProgressViewModel.
      * Initializes the DAO instances using the provided EntityManager.
      *
      * @param entityManager The EntityManager to be used for database operations.
      */
-    public ProgressViewModel(EntityManager entityManager) {
+    public ProgressViewModel(final EntityManager entityManager) {
         quizDao = QuizDao.getInstance(entityManager);
         flashcardDao = FlashcardDao.getInstance(entityManager);
         classMemberDao = ClassMemberDao.getInstance(entityManager);
@@ -58,7 +63,7 @@ public class ProgressViewModel {
      * @param setId The ID of the flashcard set.
      * @return The total number of flashcards in the specified set.
      */
-    public int getTotalFlashcards(int setId) {
+    public int getTotalFlashcards(final int setId) {
         return flashcardDao.findBySetId(setId).size();
     }
 
@@ -69,7 +74,7 @@ public class ProgressViewModel {
      * @param setId  The ID of the flashcard set.
      * @return The number of flashcards studied by the user in the specified set.
      */
-    public int getStudiedFlashcards(String userId, int setId) {
+    public int getStudiedFlashcards(final String userId, final int setId) {
         Study study = studyDao.findByUserIdAndSetId(userId, setId);
         return study != null ? study.getNumberStudiedWords() : 0;
     }
@@ -81,7 +86,7 @@ public class ProgressViewModel {
      * @param setId  The ID of the flashcard set.
      * @return A list of quizzes taken by the user in the specified set.
      */
-    public List<Quiz> getAllQuizzesForUserAndSet(String userId, int setId) {
+    public List<Quiz> getAllQuizzesForUserAndSet(final String userId, final int setId) {
         return quizDao.findByUserIdAndSetId(userId, setId);
     }
 
@@ -92,14 +97,14 @@ public class ProgressViewModel {
      * @param setId  The ID of the flashcard set.
      * @return The highest quiz percentage achieved by the user in the specified set.
      */
-    public double calculateHighestQuizPercentage(String userId, int setId) {
+    public double calculateHighestQuizPercentage(final String userId, final int setId) {
         List<Quiz> quizzes = getAllQuizzesForUserAndSet(userId, setId);
         double highestPercentage = 0;
 
         for (Quiz quiz : quizzes) {
             int totalQuestions = quiz.getCorrectTimes() + quiz.getWrongTimes();
             if (totalQuestions > 0) {
-                double percentage = (double) quiz.getCorrectTimes() / totalQuestions * 100;
+                double percentage = (double) quiz.getCorrectTimes() / totalQuestions * PERCENTAGE_MULTIPLIER;
                 if (percentage > highestPercentage) {
                     highestPercentage = percentage;
                 }
@@ -116,7 +121,7 @@ public class ProgressViewModel {
      * @param setId   The ID of the flashcard set.
      * @return A list of maps containing student progress data.
      */
-    public List<Map<String, Object>> getStudentProgressList(int classId, int setId) {
+    public List<Map<String, Object>> getStudentProgressList(final int classId, final int setId) {
         List<Map<String, Object>> studentProgressList = new ArrayList<>();
         List<User> students = classMemberDao.findAllStudentByClassId(classId);
         for (User student : students) {

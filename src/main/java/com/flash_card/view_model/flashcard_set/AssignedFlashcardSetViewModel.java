@@ -37,13 +37,13 @@ public class AssignedFlashcardSetViewModel {
     /**
      * Constructs an AssignedFlashcardSetViewModel for the given flashcard set.
      *
-     * @param flashcardSet the flashcard set to be managed by this ViewModel
+     * @param flashcardSetParam the flashcard set to be managed by this ViewModel
      */
-    public AssignedFlashcardSetViewModel(FlashcardSet flashcardSet) {
-        this.flashcardSet = flashcardSet;
-        this.setName = new SimpleStringProperty(flashcardSet.getSetName());
-        this.setTopic = new SimpleStringProperty(flashcardSet.getSetTopic());
-        this.numberFlashcard = new SimpleStringProperty(String.valueOf(flashcardSet.getNumberFlashcards()));
+    public AssignedFlashcardSetViewModel(final FlashcardSet flashcardSetParam) {
+        this.flashcardSet = flashcardSetParam;
+        this.setName = new SimpleStringProperty(flashcardSetParam.getSetName());
+        this.setTopic = new SimpleStringProperty(flashcardSetParam.getSetTopic());
+        this.numberFlashcard = new SimpleStringProperty(String.valueOf(flashcardSetParam.getNumberFlashcards()));
     }
 
     /**

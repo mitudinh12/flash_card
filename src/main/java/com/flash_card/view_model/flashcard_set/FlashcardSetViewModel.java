@@ -37,14 +37,14 @@ public class FlashcardSetViewModel {
     /**
      * Constructs a FlashcardSetViewModel with the specified user ID and EntityManager.
      *
-     * @param userId        the ID of the user
-     * @param entityManager the EntityManager for database operations
+     * @param userIdParam        the ID of the user
+     * @param entityManagerParam the EntityManager for database operations
      */
-    public FlashcardSetViewModel(String userId, EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public FlashcardSetViewModel(final String userIdParam, final EntityManager entityManagerParam) {
+        this.entityManager = entityManagerParam;
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
         sharedSetsDao = SharedSetsDao.getInstance(entityManager);
-        this.userId = userId;
+        this.userId = userIdParam;
     }
 
     /**
@@ -75,18 +75,18 @@ public class FlashcardSetViewModel {
      *
      * @param flashcardSet the flashcard set to delete
      */
-    public void deleteOwnFlashcardSet(FlashcardSet flashcardSet) {
+    public void deleteOwnFlashcardSet(final FlashcardSet flashcardSet) {
         flashcardSetDao.delete(flashcardSet);
     }
 
     /**
      * Deletes a shared flashcard set for the user.
      *
-     * @param userId the ID of the user
+     * @param userIdParam the ID of the user
      * @param setId  the ID of the shared flashcard set
      */
-    public void deleteSharedFlashcardSet(String userId, int setId) {
-        SharedSet sharedSet = sharedSetsDao.findBySetIdAndUserId(setId, userId);
+    public void deleteSharedFlashcardSet(final String userIdParam, final int setId) {
+        SharedSet sharedSet = sharedSetsDao.findBySetIdAndUserId(setId, userIdParam);
         sharedSetsDao.delete(sharedSet);
     }
 }

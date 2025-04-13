@@ -99,7 +99,10 @@ public class CreateFlashcardSetView extends ViewController {
         if (isInputValid(name, description, topic)) {
             createFlashcardSet(name, languageDisplayName, description, topic);
         } else {
-            showAlert(localization.getMessage("flashcardSet.warningTitle"), localization.getMessage("flashcardSet.warningMessage"));
+            showAlert(
+                    localization.getMessage("flashcardSet.warningTitle"),
+                    localization.getMessage("flashcardSet.warningMessage")
+            );
         }
     }
 
@@ -111,7 +114,7 @@ public class CreateFlashcardSetView extends ViewController {
      * @param topic       the topic of the flashcard set
      * @return true if all inputs are valid, false otherwise
      */
-    private boolean isInputValid(String name, String description, String topic) {
+    private boolean isInputValid(final String name, final String description, final String topic) {
         return !name.isEmpty() || !description.isEmpty() || !topic.isEmpty();
     }
 
@@ -123,7 +126,12 @@ public class CreateFlashcardSetView extends ViewController {
      * @param description       the description of the flashcard set
      * @param topic             the topic of the flashcard set
      */
-    private void createFlashcardSet(String name, String languageDisplayName, String description, String topic) {
+    private void createFlashcardSet(
+            final String name,
+            final String languageDisplayName,
+            final String description,
+            final String topic
+    ) {
         try {
             String language = Language.fromDisplayName(languageDisplayName).name();
             int flashcardSetId = viewModel.addSet(name, language, description, topic, userId);
@@ -142,7 +150,7 @@ public class CreateFlashcardSetView extends ViewController {
      * @param flashcardSetId the ID of the created flashcard set
      * @throws IOException if the FXML file cannot be loaded
      */
-    private void navigateToFlashcardCreation(int flashcardSetId) throws IOException {
+    private void navigateToFlashcardCreation(final int flashcardSetId) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/create-flashcard.fxml"));
         loader.setResources(localization.getBundle());
         Parent homeRoot = loader.load();

@@ -125,7 +125,10 @@ public class StudyFlashcardSetController extends ViewController {
             flashcardContainer.setAlignment(Pos.TOP_CENTER);
             flashcardContainer.getChildren().add(messageLabel);
         } else {
-            FlashcardView flashcardView = new FlashcardView(viewModel.getCurrentFlashcard().getTerm(), viewModel.getCurrentFlashcard().getDefinition());
+            FlashcardView flashcardView = new FlashcardView(
+                    viewModel.getCurrentFlashcard().getTerm(),
+                    viewModel.getCurrentFlashcard().getDefinition()
+            );
             flashcardContainer.getChildren().add(flashcardView);
             updateButtonStates();
         }
@@ -136,7 +139,7 @@ public class StudyFlashcardSetController extends ViewController {
      *
      * @param visible true to show controls, false to hide them
      */
-    private void setFlashcardControlsVisibility(boolean visible) {
+    private void setFlashcardControlsVisibility(final boolean visible) {
         index.setVisible(visible);
         total.setVisible(visible);
         backIcon.setVisible(visible);
@@ -169,7 +172,7 @@ public class StudyFlashcardSetController extends ViewController {
      *
      * @param button the button to highlight
      */
-    private void highlightButton(Button button) {
+    private void highlightButton(final Button button) {
         button.getStyleClass().add(HIGHLIGHTED_BUTTON_CLASS);
     }
 
@@ -180,7 +183,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param mouseEvent the mouse event triggered by clicking the icon
      */
     @FXML
-    public void handleClose(MouseEvent mouseEvent) {
+    public void handleClose(final MouseEvent mouseEvent) {
         viewModel.endStudy(); //end the study when press close and go to review page
         session.setViewModel(viewModel);
         goToReviewPage();
@@ -193,7 +196,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param mouseEvent the mouse event triggered by clicking the icon
      */
     @FXML
-    public void handleNext(MouseEvent mouseEvent) {
+    public void handleNext(final MouseEvent mouseEvent) {
         if (viewModel.currentIndexProperty().get() < Integer.parseInt(viewModel.totalProperty().get()) - 1) {
             viewModel.nextFlashcard();
             showFlashcard();
@@ -211,7 +214,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param mouseEvent the mouse event triggered by clicking the icon
      */
     @FXML
-    public void handleBack(MouseEvent mouseEvent) {
+    public void handleBack(final MouseEvent mouseEvent) {
         viewModel.previousFlashcard();
         showFlashcard();
     }
@@ -223,7 +226,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param actionEvent the action event triggered by clicking the button
      */
     @FXML
-    public void handleEasy(ActionEvent actionEvent) {
+    public void handleEasy(final ActionEvent actionEvent) {
         viewModel.updateFlashcardLevel(DifficultyLevel.easy);
         updateButtonStates();
     }
@@ -235,7 +238,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param actionEvent the action event triggered by clicking the button
      */
     @FXML
-    public void handleHard(ActionEvent actionEvent) {
+    public void handleHard(final ActionEvent actionEvent) {
         viewModel.updateFlashcardLevel(DifficultyLevel.hard);
         updateButtonStates();
     }
@@ -247,7 +250,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param mouseEvent the mouse event triggered by clicking the button
      */
     @FXML
-    public void handleReset(MouseEvent mouseEvent) {
+    public void handleReset(final MouseEvent mouseEvent) {
         viewModel.resetAllFlashcardLevel();
         viewModel.currentIndexProperty().set(0);
         viewModel.loadFlashcards(session.getSetId(), viewModel.setNameProperty().get());
@@ -261,7 +264,7 @@ public class StudyFlashcardSetController extends ViewController {
      * @param mouseEvent the mouse event triggered by clicking the icon
      */
     @FXML
-    public void handleShuffle(MouseEvent mouseEvent) {
+    public void handleShuffle(final MouseEvent mouseEvent) {
         viewModel.shuffleFlashcards(); //shuffle cards and reset the index to show the first card
         showFlashcard(); //refresh the display to show the shuffled flashcards
     }

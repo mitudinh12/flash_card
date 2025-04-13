@@ -33,11 +33,17 @@ public class SharedSetViewModel {
      */
     private final String userId;
 
-    public SharedSetViewModel(String userId, EntityManager entityManager) {
+    /**
+     * Constructor for SharedSetViewModel.
+     *
+     * @param userIdParam        the ID of the user
+     * @param entityManager the EntityManager for database operations
+     */
+    public SharedSetViewModel(final String userIdParam, final EntityManager entityManager) {
         this.sharedSetDao = SharedSetsDao.getInstance(entityManager);
         this.userDao = UserDao.getInstance(entityManager);
         this.flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
-        this.userId = userId;
+        this.userId = userIdParam;
     }
 
     /**
@@ -46,7 +52,7 @@ public class SharedSetViewModel {
      * @param email the email of the user to share the set with
      * @param setId the ID of the flashcard set to be shared
      */
-    public void saveSharedFlashcardSet(String email, int setId) {
+    public void saveSharedFlashcardSet(final String email, final int setId) {
         User user = userDao.findByEmail(email);
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
 
@@ -61,7 +67,7 @@ public class SharedSetViewModel {
      * @param email the email of the user to validate
      * @return true if the user exists, false otherwise
      */
-    public boolean isUserValid(String email) {
+    public boolean isUserValid(final String email) {
         return userDao.findByEmail(email) != null; //true if user exists, false otherwise
     }
 
@@ -72,9 +78,15 @@ public class SharedSetViewModel {
      * @param setId the ID of the flashcard set
      * @return true if the set is already shared with the user, false otherwise
      */
-    public boolean isUserAndSetShared(String email, int setId) {                        // check if this user is shared this set or not
+    public boolean isUserAndSetShared(
+            final String email,
+            final int setId
+    ) {                       // check if this user is shared this set or not
         User user = userDao.findByEmail(email);
         assert user != null;
-        return sharedSetDao.findBySetIdAndUserId(setId, user.getUserId()) != null;      // true if this user is shared this set
+        return sharedSetDao.findBySetIdAndUserId(
+                setId,
+                user.getUserId()
+        ) != null;      // true if this user is shared this set
     }
 }

@@ -40,15 +40,20 @@ public class QuizResultViewModel {
     private final Localization localization = Localization.getInstance();
 
     /**
+     * Constant for the number of seconds in a minute.
+     */
+    private static final int SECONDS_IN_A_MINUTE = 60;
+
+    /**
      * Constructs a QuizResultViewModel with the specified EntityManager and quiz ID.
      * Initializes the quiz and calculates the quiz duration.
      *
      * @param entityManager the EntityManager for database operations
-     * @param quizId        the ID of the quiz
+     * @param quizIdParam        the ID of the quiz
      */
-    public QuizResultViewModel(EntityManager entityManager, int quizId) {
+    public QuizResultViewModel(final EntityManager entityManager, final int quizIdParam) {
         quizDao = QuizDao.getInstance(entityManager);
-        this.quizId = quizId;
+        this.quizId = quizIdParam;
         this.quiz = quizDao.findById(quizId);
         calculateTime();
     }
@@ -97,8 +102,8 @@ public class QuizResultViewModel {
     public void calculateTime() {
         Duration duration = Duration.between(quiz.getStartTime(), quiz.getEndTime());
         long seconds = duration.getSeconds();
-        long minutes = seconds / 60;
-        seconds = seconds % 60;
+        long minutes = seconds / SECONDS_IN_A_MINUTE;
+        seconds = seconds % SECONDS_IN_A_MINUTE;
         quizTime.set(localization.getMessage("flashcardSet.quizTime")
                 + minutes + localization.getMessage("flashcardSet.minuteAnnotation")
                 + seconds + localization.getMessage("flashcardSet.secondAnnotation"));

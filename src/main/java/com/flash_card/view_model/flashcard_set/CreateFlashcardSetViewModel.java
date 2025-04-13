@@ -25,7 +25,7 @@ public class CreateFlashcardSetViewModel {
      *
      * @param em the EntityManager for database operations
      */
-    public CreateFlashcardSetViewModel(EntityManager em) {
+    public CreateFlashcardSetViewModel(final EntityManager em) {
         flashcardSetDao = FlashcardSetDao.getInstance(em);
         userDao = UserDao.getInstance(em);
     }
@@ -40,7 +40,13 @@ public class CreateFlashcardSetViewModel {
      * @param userId      the ID of the user creating the flashcard set
      * @return the ID of the created flashcard set, or -1 if an error occurs
      */
-    public int addSet(String name, String setLanguage, String description, String topic, String userId) {
+    public int addSet(
+            final String name,
+            final String setLanguage,
+            final String description,
+            final String topic,
+            final String userId
+    ) {
         User user = userDao.findById(userId);
         try {
             FlashcardSet flashcardSet = new FlashcardSet(name, description, topic, user);

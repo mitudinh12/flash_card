@@ -6,7 +6,7 @@ import com.flash_card.view_model.flashcard_set.StudyFlashcardSetViewModel;
  * Singleton class representing a study session.
  * Manages the current flashcard set being studied and its associated data.
  */
-public class StudySession {
+public final class StudySession {
 
     /**
      * Singleton instance of the StudySession.
@@ -58,10 +58,10 @@ public class StudySession {
     /**
      * Sets the ID of the current flashcard set.
      *
-     * @param setId the ID of the flashcard set
+     * @param setIdParam the ID of the flashcard set
      */
-    public void setSetId(int setId) {
-        this.setId = setId;
+    public void setSetId(final int setIdParam) {
+        this.setId = setIdParam;
     }
 
     /**
@@ -76,10 +76,10 @@ public class StudySession {
     /**
      * Sets the name of the current flashcard set.
      *
-     * @param setName the name of the flashcard set
+     * @param setNameParam the name of the flashcard set
      */
-    public void setSetName(String setName) {
-        this.setName = setName;
+    public void setSetName(final String setNameParam) {
+        this.setName = setNameParam;
     }
 
     /**
@@ -94,10 +94,10 @@ public class StudySession {
     /**
      * Sets the ViewModel for managing the current flashcard set's data and logic.
      *
-     * @param viewModel the ViewModel for the flashcard set
+     * @param viewModelParam the ViewModel for the flashcard set
      */
-    public void setViewModel(StudyFlashcardSetViewModel viewModel) {
-        this.viewModel = viewModel;
+    public void setViewModel(final StudyFlashcardSetViewModel viewModelParam) {
+        this.viewModel = viewModelParam;
     }
 
     /**

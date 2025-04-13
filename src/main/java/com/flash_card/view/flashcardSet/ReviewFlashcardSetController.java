@@ -29,6 +29,11 @@ public class ReviewFlashcardSetController extends ViewController {
     protected StudySession session = StudySession.getInstance();
 
     /**
+     * Minimum number of flashcards required to start a quiz.
+     */
+    private static final int MIN_FLASHCARDS_FOR_QUIZ = 4;
+
+    /**
      * Label for displaying the name of the flashcard set.
      */
     @FXML
@@ -67,7 +72,7 @@ public class ReviewFlashcardSetController extends ViewController {
      * @param setId   the ID of the flashcard set
      * @param setName the name of the flashcard set
      */
-    public void setFlashcardSet(int setId, String setName) {
+    public void setFlashcardSet(final int setId, final String setName) {
         setNameLabel.setText(setName);
         String userId = authSessionViewModel.getVerifiedUserInfo().get("userId");
         this.viewModel = session.getViewModel();
@@ -82,8 +87,14 @@ public class ReviewFlashcardSetController extends ViewController {
         int totalCards = viewModel.getTotalFlashcards();
         int studiedCards = viewModel.getStudiedFlashcards();
         int leftCards = totalCards - studiedCards;
-        PieChart.Data studiedData = new PieChart.Data(localization.getMessage("flashcardSet.studied") + " (" + studiedCards + ")", studiedCards);
-        PieChart.Data leftData = new PieChart.Data(localization.getMessage("flashcardSet.left") + " (" + leftCards + ")", leftCards);
+        PieChart.Data studiedData = new PieChart.Data(
+                localization.getMessage("flashcardSet.studied") + " (" + studiedCards + ")",
+                studiedCards
+        );
+        PieChart.Data leftData = new PieChart.Data(
+                localization.getMessage("flashcardSet.left") + " (" + leftCards + ")",
+                leftCards
+        );
         pieChart.getData().clear();
         pieChart.getData().addAll(studiedData, leftData);
     }
@@ -95,7 +106,7 @@ public class ReviewFlashcardSetController extends ViewController {
      * @param actionEvent the event triggered by the user
      */
     @FXML
-    public void handleReview(ActionEvent actionEvent) {
+    public void handleReview(final ActionEvent actionEvent) {
         goToPage("/com/flash_card/fxml/study-flashcard.fxml", setNameLabel.getScene());
     }
 
@@ -107,9 +118,10 @@ public class ReviewFlashcardSetController extends ViewController {
      * @param actionEvent the event triggered by the user
      */
     @FXML
-    public void handleQuiz(ActionEvent actionEvent) {
-        if (viewModel.getTotalFlashcards() < 4) {
-            showAlert(localization.getMessage("flashcardSet.errorTitle"), localization.getMessage("flashcardSet.errorQuizSet"));
+    public void handleQuiz(final ActionEvent actionEvent) {
+        if (viewModel.getTotalFlashcards() < MIN_FLASHCARDS_FOR_QUIZ) {
+            showAlert(localization.getMessage("flashcardSet.errorTitle"),
+                    localization.getMessage("flashcardSet.errorQuizSet"));
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/quiz-flashcard.fxml"));
@@ -134,7 +146,7 @@ public class ReviewFlashcardSetController extends ViewController {
      * @param actionEvent the event triggered by the user
      */
     @FXML
-    public void goToHome(ActionEvent actionEvent) {
+    public void goToHome(final ActionEvent actionEvent) {
         session.clear();
         goToPage("/com/flash_card/fxml/home.fxml", setNameLabel.getScene());
     }

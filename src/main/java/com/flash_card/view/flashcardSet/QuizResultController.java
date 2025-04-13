@@ -56,7 +56,7 @@ public class QuizResultController extends ViewController {
      *
      * @param quizId the ID of the completed quiz
      */
-    public void setResultView(int quizId) {
+    public void setResultView(final int quizId) {
         QuizResultViewModel quizResultViewModel = new QuizResultViewModel(entityManager, quizId);
         String setName = quizResultViewModel.getSetName();
         int correctCount = quizResultViewModel.getTotalCorrect();
@@ -64,8 +64,14 @@ public class QuizResultController extends ViewController {
         quizTimeLabel.textProperty().bind(quizResultViewModel.quizTimeProperty());
 
         setNameLabel.setText(setName);
-        PieChart.Data correctData = new PieChart.Data(localization.getMessage("flashcardSet.correct") + "( " + correctCount + ")", correctCount);
-        PieChart.Data wrongData = new PieChart.Data(localization.getMessage("flashcardSet.wrong") + " (" + wrongCount + ")", wrongCount);
+        PieChart.Data correctData = new PieChart.Data(
+                localization.getMessage("flashcardSet.correct") + "( " + correctCount + ")",
+                correctCount
+        );
+        PieChart.Data wrongData = new PieChart.Data(
+                localization.getMessage("flashcardSet.wrong") + " (" + wrongCount + ")",
+                wrongCount
+        );
         pieChart.getData().clear();
         pieChart.getData().addAll(correctData, wrongData);
     }
@@ -77,7 +83,7 @@ public class QuizResultController extends ViewController {
      * @param actionEvent the event triggered by the user
      */
     @FXML
-    public void handleStudy(ActionEvent actionEvent) {
+    public void handleStudy(final ActionEvent actionEvent) {
         StudySession session = StudySession.getInstance();
         session.setSetId(quizSession.getSetId());
         session.setSetName(quizSession.getSetName());
@@ -92,7 +98,7 @@ public class QuizResultController extends ViewController {
      * @param actionEvent the event triggered by the user
      */
     @FXML
-    public void goToHome(ActionEvent actionEvent) {
+    public void goToHome(final ActionEvent actionEvent) {
         quizSession.clear();
         goToPage("/com/flash_card/fxml/home.fxml", setNameLabel.getScene());
     }

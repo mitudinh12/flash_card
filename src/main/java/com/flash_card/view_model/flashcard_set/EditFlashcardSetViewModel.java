@@ -20,7 +20,7 @@ public class EditFlashcardSetViewModel {
      *
      * @param entityManager the EntityManager for database operations
      */
-    public EditFlashcardSetViewModel(EntityManager entityManager) {
+    public EditFlashcardSetViewModel(final EntityManager entityManager) {
         flashcardSetDao = FlashcardSetDao.getInstance(entityManager);
     }
 
@@ -32,7 +32,12 @@ public class EditFlashcardSetViewModel {
      * @param setDescription the new description of the flashcard set
      * @param setTopic       the new topic of the flashcard set
      */
-    public void saveFlashcardSet(int setId, String setName, String setDescription, String setTopic) {
+    public void saveFlashcardSet(
+            final int setId,
+            final String setName,
+            final String setDescription,
+            final String setTopic
+    ) {
         FlashcardSet flashcardSet = flashcardSetDao.findById(setId);
         if (flashcardSet != null) {
             flashcardSet.setSetName(setName);
