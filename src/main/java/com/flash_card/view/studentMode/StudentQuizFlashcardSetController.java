@@ -1,17 +1,16 @@
 package com.flash_card.view.studentMode;
 
 import com.flash_card.view.flashcardSet.QuizFlashcardSetController;
-import com.flash_card.view.flashcardSet.QuizResultController;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import java.io.IOException;
 
+/**
+ * Controller class for managing the quiz flashcard set in student mode.
+ * Extends the functionality of `QuizFlashcardSetController` to customize behavior for students.
+ */
 public class StudentQuizFlashcardSetController extends QuizFlashcardSetController {
-
+    /**
+     * Initializes the controller by setting up the FXML file, binding properties,
+     * configuring answer button actions, and loading the flashcard set.
+     */
     @Override
     public void initialize() {
         setReloadFxml("/com/flash_card/fxml/student-quiz-flashcard.fxml");
@@ -20,6 +19,10 @@ public class StudentQuizFlashcardSetController extends QuizFlashcardSetControlle
         setFlashcardSet(quizSession.getSetId(), quizSession.getSetName());
     }
 
+    /**
+     * Navigates to the quiz result page after the quiz is completed.
+     * Sets the quiz ID in the session and loads the result page.
+     */
     @Override
     protected void goToResultPage() {
         quizSession.setQuizId(quizId);

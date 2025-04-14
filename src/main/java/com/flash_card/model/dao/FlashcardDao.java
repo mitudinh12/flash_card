@@ -1,29 +1,56 @@
 package com.flash_card.model.dao;
 
 import com.flash_card.framework.DifficultyLevel;
-import com.flash_card.model.datasource.MariaDbJpaConnection;
 import com.flash_card.model.entity.Flashcard;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
 
 import java.util.List;
-
-public class FlashcardDao {
+/**
+ * Data Access Object (DAO) class for managing {@link Flashcard} entities.
+ * Provides methods for persisting, deleting, updating, and querying flashcards
+ * in the database.
+ */
+public final class FlashcardDao {
+    /**
+     * Singleton instance of the {@link FlashcardDao}.
+     */
     private static FlashcardDao instance;
-    private EntityManager entityManager;
-
-    private FlashcardDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    /**
+     * The {@link EntityManager} used for database operations.
+     */
+    private final EntityManager entityManager;
+    /**
+     * Private constructor to initialize the DAO with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManagerParam the {@link EntityManager} to use for database
+     *                      operations
+     */
+    private FlashcardDao(final EntityManager entityManagerParam) {
+        this.entityManager = entityManagerParam;
     }
-
-    public static FlashcardDao getInstance(EntityManager entityManager) {
+    /**
+     * Provides a singleton instance of {@link FlashcardDao}.
+     * If the instance does not exist, it is created with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManager the {@link EntityManager} to use for database
+     *                      operations
+     * @return the singleton instance of {@link FlashcardDao}
+     */
+    public static FlashcardDao getInstance(final EntityManager entityManager) {
         if (instance == null) {
             instance = new FlashcardDao(entityManager);
         }
         return instance;
     }
-
-    public boolean persist(Flashcard flashcard) {
+    /**
+     * Persists a {@link Flashcard} entity in the database.
+     *
+     * @param flashcard the {@link Flashcard} entity to persist
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean persist(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcard);
@@ -38,13 +65,23 @@ public class FlashcardDao {
             return false;
         }
     }
-
-    public Flashcard findById(int id) {
+    /**
+     * Finds a {@link Flashcard} entity by its ID.
+     *
+     * @param id the ID of the flashcard
+     * @return the {@link Flashcard} entity if found, or null if not found
+     */
+    public Flashcard findById(final int id) {
         return entityManager.find(Flashcard.class, id);
 
     }
-
-    public boolean update(Flashcard flashcard) {
+    /**
+     * Updates a {@link Flashcard} entity in the database.
+     *
+     * @param flashcard the {@link Flashcard} entity to update
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean update(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcard);
@@ -59,8 +96,13 @@ public class FlashcardDao {
             return false;
         }
     }
-
-    public boolean delete(Flashcard flashcard) {
+    /**
+     * Deletes a {@link Flashcard} entity from the database.
+     *
+     * @param flashcard the {@link Flashcard} entity to delete
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean delete(final Flashcard flashcard) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcard);
@@ -76,19 +118,40 @@ public class FlashcardDao {
         }
     }
 
-
-    public List<Flashcard> findBySetId(int setId) {
-        return entityManager.createQuery("SELECT f FROM Flashcard f WHERE f.flashcardSet.setId = :setId", Flashcard.class)
-                    .setParameter("setId", setId)
-                    .getResultList();
+    /**
+     * Finds all {@link Flashcard} entities associated with a specific set ID.
+     *
+     * @param setId the ID of the flashcard set
+     * @return a list of {@link Flashcard} entities associated with the set
+     */
+    public List<Flashcard> findBySetId(final int setId) {
+        return entityManager.createQuery(
+                        "SELECT f FROM Flashcard f "
+                         + "WHERE f.flashcardSet.setId = :setId",
+                        Flashcard.class
+                )
+                .setParameter("setId", setId)
+                .getResultList();
 
     }
-
-    public List<Flashcard> getHardFlashcards(int setId, int studyId) {
+    /**
+     * Finds all hard {@link Flashcard} entities associated with a specific set
+     * and study ID.
+     *
+     * @param setId      the ID of the flashcard set
+     * @param studyId    the ID of the study
+     * @return a list of hard {@link Flashcard} entities
+     */
+    public List<Flashcard> getHardFlashcards(final int setId, final int studyId) {
         return entityManager.createQuery(
-                        "SELECT f FROM Flashcard f JOIN CardDifficultLevel cdl ON f.cardId = cdl.flashcard.cardId " +
-                                "WHERE f.flashcardSet.setId = :setId AND cdl.study.studyId = :studyId AND cdl.difficultLevel = :difficultyLevel",
-                        Flashcard.class)
+                        "SELECT f FROM Flashcard f "
+                         + "JOIN CardDifficultLevel cdl "
+                         + "ON f.cardId = cdl.flashcard.cardId "
+                         + "WHERE f.flashcardSet.setId = :setId "
+                         + "AND cdl.study.studyId = :studyId "
+                         + "AND cdl.difficultLevel = :difficultyLevel",
+                        Flashcard.class
+                )
                 .setParameter("setId", setId)
                 .setParameter("studyId", studyId)
                 .setParameter("difficultyLevel", DifficultyLevel.hard)

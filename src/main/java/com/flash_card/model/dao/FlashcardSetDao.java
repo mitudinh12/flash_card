@@ -1,25 +1,55 @@
 package com.flash_card.model.dao;
+
 import com.flash_card.model.entity.FlashcardSet;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
+
 import java.util.List;
-
+/**
+ * Data Access Object (DAO) class for managing {@link FlashcardSet} entities.
+ * Provides methods for persisting, deleting, updating, and querying flashcard
+ * sets in the database.
+ */
 public class FlashcardSetDao {
+    /**
+     * Singleton instance of the {@link FlashcardSetDao}.
+     */
     private static FlashcardSetDao instance;
-    private EntityManager entityManager;
-
-    FlashcardSetDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    /**
+     * The {@link EntityManager} used for database operations.
+     */
+    private final EntityManager entityManager;
+    /**
+     * Private constructor to initialize the DAO with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManagerParam the {@link EntityManager} to use for database
+     *                      operations
+     */
+    FlashcardSetDao(final EntityManager entityManagerParam) {
+        this.entityManager = entityManagerParam;
     }
-
-    public static FlashcardSetDao getInstance(EntityManager entityManager) {
+    /**
+     * Provides a singleton instance of {@link FlashcardSetDao}.
+     * If the instance does not exist, it is created with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManager the {@link EntityManager} to use for database
+     *                      operations
+     * @return the singleton instance of {@link FlashcardSetDao}
+     */
+    public static FlashcardSetDao getInstance(final EntityManager entityManager) {
         if (instance == null) {
             instance = new FlashcardSetDao(entityManager);
         }
         return instance;
     }
-
-    public boolean persist(FlashcardSet flashcardSet) {
+    /**
+     * Persists a {@link FlashcardSet} entity in the database.
+     *
+     * @param flashcardSet the {@link FlashcardSet} entity to persist
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean persist(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(flashcardSet);
@@ -34,12 +64,22 @@ public class FlashcardSetDao {
             return false;
         }
     }
-
-    public FlashcardSet findById(int id) {
+    /**
+     * Finds a {@link FlashcardSet} entity by its ID.
+     *
+     * @param id the ID of the flashcard set
+     * @return the {@link FlashcardSet} entity if found, or null if not found
+     */
+    public FlashcardSet findById(final int id) {
         return entityManager.find(FlashcardSet.class, id);
     }
-
-    public boolean update(FlashcardSet flashcardSet) {
+    /**
+     * Updates a {@link FlashcardSet} entity in the database.
+     *
+     * @param flashcardSet the {@link FlashcardSet} entity to update
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean update(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(flashcardSet);
@@ -51,8 +91,13 @@ public class FlashcardSetDao {
             return false;
         }
     }
-
-    public boolean delete(FlashcardSet flashcardSet) {
+    /**
+     * Deletes a {@link FlashcardSet} entity from the database.
+     *
+     * @param flashcardSet the {@link FlashcardSet} entity to delete
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean delete(final FlashcardSet flashcardSet) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(flashcardSet);
@@ -65,13 +110,19 @@ public class FlashcardSetDao {
         }
     }
 
-
-    public List<FlashcardSet> findByUserId(String userId) {
-        return entityManager.createQuery("SELECT fs FROM FlashcardSet fs WHERE fs.flashcardCreator.userId = :userId", FlashcardSet.class)
+    /**
+     * Finds all {@link FlashcardSet} entities associated with a specific user ID.
+     *
+     * @param userId the ID of the user
+     * @return a list of {@link FlashcardSet} entities associated with the user
+     */
+    public List<FlashcardSet> findByUserId(final String userId) {
+        return entityManager.createQuery(
+                        "SELECT fs FROM FlashcardSet fs "
+                         + "WHERE fs.flashcardCreator.userId = :userId",
+                        FlashcardSet.class
+                )
                 .setParameter("userId", userId)
                 .getResultList();
-
     }
-
-
 }

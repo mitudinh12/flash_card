@@ -7,27 +7,56 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * UI container for displaying a flashcard set.
+ */
 public class FlashcardSetContainer extends HBox {
-    private SetViewModel viewModel;
-    private HomePageController controller;
-    private Label nameLabel;
-    private EditFlashcardSetController editSetController = new EditFlashcardSetController();
-    private boolean studentMode = false;
-    private Localization localization = Localization.getInstance();
+    /** The view model for the flashcard set. */
+    private final SetViewModel viewModel;
 
-    public FlashcardSetContainer(SetViewModel viewModel, HomePageController controller) {
-        this.viewModel = viewModel;
-        this.controller = controller;
+    /** The controller for the home page. */
+    private final HomePageController controller;
+
+    /** The label for displaying the name of the flashcard set. */
+    private Label nameLabel;
+
+    /** The controller for editing flashcard sets. */
+    private final EditFlashcardSetController editSetController = new EditFlashcardSetController();
+
+    /** Indicates whether the container is in student mode. */
+    private boolean studentMode = false;
+
+    /** The localization instance for retrieving localized messages. */
+    private final Localization localization = Localization.getInstance();
+
+    /** The minimum number of flashcards required for a quiz. */
+    private static final int MIN_FLASHCARDS_FOR_QUIZ = 4;
+
+    /**
+     * Constructs a new FlashcardSetContainer.
+     *
+     * @param viewModelParam  the view model for the flashcard set
+     * @param controllerParam the controller for the home page
+     */
+    public FlashcardSetContainer(final SetViewModel viewModelParam, final HomePageController controllerParam) {
+        this.viewModel = viewModelParam;
+        this.controller = controllerParam;
         initializeUI();
     }
 
+    /**
+     * Initializes the UI components for the flashcard set container.
+     */
     protected void initializeUI() {
 
         nameLabel = new Label();
@@ -64,46 +93,43 @@ public class FlashcardSetContainer extends HBox {
         HBox.setHgrow(nameLabel, Priority.ALWAYS);
         this.getChildren().addAll(nameLabel, languageLabel, topicLabel, numberFlashcardContainer, actionButton);
         this.setId("flashcard-set-container");
-        if (this.viewModel.getType().equals("own")){
-            this.setOnMouseClicked(event -> {
-                editSetController.goToEditManyCardsPage(viewModel.getSet().getSetId(), nameLabel.getScene());
-            });
-        }        this.setAlignment(Pos.CENTER_LEFT);
-//
+        if (this.viewModel.getType().equals("own")) {
+            this.setOnMouseClicked(event ->
+                    editSetController.goToEditManyCardsPage(
+                            viewModel.getSet().getSetId(),
+                            nameLabel.getScene()
+                    )
+            );
+        }
+        this.setAlignment(Pos.CENTER_LEFT);
     }
 
-    protected void showContextMenu(Button button) {
+    /**
+     * Displays the context menu for the flashcard set.
+     *
+     * @param button the button that triggers the context menu
+     */
+    protected void showContextMenu(final Button button) {
         ContextMenu menu = new ContextMenu();
         // study
         MenuItem study = new MenuItem(localization.getMessage("flashcardSet.studyAction"));
-        study.setOnAction(event -> {
-            gotoStudyFlashcardSet(studentMode);
-        });
+        study.setOnAction(event ->
+            gotoStudyFlashcardSet(studentMode));
         // quiz
         MenuItem quiz = new MenuItem(localization.getMessage("flashcardSet.quizAction"));
-        quiz.setOnAction(e -> {
-            goToQuizFlashcardSet(studentMode);
-        });
+        quiz.setOnAction(e -> goToQuizFlashcardSet(studentMode));
         // edit
         MenuItem edit = new MenuItem(localization.getMessage("flashcardSet.editAction"));
-        edit.setOnAction(event -> {
-            gotoEditFlashcardSet();
-        });
+        edit.setOnAction(event -> gotoEditFlashcardSet());
         // delete
         MenuItem delete = new MenuItem(localization.getMessage("flashcardSet.deleteAction"));
-        delete.setOnAction(event -> {
-            controller.deleteFlashcardSet(viewModel);
-        });
+        delete.setOnAction(event -> controller.deleteFlashcardSet(viewModel));
         // share
         MenuItem share = new MenuItem(localization.getMessage("flashcardSet.shareAction"));
-        share.setOnAction(event -> {
-            controller.handleShare(viewModel.getSet().getSetId());
-        });
+        share.setOnAction(event -> controller.handleShare(viewModel.getSet().getSetId()));
         //track progress
         MenuItem trackProgress = new MenuItem(localization.getMessage("flashcardSet.trackProgress"));
-        trackProgress.setOnAction(event -> {
-            showTrackProgressPopup();
-        });
+        trackProgress.setOnAction(event -> showTrackProgressPopup());
 
         // conditional render
         if (viewModel.getType().equals("own")) {                        // action for own flashcard
@@ -111,15 +137,16 @@ public class FlashcardSetContainer extends HBox {
         } else if (viewModel.getType().equals("assigned")) {       // action for assigned flashcard
             studentMode = true;
             menu.getItems().addAll(study, quiz, trackProgress);
-        }
-        else {                                                        // action for shared flashcard
+        } else {                                                        // action for shared flashcard
             menu.getItems().addAll(study, quiz, delete);
         }
-
         menu.setId("action-list");
         menu.show(button, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
+    /**
+     * Navigates to the edit flashcard set page.
+     */
     public void gotoEditFlashcardSet() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/flash_card/fxml/edit-set.fxml"));
@@ -127,9 +154,9 @@ public class FlashcardSetContainer extends HBox {
             Parent root = loader.load();
 
             //pass the FlashcardSet data to the EditFlashcardSetController
-            EditFlashcardSetController editSetController = loader.getController();
-            editSetController.setFlashcardSet(
-                    viewModel.getSet().getSetId(),viewModel.getSet().getSetName(),
+            EditFlashcardSetController localEditSetController = loader.getController();
+            localEditSetController.setFlashcardSet(
+                    viewModel.getSet().getSetId(), viewModel.getSet().getSetName(),
                     viewModel.getSet().getSetDescription(),
                     viewModel.getSet().getSetTopic());
 
@@ -140,7 +167,12 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
-    public void gotoStudyFlashcardSet(boolean isStudentMode) {
+    /**
+     * Navigates to the study flashcard set page.
+     *
+     * @param isStudentMode whether the user is in student mode
+     */
+    public void gotoStudyFlashcardSet(final boolean isStudentMode) {
         try {
             FXMLLoader loader;
             if (isStudentMode) {
@@ -162,8 +194,13 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
-    public void goToQuizFlashcardSet(boolean isStudentMode) {
-        if (viewModel.getSet().getNumberFlashcards() < 4) {
+    /**
+     * Navigates to the quiz flashcard set page.
+     *
+     * @param isStudentMode whether the user is in student mode
+     */
+    public void goToQuizFlashcardSet(final boolean isStudentMode) {
+        if (viewModel.getSet().getNumberFlashcards() < MIN_FLASHCARDS_FOR_QUIZ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(localization.getMessage("flashcardSet.errorTitle"));
             alert.setHeaderText(null);
@@ -193,6 +230,10 @@ public class FlashcardSetContainer extends HBox {
         }
     }
 
+    /**
+     * Displays a popup for tracking progress.
+     */
     protected void showTrackProgressPopup() {
+        // TODO Implementation for showing track progress popup
     }
 }

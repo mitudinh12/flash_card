@@ -1,25 +1,55 @@
 package com.flash_card.model.dao;
+
 import com.flash_card.model.entity.Quiz;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
-
-public class QuizDao {
+/**
+ * Data Access Object (DAO) class for managing {@link Quiz} entities.
+ * Provides methods for persisting, deleting, updating, and querying quizzes
+ * in the database.
+ */
+public final class QuizDao {
+    /**
+     * Singleton instance of the {@link QuizDao}.
+     */
     private static QuizDao instance;
-    private EntityManager entityManager;
-
-    private QuizDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    /**
+     * The {@link EntityManager} used for database operations.
+     */
+    private final EntityManager entityManager;
+    /**
+     * Private constructor to initialize the DAO with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManagerParam the {@link EntityManager} to use for database
+     *                      operations
+     */
+    private QuizDao(final EntityManager entityManagerParam) {
+        this.entityManager = entityManagerParam;
     }
-
-    public static QuizDao getInstance(EntityManager entityManager) {
+    /**
+     * Provides a singleton instance of {@link QuizDao}.
+     * If the instance does not exist, it is created with the provided
+     * {@link EntityManager}.
+     *
+     * @param entityManagerParam the {@link EntityManager} to use for database
+     *                      operations
+     * @return the singleton instance of {@link QuizDao}
+     */
+    public static QuizDao getInstance(final EntityManager entityManagerParam) {
         if (instance == null) {
-            instance = new QuizDao(entityManager);
+            instance = new QuizDao(entityManagerParam);
         }
         return instance;
     }
-
-    public boolean persist(Quiz quiz) {
+    /**
+     * Persists a {@link Quiz} entity in the database.
+     *
+     * @param quiz the {@link Quiz} entity to persist
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean persist(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(quiz);
@@ -34,13 +64,23 @@ public class QuizDao {
             return false;
         }
     }
-
-    public Quiz findById(int id) {
+    /**
+     * Finds a {@link Quiz} entity by its ID.
+     *
+     * @param id the ID of the quiz
+     * @return the {@link Quiz} entity if found, or null if not found
+     */
+    public Quiz findById(final int id) {
         Quiz quiz = entityManager.find(Quiz.class, id);
         return quiz;
     }
-
-    public boolean update(Quiz quiz) {
+    /**
+     * Updates a {@link Quiz} entity in the database.
+     *
+     * @param quiz the {@link Quiz} entity to update
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean update(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(quiz);
@@ -55,8 +95,13 @@ public class QuizDao {
             return false;
         }
     }
-
-    public boolean delete(Quiz quiz) {
+    /**
+     * Deletes a {@link Quiz} entity from the database.
+     *
+     * @param quiz the {@link Quiz} entity to delete
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean delete(final Quiz quiz) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(quiz);
@@ -71,12 +116,23 @@ public class QuizDao {
             return false;
         }
     }
-
-    public List<Quiz> findByUserIdAndSetId(String userId, int setId) {
-        return entityManager.createQuery("SELECT q FROM Quiz q WHERE q.user.userId = :userId AND q.flashcardSet.setId = :setId", Quiz.class)
+    /**
+     * Finds all {@link Quiz} entities associated with a specific user ID
+     * and flashcard set ID.
+     *
+     * @param userId the ID of the user
+     * @param setId  the ID of the flashcard set
+     * @return a list of {@link Quiz} entities associated with the user and set
+     */
+    public List<Quiz> findByUserIdAndSetId(final String userId, final int setId) {
+        return entityManager.createQuery(
+                        "SELECT q FROM Quiz q "
+                         + "WHERE q.user.userId = :userId "
+                         + "AND q.flashcardSet.setId = :setId",
+                        Quiz.class
+                )
                 .setParameter("userId", userId)
                 .setParameter("setId", setId)
                 .getResultList();
     }
-
 }

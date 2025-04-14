@@ -216,12 +216,6 @@
     -fx-padding: 10px;
 }
 
-listClassesUI {
-    -fx-background-color: #E2F2E1;
-    -fx-alignment: TOP_CENTER;
-    -fx-spacing: 8px;
-}
-
 #class-name-label {
     -fx-font-size: 15;
     -fx-font-weight: bold;

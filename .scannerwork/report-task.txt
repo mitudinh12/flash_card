@@ -1,0 +1,6 @@
+projectKey=flash_card
+serverUrl=http://localhost:9000
+serverVersion=25.4.0.105899
+dashboardUrl=http://localhost:9000/dashboard?id=flash_card
+ceTaskId=440c87a1-0f4a-41ed-97ae-99bc11445061
+ceTaskUrl=http://localhost:9000/api/ce/task?id=440c87a1-0f4a-41ed-97ae-99bc11445061

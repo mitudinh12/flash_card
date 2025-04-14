@@ -6,23 +6,47 @@ import com.flash_card.model.entity.User;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
-
-public class ClassMemberDao {
+/**
+ * Data Access Object (DAO) class for managing {@link ClassMember} entities.
+ * Provides methods for persisting, deleting, and querying class members in the database.
+ */
+public final class ClassMemberDao {
+    /**
+     * Singleton instance of the {@link ClassMemberDao}.
+     */
     private static ClassMemberDao classMemberDao = null;
+    /**
+     * The {@link EntityManager} used for database operations.
+     */
     private final EntityManager em;
-
-    private ClassMemberDao(EntityManager entityManager) {
+    /**
+     * Private constructor to initialize the DAO with the provided {@link EntityManager}.
+     *
+     * @param entityManager the {@link EntityManager} to use for database operations
+     */
+    private ClassMemberDao(final EntityManager entityManager) {
         this.em = entityManager;
     }
-
-    public static ClassMemberDao getInstance(EntityManager em) {
+    /**
+     * Provides a singleton instance of {@link ClassMemberDao}.
+     * If the instance does not exist, it is created with the provided {@link EntityManager}.
+     *
+     * @param em the {@link EntityManager} to use for database operations
+     * @return the singleton instance of {@link ClassMemberDao}
+     */
+    public static ClassMemberDao getInstance(final EntityManager em) {
         if (classMemberDao == null) {
             classMemberDao = new ClassMemberDao(em);
         }
         return classMemberDao;
     }
-
-    public boolean persistClassMember(ClassMember classMember) {
+    /**
+     * Persists a {@link ClassMember} entity in the database.
+     *
+     * @param classMember the {@link ClassMember} entity to persist
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean persistClassMember(final ClassMember classMember) {
         try {
             em.getTransaction().begin();
             em.persist(classMember);
@@ -37,8 +61,13 @@ public class ClassMemberDao {
             return false;
         }
     }
-
-    public boolean deleteClassMember(ClassMember classMember) {
+    /**
+     * Deletes a {@link ClassMember} entity from the database.
+     *
+     * @param classMember the {@link ClassMember} entity to delete
+     * @return true if the operation is successful, false otherwise
+     */
+    public boolean deleteClassMember(final ClassMember classMember) {
         try {
             em.getTransaction().begin();
             em.remove(classMember);
@@ -53,17 +82,38 @@ public class ClassMemberDao {
             return false;
         }
     }
-
-    public List<User> findAllStudentByClassId(int classId) {
-        return em.createQuery("SELECT u FROM User u JOIN ClassMember cm ON u.userId = cm.student.userId WHERE cm.classroom.classroomId = :classId", User.class)
+    /**
+     * Finds all {@link User} entities associated with a specific classroom ID.
+     *
+     * @param classId the ID of the classroom
+     * @return a list of {@link User} entities associated with the classroom
+     */
+    public List<User> findAllStudentByClassId(final int classId) {
+        return em.createQuery(
+                        "SELECT u FROM User u "
+                         + "JOIN ClassMember cm ON u.userId = cm.student.userId "
+                         + "WHERE cm.classroom.classroomId = :classId",
+                        User.class
+                )
                 .setParameter("classId", classId)
                 .getResultList();
 
     }
-
-    public ClassMember findByStudentIdAndClassId(int classId, String studentId) {
+    /**
+     * Finds a {@link ClassMember} entity by its student ID and classroom ID.
+     *
+     * @param classId   the ID of the classroom
+     * @param studentId the ID of the student
+     * @return the {@link ClassMember} entity if found, or null if not found
+     */
+    public ClassMember findByStudentIdAndClassId(final int classId, final String studentId) {
         ClassMember classMember = null;
-        List<ClassMember> resultList = em.createQuery("SELECT cm FROM ClassMember cm WHERE cm.student.userId = :studentId and cm.classroom.classroomId = :classId", ClassMember.class)
+        List<ClassMember> resultList = em.createQuery(
+                        "SELECT cm FROM ClassMember cm "
+                         + "WHERE cm.student.userId = :studentId "
+                         + "AND cm.classroom.classroomId = :classId",
+                        ClassMember.class
+                )
                 .setParameter("studentId", studentId)
                 .setParameter("classId", classId)
                 .getResultList();
@@ -72,9 +122,18 @@ public class ClassMemberDao {
         }
         return classMember;
     }
-
-    public List<Classroom> findAllClassesByStudentId(String userId) {
-        return em.createQuery("SELECT cm.classroom FROM ClassMember cm WHERE cm.student.userId = :userId", Classroom.class)
+    /**
+     * Finds all {@link Classroom} entities associated with a specific student ID.
+     *
+     * @param userId the ID of the student
+     * @return a list of {@link Classroom} entities associated with the student
+     */
+    public List<Classroom> findAllClassesByStudentId(final String userId) {
+        return em.createQuery(
+                        "SELECT cm.classroom FROM ClassMember cm "
+                         + "WHERE cm.student.userId = :userId",
+                        Classroom.class
+                )
                 .setParameter("userId", userId)
                 .getResultList();
     }
