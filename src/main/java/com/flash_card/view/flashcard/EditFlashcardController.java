@@ -19,11 +19,11 @@ public class EditFlashcardController extends ViewController {
     /**
      * The ID of the flashcard set to which the flashcard belongs.
      */
-    private static int flashcardSetId;
+    private int flashcardSetId;
     /**
      * The ID of the flashcard being edited.
      */
-    private static int cardId = 0;
+    private int cardId;
     /**
      * EntityManager instance for database operations.
      */
@@ -75,6 +75,38 @@ public class EditFlashcardController extends ViewController {
     public void handleCancel() {
         goToEditManyCardsPage();
     }
+
+    /**
+     * Handles the action when the user clicks the back button.
+     * Navigates to the edit-many-cards page.
+     */
+    @Override
+    protected void reloadCurrentView() {
+        Scene scene = termField.getScene();
+        Parent root = scene.getRoot();
+        String fxmlFile = (String) root.getUserData();
+
+        if (fxmlFile == null) {
+            System.err.println("No FXML file path set in UserData.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            loader.setResources(localization.getBundle());
+            Parent newRoot = loader.load();
+
+            //pass cardId and flashcardSetId to the new controller
+            EditFlashcardController controller = loader.getController();
+            controller.setFlashcardId(cardId);
+            controller.setFlashcardSetId(flashcardSetId);
+
+            newRoot.setUserData(fxmlFile);
+            scene.setRoot(newRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Navigates to the edit-many-cards page.
      */
@@ -97,7 +129,7 @@ public class EditFlashcardController extends ViewController {
      * @param flashcardSetIdParam the ID of the flashcard set
      */
     public void setFlashcardSetId(final int flashcardSetIdParam) {
-        EditFlashcardController.flashcardSetId = flashcardSetIdParam;
+        this.flashcardSetId = flashcardSetIdParam;
     }
     /**
      * Sets the ID of the flashcard being edited.
@@ -106,7 +138,7 @@ public class EditFlashcardController extends ViewController {
      * @param cardIdParam the ID of the flashcard
      */
     public void setFlashcardId(final int cardIdParam) {
-        EditFlashcardController.cardId = cardIdParam;
+        this.cardId = cardIdParam;
         if (termField != null && definitionField != null) {
             termField.setText(viewModel.term(cardId));
             definitionField.setText(viewModel.definition(cardId));

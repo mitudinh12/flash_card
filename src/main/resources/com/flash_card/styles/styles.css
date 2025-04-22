@@ -151,7 +151,7 @@
 
 #topic-label {
     -fx-font-size: 13;
-    -fx-min-width: 200px;
+    -fx-min-width: 100px;
     -fx-min-height: 25px;
     -fx-padding: 0 10px 0 10px;
 }

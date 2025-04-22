@@ -131,7 +131,7 @@
 
             </children>
             <padding>
-                <Insets left="50.0" right="50.0" top="40.0" />
+                <Insets left="100.0" right="100.0" top="40.0" />
             </padding>
         </VBox>
     </children>

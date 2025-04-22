@@ -3,7 +3,6 @@ package com.flash_card.view.flashcard;
 import com.flash_card.framework.ViewController;
 import com.flash_card.view_model.entity.EntityManagerViewModel;
 import com.flash_card.view_model.flashcard.CreateFlashcardViewModel;
-import com.flash_card.view_model.user_auth.AuthSessionViewModel;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +20,6 @@ public class CreateFlashcardController extends ViewController {
      * The ID of the flashcard set to which the flashcard will be added.
      */
     private static int flashcardSetId;
-    /**
-     * ViewModel for managing user authentication sessions.
-     */
-    private final AuthSessionViewModel authSessionViewModel = AuthSessionViewModel.getInstance();
     /**
      * EntityManager instance for database operations.
      */
@@ -59,11 +54,13 @@ public class CreateFlashcardController extends ViewController {
     @FXML
     public void handleCreateFlashcard() {
         if (termField.getText().isEmpty() || definitionField.getText().isEmpty()) {
-            showAlert("Warning", "Please fill in both term and definition fields");
+            showAlert(
+                    localization.getMessage("flashcardSet.warningTitle"),
+                    localization.getMessage("flashcardSet.warningMessage")
+            );
             return;
         }
         viewModel.saveFlashcard(termField.getText(), definitionField.getText(), flashcardSetId);
-        System.out.println("Flashcard saved. Create new one");
         goToCreateFlashcardPage();
     }
     /**
@@ -73,11 +70,13 @@ public class CreateFlashcardController extends ViewController {
     @FXML
     public void handleSave() {
         if (termField.getText().isEmpty() || definitionField.getText().isEmpty()) {
-            showAlert("Warning", "Please fill in both term and definition fields");
+            showAlert(
+                    localization.getMessage("flashcardSet.warningTitle"),
+                    localization.getMessage("flashcardSet.warningMessage")
+            );
             return;
         }
         viewModel.saveFlashcard(termField.getText(), definitionField.getText(), flashcardSetId);
-        System.out.println("Flashcard saved. Back to Flashcard Page");
         clearFlashcardSetId();
         goToPage("/com/flash_card/fxml/home.fxml", termField.getScene());
     }
@@ -88,7 +87,6 @@ public class CreateFlashcardController extends ViewController {
     @FXML
     public void handleCancel() {
         viewModel.deleteFlashcardSetIfEmpty(flashcardSetId); //delete flashcard set if there's no flashcard in it
-        System.out.println("Cancel");
         clearFlashcardSetId();
         goToPage("/com/flash_card/fxml/home.fxml", termField.getScene());
     }
