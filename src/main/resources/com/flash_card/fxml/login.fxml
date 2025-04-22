@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="834.0" fitWidth="1275.0">
          <image>
-            <Image url="@../assets/backgrounds/banner.jpg" />
+            <Image url="@../assets/backgrounds/Landing.png" />
          </image>
       </ImageView>
       <VBox spacing="5.0">
