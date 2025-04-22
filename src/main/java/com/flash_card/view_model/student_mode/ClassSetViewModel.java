@@ -1,6 +1,7 @@
 package com.flash_card.view_model.student_mode;
 
 import com.flash_card.framework.SetViewModel;
+import com.flash_card.localization.Localization;
 import com.flash_card.model.entity.FlashcardSet;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -34,6 +35,10 @@ public class ClassSetViewModel extends SetViewModel {
      */
     private final String type = "assigned";
     /**
+     * Localization instance for retrieving localized messages.
+     */
+    private final Localization localization = Localization.getInstance();
+    /**
      * Constructor to initialize the ViewModel with the given {@link FlashcardSet}.
      * Binds the properties to the fields of the entity.
      *
@@ -44,7 +49,9 @@ public class ClassSetViewModel extends SetViewModel {
 
         // binding to entity fields
         this.setName = new SimpleStringProperty(flashcardSet.getSetName());
-        this.setLanguage = new SimpleStringProperty(flashcardSet.getSetLanguage());
+        this.setLanguage = new SimpleStringProperty(
+                getLocalizedMessageOrDefault(flashcardSet.getSetLanguage(), flashcardSet.getSetLanguage())
+        );
         this.setTopic = new SimpleStringProperty(flashcardSet.getSetTopic());
         this.numberFLashcard = new SimpleStringProperty(String.valueOf(flashcardSet.getNumberFlashcards()));
     }
@@ -104,5 +111,20 @@ public class ClassSetViewModel extends SetViewModel {
      */
     public FlashcardSet getSet() {
         return flashcardSet;
+    }
+    /**
+     * Retrieves a localized message for the given key, or returns a default value if localization fails.
+     *
+     * @param key          the key for the localized message
+     * @param defaultValue the default value to return if localization fails
+     * @return the localized message or the default value
+     */
+    private String getLocalizedMessageOrDefault(final String key, final String defaultValue) {
+        try {
+            return localization.getMessage(key);
+        } catch (Exception e) {
+            // Log the exception if needed
+            return defaultValue; // Return the default value if localization fails
+        }
     }
 }
