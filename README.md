@@ -1,38 +1,189 @@
-# SuperFlash Application
+# SuperFlash
+*A JavaFX-based Flashcard Study & Classroom Platform*
 
-## Overview
+## 📌 Overview
+**SuperFlash** is a modern, feature-rich **desktop flashcard application** designed to support effective studying for both **students and educators**. Built with **JavaFX** and following the **MVVM (Model–View–ViewModel)** architecture, SuperFlash enables users to create, manage, study, and share flashcards, while also supporting classroom-based learning and progress tracking.
 
-SuperFlash is a JavaFX-based study application designed to help users learn and memorize concepts efficiently through flashcards. The application can be used by both students and teachers, making it an efficient and user-friendly tool for creating, studying, and reviewing study materials. It connects to a MariaDB database via a TCP connection for data persistence. Developed with Java and built using Maven, SuperFlash ensures a robust and scalable software architecture. This project is ideal for students, educators, or anyone looking to enhance their learning experience.
+The application is suitable for **self-learners**, **teachers**, and **educational institutions**, offering a clean UI, multilingual support, and strong emphasis on software quality.
 
-## User Manual
+---
 
-For detailed instructions on how to use the application, refer to the [**User Manual**](https://github.com/nhidinh91/flash_card/blob/tu-readme/src/main/resources/documents/User%20Manual%20Guide%20for%20Online%20Flashcard%20System.pdf).
+## 🎯 Project Goals
+- Apply **Object-Oriented Programming** and **MVVM** principles in a real-world application
+- Provide an intuitive flashcard-based study experience
+- Support teacher–student collaboration via classrooms
+- Track learning progress and performance statistics
+- Ensure scalability, maintainability, and testability
 
-## Development Setup
+---
 
-The following diagram describes the development environment of the flashcard system, including the essential tools and components:
+## ✨ Key Features
 
-![Diagram](/documents/dev-env.png)
+### 🔐 Authentication & Security
+- Google OAuth 2.0 login
+- Secure user authentication using Google Auth Library
 
+### 📚 Flashcard & Set Management
+- Create, edit, and delete flashcards
+- Organize flashcards into topic-based sets
+- Share flashcard sets with other users
 
-### Nodes
+### 👥 Classroom Support
+- Teacher mode and student mode
+- Teachers can create classrooms
+- Assign flashcard sets to entire classes
+- Students can view assigned materials
 
-Developer Machine: The primary workstation (laptop, desktop computer, etc.), which can run on Windows, Linux, or Mac operating systems. It serves as the base for all development activities.
+### 🎮 Study Modes
+- Flashcard review with flip animations
+- Shuffle mode to avoid memorization by order
+- Quiz mode generated from flashcards
+- Card difficulty tracking (easy / difficult)
+- Foundation for spaced repetition algorithms
 
-IntelliJ IDEA: The Integrated Development Environment (IDE) used for coding and development.
+### 📊 Progress Tracking & Statistics
+- Track study sessions and reviewed cards
+- Quiz results and accuracy statistics
+- Classroom-level performance overview for teachers
 
-MariaDB: The relational database management system used in the project.
+### 🌍 Localization & Accessibility
+- Multi-language UI support:
+  - 🇬🇧 English
+  - 🇫🇮 Finnish
+  - 🇻🇳 Vietnamese
+  - 🇰🇷 Korean
+  - 🇹🇭 Thai
+- Dynamic language switching at runtime
+- Localized dates, times, and messages
 
-### Component
+---
 
-JavaFX Application: The project is a JavaFX application, a platform for creating graphical user interfaces using Java. The application communicates with MariaDB over a TCP connection on port 3306 (default MariaDB port).
+## 🏗 Architecture
+SuperFlash follows the **MVVM (Model–View–ViewModel)** pattern using **mvvmFX**, ensuring:
+- Clear separation of concerns
+- Testable business logic
+- Scalable UI components
 
-### Artifacts
+### Architectural Layers
+- **Model**: Entities, database logic, and domain models
+- **View**: JavaFX UI components (FXML)
+- **ViewModel**: Application logic and state binding
 
-db-flashcard.sql: Contains the SQL schema and data definitions for the flashcard application's database. It is used to set up and initialize the database structure.
+---
 
-pom.xml: The Maven Project Object Model (POM) file. Maven is a build automation tool used primarily for Java projects. The pom.xml file contains information about the project and configuration details used by Maven to build the project.
+## 🧰 Technology Stack
 
-persistence.xml: Configures the Java Persistence API (JPA) settings. It specifies the JPA provider (Hibernate) and contains database connection settings and other persistence-related configurations.
+### Core Technologies
+- **Java 21 (LTS)**
+- **JavaFX 23.0.1**
+- **Maven**
 
-### This setup ensures a streamlined and efficient development workflow for contributors to the SuperFlash Application.
+### Backend & Persistence
+- **Hibernate 6.0.0**
+- **JPA 3.0**
+- **MariaDB**
+- **MariaDB JDBC Driver 3.5.1**
+
+### Authentication & Networking
+- **Google OAuth 2.0**
+- **Google Auth Library**
+- **Apache HttpClient 5.2.1**
+
+### Testing & Quality
+- **JUnit 5**
+- **TestNG**
+- **Mockito**
+- **TestFX** (JavaFX UI testing)
+- **JaCoCo** (code coverage)
+- **SonarQube** (code quality)
+
+### Utilities
+- **mvvmFX 1.8.0**
+- **Gson 2.10.1**
+- **Logback 1.5.16**
+
+---
+
+## Build and Setup Instructions
+
+### Prerequisites
+- Java Development Kit (**JDK 21+**)
+- Apache Maven **3.6+**
+- MariaDB **10.5+** (or MySQL 8+)
+- Git
+- IDE (IntelliJ IDEA recommended)
+
+---
+
+## 🗄 Database Schema
+The application uses **10 core tables**, including:
+- `users`
+- `flashcard_sets`
+- `flashcards`
+- `classrooms`
+- `class_members`
+- `assigned_sets`
+- `shared_sets`
+- `studies`
+- `quizzes`
+- `card_difficult_level`
+
+The diagram below shows the relational database design used in SuperFlash, including
+users, flashcards, classrooms, study sessions, quizzes, and progress tracking.
+
+![SuperFlash Database Schema](documents/db-schema-flashcard.png)
+
+---
+
+## Usage Guide
+
+### For Students
+- Sign in with Google
+- Browse personal and shared flashcard sets
+- Study using review or quiz mode
+- Join classrooms and access assigned materials
+- Track personal progress and statistics
+
+### For Teachers
+- Switch to Teacher Mode
+- Create and manage classrooms
+- Upload and assign flashcard sets
+- Monitor classroom learning progress
+
+---
+
+## 🌐 Localization
+Change language anytime from the top-right dropdown.
+
+Supported languages:
+- English (en_US)
+- Finnish (fi_FI)
+- Vietnamese (vi_VN)
+- Korean (ko_KR)
+- Thai (th_TH)
+
+---
+
+## 🔧 CI/CD Pipeline
+The project includes a **Jenkins CI pipeline** with:
+- Build & test automation
+- JaCoCo coverage reports
+- SonarQube analysis
+- Docker image build & push
+
+---
+
+## 📊 Code Quality
+
+### Code Coverage
+```bash
+mvn jacoco:report
+```
+
+### SonarQube Analysis
+```bash
+mvn sonar:sonar \
+  -Dsonar.projectKey=flash_card \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=YOUR_TOKEN
+```
